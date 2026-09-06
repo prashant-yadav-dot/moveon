@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6c63ff">
+
+<title>MoveOn — Healing Lessons</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f6f7fb;
+    color:#1d2340;
+    padding-bottom:30px;
+}
+
+button{
+    font-family:inherit;
+    border:none;
+    cursor:pointer;
+}
+
+.header{
+    background:linear-gradient(135deg,#6c63ff,#8f87ff);
+    color:white;
+    padding:25px 20px 30px;
+    border-radius:0 0 30px 30px;
+}
+
+.top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:rgba(255,255,255,.2);
+    color:white;
+    font-size:22px;
+}
+
+.header h1{
+    font-size:24px;
+}
+
+.header p{
+    margin-top:10px;
+    font-size:14px;
+    opacity:.9;
+    line-height:1.5;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    padding:20px;
+}
+
+.progress-card{
+    background:white;
+    padding:18px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(35,35,70,.06);
+    margin-bottom:20px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.progress-top strong{
+    color:#6c63ff;
+    font-size:20px;
+}
+
+.progress-bar{
+    height:9px;
+    background:#ececf3;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:14px;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#6c63ff,#9c95ff);
+    transition:.4s;
+}
+
+.section-title{
+    margin:22px 0 12px;
+}
+
+.section-title h2{
+    font-size:18px;
+}
+
+.lesson{
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:13px;
+    box-shadow:0 5px 18px rgba(35,35,70,.05);
+}
+
+.lesson-top{
+    display:flex;
+    gap:14px;
+    align-items:center;
+}
+
+.lesson-icon{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    background:#eeecff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+    flex-shrink:0;
+}
+
+.lesson h3{
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.lesson small{
+    color:#888;
+}
+
+.lesson p{
+    color:#666;
+    font-size:13px;
+    line-height:1.6;
+    margin-top:13px;
+}
+
+.lesson-btn{
+    width:100%;
+    margin-top:14px;
+    padding:12px;
+    border-radius:12px;
+    background:#6c63ff;
+    color:white;
+    font-weight:bold;
+}
+
+.lesson-btn.completed{
+    background:#4caf91;
+}
+
+.lesson-content{
+    display:none;
+    margin-top:15px;
+    padding-top:15px;
+    border-top:1px solid #eee;
+}
+
+.lesson-content.show{
+    display:block;
+}
+
+.lesson-content p{
+    margin-top:0;
+}
+
+.logout{
+    width:100%;
+    margin-top:25px;
+    padding:13px;
+    border-radius:13px;
+    background:#fff;
+    color:#e05252;
+    font-weight:bold;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:#20233b;
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:100;
+    white-space:nowrap;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* AUTH GUARD */
+body{
+    visibility:hidden;
+}
+
+body.auth-ready{
+    visibility:visible;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="top">
+
+        <button
+            class="back-btn"
+            type="button"
+            onclick="goBack()">
+            ←
+        </button>
+
+        <h1>Healing Lessons 🌿</h1>
+
+        <div style="width:42px;"></div>
+
+    </div>
+
+    <p>
+        Small lessons to help you understand your emotions,
+        heal gradually and move forward.
+    </p>
+
+</header>
+
+<main class="container">
+
+    <div class="progress-card">
+
+        <div class="progress-top">
+
+            <div>
+                <strong id="completedCount">
+                    0 Lessons
+                </strong>
+
+                <p style="font-size:13px;color:#888;margin-top:4px;">
+                    Keep learning about yourself
+                </p>
+            </div>
+
+            <strong id="progressPercent">
+                0%
+            </strong>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div
+                class="progress-fill"
+                id="progressFill">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+        <h2>Your healing lessons</h2>
+    </div>
+
+
+    <!-- LESSON 1 -->
+
+    <div class="lesson">
+
+        <div class="lesson-top">
+
+            <div class="lesson-icon">
+                💔
+            </div>
+
+            <div>
+                <h3>It's Okay to Grieve</h3>
+
+                <small>
+                    Understanding your emotions
+                </small>
+            </div>
+
+        </div>
+
+        <div class="lesson-content" id="content1">
+
+            <p>
+                Losing a relationship can feel like losing
+                a part of your daily life. Sadness, anger,
+                confusion and loneliness are normal emotions.
+                You don't need to force yourself to feel okay
+                immediately.
+            </p>
+
+        </div>
+
+        <button
+            class="lesson-btn"
+            id="lessonBtn1"
+            onclick="openLesson(1)">
+            Read Lesson
+        </button>
+
+    </div>
+
+
+    <!-- LESSON 2 -->
+
+    <div class="lesson">
+
+        <div class="lesson-top">
+
+            <div class="lesson-icon">
+                🧠
+            </div>
+
+            <div>
+                <h3>Don't Believe Every Thought</h3>
+
+                <small>
+                    Understanding overthinking
+                </small>
+            </div>
+
+        </div>
+
+        <div class="lesson-content" id="content2">
+
+            <p>
+                After a breakup your mind may replay old
+                conversations and imagine different outcomes.
+                Remember that a thought is not always a fact.
+                Notice the thought without allowing it to
+                control your entire day.
+            </p>
+
+        </div>
+
+        <button
+            class="lesson-btn"
+            id="lessonBtn2"
+            onclick="openLesson(2)">
+            Read Lesson
+        </button>
+
+    </div>
+
+
+    <!-- LESSON 3 -->
+
+    <div class="lesson">
+
+        <div class="lesson-top">
+
+            <div class="lesson-icon">
+                🌱
+            </div>
+
+            <div>
+                <h3>Choose Yourself Again</h3>
+
+                <small>
+                    Rebuilding your identity
+                </small>
+            </div>
+
+        </div>
+
+        <div class="lesson-content" id="content3">
+
+            <p>
+                Relationships are only one part of your life.
+                Start reconnecting with your hobbies, goals,
+                friends and personal dreams. Healing also means
+                discovering who you are outside the relationship.
+            </p>
+
+        </div>
+
+        <button
+            class="lesson-btn"
+            id="lessonBtn3"
+            onclick="openLesson(3)">
+            Read Lesson
+        </button>
+
+    </div>
+
+
+    <!-- LESSON 4 -->
+
+    <div class="lesson">
+
+        <div class="lesson-top">
+
+            <div class="lesson-icon">
+                🚫
+            </div>
+
+            <div>
+                <h3>The Power of No Contact</h3>
+
+                <small>
+                    Creating emotional space
+                </small>
+            </div>
+
+        </div>
+
+        <div class="lesson-content" id="content4">
+
+            <p>
+                Constantly checking messages or social media
+                can keep emotional wounds open. Creating some
+                distance can give your mind space to recover
+                and focus on your own life.
+            </p>
+
+        </div>
+
+        <button
+            class="lesson-btn"
+            id="lessonBtn4"
+            onclick="openLesson(4)">
+            Read Lesson
+        </button>
+
+    </div>
+
+
+    <!-- LESSON 5 -->
+
+    <div class="lesson">
+
+        <div class="lesson-top">
+
+            <div class="lesson-icon">
+                ❤️
+            </div>
+
+            <div>
+                <h3>Your Worth Didn't Change</h3>
+
+                <small>
+                    Rebuilding self-worth
+                </small>
+            </div>
+
+        </div>
+
+        <div class="lesson-content" id="content5">
+
+            <p>
+                Someone choosing to leave does not determine
+                your value. Your worth is not dependent on
+                another person's decision. You are still worthy
+                of respect, peace, love and a meaningful life.
+            </p>
+
+        </div>
+
+        <button
+            class="lesson-btn"
+            id="lessonBtn5"
+            onclick="openLesson(5)">
+            Read Lesson
+        </button>
+
+    </div>
+
+
+    <!-- LESSON 6 -->
+
+    <div class="lesson">
+
+        <div class="lesson-top">
+
+            <div class="lesson-icon">
+                ☀️
+            </div>
+
+            <div>
+                <h3>Build Your New Routine</h3>
+
+                <small>
+                    Moving forward
+                </small>
+            </div>
+
+        </div>
+
+        <div class="lesson-content" id="content6">
+
+            <p>
+                Healing becomes easier when your days have
+                structure. Sleep well, move your body, study,
+                work, meet people you trust and make time for
+                things that bring you peace.
+            </p>
+
+        </div>
+
+        <button
+            class="lesson-btn"
+            id="lessonBtn6"
+            onclick="openLesson(6)">
+            Read Lesson
+        </button>
+
+    </div>
+
+
+    <button
+        class="logout"
+        type="button"
+        onclick="logout()">
+        Log Out
+    </button>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+
+<script type="module">
+
+import {
+    auth
+} from "./firebase-config.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    database
+} from "./firebase-config.js";
+
+import {
+    ref,
+    get,
+    update
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+let currentUser = null;
+
+const TOTAL_LESSONS = 6;
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+        window.location.replace("login.html");
+
+        return;
+    }
+
+    currentUser = user;
+
+    document.body.classList.add("auth-ready");
+
+    await loadLessonProgress();
+
+});
+
+
+/* =========================
+   LOAD PROGRESS
+========================= */
+
+async function loadLessonProgress(){
+
+    try{
+
+        const snapshot = await get(
+            ref(
+                database,
+                `users/${currentUser.uid}/lessons`
+            )
+        );
+
+        if(snapshot.exists()){
+
+            const data = snapshot.val();
+
+            Object.keys(data).forEach(id => {
+
+                if(data[id]?.completed === true){
+
+                    markCompleted(id);
+
+                }
+
+            });
+
+        }
+
+        updateProgress();
+
+    }catch(error){
+
+        console.error(
+            "Lesson progress error:",
+            error
+        );
+
+        updateProgress();
+
+    }
+
+}
+
+
+/* =========================
+   OPEN LESSON
+========================= */
+
+window.openLesson = async function(id){
+
+    const content =
+        document.getElementById(
+            "content" + id
+        );
+
+    const button =
+        document.getElementById(
+            "lessonBtn" + id
+        );
+
+    if(!content || !button){
+        return;
+    }
+
+    content.classList.toggle("show");
+
+    if(button.dataset.completed === "true"){
+        return;
+    }
+
+    try{
+
+        await update(
+            ref(
+                database,
+                `users/${currentUser.uid}/lessons/${id}`
+            ),
+            {
+                completed:true,
+                completedAt:new Date().toISOString(),
+                xp:10
+            }
+        );
+
+        markCompleted(id);
+
+        updateProgress();
+
+        showToast(
+            "Lesson completed! +10 XP 🌱"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Lesson save error:",
+            error
+        );
+
+        showToast(
+            "Unable to save lesson."
+        );
+
+    }
+
+};
+
+
+/* =========================
+   MARK COMPLETED
+========================= */
+
+function markCompleted(id){
+
+    const button =
+        document.getElementById(
+            "lessonBtn" + id
+        );
+
+    if(!button){
+        return;
+    }
+
+    button.textContent =
+        "✓ Completed";
+
+    button.classList.add(
+        "completed"
+    );
+
+    button.dataset.completed =
+        "true";
+
+}
+
+
+/* =========================
+   UPDATE PROGRESS
+========================= */
+
+function updateProgress(){
+
+    let completed = 0;
+
+    for(let i = 1; i <= TOTAL_LESSONS; i++){
+
+        const button =
+            document.getElementById(
+                "lessonBtn" + i
+            );
+
+        if(
+            button &&
+            button.dataset.completed ===
+            "true"
+        ){
+
+            completed++;
+
+        }
+
+    }
+
+    const percent =
+        Math.round(
+            (completed / TOTAL_LESSONS) * 100
+        );
+
+    document.getElementById(
+        "completedCount"
+    ).textContent =
+        completed + " Lessons";
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        percent + "%";
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percent + "%";
+
+}
+
+
+/* =========================
+   BACK
+========================= */
+
+window.goBack = function(){
+
+    window.location.href =
+        "index.html";
+
+};
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+window.logout = async function(){
+
+    try{
+
+        await signOut(auth);
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        showToast(
+            "Unable to logout."
+        );
+
+    }
+
+};
+
+
+/* =========================
+   TOAST
+========================= */
+
+window.showToast = function(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    if(!toast){
+        return;
+    }
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },2500);
+
+};
+
+</script>
+
+</body>
+</html>

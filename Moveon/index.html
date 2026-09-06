@@ -17,11 +17,30 @@
             padding: 0;
         }
 
+        /*
+        ==========================================
+        FIREBASE AUTH SECURITY GUARD
+        ==========================================
+        Home page Firebase authentication verify
+        hone tak hidden rahega.
+        */
+
         body {
+            visibility: hidden;
+
             font-family: Arial, Helvetica, sans-serif;
             background: #f6f7fb;
             color: #1d2340;
             padding-bottom: 90px;
+        }
+
+        /*
+        Firebase auth complete hone ke baad
+        body visible hoga.
+        */
+
+        body.auth-ready {
+            visibility: visible;
         }
 
         button {
@@ -29,6 +48,7 @@
             cursor: pointer;
             border: none;
         }
+
 
         /* HEADER */
 
@@ -71,6 +91,7 @@
             opacity: 0.95;
         }
 
+
         /* MAIN */
 
         .container {
@@ -94,6 +115,7 @@
             color: #6c63ff;
             font-size: 13px;
         }
+
 
         /* MOOD */
 
@@ -143,6 +165,7 @@
             outline: 2px solid #6c63ff;
         }
 
+
         /* PROGRESS */
 
         .progress-card {
@@ -184,6 +207,7 @@
             color: #888;
         }
 
+
         /* CHALLENGE */
 
         .challenge {
@@ -218,6 +242,7 @@
         .primary-btn:active {
             transform: scale(0.98);
         }
+
 
         /* FEATURE GRID */
 
@@ -256,6 +281,7 @@
             line-height: 1.4;
         }
 
+
         /* NO CONTACT */
 
         .no-contact {
@@ -288,6 +314,7 @@
             font-size: 12px;
             margin-top: 3px;
         }
+
 
         /* BOTTOM NAV */
 
@@ -324,6 +351,7 @@
             font-weight: bold;
         }
 
+
         /* TOAST */
 
         .toast {
@@ -347,6 +375,7 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
+
 
         /* MOBILE */
 
@@ -374,1604 +403,1738 @@
 <body>
 
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+<header class="header">
 
-    <header class="header">
+    <div class="top-bar">
 
-        <div class="top-bar">
+        <div class="welcome">
 
-            <div class="welcome">
+            <small>
+                Welcome back 👋
+            </small>
 
-                <small>
-                    Welcome back 👋
-                </small>
-
-                <h1 id="welcomeTitle">
-                    Your healing journey
-                </h1>
-
-            </div>
-
-
-            <button
-                class="profile-btn"
-                type="button"
-                onclick="openProfile()">
-
-                👤
-
-            </button>
+            <h1 id="welcomeTitle">
+                Your healing journey
+            </h1>
 
         </div>
-
-
-        <p class="quote">
-
-            “Healing takes time. You don't have to be okay today.
-            Just keep moving forward. 🤍”
-
-        </p>
-
-    </header>
-
-
-    <main class="container">
-
-
-        <!-- =========================
-             MOOD
-        ========================== -->
-
-        <div class="section-title">
-
-            <h2>
-                How are you feeling?
-            </h2>
-
-            <span>
-                Today
-            </span>
-
-        </div>
-
-
-        <div class="card">
-
-            <p class="mood-text">
-                Choose what describes your mood right now.
-            </p>
-
-
-            <div class="moods">
-
-                <button
-                    class="mood"
-                    type="button"
-                    onclick="selectMood(this,'Happy')">
-
-                    <span>😊</span>
-                    <small>Happy</small>
-
-                </button>
-
-
-                <button
-                    class="mood"
-                    type="button"
-                    onclick="selectMood(this,'Okay')">
-
-                    <span>🙂</span>
-                    <small>Okay</small>
-
-                </button>
-
-
-                <button
-                    class="mood"
-                    type="button"
-                    onclick="selectMood(this,'Sad')">
-
-                    <span>😢</span>
-                    <small>Sad</small>
-
-                </button>
-
-
-                <button
-                    class="mood"
-                    type="button"
-                    onclick="selectMood(this,'Lonely')">
-
-                    <span>🥺</span>
-                    <small>Lonely</small>
-
-                </button>
-
-
-                <button
-                    class="mood"
-                    type="button"
-                    onclick="selectMood(this,'Angry')">
-
-                    <span>😡</span>
-                    <small>Angry</small>
-
-                </button>
-
-
-                <button
-                    class="mood"
-                    type="button"
-                    onclick="selectMood(this,'Anxious')">
-
-                    <span>😰</span>
-                    <small>Anxious</small>
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             HEALING PROGRESS
-        ========================== -->
-
-        <div class="section-title">
-
-            <h2>
-                Your progress
-            </h2>
-
-            <span>
-                Keep going 💜
-            </span>
-
-        </div>
-
-
-        <div class="card progress-card">
-
-            <div class="progress-top">
-
-                <div>
-
-                    <strong id="progressDay">
-                        Day 1
-                    </strong>
-
-                    <p
-                        style="
-                            font-size:13px;
-                            color:#777;
-                            margin-top:5px;
-                        "
-                        id="progressMessage">
-
-                        You're doing better than you think.
-
-                    </p>
-
-                </div>
-
-
-                <strong id="progressPercent">
-                    0%
-                </strong>
-
-            </div>
-
-
-            <div class="progress-bar">
-
-                <div
-                    class="progress-fill"
-                    id="progressFill">
-                </div>
-
-            </div>
-
-
-            <div class="progress-info">
-
-                <span id="progressStarted">
-                    Your journey starts today
-                </span>
-
-                <span>
-                    Keep going
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             DAILY CHALLENGE
-        ========================== -->
-
-        <div class="section-title">
-
-            <h2>
-                Today's healing challenge
-            </h2>
-
-        </div>
-
-
-        <div class="card challenge">
-
-            <div class="challenge-icon">
-                🌱
-            </div>
-
-
-            <h3>
-                Do something for yourself
-            </h3>
-
-
-            <p>
-                Take 15 minutes today to do something you genuinely enjoy.
-                It can be music, walking, exercise, drawing or simply resting.
-            </p>
-
-
-            <button
-                class="primary-btn"
-                id="challengeButton"
-                type="button"
-                onclick="completeChallenge()">
-
-                Complete Challenge
-
-            </button>
-
-        </div>
-
-
-        <!-- =========================
-             NO CONTACT
-        ========================== -->
-
-        <div class="section-title">
-
-            <h2>
-                No-Contact Journey
-            </h2>
-
-        </div>
-
-
-        <div class="card no-contact">
-
-            <div class="streak">
-
-                <div class="streak-icon">
-                    🔥
-                </div>
-
-
-                <div>
-
-                    <h3 id="noContactDays">
-                        0 Days
-                    </h3>
-
-                    <p>
-                        Your current no-contact streak
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="primary-btn"
-                type="button"
-                onclick="openNoContact()">
-
-                View My Journey
-
-            </button>
-
-        </div>
-
-
-        <!-- =========================
-             FEATURES
-        ========================== -->
-
-        <div class="section-title">
-
-            <h2>
-                Take care of yourself
-            </h2>
-
-        </div>
-
-
-        <div class="feature-grid">
-
-            <div
-                class="feature"
-                onclick="openJournal()">
-
-                <div class="feature-icon">
-                    📔
-                </div>
-
-                <h3>
-                    Private Journal
-                </h3>
-
-                <p>
-                    Write your thoughts and emotions privately.
-                </p>
-
-            </div>
-
-
-            <div
-                class="feature"
-                onclick="openCalm()">
-
-                <div class="feature-icon">
-                    🧘
-                </div>
-
-                <h3>
-                    Calm Zone
-                </h3>
-
-                <p>
-                    Breathing and relaxation exercises.
-                </p>
-
-            </div>
-
-
-            <div
-                class="feature"
-                onclick="openSupport()">
-
-                <div class="feature-icon">
-                    💬
-                </div>
-
-                <h3>
-                    Talk to Me
-                </h3>
-
-                <p>
-                    A supportive space to express what you're feeling.
-                </p>
-
-            </div>
-
-
-            <div
-                class="feature"
-                onclick="openLessons()">
-
-                <div class="feature-icon">
-                    🌿
-                </div>
-
-                <h3>
-                    Healing Lessons
-                </h3>
-
-                <p>
-                    Small lessons about emotions and moving forward.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             POSITIVE MESSAGE
-        ========================== -->
-
-        <div class="section-title">
-
-            <h2>
-                Remember 🤍
-            </h2>
-
-        </div>
-
-
-        <div class="card">
-
-            <p
-                style="
-                    font-size:15px;
-                    line-height:1.7;
-                    color:#555;
-                ">
-
-                Your worth didn't disappear because someone left.
-                You are still growing, learning and becoming stronger.
-                Take it one day at a time.
-
-            </p>
-
-        </div>
-
-    </main>
-
-
-    <!-- =========================
-         BOTTOM NAV
-    ========================== -->
-
-    <nav class="bottom-nav">
 
         <button
-            class="nav-item active"
-            type="button"
-            onclick="goHome()">
-
-            <div>🏠</div>
-            Home
-
-        </button>
-
-
-        <button
-            class="nav-item"
-            type="button"
-            onclick="openJournal()">
-
-            <div>📔</div>
-            Journal
-
-        </button>
-
-
-        <button
-            class="nav-item"
-            type="button"
-            onclick="openCalm()">
-
-            <div>🧘</div>
-            Calm
-
-        </button>
-
-
-        <button
-            class="nav-item"
-            type="button"
-            onclick="openSupport()">
-
-            <div>💬</div>
-            Support
-
-        </button>
-
-
-        <button
-            class="nav-item"
+            class="profile-btn"
             type="button"
             onclick="openProfile()">
 
-            <div>👤</div>
-            Profile
+            👤
 
         </button>
 
-    </nav>
+    </div>
+
+    <p class="quote">
+
+        “Healing takes time. You don't have to be okay today.
+        Just keep moving forward. 🤍”
+
+    </p>
+
+</header>
 
 
-    <!-- =========================
-         TOAST
-    ========================== -->
+<main class="container">
 
-    <div
-        id="toast"
-        class="toast">
+
+    <!-- MOOD -->
+
+    <div class="section-title">
+
+        <h2>
+            How are you feeling?
+        </h2>
+
+        <span>
+            Today
+        </span>
+
     </div>
 
 
-    <!-- =====================================================
-         FIREBASE + HOME SCRIPT
-    ====================================================== -->
+    <div class="card">
 
-    <script type="module">
+        <p class="mood-text">
+            Choose what describes your mood right now.
+        </p>
 
-        import {
-            auth
-        } from "./firebase-config.js";
+        <div class="moods">
 
+            <button
+                class="mood"
+                type="button"
+                onclick="selectMood(this,'Happy')">
 
-        import {
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+                <span>😊</span>
+                <small>Happy</small>
 
-
-        import {
-            getProfile,
-            saveMood,
-            getMoods,
-            saveChallengeProgress,
-            getChallenges
-        } from "./storage.js";
+            </button>
 
 
-        // ==================================================
-        // GLOBAL USER
-        // ==================================================
+            <button
+                class="mood"
+                type="button"
+                onclick="selectMood(this,'Okay')">
 
-        let currentUser = null;
+                <span>🙂</span>
+                <small>Okay</small>
 
-
-        // ==================================================
-        // AUTH CHECK
-        // ==================================================
-
-        onAuthStateChanged(
-            auth,
-            async (user) => {
-
-                if (!user) {
-
-                    console.log(
-                        "No authenticated user."
-                    );
-
-                    window.location.replace(
-                        "login.html"
-                    );
-
-                    return;
-
-                }
+            </button>
 
 
-                currentUser = user;
+            <button
+                class="mood"
+                type="button"
+                onclick="selectMood(this,'Sad')">
+
+                <span>😢</span>
+                <small>Sad</small>
+
+            </button>
 
 
-                console.log(
-                    "MoveOn user:",
-                    currentUser.uid
-                );
+            <button
+                class="mood"
+                type="button"
+                onclick="selectMood(this,'Lonely')">
+
+                <span>🥺</span>
+                <small>Lonely</small>
+
+            </button>
 
 
-                await loadHomeData();
+            <button
+                class="mood"
+                type="button"
+                onclick="selectMood(this,'Angry')">
 
-            },
-            (error) => {
+                <span>😡</span>
+                <small>Angry</small>
 
-                console.error(
-                    "Home Auth Error:",
-                    error
+            </button>
+
+
+            <button
+                class="mood"
+                type="button"
+                onclick="selectMood(this,'Anxious')">
+
+                <span>😰</span>
+                <small>Anxious</small>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="section-title">
+
+        <h2>
+            Your progress
+        </h2>
+
+        <span>
+            Keep going 💜
+        </span>
+
+    </div>
+
+
+    <div class="card progress-card">
+
+        <div class="progress-top">
+
+            <div>
+
+                <strong id="progressDay">
+                    Day 1
+                </strong>
+
+                <p
+                    style="
+                        font-size:13px;
+                        color:#777;
+                        margin-top:5px;
+                    "
+                    id="progressMessage">
+
+                    You're doing better than you think.
+
+                </p>
+
+            </div>
+
+            <strong id="progressPercent">
+                0%
+            </strong>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+            <div
+                class="progress-fill"
+                id="progressFill">
+            </div>
+
+        </div>
+
+
+        <div class="progress-info">
+
+            <span id="progressStarted">
+                Your journey starts today
+            </span>
+
+            <span>
+                Keep going
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- DAILY CHALLENGE -->
+
+    <div class="section-title">
+
+        <h2>
+            Today's healing challenge
+        </h2>
+
+    </div>
+
+
+    <div class="card challenge">
+
+        <div class="challenge-icon">
+            🌱
+        </div>
+
+        <h3>
+            Do something for yourself
+        </h3>
+
+        <p>
+            Take 15 minutes today to do something you genuinely enjoy.
+            It can be music, walking, exercise, drawing or simply resting.
+        </p>
+
+        <button
+            class="primary-btn"
+            id="challengeButton"
+            type="button"
+            onclick="completeChallenge()">
+
+            Complete Challenge
+
+        </button>
+
+    </div>
+
+
+    <!-- NO CONTACT -->
+
+    <div class="section-title">
+
+        <h2>
+            No-Contact Journey
+        </h2>
+
+    </div>
+
+
+    <div class="card no-contact">
+
+        <div class="streak">
+
+            <div class="streak-icon">
+                🔥
+            </div>
+
+            <div>
+
+                <h3 id="noContactDays">
+                    0 Days
+                </h3>
+
+                <p>
+                    Your current no-contact streak
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            type="button"
+            onclick="openNoContact()">
+
+            View My Journey
+
+        </button>
+
+    </div>
+
+
+    <!-- FEATURES -->
+
+    <div class="section-title">
+
+        <h2>
+            Take care of yourself
+        </h2>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div
+            class="feature"
+            onclick="openJournal()">
+
+            <div class="feature-icon">
+                📔
+            </div>
+
+            <h3>
+                Private Journal
+            </h3>
+
+            <p>
+                Write your thoughts and emotions privately.
+            </p>
+
+        </div>
+
+
+        <div
+            class="feature"
+            onclick="openCalm()">
+
+            <div class="feature-icon">
+                🧘
+            </div>
+
+            <h3>
+                Calm Zone
+            </h3>
+
+            <p>
+                Breathing and relaxation exercises.
+            </p>
+
+        </div>
+
+
+        <div
+            class="feature"
+            onclick="openSupport()">
+
+            <div class="feature-icon">
+                💬
+            </div>
+
+            <h3>
+                Talk to Me
+            </h3>
+
+            <p>
+                A supportive space to express what you're feeling.
+            </p>
+
+        </div>
+
+
+        <div
+            class="feature"
+            onclick="openLessons()">
+
+            <div class="feature-icon">
+                🌿
+            </div>
+
+            <h3>
+                Healing Lessons
+            </h3>
+
+            <p>
+                Small lessons about emotions and moving forward.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- POSITIVE MESSAGE -->
+
+    <div class="section-title">
+
+        <h2>
+            Remember 🤍
+        </h2>
+
+    </div>
+
+
+    <div class="card">
+
+        <p
+            style="
+                font-size:15px;
+                line-height:1.7;
+                color:#555;
+            ">
+
+            Your worth didn't disappear because someone left.
+            You are still growing, learning and becoming stronger.
+            Take it one day at a time.
+
+        </p>
+
+    </div>
+
+</main>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-item active"
+        type="button"
+        onclick="goHome()">
+
+        <div>🏠</div>
+        Home
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        type="button"
+        onclick="openJournal()">
+
+        <div>📔</div>
+        Journal
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        type="button"
+        onclick="openCalm()">
+
+        <div>🧘</div>
+        Calm
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        type="button"
+        onclick="openSupport()">
+
+        <div>💬</div>
+        Support
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        type="button"
+        onclick="openProfile()">
+
+        <div>👤</div>
+        Profile
+
+    </button>
+
+</nav>
+
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+<script type="module">
+
+/*
+==================================================
+FIREBASE IMPORTS
+==================================================
+*/
+
+import {
+    auth,
+    database
+} from "./firebase-config.js";
+
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    ref,
+    get
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+import {
+    getProfile,
+    saveMood,
+    getMoods,
+    saveChallengeProgress,
+    getChallenges
+} from "./storage.js";
+
+
+/*
+==================================================
+GLOBAL USER
+==================================================
+*/
+
+let currentUser = null;
+
+
+/*
+==================================================
+AUTH TIMEOUT
+==================================================
+
+Agar Firebase module kisi reason se load na ho,
+Home page permanently visible nahi rahega.
+
+8 seconds ke baad login page par bhej denge.
+
+*/
+
+const authTimeout = setTimeout(
+    function() {
+
+        if (!currentUser) {
+
+            console.error(
+                "Firebase authentication timed out."
+            );
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+
+    },
+    8000
+);
+
+
+/*
+==================================================
+AUTH CHECK
+==================================================
+*/
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        clearTimeout(authTimeout);
+
+
+        if (!user) {
+
+            console.log(
+                "No authenticated user."
+            );
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
+
+        }
+
+
+        currentUser = user;
+
+
+        console.log(
+            "MoveOn user:",
+            currentUser.uid
+        );
+
+
+        /*
+        IMPORTANT:
+        Firebase auth verified.
+        Ab Home page visible hoga.
+        */
+
+        document.body.classList.add(
+            "auth-ready"
+        );
+
+
+        await loadHomeData();
+
+    },
+    (error) => {
+
+        clearTimeout(authTimeout);
+
+        console.error(
+            "Home Auth Error:",
+            error
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+);
+
+
+/*
+==================================================
+LOAD ALL HOME DATA
+==================================================
+*/
+
+async function loadHomeData() {
+
+    await loadUserName();
+
+    await loadMood();
+
+    await loadChallenge();
+
+    await loadProgress();
+
+    await loadNoContact();
+
+}
+
+
+/*
+==================================================
+LOAD USER NAME
+==================================================
+*/
+
+async function loadUserName() {
+
+    try {
+
+        const profile =
+            await getProfile();
+
+
+        const name =
+            profile?.name ||
+            currentUser.displayName ||
+            "Friend";
+
+
+        const welcomeTitle =
+            document.getElementById(
+                "welcomeTitle"
+            );
+
+
+        if (welcomeTitle) {
+
+            welcomeTitle.textContent =
+                "Hi, " + name + " 💜";
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "User name loading error:",
+            error
+        );
+
+
+        const name =
+            currentUser.displayName ||
+            "Friend";
+
+
+        const welcomeTitle =
+            document.getElementById(
+                "welcomeTitle"
+            );
+
+
+        if (welcomeTitle) {
+
+            welcomeTitle.textContent =
+                "Hi, " + name + " 💜";
+
+        }
+
+    }
+
+}
+
+
+/*
+==================================================
+SELECT + SAVE MOOD
+==================================================
+*/
+
+window.selectMood =
+async function(element, mood) {
+
+
+    document
+        .querySelectorAll(".mood")
+        .forEach(
+            item => {
+
+                item.classList.remove(
+                    "active"
                 );
 
             }
         );
 
 
-        // ==================================================
-        // LOAD ALL HOME DATA
-        // ==================================================
+    if (element) {
 
-        async function loadHomeData() {
+        element.classList.add(
+            "active"
+        );
 
-            await loadUserName();
+    }
 
-            await loadMood();
 
-            await loadChallenge();
+    try {
 
-            await loadProgress();
+        const result =
+            await saveMood({
 
-            await loadNoContact();
+                mood: mood,
 
-        }
+                date:
+                    getLocalDate(),
 
+                source:
+                    "home"
 
-        // ==================================================
-        // LOAD USER NAME
-        // ==================================================
+            });
 
-        async function loadUserName() {
 
-            try {
+        if (result) {
 
-                const profile =
-                    await getProfile();
+            localStorage.setItem(
+                "moveon_mood",
+                mood
+            );
 
 
-                const name =
-                    profile?.name ||
-                    currentUser.displayName ||
-                    "Friend";
+            showToast(
+                "Mood saved: " +
+                mood +
+                " 💜"
+            );
 
+        } else {
 
-                const welcomeTitle =
-                    document.getElementById(
-                        "welcomeTitle"
-                    );
-
-
-                if (welcomeTitle) {
-
-                    welcomeTitle.textContent =
-                        "Hi, " + name + " 💜";
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "User name loading error:",
-                    error
-                );
-
-
-                const name =
-                    currentUser.displayName ||
-                    "Friend";
-
-
-                const welcomeTitle =
-                    document.getElementById(
-                        "welcomeTitle"
-                    );
-
-
-                if (welcomeTitle) {
-
-                    welcomeTitle.textContent =
-                        "Hi, " + name + " 💜";
-
-                }
-
-            }
-
-        }
-
-
-        // ==================================================
-        // SELECT + SAVE MOOD
-        // ==================================================
-
-        window.selectMood =
-            async function(element, mood) {
-
-                // Remove previous active state
-
-                document
-                    .querySelectorAll(".mood")
-                    .forEach(
-                        item => {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-
-                // Activate selected mood
-
-                if (element) {
-
-                    element.classList.add(
-                        "active"
-                    );
-
-                }
-
-
-                try {
-
-                    const result =
-                        await saveMood({
-
-                            mood: mood,
-
-                            date:
-                                getLocalDate(),
-
-                            source:
-                                "home"
-
-                        });
-
-
-                    if (result) {
-
-                        // Local UI backup
-                        localStorage.setItem(
-                            "moveon_mood",
-                            mood
-                        );
-
-
-                        showToast(
-                            "Mood saved: " +
-                            mood +
-                            " 💜"
-                        );
-
-                    } else {
-
-                        showToast(
-                            "Unable to save mood. Please try again."
-                        );
-
-                    }
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Mood save error:",
-                        error
-                    );
-
-
-                    showToast(
-                        "Unable to save mood. Please try again."
-                    );
-
-                }
-
-            };
-
-
-        // ==================================================
-        // LOAD LAST MOOD
-        // ==================================================
-
-        async function loadMood() {
-
-            let savedMood = null;
-
-
-            try {
-
-                const moods =
-                    await getMoods();
-
-
-                const entries =
-                    Object.values(
-                        moods || {}
-                    );
-
-
-                if (entries.length > 0) {
-
-                    entries.sort(
-                        (a, b) => {
-
-                            return (
-                                new Date(
-                                    b.createdAt || 0
-                                ) -
-                                new Date(
-                                    a.createdAt || 0
-                                )
-                            );
-
-                        }
-                    );
-
-
-                    savedMood =
-                        entries[0]?.mood ||
-                        null;
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "Mood loading error:",
-                    error
-                );
-
-            }
-
-
-            // Local fallback
-
-            if (!savedMood) {
-
-                savedMood =
-                    localStorage.getItem(
-                        "moveon_mood"
-                    );
-
-            }
-
-
-            if (!savedMood) {
-
-                return;
-
-            }
-
-
-            document
-                .querySelectorAll(".mood")
-                .forEach(
-                    button => {
-
-                        const text =
-                            button.innerText
-                                .toLowerCase();
-
-
-                        if (
-                            text.includes(
-                                savedMood.toLowerCase()
-                            )
-                        ) {
-
-                            button.classList.add(
-                                "active"
-                            );
-
-                        }
-
-                    }
-                );
-
-        }
-
-
-        // ==================================================
-        // COMPLETE DAILY CHALLENGE
-        // ==================================================
-
-        window.completeChallenge =
-            async function() {
-
-                const button =
-                    document.getElementById(
-                        "challengeButton"
-                    );
-
-
-                if (
-                    button &&
-                    button.dataset.completed ===
-                    "true"
-                ) {
-
-                    showToast(
-                        "Today's challenge is already completed 🌱"
-                    );
-
-                    return;
-
-                }
-
-
-                const today =
-                    getLocalDate();
-
-
-                try {
-
-                    const result =
-                        await saveChallengeProgress(
-                            "daily",
-                            {
-
-                                completed: true,
-
-                                completedDate:
-                                    today,
-
-                                title:
-                                    "Do something for yourself",
-
-                                xp: 25
-
-                            }
-                        );
-
-
-                    if (!result) {
-
-                        showToast(
-                            "Unable to save challenge. Please try again."
-                        );
-
-                        return;
-
-                    }
-
-
-                    // Local UI backup
-
-                    localStorage.setItem(
-                        "moveon_challenge_completed_date",
-                        today
-                    );
-
-
-                    updateChallengeButton();
-
-
-                    showToast(
-                        "Challenge completed! 🌱"
-                    );
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Challenge save error:",
-                        error
-                    );
-
-
-                    showToast(
-                        "Unable to save challenge. Please try again."
-                    );
-
-                }
-
-            };
-
-
-        // ==================================================
-        // LOAD TODAY'S CHALLENGE
-        // ==================================================
-
-        async function loadChallenge() {
-
-            let completed = false;
-
-
-            const today =
-                getLocalDate();
-
-
-            try {
-
-                const challenges =
-                    await getChallenges();
-
-
-                if (
-                    challenges &&
-                    challenges.daily
-                ) {
-
-                    const daily =
-                        challenges.daily;
-
-
-                    /*
-                        Current compatible structure:
-
-                        users/{uid}/challenges/daily
-                    */
-
-                    if (
-                        daily.completed === true &&
-                        daily.completedDate === today
-                    ) {
-
-                        completed = true;
-
-                    }
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "Challenge loading error:",
-                    error
-                );
-
-            }
-
-
-            // Local fallback
-
-            if (!completed) {
-
-                const localDate =
-                    localStorage.getItem(
-                        "moveon_challenge_completed_date"
-                    );
-
-
-                if (localDate === today) {
-
-                    completed = true;
-
-                }
-
-            }
-
-
-            if (completed) {
-
-                updateChallengeButton();
-
-            }
-
-        }
-
-
-        // ==================================================
-        // UPDATE CHALLENGE BUTTON
-        // ==================================================
-
-        function updateChallengeButton() {
-
-            const button =
-                document.getElementById(
-                    "challengeButton"
-                );
-
-
-            if (!button) {
-
-                return;
-
-            }
-
-
-            button.textContent =
-                "✓ Challenge Completed";
-
-
-            button.style.background =
-                "#4caf91";
-
-
-            button.dataset.completed =
-                "true";
-
-        }
-
-
-        // ==================================================
-        // LOAD HEALING PROGRESS
-        // ==================================================
-
-        async function loadProgress() {
-
-            let profile = null;
-
-
-            try {
-
-                profile =
-                    await getProfile();
-
-            } catch (error) {
-
-                console.error(
-                    "Progress profile error:",
-                    error
-                );
-
-            }
-
-
-            let startDate =
-                profile?.createdAt ||
-                null;
-
-
-            /*
-                If onboarding has saved
-                completion date, use it.
-            */
-
-            if (
-                profile?.onboarding?.completedAt
-            ) {
-
-                startDate =
-                    profile
-                        .onboarding
-                        .completedAt;
-
-            }
-
-
-            if (!startDate) {
-
-                setDefaultProgress();
-
-                return;
-
-            }
-
-
-            const start =
-                new Date(startDate);
-
-
-            if (
-                Number.isNaN(
-                    start.getTime()
-                )
-            ) {
-
-                setDefaultProgress();
-
-                return;
-
-            }
-
-
-            const now =
-                new Date();
-
-
-            const difference =
-                now.getTime() -
-                start.getTime();
-
-
-            let days =
-                Math.floor(
-                    difference /
-                    (1000 * 60 * 60 * 24)
-                ) + 1;
-
-
-            if (days < 1) {
-
-                days = 1;
-
-            }
-
-
-            const percent =
-                Math.min(
-                    Math.round(
-                        (days / 30) * 100
-                    ),
-                    100
-                );
-
-
-            const progressDay =
-                document.getElementById(
-                    "progressDay"
-                );
-
-
-            const progressPercent =
-                document.getElementById(
-                    "progressPercent"
-                );
-
-
-            const progressFill =
-                document.getElementById(
-                    "progressFill"
-                );
-
-
-            const progressStarted =
-                document.getElementById(
-                    "progressStarted"
-                );
-
-
-            const progressMessage =
-                document.getElementById(
-                    "progressMessage"
-                );
-
-
-            if (progressDay) {
-
-                progressDay.textContent =
-                    "Day " + days;
-
-            }
-
-
-            if (progressPercent) {
-
-                progressPercent.textContent =
-                    percent + "%";
-
-            }
-
-
-            if (progressFill) {
-
-                progressFill.style.width =
-                    percent + "%";
-
-            }
-
-
-            if (progressStarted) {
-
-                progressStarted.textContent =
-                    "Started " +
-                    formatDate(start);
-
-            }
-
-
-            if (progressMessage) {
-
-                if (days >= 30) {
-
-                    progressMessage.textContent =
-                        "You've come a long way. Keep growing. 💜";
-
-                } else if (days >= 14) {
-
-                    progressMessage.textContent =
-                        "You're building a stronger version of yourself.";
-
-                } else if (days >= 7) {
-
-                    progressMessage.textContent =
-                        "One week of choosing yourself. Keep going.";
-
-                }
-
-            }
-
-        }
-
-
-        // ==================================================
-        // DEFAULT PROGRESS
-        // ==================================================
-
-        function setDefaultProgress() {
-
-            const progressDay =
-                document.getElementById(
-                    "progressDay"
-                );
-
-
-            const progressPercent =
-                document.getElementById(
-                    "progressPercent"
-                );
-
-
-            const progressFill =
-                document.getElementById(
-                    "progressFill"
-                );
-
-
-            const progressStarted =
-                document.getElementById(
-                    "progressStarted"
-                );
-
-
-            if (progressDay) {
-
-                progressDay.textContent =
-                    "Day 1";
-
-            }
-
-
-            if (progressPercent) {
-
-                progressPercent.textContent =
-                    "0%";
-
-            }
-
-
-            if (progressFill) {
-
-                progressFill.style.width =
-                    "0%";
-
-            }
-
-
-            if (progressStarted) {
-
-                progressStarted.textContent =
-                    "Your journey starts today";
-
-            }
-
-        }
-
-
-        // ==================================================
-        // FORMAT DATE
-        // ==================================================
-
-        function formatDate(date) {
-
-            try {
-
-                return date.toLocaleDateString(
-                    "en-IN",
-                    {
-                        day: "numeric",
-                        month: "short"
-                    }
-                );
-
-            } catch (error) {
-
-                return "recently";
-
-            }
-
-        }
-
-
-        // ==================================================
-        // LOCAL DATE
-        // ==================================================
-
-        function getLocalDate() {
-
-            const now =
-                new Date();
-
-
-            const year =
-                now.getFullYear();
-
-
-            const month =
-                String(
-                    now.getMonth() + 1
-                ).padStart(
-                    2,
-                    "0"
-                );
-
-
-            const day =
-                String(
-                    now.getDate()
-                ).padStart(
-                    2,
-                    "0"
-                );
-
-
-            return (
-                year +
-                "-" +
-                month +
-                "-" +
-                day
+            showToast(
+                "Unable to save mood. Please try again."
             );
 
         }
 
 
-        // ==================================================
-        // NO CONTACT
-        // ==================================================
+    } catch (error) {
 
-        async function loadNoContact() {
-
-            /*
-                No-contact data is currently
-                maintained by nocontact.html.
-
-                Until that page is Firebase-connected,
-                keep the existing local value.
-            */
-
-            const saved =
-                localStorage.getItem(
-                    "moveon_no_contact_start"
-                );
+        console.error(
+            "Mood save error:",
+            error
+        );
 
 
-            if (!saved) {
+        showToast(
+            "Unable to save mood. Please try again."
+        );
 
-                const element =
-                    document.getElementById(
-                        "noContactDays"
+    }
+
+};
+
+
+/*
+==================================================
+LOAD LAST MOOD
+==================================================
+*/
+
+async function loadMood() {
+
+    let savedMood = null;
+
+
+    try {
+
+        const moods =
+            await getMoods();
+
+
+        const entries =
+            Object.values(
+                moods || {}
+            );
+
+
+        if (entries.length > 0) {
+
+            entries.sort(
+                (a, b) => {
+
+                    return (
+                        new Date(
+                            b.createdAt || 0
+                        ) -
+                        new Date(
+                            a.createdAt || 0
+                        )
                     );
 
+                }
+            );
 
-                if (element) {
 
-                    element.textContent =
-                        "0 Days";
+            savedMood =
+                entries[0]?.mood ||
+                null;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Mood loading error:",
+            error
+        );
+
+    }
+
+
+    if (!savedMood) {
+
+        savedMood =
+            localStorage.getItem(
+                "moveon_mood"
+            );
+
+    }
+
+
+    if (!savedMood) {
+
+        return;
+
+    }
+
+
+    document
+        .querySelectorAll(".mood")
+        .forEach(
+            button => {
+
+                const text =
+                    button.innerText
+                        .toLowerCase();
+
+
+                if (
+                    text.includes(
+                        savedMood.toLowerCase()
+                    )
+                ) {
+
+                    button.classList.add(
+                        "active"
+                    );
 
                 }
 
-                return;
-
             }
+        );
+
+}
 
 
-            const start =
-                new Date(saved);
+/*
+==================================================
+COMPLETE DAILY CHALLENGE
+==================================================
+*/
+
+window.completeChallenge =
+async function() {
+
+    const button =
+        document.getElementById(
+            "challengeButton"
+        );
+
+
+    if (
+        button &&
+        button.dataset.completed ===
+        "true"
+    ) {
+
+        showToast(
+            "Today's challenge is already completed 🌱"
+        );
+
+        return;
+
+    }
+
+
+    const today =
+        getLocalDate();
+
+
+    try {
+
+        const result =
+            await saveChallengeProgress(
+                "daily",
+                {
+
+                    completed: true,
+
+                    completedDate:
+                        today,
+
+                    title:
+                        "Do something for yourself",
+
+                    xp: 25
+
+                }
+            );
+
+
+        if (!result) {
+
+            showToast(
+                "Unable to save challenge. Please try again."
+            );
+
+            return;
+
+        }
+
+
+        localStorage.setItem(
+            "moveon_challenge_completed_date",
+            today
+        );
+
+
+        updateChallengeButton();
+
+
+        showToast(
+            "Challenge completed! 🌱"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Challenge save error:",
+            error
+        );
+
+
+        showToast(
+            "Unable to save challenge. Please try again."
+        );
+
+    }
+
+};
+
+
+/*
+==================================================
+LOAD TODAY'S CHALLENGE
+==================================================
+*/
+
+async function loadChallenge() {
+
+    let completed = false;
+
+
+    const today =
+        getLocalDate();
+
+
+    try {
+
+        const challenges =
+            await getChallenges();
+
+
+        if (
+            challenges &&
+            challenges.daily
+        ) {
+
+            const daily =
+                challenges.daily;
 
 
             if (
-                Number.isNaN(
-                    start.getTime()
-                )
+                daily.completed === true &&
+                daily.completedDate === today
             ) {
 
-                return;
-
-            }
-
-
-            const now =
-                new Date();
-
-
-            const difference =
-                now.getTime() -
-                start.getTime();
-
-
-            const days =
-                Math.max(
-                    1,
-                    Math.floor(
-                        difference /
-                        (1000 * 60 * 60 * 24)
-                    ) + 1
-                );
-
-
-            const element =
-                document.getElementById(
-                    "noContactDays"
-                );
-
-
-            if (element) {
-
-                element.textContent =
-                    days + " Days";
+                completed = true;
 
             }
 
         }
 
 
-        // ==================================================
-        // NAVIGATION FUNCTIONS
-        // ==================================================
+    } catch (error) {
 
-        window.openJournal =
-            function() {
+        console.error(
+            "Challenge loading error:",
+            error
+        );
 
-                window.location.href =
-                    "journal.html";
-
-            };
+    }
 
 
-        window.openCalm =
-            function() {
+    if (!completed) {
 
-                window.location.href =
-                    "calm.html";
-
-            };
-
-
-        window.openSupport =
-            function() {
-
-                window.location.href =
-                    "support.html";
-
-            };
+        const localDate =
+            localStorage.getItem(
+                "moveon_challenge_completed_date"
+            );
 
 
-        window.openNoContact =
-            function() {
+        if (localDate === today) {
 
-                window.location.href =
-                    "nocontact.html";
+            completed = true;
 
-            };
+        }
 
-
-        window.openProfile =
-            function() {
-
-                window.location.href =
-                    "profile.html";
-
-            };
+    }
 
 
-        window.openLessons =
-            function() {
+    if (completed) {
 
-                window.location.href =
-                    "lessons.html";
+        updateChallengeButton();
 
-            };
+    }
 
-
-        window.goHome =
-            function() {
-
-                window.location.href =
-                    "index.html";
-
-            };
+}
 
 
-        // ==================================================
-        // TOAST
-        // ==================================================
+/*
+==================================================
+UPDATE CHALLENGE BUTTON
+==================================================
+*/
 
-        window.showToast =
-            function(message) {
+function updateChallengeButton() {
 
-                const toast =
-                    document.getElementById(
-                        "toast"
-                    );
-
-
-                if (!toast) {
-
-                    return;
-
-                }
+    const button =
+        document.getElementById(
+            "challengeButton"
+        );
 
 
-                toast.textContent =
-                    message;
+    if (!button) {
+
+        return;
+
+    }
 
 
-                toast.classList.add(
-                    "show"
-                );
+    button.textContent =
+        "✓ Challenge Completed";
 
 
-                setTimeout(
-                    function() {
+    button.style.background =
+        "#4caf91";
 
-                        toast.classList.remove(
-                            "show"
-                        );
 
-                    },
-                    2500
-                );
+    button.dataset.completed =
+        "true";
 
-            };
+}
 
-    </script>
+
+/*
+==================================================
+LOAD HEALING PROGRESS
+==================================================
+*/
+
+async function loadProgress() {
+
+    let profile = null;
+
+
+    try {
+
+        profile =
+            await getProfile();
+
+    } catch (error) {
+
+        console.error(
+            "Progress profile error:",
+            error
+        );
+
+    }
+
+
+    let startDate =
+        profile?.createdAt ||
+        null;
+
+
+    if (
+        profile?.onboarding?.completedAt
+    ) {
+
+        startDate =
+            profile
+                .onboarding
+                .completedAt;
+
+    }
+
+
+    if (!startDate) {
+
+        setDefaultProgress();
+
+        return;
+
+    }
+
+
+    const start =
+        new Date(startDate);
+
+
+    if (
+        Number.isNaN(
+            start.getTime()
+        )
+    ) {
+
+        setDefaultProgress();
+
+        return;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const difference =
+        now.getTime() -
+        start.getTime();
+
+
+    let days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        ) + 1;
+
+
+    if (days < 1) {
+
+        days = 1;
+
+    }
+
+
+    const percent =
+        Math.min(
+            Math.round(
+                (days / 30) * 100
+            ),
+            100
+        );
+
+
+    const progressDay =
+        document.getElementById(
+            "progressDay"
+        );
+
+
+    const progressPercent =
+        document.getElementById(
+            "progressPercent"
+        );
+
+
+    const progressFill =
+        document.getElementById(
+            "progressFill"
+        );
+
+
+    const progressStarted =
+        document.getElementById(
+            "progressStarted"
+        );
+
+
+    const progressMessage =
+        document.getElementById(
+            "progressMessage"
+        );
+
+
+    if (progressDay) {
+
+        progressDay.textContent =
+            "Day " + days;
+
+    }
+
+
+    if (progressPercent) {
+
+        progressPercent.textContent =
+            percent + "%";
+
+    }
+
+
+    if (progressFill) {
+
+        progressFill.style.width =
+            percent + "%";
+
+    }
+
+
+    if (progressStarted) {
+
+        progressStarted.textContent =
+            "Started " +
+            formatDate(start);
+
+    }
+
+
+    if (progressMessage) {
+
+        if (days >= 30) {
+
+            progressMessage.textContent =
+                "You've come a long way. Keep growing. 💜";
+
+        } else if (days >= 14) {
+
+            progressMessage.textContent =
+                "You're building a stronger version of yourself.";
+
+        } else if (days >= 7) {
+
+            progressMessage.textContent =
+                "One week of choosing yourself. Keep going.";
+
+        }
+
+    }
+
+}
+
+
+/*
+==================================================
+DEFAULT PROGRESS
+==================================================
+*/
+
+function setDefaultProgress() {
+
+    const progressDay =
+        document.getElementById(
+            "progressDay"
+        );
+
+
+    const progressPercent =
+        document.getElementById(
+            "progressPercent"
+        );
+
+
+    const progressFill =
+        document.getElementById(
+            "progressFill"
+        );
+
+
+    const progressStarted =
+        document.getElementById(
+            "progressStarted"
+        );
+
+
+    if (progressDay) {
+
+        progressDay.textContent =
+            "Day 1";
+
+    }
+
+
+    if (progressPercent) {
+
+        progressPercent.textContent =
+            "0%";
+
+    }
+
+
+    if (progressFill) {
+
+        progressFill.style.width =
+            "0%";
+
+    }
+
+
+    if (progressStarted) {
+
+        progressStarted.textContent =
+            "Your journey starts today";
+
+    }
+
+}
+
+
+/*
+==================================================
+FORMAT DATE
+==================================================
+*/
+
+function formatDate(date) {
+
+    try {
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "numeric",
+                month: "short"
+            }
+        );
+
+    } catch (error) {
+
+        return "recently";
+
+    }
+
+}
+
+
+/*
+==================================================
+LOCAL DATE
+==================================================
+*/
+
+function getLocalDate() {
+
+    const now =
+        new Date();
+
+
+    const year =
+        now.getFullYear();
+
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+/*
+==================================================
+NO CONTACT — FIREBASE
+==================================================
+*/
+
+async function loadNoContact() {
+
+    const element =
+        document.getElementById(
+            "noContactDays"
+        );
+
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    try {
+
+        /*
+        Firebase path:
+
+        users/{uid}/noContact
+        */
+
+        const snapshot =
+            await get(
+                ref(
+                    database,
+                    `users/${currentUser.uid}/noContact`
+                )
+            );
+
+
+        if (
+            !snapshot.exists()
+        ) {
+
+            element.textContent =
+                "0 Days";
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        if (
+            !data ||
+            !data.startDate
+        ) {
+
+            element.textContent =
+                "0 Days";
+
+            return;
+
+        }
+
+
+        const start =
+            new Date(
+                data.startDate +
+                "T00:00:00"
+            );
+
+
+        if (
+            Number.isNaN(
+                start.getTime()
+            )
+        ) {
+
+            element.textContent =
+                "0 Days";
+
+            return;
+
+        }
+
+
+        const now =
+            new Date();
+
+
+        const difference =
+            now.getTime() -
+            start.getTime();
+
+
+        const days =
+            Math.max(
+                1,
+                Math.floor(
+                    difference /
+                    (1000 * 60 * 60 * 24)
+                ) + 1
+            );
+
+
+        element.textContent =
+            days + " Days";
+
+
+    } catch (error) {
+
+        console.error(
+            "Firebase No Contact loading error:",
+            error
+        );
+
+
+        /*
+        Local fallback
+        */
+
+        const saved =
+            localStorage.getItem(
+                "moveon_no_contact_start"
+            );
+
+
+        if (!saved) {
+
+            element.textContent =
+                "0 Days";
+
+            return;
+
+        }
+
+
+        const start =
+            new Date(saved);
+
+
+        if (
+            Number.isNaN(
+                start.getTime()
+            )
+        ) {
+
+            element.textContent =
+                "0 Days";
+
+            return;
+
+        }
+
+
+        const now =
+            new Date();
+
+
+        const difference =
+            now.getTime() -
+            start.getTime();
+
+
+        const days =
+            Math.max(
+                1,
+                Math.floor(
+                    difference /
+                    (1000 * 60 * 60 * 24)
+                ) + 1
+            );
+
+
+        element.textContent =
+            days + " Days";
+
+    }
+
+}
+
+
+/*
+==================================================
+NAVIGATION
+==================================================
+*/
+
+window.openJournal =
+function() {
+
+    window.location.href =
+        "journal.html";
+
+};
+
+
+window.openCalm =
+function() {
+
+    window.location.href =
+        "calm.html";
+
+};
+
+
+window.openSupport =
+function() {
+
+    window.location.href =
+        "support.html";
+
+};
+
+
+window.openNoContact =
+function() {
+
+    window.location.href =
+        "nocontact.html";
+
+};
+
+
+window.openProfile =
+function() {
+
+    window.location.href =
+        "profile.html";
+
+};
+
+
+window.openLessons =
+function() {
+
+    window.location.href =
+        "lessons.html";
+
+};
+
+
+window.goHome =
+function() {
+
+    window.location.href =
+        "index.html";
+
+};
+
+
+/*
+==================================================
+TOAST
+==================================================
+*/
+
+window.showToast =
+function(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    if (!toast) {
+
+        return;
+
+    }
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function() {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2500
+    );
+
+};
+
+</script>
 
 </body>
 </html>
