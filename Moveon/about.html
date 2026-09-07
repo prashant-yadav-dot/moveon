@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MoveOn - About Us</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f4ff;
+    color: #202033;
+    visibility: hidden;
+}
+
+body.auth-ready {
+    visibility: visible;
+}
+
+.app {
+    min-height: 100vh;
+    padding-bottom: 90px;
+}
+
+/* HEADER */
+
+.header {
+    background: linear-gradient(135deg, #6c4cff, #8b5cf6);
+    color: white;
+    padding: 22px 18px 28px;
+    border-radius: 0 0 28px 28px;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.back-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header p {
+    margin: 14px 0 0;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* CONTENT */
+
+.container {
+    width: min(94%, 650px);
+    margin: 20px auto;
+}
+
+.card {
+    background: white;
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 25px rgba(60,40,120,0.08);
+}
+
+.logo {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 15px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #6c4cff, #9b7cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(108,76,255,0.25);
+}
+
+.center {
+    text-align: center;
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    color: #32256b;
+    font-size: 21px;
+}
+
+.card h3 {
+    margin: 0 0 8px;
+    color: #43358c;
+}
+
+.card p {
+    color: #66627a;
+    line-height: 1.65;
+    margin: 8px 0;
+}
+
+.tagline {
+    font-size: 17px;
+    font-weight: bold;
+    color: #6c4cff !important;
+}
+
+/* FEATURES */
+
+.feature {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 13px 0;
+    border-bottom: 1px solid #eeeafc;
+}
+
+.feature:last-child {
+    border-bottom: none;
+}
+
+.icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: #f0edff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.feature strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #30285c;
+}
+
+.feature span {
+    font-size: 14px;
+    line-height: 1.45;
+    color: #77728a;
+}
+
+/* FOUNDER */
+
+.founder {
+    text-align: center;
+}
+
+.founder-box {
+    background: linear-gradient(135deg, #f2efff, #faf9ff);
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.founder-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4635a0;
+}
+
+.quote {
+    font-size: 16px;
+    font-style: italic;
+    color: #625b7b;
+    margin-top: 10px;
+}
+
+/* BUTTON */
+
+.primary-btn {
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #6c4cff, #8b5cf6);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+    z-index: 20;
+}
+
+.nav-item {
+    border: none;
+    background: none;
+    color: #777;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.nav-icon {
+    display: block;
+    font-size: 21px;
+    margin-bottom: 3px;
+}
+
+.nav-item.active {
+    color: #6c4cff;
+    font-weight: bold;
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    color: #8a8599;
+    font-size: 13px;
+    padding: 10px 20px 20px;
+}
+</style>
+
+<!-- Firebase/Auth guard -->
+<script>
+(function () {
+    setTimeout(function () {
+        if (!document.body.classList.contains("auth-ready")) {
+            window.location.replace("login.html");
+        }
+    }, 8000);
+})();
+</script>
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-top">
+
+            <button class="back-btn" onclick="goBack()">
+                ←
+            </button>
+
+            <h1>About MoveOn</h1>
+
+        </div>
+
+        <p>
+            A safe and peaceful space to heal, grow and move forward.
+        </p>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- INTRO -->
+
+        <section class="card center">
+
+            <div class="logo">
+                M
+            </div>
+
+            <h2>MoveOn</h2>
+
+            <p class="tagline">
+                Heal. Grow. Move Forward.
+            </p>
+
+            <p>
+                MoveOn is designed to help people build healthier
+                routines, understand their emotions and focus on
+                personal growth after difficult emotional experiences.
+            </p>
+
+        </section>
+
+
+        <!-- OUR MISSION -->
+
+        <section class="card">
+
+            <h2>💜 Our Mission</h2>
+
+            <p>
+                Our mission is simple: to create a supportive digital
+                space where people can slow down, reflect on their
+                feelings and take small steps toward a better tomorrow.
+            </p>
+
+            <p>
+                MoveOn focuses on self-reflection, mindfulness,
+                journaling, challenges and progress tracking.
+            </p>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section class="card">
+
+            <h2>✨ What You Can Do</h2>
+
+            <div class="feature">
+                <div class="icon">📔</div>
+                <div>
+                    <strong>Private Journal</strong>
+                    <span>
+                        Write your thoughts and keep track of your
+                        personal journey.
+                    </span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon">😊</div>
+                <div>
+                    <strong>Mood Tracking</strong>
+                    <span>
+                        Understand your emotions and observe your
+                        mood over time.
+                    </span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon">🚫</div>
+                <div>
+                    <strong>No Contact Journey</strong>
+                    <span>
+                        Track your no-contact journey and stay focused
+                        on yourself.
+                    </span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon">🎯</div>
+                <div>
+                    <strong>Daily Challenges</strong>
+                    <span>
+                        Complete small activities that encourage
+                        positive habits.
+                    </span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon">🧘</div>
+                <div>
+                    <strong>Calm Sessions</strong>
+                    <span>
+                        Take a short break with calming exercises.
+                    </span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon">📚</div>
+                <div>
+                    <strong>Healing Lessons</strong>
+                    <span>
+                        Learn practical ideas for self-growth and
+                        emotional well-being.
+                    </span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon">📈</div>
+                <div>
+                    <strong>Progress Tracking</strong>
+                    <span>
+                        See how far you have come and celebrate
+                        your progress.
+                    </span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- FOUNDER -->
+
+        <section class="card founder">
+
+            <h2>👨‍💻 Founder</h2>
+
+            <div class="founder-box">
+
+                <div class="founder-name">
+                    Prashant Yadav
+                </div>
+
+                <p class="quote">
+                    “MoveOn is made with effort, for your memorable
+                    healing journey.”
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRIVACY -->
+
+        <section class="card">
+
+            <h2>🔒 Your Privacy</h2>
+
+            <p>
+                MoveOn uses Firebase Authentication and a protected
+                database structure to keep user information separated
+                between accounts.
+            </p>
+
+            <p>
+                Your account data is associated with your authenticated
+                Firebase user account.
+            </p>
+
+        </section>
+
+
+        <!-- START -->
+
+        <section class="card center">
+
+            <h2>🌱 Keep Moving Forward</h2>
+
+            <p>
+                Healing doesn't happen overnight.
+                Small steps still count.
+            </p>
+
+            <button class="primary-btn" onclick="goHome()">
+                Back to Home
+            </button>
+
+        </section>
+
+        <div class="footer">
+            © 2026 MoveOn. All rights reserved.
+        </div>
+
+    </main>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottom-nav">
+
+        <button class="nav-item" onclick="goHome()">
+            <span class="nav-icon">⌂</span>
+            Home
+        </button>
+
+        <button class="nav-item" onclick="openJournal()">
+            <span class="nav-icon">📔</span>
+            Journal
+        </button>
+
+        <button class="nav-item" onclick="openCalm()">
+            <span class="nav-icon">🧘</span>
+            Calm
+        </button>
+
+        <button class="nav-item" onclick="openSupport()">
+            <span class="nav-icon">💬</span>
+            Support
+        </button>
+
+        <button class="nav-item active" onclick="openProfile()">
+            <span class="nav-icon">👤</span>
+            Profile
+        </button>
+
+    </nav>
+
+</div>
+
+
+<script type="module">
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    auth
+} from "./firebase-config.js";
+
+
+/* =========================
+   AUTH PROTECTION
+========================= */
+
+onAuthStateChanged(auth, function(user) {
+
+    if (!user) {
+
+        window.location.replace("login.html");
+
+        return;
+    }
+
+    /*
+       Firebase ne confirm kar diya ki user logged in hai.
+       Ab page visible hoga.
+    */
+
+    document.body.classList.add("auth-ready");
+
+});
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+window.goBack = function() {
+
+    if (document.referrer) {
+        history.back();
+    } else {
+        window.location.href = "index.html";
+    }
+
+};
+
+
+window.goHome = function() {
+    window.location.href = "index.html";
+};
+
+
+window.openJournal = function() {
+    window.location.href = "journal.html";
+};
+
+
+window.openCalm = function() {
+    window.location.href = "calm.html";
+};
+
+
+window.openSupport = function() {
+    window.location.href = "support.html";
+};
+
+
+window.openProfile = function() {
+    window.location.href = "profile.html";
+};
+
+</script>
+
+</body>
+</html>
