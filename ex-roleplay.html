@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>MoveOn — Ex Roleplay</title>
 
-<meta name="description" content="Talk to a fictional AI character for reflection, closure and emotional healing.">
+<meta
+    name="description"
+    content="Talk with a fictional AI character for reflection and emotional closure."
+>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -16,60 +26,89 @@
 }
 
 body{
-    font-family:Arial, sans-serif;
-    background:linear-gradient(135deg,#f5f3ff,#eef2ff);
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(
+        135deg,
+        #f5f3ff,
+        #eef2ff
+    );
     min-height:100vh;
     color:#202124;
 }
 
 .app{
+    width:100%;
     max-width:700px;
-    margin:auto;
     min-height:100vh;
+    margin:auto;
+    background:#fff;
     display:flex;
     flex-direction:column;
-    background:#fff;
     box-shadow:0 0 30px rgba(0,0,0,.08);
 }
 
+/* HEADER */
+
 .header{
-    padding:16px 18px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid #eee;
-    background:#fff;
     position:sticky;
     top:0;
     z-index:10;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:14px 16px;
+
+    background:#fff;
+
+    border-bottom:1px solid #eee;
 }
 
 .header-left{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:11px;
 }
 
-.back{
-    border:0;
-    background:#f1f1f5;
+.back,
+.settings{
     width:40px;
     height:40px;
+
+    border:0;
     border-radius:50%;
-    font-size:20px;
+
+    background:#f1f1f5;
+
     cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:20px;
 }
 
 .avatar{
     width:42px;
     height:42px;
+
     border-radius:50%;
-    background:linear-gradient(135deg,#6c63ff,#9b8cff);
-    color:#fff;
+
+    background:linear-gradient(
+        135deg,
+        #6c63ff,
+        #9b8cff
+    );
+
+    color:white;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:19px;
+
+    font-size:20px;
 }
 
 .title-area h1{
@@ -78,30 +117,29 @@ body{
 }
 
 .title-area p{
-    font-size:12px;
+    font-size:11px;
     color:#777;
 }
 
-.settings{
-    border:0;
-    background:#f1f1f5;
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:18px;
-}
+/* CHAT */
 
 .chat{
     flex:1;
-    padding:20px 16px 110px;
+
+    padding:
+        20px
+        16px
+        125px;
+
     overflow-y:auto;
 }
 
 .empty{
     text-align:center;
-    padding:70px 25px;
-    color:#777;
+
+    padding:
+        70px
+        25px;
 }
 
 .empty-icon{
@@ -110,81 +148,169 @@ body{
 }
 
 .empty h2{
-    color:#333;
     font-size:21px;
+    color:#333;
     margin-bottom:8px;
 }
 
 .empty p{
-    line-height:1.5;
     font-size:14px;
+    line-height:1.55;
+    color:#777;
 }
+
+/* BUBBLES */
 
 .bubble{
     max-width:82%;
-    padding:12px 15px;
+
+    padding:
+        12px
+        15px;
+
     margin-bottom:12px;
+
     border-radius:18px;
+
     font-size:15px;
-    line-height:1.45;
+    line-height:1.5;
+
     white-space:pre-wrap;
-    word-wrap:break-word;
+
+    overflow-wrap:anywhere;
 }
 
 .bubble.user{
     margin-left:auto;
+
     background:#6c63ff;
+
     color:#fff;
+
     border-bottom-right-radius:5px;
 }
 
 .bubble.ai{
     margin-right:auto;
+
     background:#f0f0f5;
+
     color:#222;
+
     border-bottom-left-radius:5px;
 }
 
+/* TYPING */
+
 .typing{
     display:none;
-    margin-bottom:12px;
-    background:#f0f0f5;
+
     width:max-content;
-    padding:10px 14px;
+
+    padding:
+        10px
+        14px;
+
+    margin-bottom:12px;
+
     border-radius:18px;
+
+    background:#f0f0f5;
+
     color:#777;
-    font-size:14px;
+
+    font-size:13px;
 }
+
+/* BOTTOM */
 
 .bottom{
     position:fixed;
+
     bottom:0;
     left:50%;
+
     transform:translateX(-50%);
-    width:min(700px,100%);
-    background:#fff;
-    border-top:1px solid #eee;
-    padding:12px;
+
+    width:min(
+        700px,
+        100%
+    );
+
     z-index:20;
+
+    background:#fff;
+
+    border-top:1px solid #eee;
+
+    padding:10px 12px 12px;
+}
+
+.quick{
+    display:flex;
+
+    gap:7px;
+
+    overflow-x:auto;
+
+    padding-bottom:8px;
+
+    scrollbar-width:none;
+}
+
+.quick::-webkit-scrollbar{
+    display:none;
+}
+
+.quick button{
+    white-space:nowrap;
+
+    border:
+        1px solid #ddd;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:
+        7px
+        11px;
+
+    font-size:12px;
+
+    cursor:pointer;
 }
 
 .input-row{
     display:flex;
-    gap:8px;
+
     align-items:flex-end;
+
+    gap:8px;
 }
 
 textarea{
     flex:1;
-    resize:none;
-    border:1px solid #ddd;
-    border-radius:20px;
-    padding:12px 15px;
-    outline:none;
-    font-family:inherit;
-    font-size:15px;
+
     min-height:45px;
     max-height:120px;
+
+    resize:none;
+
+    border:
+        1px solid #ddd;
+
+    border-radius:21px;
+
+    padding:
+        12px
+        15px;
+
+    outline:none;
+
+    font-family:inherit;
+
+    font-size:15px;
 }
 
 textarea:focus{
@@ -192,13 +318,21 @@ textarea:focus{
 }
 
 .send{
+    flex-shrink:0;
+
     width:45px;
     height:45px;
+
     border:0;
+
     border-radius:50%;
+
     background:#6c63ff;
-    color:#fff;
+
+    color:white;
+
     font-size:19px;
+
     cursor:pointer;
 }
 
@@ -207,38 +341,41 @@ textarea:focus{
     cursor:not-allowed;
 }
 
-.quick{
-    display:flex;
-    gap:7px;
-    overflow-x:auto;
-    padding-bottom:8px;
-}
-
-.quick button{
-    white-space:nowrap;
-    border:1px solid #ddd;
-    background:#fff;
-    border-radius:20px;
-    padding:7px 11px;
-    font-size:12px;
-    cursor:pointer;
-}
+/* MODAL */
 
 .modal{
     display:none;
+
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.45);
+
     z-index:100;
+
     padding:20px;
+
+    background:rgba(
+        0,
+        0,
+        0,
+        .45
+    );
 }
 
 .modal-box{
+    width:100%;
     max-width:420px;
-    margin:100px auto;
-    background:#fff;
-    border-radius:20px;
+
+    margin:
+        90px
+        auto
+        0;
+
     padding:22px;
+
+    background:#fff;
+
+    border-radius:20px;
 }
 
 .modal-box h2{
@@ -247,31 +384,48 @@ textarea:focus{
 
 .modal-box p{
     color:#777;
+
     font-size:13px;
+
     line-height:1.5;
+
     margin-bottom:18px;
 }
 
 .modal-box input{
     width:100%;
-    padding:12px 14px;
-    border:1px solid #ddd;
+
+    padding:
+        12px
+        14px;
+
+    border:
+        1px solid #ddd;
+
     border-radius:12px;
+
     outline:none;
-    margin-bottom:14px;
+
     font-size:15px;
+
+    margin-bottom:14px;
 }
 
 .modal-actions{
     display:flex;
+
     gap:8px;
 }
 
 .modal-actions button{
     flex:1;
+
     border:0;
+
     padding:12px;
+
     border-radius:12px;
+
     cursor:pointer;
 }
 
@@ -281,145 +435,231 @@ textarea:focus{
 
 .save{
     background:#6c63ff;
-    color:#fff;
+
+    color:white;
 }
 
+/* MOBILE */
+
 @media(max-width:500px){
-    .chat{
-        padding-bottom:120px;
-    }
 
     .bubble{
         max-width:88%;
     }
+
+    .chat{
+        padding-bottom:125px;
+    }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
+
 <div class="app">
 
-    <header class="header">
 
-        <div class="header-left">
+<!-- HEADER -->
 
-            <button class="back" onclick="goBack()">‹</button>
+<header class="header">
 
-            <div class="avatar">♡</div>
+    <div class="header-left">
 
-            <div class="title-area">
-                <h1 id="screenTitle">Ex Roleplay</h1>
-                <p>Fictional conversation for reflection</p>
-            </div>
+        <button
+            class="back"
+            type="button"
+            onclick="goBack()"
+            aria-label="Back"
+        >
+            ‹
+        </button>
 
+
+        <div class="avatar">
+            ♡
         </div>
 
-        <button class="settings" onclick="openSettings()">⚙</button>
 
-    </header>
+        <div class="title-area">
 
-
-    <main class="chat" id="chat">
-
-        <div class="empty" id="empty">
-
-            <div class="empty-icon">💬</div>
-
-            <h2>Start a conversation</h2>
+            <h1 id="screenTitle">
+                Ex Roleplay
+            </h1>
 
             <p>
-                Choose a fictional name and talk naturally.
-                This is an AI roleplay for reflection and closure —
-                not your real ex.
+                Fictional conversation for reflection
             </p>
-
-        </div>
-
-        <div class="typing" id="typing">
-            Typing...
-        </div>
-
-    </main>
-
-
-    <div class="bottom">
-
-        <div class="quick">
-
-            <button onclick="quickSend('I miss you.')">
-                I miss you
-            </button>
-
-            <button onclick="quickSend('I still have feelings for you.')">
-                I still have feelings
-            </button>
-
-            <button onclick="quickSend('Why did things end between us?')">
-                Why did it end?
-            </button>
-
-            <button onclick="quickSend('I just wanted some closure.')">
-                I want closure
-            </button>
-
-        </div>
-
-
-        <div class="input-row">
-
-            <textarea
-                id="message"
-                placeholder="Type a message..."
-                rows="1"
-            ></textarea>
-
-            <button
-                class="send"
-                id="send"
-                onclick="sendMessage()"
-            >
-                ➤
-            </button>
 
         </div>
 
     </div>
 
+
+    <button
+        class="settings"
+        type="button"
+        onclick="openSettings()"
+        aria-label="Settings"
+    >
+        ⚙
+    </button>
+
+</header>
+
+
+<!-- CHAT -->
+
+<main
+    class="chat"
+    id="chat"
+>
+
+    <div
+        class="empty"
+        id="empty"
+    >
+
+        <div class="empty-icon">
+            💬
+        </div>
+
+        <h2>
+            Start a conversation
+        </h2>
+
+        <p>
+            Choose a fictional name and talk naturally.
+            This is an AI roleplay for reflection and closure,
+            not your real ex.
+        </p>
+
+    </div>
+
+
+    <div
+        class="typing"
+        id="typing"
+    >
+        Typing...
+    </div>
+
+</main>
+
+
+<!-- MESSAGE AREA -->
+
+<div class="bottom">
+
+
+    <div class="quick">
+
+        <button
+            type="button"
+            onclick="quickSend('I miss you.')"
+        >
+            I miss you
+        </button>
+
+
+        <button
+            type="button"
+            onclick="quickSend('I still have feelings for you.')"
+        >
+            I still have feelings
+        </button>
+
+
+        <button
+            type="button"
+            onclick="quickSend('Why did things end between us?')"
+        >
+            Why did it end?
+        </button>
+
+
+        <button
+            type="button"
+            onclick="quickSend('I just wanted some closure.')"
+        >
+            I want closure
+        </button>
+
+    </div>
+
+
+    <div class="input-row">
+
+        <textarea
+            id="message"
+            rows="1"
+            maxlength="2000"
+            placeholder="Type a message..."
+            autocomplete="off"
+        ></textarea>
+
+
+        <button
+            class="send"
+            id="send"
+            type="button"
+            onclick="sendMessage()"
+            aria-label="Send"
+        >
+            ➤
+        </button>
+
+    </div>
+
+</div>
+
 </div>
 
 
-<!-- SETTINGS MODAL -->
+<!-- SETTINGS -->
 
-<div class="modal" id="settingsModal">
+<div
+    class="modal"
+    id="settingsModal"
+>
 
     <div class="modal-box">
 
-        <h2>Choose character name</h2>
+        <h2>
+            Choose character name
+        </h2>
 
         <p>
-            This name is only for the fictional AI roleplay character.
-            The AI will not claim to be your real ex.
+            This name is for the fictional AI roleplay
+            character. It does not represent your real ex.
         </p>
 
+
         <input
-            type="text"
             id="exName"
+            type="text"
             maxlength="40"
             placeholder="Enter a name"
         >
+
 
         <div class="modal-actions">
 
             <button
                 class="cancel"
+                type="button"
                 onclick="closeSettings()"
             >
                 Cancel
             </button>
 
+
             <button
                 class="save"
+                type="button"
                 onclick="saveSettings()"
             >
                 Save
@@ -434,33 +674,65 @@ textarea:focus{
 
 <script>
 
-const API_URL = "/api/ex-roleplay";
+/*
+==================================================
+MOVEON EX ROLEPLAY
+==================================================
+*/
 
+const API_URL =
+    "/api/ex-roleplay";
+
+
+/*
+--------------------------------------------------
+LOCAL STORAGE
+--------------------------------------------------
+*/
 
 let exName =
-    localStorage.getItem("moveon_ex_roleplay_name")
-    || "Ex Roleplay";
+    localStorage.getItem(
+        "moveon_ex_roleplay_name"
+    ) || "Ex Roleplay";
 
 
 let historyData = [];
 
 try {
 
-    historyData = JSON.parse(
-        localStorage.getItem("moveon_ex_roleplay_chat")
-        || "[]"
-    );
+    const saved =
+        localStorage.getItem(
+            "moveon_ex_roleplay_chat"
+        );
 
-    if(!Array.isArray(historyData)){
-        historyData = [];
+    if(saved){
+
+        const parsed =
+            JSON.parse(saved);
+
+        if(Array.isArray(parsed)){
+            historyData = parsed;
+        }
+
     }
 
 } catch(error){
+
+    console.error(
+        "Could not load saved chat:",
+        error
+    );
 
     historyData = [];
 
 }
 
+
+/*
+--------------------------------------------------
+ELEMENTS
+--------------------------------------------------
+*/
 
 const chat =
     document.getElementById("chat");
@@ -478,39 +750,156 @@ const empty =
     document.getElementById("empty");
 
 
-/* -----------------------------
-   SAFE TEXT
------------------------------ */
+/*
+--------------------------------------------------
+SAFE STRING
+--------------------------------------------------
+*/
 
 function safeText(value){
 
-    return String(value ?? "");
+    return String(
+        value ?? ""
+    );
 
 }
 
 
-/* -----------------------------
-   RENDER CHAT
------------------------------ */
+/*
+--------------------------------------------------
+SAVE CHAT
+--------------------------------------------------
+*/
 
-function render(){
+function saveChat(){
 
-    document.getElementById("screenTitle").textContent =
-        exName || "Ex Roleplay";
+    try{
+
+        /*
+         * Keep last 40 messages locally.
+         */
+        if(historyData.length > 40){
+
+            historyData =
+                historyData.slice(-40);
+
+        }
+
+        localStorage.setItem(
+            "moveon_ex_roleplay_chat",
+            JSON.stringify(historyData)
+        );
+
+    }catch(error){
+
+        console.error(
+            "Could not save chat:",
+            error
+        );
+
+    }
+
+}
 
 
-    chat.querySelectorAll(".bubble").forEach(
-        element => element.remove()
+/*
+--------------------------------------------------
+ADD BUBBLE
+--------------------------------------------------
+*/
+
+function addBubble(
+    role,
+    text,
+    save = true
+){
+
+    const messageText =
+        safeText(text);
+
+
+    if(save){
+
+        historyData.push({
+
+            role:
+                role === "user"
+                ? "user"
+                : "assistant",
+
+            content:
+                messageText
+
+        });
+
+        saveChat();
+
+    }
+
+
+    const bubble =
+        document.createElement("div");
+
+
+    bubble.className =
+        "bubble " +
+        (
+            role === "user"
+            ? "user"
+            : "ai"
+        );
+
+
+    /*
+     * textContent prevents HTML injection.
+     */
+    bubble.textContent =
+        messageText;
+
+
+    chat.insertBefore(
+        bubble,
+        typing
     );
 
 
-    if(historyData.length){
+    chat.scrollTop =
+        chat.scrollHeight;
 
-        empty.style.display = "none";
+}
+
+
+/*
+--------------------------------------------------
+RENDER SAVED CHAT
+--------------------------------------------------
+*/
+
+function render(){
+
+    document.getElementById(
+        "screenTitle"
+    ).textContent =
+        exName || "Ex Roleplay";
+
+
+    chat
+        .querySelectorAll(".bubble")
+        .forEach(
+            element =>
+                element.remove()
+        );
+
+
+    if(historyData.length > 0){
+
+        empty.style.display =
+            "none";
 
     }else{
 
-        empty.style.display = "block";
+        empty.style.display =
+            "block";
 
     }
 
@@ -526,82 +915,23 @@ function render(){
     });
 
 
-    chat.scrollTop = chat.scrollHeight;
-
-}
-
-
-/* -----------------------------
-   ADD MESSAGE
------------------------------ */
-
-function addBubble(
-    role,
-    text,
-    save = true
-){
-
-    text = safeText(text);
-
-
-    if(save){
-
-        historyData.push({
-            role: role,
-            content: text
-        });
-
-
-        /*
-         * Keep local history reasonably small
-         */
-        if(historyData.length > 40){
-
-            historyData =
-                historyData.slice(-40);
-
-        }
-
-
-        localStorage.setItem(
-            "moveon_ex_roleplay_chat",
-            JSON.stringify(historyData)
-        );
-
-    }
-
-
-    const d =
-        document.createElement("div");
-
-
-    d.className =
-        "bubble " +
-        (role === "user" ? "user" : "ai");
-
-
-    d.textContent = text;
-
-
-    chat.insertBefore(
-        d,
-        typing
-    );
-
-
     chat.scrollTop =
         chat.scrollHeight;
 
 }
 
 
-/* -----------------------------
-   SETTINGS
------------------------------ */
+/*
+--------------------------------------------------
+SETTINGS
+--------------------------------------------------
+*/
 
 function openSettings(){
 
-    document.getElementById("exName").value =
+    document.getElementById(
+        "exName"
+    ).value =
         exName === "Ex Roleplay"
         ? ""
         : exName;
@@ -609,7 +939,8 @@ function openSettings(){
 
     document.getElementById(
         "settingsModal"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 }
 
@@ -618,22 +949,26 @@ function closeSettings(){
 
     document.getElementById(
         "settingsModal"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
 }
 
 
 function saveSettings(){
 
-    const name =
-        document.getElementById("exName")
+    const newName =
+        document.getElementById(
+            "exName"
+        )
         .value
         .trim()
         .slice(0,40);
 
 
     exName =
-        name || "Ex Roleplay";
+        newName ||
+        "Ex Roleplay";
 
 
     localStorage.setItem(
@@ -644,7 +979,8 @@ function saveSettings(){
 
     document.getElementById(
         "screenTitle"
-    ).textContent = exName;
+    ).textContent =
+        exName;
 
 
     closeSettings();
@@ -652,41 +988,54 @@ function saveSettings(){
 }
 
 
-/* -----------------------------
-   BACK BUTTON
------------------------------ */
+/*
+--------------------------------------------------
+BACK
+--------------------------------------------------
+*/
 
 function goBack(){
 
-    if(document.referrer){
+    if(
+        document.referrer &&
+        document.referrer.includes(
+            location.hostname
+        )
+    ){
 
         history.back();
 
     }else{
 
-        window.location.href = "home.html";
+        window.location.href =
+            "home.html";
 
     }
 
 }
 
 
-/* -----------------------------
-   QUICK MESSAGE
------------------------------ */
+/*
+--------------------------------------------------
+QUICK SEND
+--------------------------------------------------
+*/
 
 function quickSend(text){
 
-    input.value = text;
+    input.value =
+        text;
 
     sendMessage();
 
 }
 
 
-/* -----------------------------
-   SEND MESSAGE
------------------------------ */
+/*
+--------------------------------------------------
+SEND MESSAGE
+--------------------------------------------------
+*/
 
 async function sendMessage(){
 
@@ -694,7 +1043,10 @@ async function sendMessage(){
         input.value.trim();
 
 
-    if(!text || send.disabled){
+    if(
+        !text ||
+        send.disabled
+    ){
 
         return;
 
@@ -702,7 +1054,7 @@ async function sendMessage(){
 
 
     /*
-     * Add user message first
+     * Save/display user message.
      */
     addBubble(
         "user",
@@ -712,10 +1064,17 @@ async function sendMessage(){
 
     input.value = "";
 
+    input.style.height =
+        "auto";
 
-    send.disabled = true;
 
-    typing.style.display = "block";
+    send.disabled =
+        true;
+
+
+    typing.style.display =
+        "block";
+
 
     chat.scrollTop =
         chat.scrollHeight;
@@ -724,52 +1083,74 @@ async function sendMessage(){
     try{
 
         /*
-         * Send only recent conversation
+         * IMPORTANT:
+         *
+         * historyData already contains the current
+         * user message because addBubble() above
+         * saved it.
+         *
+         * Worker removes the duplicate current
+         * message safely before sending to OpenAI.
          */
         const recentHistory =
             historyData
-            .slice(-16)
-            .map(item => ({
-                role:
-                    item.role === "user"
-                    ? "user"
-                    : "assistant",
+                .slice(-16)
+                .map(item => ({
 
-                content:
-                    safeText(item.content)
-                    .slice(0,2000)
-            }));
+                    role:
+                        item.role === "user"
+                        ? "user"
+                        : "assistant",
+
+                    content:
+                        safeText(
+                            item.content
+                        ).slice(0,2000)
+
+                }))
+                .filter(
+                    item =>
+                        item.content
+                );
 
 
         const response =
             await fetch(
                 API_URL,
                 {
-                    method:"POST",
+
+                    method:
+                        "POST",
 
                     headers:{
                         "Content-Type":
                             "application/json"
                     },
 
-                    body:JSON.stringify({
+                    body:
+                        JSON.stringify({
 
-                        exName:
-                            exName,
+                            exName:
+                                exName,
 
-                        message:
-                            text.slice(0,2000),
+                            message:
+                                text.slice(
+                                    0,
+                                    2000
+                                ),
 
-                        history:
-                            recentHistory
+                            history:
+                                recentHistory
 
-                    })
+                        })
+
                 }
             );
 
 
         /*
-         * Read response safely
+         * Read raw response first.
+         * This lets us see useful server errors.
          */
         const raw =
             await response.text();
@@ -780,9 +1161,16 @@ async function sendMessage(){
         try{
 
             data =
-                raw ? JSON.parse(raw) : {};
+                raw
+                ? JSON.parse(raw)
+                : {};
 
         }catch(parseError){
+
+            console.error(
+                "Invalid server response:",
+                raw
+            );
 
             throw new Error(
                 "Server returned an invalid response."
@@ -792,15 +1180,16 @@ async function sendMessage(){
 
 
         /*
-         * IMPORTANT:
-         * Show the REAL server error
-         * instead of hiding it.
+         * REAL ERROR
          */
         if(!response.ok){
 
+            const errorMessage =
+                data?.error ||
+                `Server error (${response.status})`;
+
             throw new Error(
-                data.error
-                || `Server error (${response.status})`
+                errorMessage
             );
 
         }
@@ -808,7 +1197,7 @@ async function sendMessage(){
 
         const reply =
             safeText(
-                data.reply
+                data?.reply
             ).trim();
 
 
@@ -821,6 +1210,9 @@ async function sendMessage(){
         }
 
 
+        /*
+         * Display AI reply.
+         */
         addBubble(
             "assistant",
             reply
@@ -836,25 +1228,30 @@ async function sendMessage(){
 
 
         /*
-         * This is temporary diagnostic
-         * information so we can identify
-         * exactly why the API is failing.
+         * TEMPORARY diagnostic message.
+         *
+         * This intentionally shows the actual error
+         * instead of hiding it behind a generic message.
          */
         addBubble(
             "assistant",
             "⚠️ Error: " +
             (
-                error?.message
-                || "Unknown error"
+                error?.message ||
+                "Unknown error"
             )
         );
 
 
     }finally{
 
-        typing.style.display = "none";
+        typing.style.display =
+            "none";
 
-        send.disabled = false;
+
+        send.disabled =
+            false;
+
 
         input.focus();
 
@@ -863,17 +1260,18 @@ async function sendMessage(){
 }
 
 
-/* -----------------------------
-   ENTER TO SEND
------------------------------ */
+/*
+--------------------------------------------------
+ENTER TO SEND
+--------------------------------------------------
+*/
 
 input.addEventListener(
     "keydown",
     function(event){
 
         if(
-            event.key === "Enter"
-            &&
+            event.key === "Enter" &&
             !event.shiftKey
         ){
 
@@ -887,15 +1285,19 @@ input.addEventListener(
 );
 
 
-/* -----------------------------
-   AUTO RESIZE TEXTAREA
------------------------------ */
+/*
+--------------------------------------------------
+AUTO RESIZE
+--------------------------------------------------
+*/
 
 input.addEventListener(
     "input",
     function(){
 
-        this.style.height = "auto";
+        this.style.height =
+            "auto";
+
 
         this.style.height =
             Math.min(
@@ -907,17 +1309,43 @@ input.addEventListener(
 );
 
 
-/* -----------------------------
-   CLOSE MODAL OUTSIDE
------------------------------ */
+/*
+--------------------------------------------------
+CLOSE MODAL
+--------------------------------------------------
+*/
 
-document.getElementById(
-    "settingsModal"
-).addEventListener(
-    "click",
+document
+    .getElementById("settingsModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+
+                closeSettings();
+
+            }
+
+        }
+    );
+
+
+/*
+--------------------------------------------------
+ESC TO CLOSE MODAL
+--------------------------------------------------
+*/
+
+document.addEventListener(
+    "keydown",
     function(event){
 
-        if(event.target === this){
+        if(
+            event.key === "Escape"
+        ){
 
             closeSettings();
 
@@ -927,13 +1355,16 @@ document.getElementById(
 );
 
 
-/* -----------------------------
-   INITIAL LOAD
------------------------------ */
+/*
+--------------------------------------------------
+INITIALIZE
+--------------------------------------------------
+*/
 
 render();
 
 </script>
 
 </body>
+
 </html>
