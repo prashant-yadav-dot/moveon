@@ -400,7 +400,7 @@ function setupPublicPages() {
 
     const protectedPages = [
 
-        "index.html",
+        "home.html",
 
         "onboarding.html",
 
