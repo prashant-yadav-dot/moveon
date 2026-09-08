@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MoveOn — Challenges</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    color:#25243a;
+    background:
+        radial-gradient(circle at 5% 8%,#e6e1ff,transparent 28%),
+        radial-gradient(circle at 95% 25%,#ffe3f0,transparent 30%),
+        linear-gradient(135deg,#f8f7ff,#fff9fc);
+    overflow-x:hidden;
+}
+
+.blob{
+    position:fixed;
+    border-radius:50%;
+    z-index:-1;
+    opacity:.45;
+    animation:float 8s ease-in-out infinite;
+}
+
+.blob.one{
+    width:180px;
+    height:180px;
+    background:#cec7ff;
+    left:-80px;
+    top:100px;
+}
+
+.blob.two{
+    width:230px;
+    height:230px;
+    background:#ffd0e6;
+    right:-110px;
+    bottom:100px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-25px);
+    }
+}
+
+.header{
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#7667f8,#9b8cff);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    box-shadow:0 10px 25px #7667f833;
+}
+
+.brand h2{
+    font-size:19px;
+}
+
+.brand p{
+    color:#908ca0;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.back{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:14px;
+    background:#ffffffbd;
+    backdrop-filter:blur(12px);
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 8px 20px #39306112;
+}
+
+.container{
+    width:min(720px,92%);
+    margin:auto;
+    padding:10px 0 40px;
+}
+
+.hero{
+    text-align:center;
+    padding:8px 0 22px;
+}
+
+.challenge-icon{
+    width:105px;
+    height:105px;
+    margin:5px auto 18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    background:linear-gradient(135deg,#e2ddff,#fff0f7);
+    box-shadow:0 20px 45px #7667f82b;
+    animation:bounce 3s ease-in-out infinite;
+}
+
+@keyframes bounce{
+    0%,100%{
+        transform:translateY(0) rotate(0);
+    }
+    50%{
+        transform:translateY(-8px) rotate(3deg);
+    }
+}
+
+.hero h1{
+    font-size:29px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#858298;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:17px;
+}
+
+.stat{
+    background:#ffffffba;
+    border:1px solid #fff;
+    backdrop-filter:blur(14px);
+    border-radius:20px;
+    padding:15px 8px;
+    text-align:center;
+    box-shadow:0 12px 30px #463b7d10;
+}
+
+.stat-icon{
+    font-size:21px;
+    margin-bottom:5px;
+}
+
+.stat strong{
+    display:block;
+    font-size:18px;
+    color:#7667f8;
+}
+
+.stat span{
+    display:block;
+    color:#9995a8;
+    font-size:9px;
+    margin-top:4px;
+}
+
+.card{
+    background:#ffffffba;
+    border:1px solid #fff;
+    backdrop-filter:blur(16px);
+    border-radius:24px;
+    padding:20px;
+    margin-bottom:17px;
+    box-shadow:0 15px 40px #463b7d12;
+}
+
+.card-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.card-title h3{
+    font-size:17px;
+}
+
+.card-title span{
+    font-size:11px;
+    color:#9995a8;
+}
+
+.progress-box{
+    background:#f7f5ff;
+    border-radius:18px;
+    padding:15px;
+}
+
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:#858194;
+    margin-bottom:9px;
+}
+
+.progress-bar{
+    height:9px;
+    border-radius:20px;
+    background:#e8e5f2;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#7667f8,#b09fff);
+    transition:width .5s ease;
+}
+
+.challenge{
+    position:relative;
+    background:#faf9ff;
+    border:1px solid #ece9f6;
+    border-radius:20px;
+    padding:16px;
+    margin-bottom:11px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    transition:.25s;
+}
+
+.challenge:last-child{
+    margin-bottom:0;
+}
+
+.challenge:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px #7667f81a;
+}
+
+.challenge.completed{
+    opacity:.7;
+}
+
+.challenge.completed .challenge-check{
+    background:#7667f8;
+    color:white;
+}
+
+.challenge.completed .challenge-title{
+    text-decoration:line-through;
+}
+
+.challenge-icon-small{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    background:#eeeaff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    flex-shrink:0;
+}
+
+.challenge-content{
+    flex:1;
+}
+
+.challenge-title{
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.challenge-desc{
+    color:#9995a8;
+    font-size:10px;
+    line-height:1.4;
+}
+
+.xp{
+    display:inline-block;
+    margin-top:6px;
+    color:#7667f8;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.challenge-check{
+    width:32px;
+    height:32px;
+    border:none;
+    border-radius:11px;
+    background:#e9e6f5;
+    color:#9995a8;
+    cursor:pointer;
+    font-size:16px;
+    flex-shrink:0;
+    transition:.25s;
+}
+
+.challenge-check:hover{
+    transform:scale(1.08);
+}
+
+.challenge-check:disabled{
+    cursor:not-allowed;
+    opacity:.6;
+}
+
+.streak{
+    background:linear-gradient(135deg,#7667f8,#9e90ff);
+    color:white;
+    border-radius:24px;
+    padding:21px;
+    margin-bottom:17px;
+    box-shadow:0 15px 35px #7667f840;
+    position:relative;
+    overflow:hidden;
+}
+
+.streak::after{
+    content:"🔥";
+    position:absolute;
+    font-size:100px;
+    right:-15px;
+    top:-20px;
+    opacity:.13;
+}
+
+.streak h3{
+    font-size:17px;
+    margin-bottom:6px;
+}
+
+.streak p{
+    font-size:11px;
+    opacity:.85;
+    line-height:1.5;
+}
+
+.streak-number{
+    font-size:31px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.achievement{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    border-radius:17px;
+    background:#faf9ff;
+    margin-top:9px;
+}
+
+.achievement-icon{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    background:#eeeaff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.achievement-info{
+    flex:1;
+}
+
+.achievement-info strong{
+    display:block;
+    font-size:12px;
+}
+
+.achievement-info span{
+    display:block;
+    color:#9995a8;
+    font-size:9px;
+    margin-top:4px;
+}
+
+.locked{
+    opacity:.45;
+}
+
+.reset-btn{
+    width:100%;
+    border:1px solid #e7e3f1;
+    background:#faf9ff;
+    color:#8b8799;
+    padding:12px;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.reset-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,120px);
+    opacity:0;
+    background:#29263b;
+    color:white;
+    padding:13px 19px;
+    border-radius:30px;
+    font-size:12px;
+    transition:.35s;
+    z-index:20;
+    box-shadow:0 10px 30px #0003;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+    opacity:1;
+}
+
+.celebration{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:30;
+}
+
+.celebration.show{
+    display:flex;
+}
+
+.celebration-text{
+    background:white;
+    padding:25px 30px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 20px 60px #0002;
+    animation:pop .4s ease;
+}
+
+.celebration-text div{
+    font-size:45px;
+    margin-bottom:8px;
+}
+
+.celebration-text strong{
+    display:block;
+    font-size:19px;
+}
+
+.celebration-text span{
+    display:block;
+    margin-top:5px;
+    color:#9995a8;
+    font-size:11px;
+}
+
+@keyframes pop{
+    from{
+        transform:scale(.5);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .stats{
+        gap:8px;
+    }
+
+    .stat{
+        padding:13px 5px;
+    }
+
+    .challenge{
+        padding:13px;
+    }
+
+    .challenge-icon-small{
+        width:43px;
+        height:43px;
+        font-size:21px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob one"></div>
+<div class="blob two"></div>
+
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">💜</div>
+
+        <div>
+            <h2>MoveOn</h2>
+            <p>Heal • Grow • Be You</p>
+        </div>
+
+    </div>
+
+    <button class="back" onclick="goBack()">←</button>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="hero">
+
+        <div class="challenge-icon">
+            🌱
+        </div>
+
+        <h1>Small steps. Big change.</h1>
+
+        <p>
+            Complete simple challenges every day<br>
+            and slowly build yourself back stronger.
+        </p>
+
+    </section>
+
+
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-icon">🔥</div>
+            <strong id="streak">0</strong>
+            <span>Day Streak</span>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">⭐</div>
+            <strong id="xp">0</strong>
+            <span>Total XP</span>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">🏆</div>
+            <strong id="completedCount">0</strong>
+            <span>Completed</span>
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <h3>Today's Progress</h3>
+
+            <span id="progressText">0/5</span>
+
+        </div>
+
+        <div class="progress-box">
+
+            <div class="progress-info">
+
+                <span>Keep going 🌱</span>
+
+                <span id="progressPercent">0%</span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <h3>Today's Challenges</h3>
+
+            <span>5 tasks</span>
+
+        </div>
+
+
+        <div id="challengeList">
+
+            Loading your challenges...
+
+        </div>
+
+    </section>
+
+
+    <section class="streak">
+
+        <h3>Keep your streak alive 🔥</h3>
+
+        <p>
+            You don't need to change everything today.
+            Just take one small step.
+        </p>
+
+        <div class="streak-number">
+            <span id="streakBig">0</span> days
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <h3>Achievements</h3>
+
+            <span>Milestones</span>
+
+        </div>
+
+
+        <div class="achievement locked" id="achievement1">
+
+            <div class="achievement-icon">
+                🌱
+            </div>
+
+            <div class="achievement-info">
+
+                <strong>First Step</strong>
+
+                <span>Complete your first challenge</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="achievement locked" id="achievement2">
+
+            <div class="achievement-icon">
+                🔥
+            </div>
+
+            <div class="achievement-info">
+
+                <strong>7 Day Warrior</strong>
+
+                <span>Maintain a 7-day streak</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="achievement locked" id="achievement3">
+
+            <div class="achievement-icon">
+                🏆
+            </div>
+
+            <div class="achievement-info">
+
+                <strong>100 XP</strong>
+
+                <span>Earn 100 experience points</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="achievement locked" id="achievement4">
+
+            <div class="achievement-icon">
+                💜
+            </div>
+
+            <div class="achievement-info">
+
+                <strong>Self Love</strong>
+
+                <span>Complete 20 challenges</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <button
+            class="reset-btn"
+            id="resetButton"
+            onclick="resetChallenges()">
+
+            Reset Today's Challenges
+
+        </button>
+
+    </section>
+
+
+</main>
+
+
+<div class="celebration" id="celebration">
+
+    <div class="celebration-text">
+
+        <div>🎉</div>
+
+        <strong>Challenge Complete!</strong>
+
+        <span>Another small step forward 💜</span>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script type="module">
+
+/* =========================================
+   FIREBASE IMPORTS
+========================================= */
+
+import {
+    auth,
+    database
+} from "./firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    ref,
+    get,
+    update,
+    remove
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+/* =========================================
+   CHALLENGE DATA
+========================================= */
+
+const challenges = [
+
+    {
+        id:1,
+        emoji:"🌅",
+        title:"Start your day without checking their profile",
+        description:"Give your mind a peaceful start today.",
+        xp:10
+    },
+
+    {
+        id:2,
+        emoji:"🚶",
+        title:"Take a 10-minute walk",
+        description:"Move your body and clear your thoughts.",
+        xp:15
+    },
+
+    {
+        id:3,
+        emoji:"📵",
+        title:"Take a 30-minute social media break",
+        description:"Put your phone away and focus on yourself.",
+        xp:15
+    },
+
+    {
+        id:4,
+        emoji:"📝",
+        title:"Write 3 things you're grateful for",
+        description:"Notice something good that exists today.",
+        xp:20
+    },
+
+    {
+        id:5,
+        emoji:"💜",
+        title:"Do one thing just for yourself",
+        description:"Read, listen to music, exercise or simply rest.",
+        xp:25
+    }
+
+];
+
+
+/* =========================================
+   GLOBAL STATE
+========================================= */
+
+let currentUser = null;
+
+let firebaseChallenges = {};
+
+let challengeStats = {
+    xp:0,
+    totalCompleted:0,
+    streak:0,
+    lastCompletedDate:null
+};
+
+let loading = false;
+
+
+/* =========================================
+   DATE KEY
+========================================= */
+
+function todayKey(){
+
+    const now = new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        String(now.getMonth() + 1)
+        .padStart(2,"0");
+
+    const day =
+        String(now.getDate())
+        .padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================
+   YESTERDAY KEY
+========================================= */
+
+function yesterdayKey(){
+
+    const date =
+        new Date();
+
+    date.setDate(
+        date.getDate() - 1
+    );
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1)
+        .padStart(2,"0");
+
+    const day =
+        String(date.getDate())
+        .padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================
+   AUTH CHECK
+========================================= */
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        if(!user){
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+        currentUser = user;
+
+        await loadFirebaseData();
+
+    }
+);
+
+
+/* =========================================
+   LOAD FIREBASE DATA
+========================================= */
+
+async function loadFirebaseData(){
+
+    if(!currentUser) return;
+
+    try{
+
+        const uid =
+            currentUser.uid;
+
+
+        const challengesRef =
+            ref(
+                database,
+                `users/${uid}/challenges`
+            );
+
+
+        const statsRef =
+            ref(
+                database,
+                `users/${uid}/challengeStats`
+            );
+
+
+        const results =
+            await Promise.all([
+
+                get(challengesRef),
+
+                get(statsRef)
+
+            ]);
+
+
+        const challengesSnapshot =
+            results[0];
+
+        const statsSnapshot =
+            results[1];
+
+
+        firebaseChallenges =
+            challengesSnapshot.exists()
+                ? challengesSnapshot.val()
+                : {};
+
+
+        if(statsSnapshot.exists()){
+
+            const data =
+                statsSnapshot.val();
+
+            challengeStats = {
+
+                xp:
+                    Number(data.xp || 0),
+
+                totalCompleted:
+                    Number(
+                        data.totalCompleted || 0
+                    ),
+
+                streak:
+                    Number(
+                        data.streak || 0
+                    ),
+
+                lastCompletedDate:
+                    data.lastCompletedDate || null
+
+            };
+
+        }else{
+
+            challengeStats = {
+
+                xp:0,
+                totalCompleted:0,
+                streak:0,
+                lastCompletedDate:null
+
+            };
+
+        }
+
+
+        renderChallenges();
+
+        updateStats();
+
+        updateAchievements();
+
+
+    }catch(error){
+
+        console.error(
+            "Firebase challenge loading error:",
+            error
+        );
+
+        showToast(
+            "Unable to load your challenges."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   GET TODAY COMPLETED
+========================================= */
+
+function getTodayCompleted(){
+
+    const today =
+        todayKey();
+
+    const completed = [];
+
+    challenges.forEach(challenge => {
+
+        const data =
+            firebaseChallenges[
+                String(challenge.id)
+            ];
+
+
+        if(
+            data &&
+            data.completed === true &&
+            data.date === today
+        ){
+
+            completed.push(
+                challenge.id
+            );
+
+        }
+
+    });
+
+    return completed;
+
+}
+
+
+/* =========================================
+   RENDER CHALLENGES
+========================================= */
+
+function renderChallenges(){
+
+    const completed =
+        getTodayCompleted();
+
+
+    const list =
+        document.getElementById(
+            "challengeList"
+        );
+
+
+    list.innerHTML =
+        challenges.map(item => {
+
+            const isComplete =
+                completed.includes(item.id);
+
+
+            return `
+
+                <div class="challenge ${isComplete ? "completed" : ""}">
+
+                    <div class="challenge-icon-small">
+                        ${item.emoji}
+                    </div>
+
+                    <div class="challenge-content">
+
+                        <div class="challenge-title">
+                            ${item.title}
+                        </div>
+
+                        <div class="challenge-desc">
+                            ${item.description}
+                        </div>
+
+                        <span class="xp">
+                            +${item.xp} XP
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="challenge-check"
+                        onclick="toggleChallenge(${item.id})"
+                        ${loading ? "disabled" : ""}
+                    >
+                        ${isComplete ? "✓" : "○"}
+                    </button>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================
+   TOGGLE CHALLENGE
+========================================= */
+
+window.toggleChallenge =
+async function(id){
+
+    if(!currentUser){
+
+        alert(
+            "Please log in first."
+        );
+
+        return;
+    }
+
+
+    if(loading) return;
+
+
+    const challenge =
+        challenges.find(
+            item => item.id === id
+        );
+
+
+    if(!challenge) return;
+
+
+    const completed =
+        getTodayCompleted();
+
+
+    const alreadyCompleted =
+        completed.includes(id);
+
+
+    loading = true;
+
+    renderChallenges();
+
+
+    try{
+
+        const uid =
+            currentUser.uid;
+
+        const challengeRef =
+            ref(
+                database,
+                `users/${uid}/challenges/${id}`
+            );
+
+
+        if(alreadyCompleted){
+
+            /* =========================
+               UNCOMPLETE
+            ========================= */
+
+            await remove(
+                challengeRef
+            );
+
+
+            challengeStats.xp =
+                Math.max(
+                    0,
+                    challengeStats.xp -
+                    challenge.xp
+                );
+
+
+            challengeStats.totalCompleted =
+                Math.max(
+                    0,
+                    challengeStats.totalCompleted - 1
+                );
+
+
+            await saveChallengeStats();
+
+
+            firebaseChallenges[
+                String(id)
+            ] = null;
+
+
+            delete firebaseChallenges[
+                String(id)
+            ];
+
+
+            renderChallenges();
+
+            updateStats();
+
+            updateAchievements();
+
+            showToast(
+                "Challenge unchecked."
+            );
+
+
+        }else{
+
+            /* =========================
+               COMPLETE
+            ========================= */
+
+            const now =
+                new Date().toISOString();
+
+
+            await update(
+                challengeRef,
+                {
+                    id:challenge.id,
+                    title:challenge.title,
+                    completed:true,
+                    date:todayKey(),
+                    xp:challenge.xp,
+                    completedAt:now
+                }
+            );
+
+
+            firebaseChallenges[
+                String(id)
+            ] = {
+
+                id:challenge.id,
+                title:challenge.title,
+                completed:true,
+                date:todayKey(),
+                xp:challenge.xp,
+                completedAt:now
+
+            };
+
+
+            challengeStats.xp +=
+                challenge.xp;
+
+
+            challengeStats.totalCompleted++;
+
+
+            /*
+               If today's challenge set becomes
+               fully completed, update streak.
+            */
+
+            const newCompleted =
+                getTodayCompleted();
+
+
+            if(
+                newCompleted.length ===
+                challenges.length
+            ){
+
+                updateStreakValue();
+
+            }
+
+
+            await saveChallengeStats();
+
+
+            renderChallenges();
+
+            updateStats();
+
+            updateAchievements();
+
+            showCelebration();
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "Challenge save error:",
+            error
+        );
+
+        showToast(
+            "Unable to save challenge. Please try again."
+        );
+
+        await loadFirebaseData();
+
+    }finally{
+
+        loading = false;
+
+        renderChallenges();
+
+    }
+
+};
+
+
+/* =========================================
+   UPDATE STREAK
+========================================= */
+
+function updateStreakValue(){
+
+    const today =
+        todayKey();
+
+    const yesterday =
+        yesterdayKey();
+
+
+    /*
+       Already completed today:
+       Don't increase streak twice.
+    */
+
+    if(
+        challengeStats.lastCompletedDate ===
+        today
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        challengeStats.lastCompletedDate ===
+        yesterday
+    ){
+
+        challengeStats.streak++;
+
+    }else{
+
+        challengeStats.streak = 1;
+
+    }
+
+
+    challengeStats.lastCompletedDate =
+        today;
+
+}
+
+
+/* =========================================
+   SAVE CHALLENGE STATS
+========================================= */
+
+async function saveChallengeStats(){
+
+    if(!currentUser) return;
+
+
+    const uid =
+        currentUser.uid;
+
+
+    await update(
+        ref(
+            database,
+            `users/${uid}/challengeStats`
+        ),
+        {
+
+            xp:
+                challengeStats.xp,
+
+            totalCompleted:
+                challengeStats.totalCompleted,
+
+            streak:
+                challengeStats.streak,
+
+            lastCompletedDate:
+                challengeStats.lastCompletedDate,
+
+            updatedAt:
+                new Date().toISOString()
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+function updateProgress(){
+
+    const completed =
+        getTodayCompleted().length;
+
+
+    const total =
+        challenges.length;
+
+
+    const percent =
+        Math.round(
+            (completed / total) * 100
+        );
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        `${completed}/${total}`;
+
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        percent + "%";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percent + "%";
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+    document.getElementById(
+        "xp"
+    ).textContent =
+        challengeStats.xp;
+
+
+    document.getElementById(
+        "completedCount"
+    ).textContent =
+        challengeStats.totalCompleted;
+
+
+    document.getElementById(
+        "streak"
+    ).textContent =
+        challengeStats.streak;
+
+
+    document.getElementById(
+        "streakBig"
+    ).textContent =
+        challengeStats.streak;
+
+}
+
+
+/* =========================================
+   ACHIEVEMENTS
+========================================= */
+
+function updateAchievements(){
+
+    const total =
+        challengeStats.totalCompleted;
+
+
+    const xp =
+        challengeStats.xp;
+
+
+    const streak =
+        challengeStats.streak;
+
+
+    const achievement1 =
+        document.getElementById(
+            "achievement1"
+        );
+
+    const achievement2 =
+        document.getElementById(
+            "achievement2"
+        );
+
+    const achievement3 =
+        document.getElementById(
+            "achievement3"
+        );
+
+    const achievement4 =
+        document.getElementById(
+            "achievement4"
+        );
+
+
+    /*
+       Reset first.
+       This prevents incorrect unlocked state.
+    */
+
+    achievement1.classList.add(
+        "locked"
+    );
+
+    achievement2.classList.add(
+        "locked"
+    );
+
+    achievement3.classList.add(
+        "locked"
+    );
+
+    achievement4.classList.add(
+        "locked"
+    );
+
+
+    if(total >= 1){
+
+        achievement1.classList.remove(
+            "locked"
+        );
+
+    }
+
+
+    if(streak >= 7){
+
+        achievement2.classList.remove(
+            "locked"
+        );
+
+    }
+
+
+    if(xp >= 100){
+
+        achievement3.classList.remove(
+            "locked"
+        );
+
+    }
+
+
+    if(total >= 20){
+
+        achievement4.classList.remove(
+            "locked"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CELEBRATION
+========================================= */
+
+function showCelebration(){
+
+    const celebration =
+        document.getElementById(
+            "celebration"
+        );
+
+
+    celebration.classList.add(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        celebration.classList.remove(
+            "show"
+        );
+
+    },1800);
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },2200);
+
+}
+
+
+/* =========================================
+   RESET TODAY'S CHALLENGES
+========================================= */
+
+window.resetChallenges =
+async function(){
+
+    if(!currentUser){
+
+        alert(
+            "Please log in first."
+        );
+
+        return;
+    }
+
+
+    if(loading) return;
+
+
+    const completed =
+        getTodayCompleted();
+
+
+    if(completed.length === 0){
+
+        showToast(
+            "There are no completed challenges to reset."
+        );
+
+        return;
+
+    }
+
+
+    const confirmReset =
+        confirm(
+            "Reset today's completed challenges?"
+        );
+
+
+    if(!confirmReset) return;
+
+
+    loading = true;
+
+
+    const resetButton =
+        document.getElementById(
+            "resetButton"
+        );
+
+
+    resetButton.disabled = true;
+
+    resetButton.textContent =
+        "Resetting...";
+
+
+    try{
+
+        const uid =
+            currentUser.uid;
+
+
+        /*
+           Remove today's challenge records.
+        */
+
+        const updates = {};
+
+
+        completed.forEach(id => {
+
+            updates[
+                `users/${uid}/challenges/${id}`
+            ] = null;
+
+        });
+
+
+        await update(
+            ref(database),
+            updates
+        );
+
+
+        /*
+           Remove today's XP from total.
+        */
+
+        let xpToRemove = 0;
+
+
+        completed.forEach(id => {
+
+            const challenge =
+                challenges.find(
+                    item => item.id === id
+                );
+
+            if(challenge){
+
+                xpToRemove +=
+                    challenge.xp;
+
+            }
+
+        });
+
+
+        challengeStats.xp =
+            Math.max(
+                0,
+                challengeStats.xp -
+                xpToRemove
+            );
+
+
+        challengeStats.totalCompleted =
+            Math.max(
+                0,
+                challengeStats.totalCompleted -
+                completed.length
+            );
+
+
+        /*
+           If today's full set had previously
+           created the streak, don't destroy
+           the historical streak here.
+        */
+
+        await saveChallengeStats();
+
+
+        completed.forEach(id => {
+
+            delete firebaseChallenges[
+                String(id)
+            ];
+
+        });
+
+
+        renderChallenges();
+
+        updateStats();
+
+        updateAchievements();
+
+        showToast(
+            "Today's challenges were reset."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Reset challenge error:",
+            error
+        );
+
+        showToast(
+            "Unable to reset challenges."
+        );
+
+    }finally{
+
+        loading = false;
+
+        resetButton.disabled = false;
+
+        resetButton.textContent =
+            "Reset Today's Challenges";
+
+        renderChallenges();
+
+    }
+
+};
+
+
+/* =========================================
+   BACK
+========================================= */
+
+window.goBack =
+function(){
+
+    if(
+        document.referrer &&
+        document.referrer !==
+        window.location.href
+    ){
+
+        history.back();
+
+    }else{
+
+        window.location.href =
+            "home.html";
+
+    }
+
+};
+
+</script>
+
+</body>
+</html>

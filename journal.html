@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7667f8">
+
+<title>MoveOn — Journal</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:#202348;
+    min-height:100vh;
+
+    background:
+        radial-gradient(circle at 5% 5%,#ddd8ff 0%,transparent 30%),
+        radial-gradient(circle at 95% 20%,#ffdbe8 0%,transparent 30%),
+        linear-gradient(135deg,#f8f7ff,#fff8fa,#f3f0ff);
+
+    overflow-x:hidden;
+}
+
+button,
+textarea{
+    font-family:inherit;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(10px);
+    opacity:.4;
+    animation:float 9s ease-in-out infinite;
+}
+
+.blob.one{
+    width:230px;
+    height:230px;
+    background:#c9c3ff;
+    top:-80px;
+    left:-70px;
+}
+
+.blob.two{
+    width:190px;
+    height:190px;
+    background:#ffcbdc;
+    right:-70px;
+    top:40%;
+    animation-delay:2s;
+}
+
+.blob.three{
+    width:180px;
+    height:180px;
+    background:#d6f1e4;
+    bottom:-80px;
+    left:15%;
+    animation-delay:4s;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(15px,-22px);
+    }
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    width:100%;
+    max-width:1150px;
+    margin:auto;
+
+    padding:22px 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(135deg,#7063f5,#a38dff);
+
+    color:white;
+    font-size:23px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(112,99,245,.22);
+}
+
+.brand h1{
+    font-size:22px;
+}
+
+.brand p{
+    color:#8d8b9d;
+    font-size:9px;
+    margin-top:2px;
+}
+
+.back{
+    text-decoration:none;
+
+    padding:10px 16px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.7);
+
+    color:#77758a;
+
+    font-size:11px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(50,45,90,.05);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    width:100%;
+    max-width:1150px;
+
+    margin:auto;
+
+    padding:
+        10px 25px 45px;
+}
+
+.page-title{
+    margin-bottom:24px;
+}
+
+.page-title h2{
+    font-size:34px;
+    letter-spacing:-1px;
+    margin-bottom:7px;
+}
+
+.page-title h2 span{
+    color:#7667f8;
+}
+
+.page-title p{
+    color:#85849a;
+    font-size:13px;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+    display:grid;
+
+    grid-template-columns:
+        1.7fr 1fr;
+
+    gap:22px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:
+        rgba(255,255,255,.82);
+
+    backdrop-filter:blur(20px);
+
+    border:
+        1px solid
+        rgba(255,255,255,.95);
+
+    border-radius:28px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(55,48,100,.10);
+}
+
+
+/* =========================
+   JOURNAL CARD
+========================= */
+
+.editor-card{
+    padding:26px;
+}
+
+.editor-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.editor-header h3{
+    font-size:18px;
+}
+
+.date{
+    color:#9997a8;
+    font-size:10px;
+}
+
+
+/* =========================
+   MOOD
+========================= */
+
+.mood-title{
+    font-size:12px;
+    font-weight:bold;
+    color:#595871;
+
+    margin-bottom:10px;
+}
+
+.moods{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+
+    margin-bottom:20px;
+}
+
+.mood{
+    width:45px;
+    height:45px;
+
+    border:
+        1px solid
+        #e5e3ed;
+
+    background:#faf9fc;
+
+    border-radius:14px;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.mood:hover{
+    transform:translateY(-2px);
+}
+
+.mood.selected{
+    border-color:#7667f8;
+
+    background:#eeecff;
+
+    box-shadow:
+        0 5px 15px
+        rgba(118,103,248,.12);
+}
+
+
+/* =========================
+   PROMPT
+========================= */
+
+.prompt-box{
+    padding:15px 16px;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0eeff,
+            #fff0f5
+        );
+
+    margin-bottom:17px;
+}
+
+.prompt-label{
+    font-size:9px;
+    color:#7667f8;
+    font-weight:bold;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+    margin-bottom:5px;
+}
+
+.prompt-text{
+    color:#5f5e76;
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   TEXTAREA
+========================= */
+
+textarea{
+    width:100%;
+
+    min-height:270px;
+
+    resize:vertical;
+
+    border:
+        1px solid
+        #e3e1eb;
+
+    border-radius:19px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    padding:17px;
+
+    outline:none;
+
+    color:#303149;
+
+    font-size:14px;
+
+    line-height:1.75;
+
+    transition:.25s;
+}
+
+textarea:focus{
+    border-color:#7667f8;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(118,103,248,.09);
+}
+
+textarea::placeholder{
+    color:#aaa8b7;
+}
+
+
+/* =========================
+   EDITOR FOOTER
+========================= */
+
+.editor-footer{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-top:12px;
+}
+
+.word-count{
+    color:#9997a8;
+    font-size:10px;
+}
+
+.save-btn{
+    border:none;
+
+    padding:
+        12px 21px;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7163f5,
+            #9381ff
+        );
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 22px
+        rgba(113,99,245,.2);
+
+    transition:.2s;
+}
+
+.save-btn:hover{
+    transform:translateY(-2px);
+}
+
+.save-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    transform:none;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.side{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+
+/* =========================
+   DAILY PROMPT
+========================= */
+
+.prompt-card{
+    padding:22px;
+}
+
+.card-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:15px;
+}
+
+.card-heading h3{
+    font-size:15px;
+}
+
+.small-btn{
+    border:none;
+
+    background:#f0eeff;
+
+    color:#6d5ff1;
+
+    padding:7px 10px;
+
+    border-radius:10px;
+
+    font-size:9px;
+
+    cursor:pointer;
+}
+
+.big-prompt{
+    font-size:15px;
+
+    line-height:1.6;
+
+    color:#4e4d65;
+
+    margin-bottom:12px;
+}
+
+.prompt-hint{
+    color:#9997a8;
+    font-size:10px;
+    line-height:1.5;
+}
+
+
+/* =========================
+   STREAK
+========================= */
+
+.streak-card{
+    padding:22px;
+}
+
+.streak-number{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    margin-bottom:17px;
+}
+
+.fire{
+    width:48px;
+    height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#fff1dc;
+
+    border-radius:16px;
+
+    font-size:25px;
+}
+
+.streak-number strong{
+    display:block;
+    font-size:25px;
+}
+
+.streak-number span{
+    color:#9997a8;
+    font-size:10px;
+}
+
+.days{
+    display:grid;
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:6px;
+}
+
+.day{
+    text-align:center;
+}
+
+.day-circle{
+    width:31px;
+    height:31px;
+
+    margin:auto auto 5px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#f0eff6;
+
+    color:#9b99aa;
+
+    font-size:9px;
+}
+
+.day.done .day-circle{
+    background:#7667f8;
+    color:white;
+}
+
+.day.today .day-circle{
+    border:
+        2px solid
+        #7667f8;
+
+    background:white;
+
+    color:#7667f8;
+}
+
+.day span{
+    font-size:8px;
+    color:#aaa8b7;
+}
+
+
+/* =========================
+   ENTRIES
+========================= */
+
+.entries-card{
+    padding:22px;
+}
+
+.entries{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.entry{
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:11px;
+
+    border-radius:14px;
+
+    background:#f8f7fb;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.entry:hover{
+    transform:translateX(2px);
+
+    background:#f1effd;
+}
+
+.entry-mood{
+    font-size:20px;
+}
+
+.entry-info{
+    flex:1;
+}
+
+.entry-info strong{
+    display:block;
+
+    font-size:11px;
+
+    margin-bottom:3px;
+}
+
+.entry-info span{
+    display:block;
+
+    font-size:9px;
+
+    color:#9997a8;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.entry-arrow{
+    color:#aaa8b7;
+    font-size:13px;
+}
+
+.empty{
+    text-align:center;
+
+    color:#aaa8b7;
+
+    font-size:10px;
+
+    padding:15px 5px;
+}
+
+
+/* =========================
+   CALM QUOTE
+========================= */
+
+.quote-card{
+    padding:20px;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(234,231,255,.9),
+            rgba(255,235,242,.9)
+        );
+}
+
+.quote-icon{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.quote-card p{
+    color:#69677e;
+    font-size:11px;
+    line-height:1.6;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(30,27,55,.35);
+
+    backdrop-filter:blur(6px);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    z-index:100;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:500px;
+
+    max-height:85vh;
+
+    overflow:auto;
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:25px;
+
+    box-shadow:
+        0 30px 80px
+        rgba(30,25,60,.25);
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:17px;
+}
+
+.modal-header h3{
+    font-size:17px;
+}
+
+.close{
+    border:none;
+
+    background:#f0eff6;
+
+    width:32px;
+    height:32px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+}
+
+.entry-date{
+    color:#9997a8;
+    font-size:10px;
+    margin-bottom:12px;
+}
+
+.entry-content{
+    color:#55546c;
+
+    font-size:13px;
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+    background:#faf9fc;
+
+    padding:16px;
+
+    border-radius:16px;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    transform:
+        translate(-50%,20px);
+
+    background:#292943;
+
+    color:white;
+
+    padding:
+        12px 18px;
+
+    border-radius:12px;
+
+    font-size:11px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:300;
+
+    white-space:nowrap;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .side{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .quote-card{
+        grid-column:1 / -1;
+    }
+
+}
+
+
+@media(max-width:550px){
+
+    .header{
+        padding:
+            18px 15px;
+    }
+
+    .main{
+        padding:
+            8px 14px 35px;
+    }
+
+    .page-title h2{
+        font-size:29px;
+    }
+
+    .editor-card{
+        padding:19px;
+        border-radius:24px;
+    }
+
+    .side{
+        display:flex;
+    }
+
+    textarea{
+        min-height:240px;
+    }
+
+    .mood{
+        width:42px;
+        height:42px;
+    }
+
+    .editor-footer{
+        align-items:flex-end;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     BACKGROUND
+========================= -->
+
+<div class="background">
+
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+
+</div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">
+            💜
+        </div>
+
+        <div>
+
+            <h1>MoveOn</h1>
+
+            <p>
+                Heal • Grow • Be You
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="home.html"
+        class="back">
+
+        ← Home
+
+    </a>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+    <div class="page-title">
+
+        <h2>
+            Your safe space to
+            <span>write.</span>
+        </h2>
+
+        <p>
+            Put your thoughts somewhere instead of carrying them all day.
+        </p>
+
+    </div>
+
+
+    <div class="layout">
+
+
+        <!-- =========================
+             JOURNAL EDITOR
+        ========================= -->
+
+        <section class="card editor-card">
+
+
+            <div class="editor-header">
+
+                <h3>
+                    Today's Journal
+                </h3>
+
+                <div
+                    class="date"
+                    id="todayDate">
+                </div>
+
+            </div>
+
+
+            <!-- MOOD -->
+
+            <div class="mood-title">
+                How are you feeling right now?
+            </div>
+
+
+            <div class="moods">
+
+                <button
+                    type="button"
+                    class="mood"
+                    data-mood="Happy"
+                    onclick="selectMood(this)"
+                    title="Happy">
+                    😊
+                </button>
+
+                <button
+                    type="button"
+                    class="mood"
+                    data-mood="Calm"
+                    onclick="selectMood(this)"
+                    title="Calm">
+                    😌
+                </button>
+
+                <button
+                    type="button"
+                    class="mood"
+                    data-mood="Okay"
+                    onclick="selectMood(this)"
+                    title="Okay">
+                    🙂
+                </button>
+
+                <button
+                    type="button"
+                    class="mood"
+                    data-mood="Sad"
+                    onclick="selectMood(this)"
+                    title="Sad">
+                    😔
+                </button>
+
+                <button
+                    type="button"
+                    class="mood"
+                    data-mood="Lonely"
+                    onclick="selectMood(this)"
+                    title="Lonely">
+                    🥺
+                </button>
+
+                <button
+                    type="button"
+                    class="mood"
+                    data-mood="Angry"
+                    onclick="selectMood(this)"
+                    title="Angry">
+                    😡
+                </button>
+
+                <button
+                    type="button"
+                    class="mood"
+                    data-mood="Overthinking"
+                    onclick="selectMood(this)"
+                    title="Overthinking">
+                    💭
+                </button>
+
+            </div>
+
+
+            <!-- PROMPT -->
+
+            <div class="prompt-box">
+
+                <div class="prompt-label">
+                    Gentle prompt
+                </div>
+
+                <div
+                    class="prompt-text"
+                    id="promptText">
+
+                    What is one thing you're finding difficult
+                    to let go of today?
+
+                </div>
+
+            </div>
+
+
+            <!-- TEXT -->
+
+            <textarea
+                id="journalText"
+                maxlength="5000"
+                oninput="updateCount()"
+                placeholder="Write whatever is on your mind...
+
+You don't have to make it perfect.
+You don't have to make it positive.
+Just be honest with yourself."></textarea>
+
+
+            <div class="editor-footer">
+
+                <div
+                    class="word-count"
+                    id="wordCount">
+
+                    0 words • 0 characters
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="save-btn"
+                    id="saveButton"
+                    onclick="saveJournal()">
+
+                    Save Journal 💜
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SIDE
+        ========================= -->
+
+        <aside class="side">
+
+
+            <!-- DAILY PROMPT -->
+
+            <section class="card prompt-card">
+
+                <div class="card-heading">
+
+                    <h3>
+                        ✨ Journal Prompt
+                    </h3>
+
+                    <button
+                        type="button"
+                        class="small-btn"
+                        onclick="newPrompt()">
+
+                        New prompt
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="big-prompt"
+                    id="sidePrompt">
+
+                    What would you tell your
+                    best friend if they were
+                    going through what you're
+                    going through?
+
+                </div>
+
+
+                <div class="prompt-hint">
+
+                    Don't overthink it. Write the
+                    first honest thing that comes
+                    to your mind.
+
+                </div>
+
+            </section>
+
+
+            <!-- STREAK -->
+
+            <section class="card streak-card">
+
+                <div class="card-heading">
+
+                    <h3>
+                        🔥 Writing Streak
+                    </h3>
+
+                </div>
+
+
+                <div class="streak-number">
+
+                    <div class="fire">
+                        🔥
+                    </div>
+
+                    <div>
+
+                        <strong id="streakNumber">
+                            0
+                        </strong>
+
+                        <span>
+                            day streak
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="days">
+
+                    <div class="day">
+                        <div class="day-circle">M</div>
+                        <span>Mon</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-circle">T</div>
+                        <span>Tue</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-circle">W</div>
+                        <span>Wed</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-circle">T</div>
+                        <span>Thu</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-circle">F</div>
+                        <span>Fri</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-circle">S</div>
+                        <span>Sat</span>
+                    </div>
+
+                    <div class="day today">
+                        <div class="day-circle">S</div>
+                        <span>Today</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RECENT ENTRIES -->
+
+            <section class="card entries-card">
+
+                <div class="card-heading">
+
+                    <h3>
+                        📖 Recent Entries
+                    </h3>
+
+                    <button
+                        type="button"
+                        class="small-btn"
+                        onclick="clearEntries()">
+
+                        Clear
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="entries"
+                    id="entries">
+
+                </div>
+
+            </section>
+
+
+            <!-- QUOTE -->
+
+            <section class="card quote-card">
+
+                <div class="quote-icon">
+                    🌱
+                </div>
+
+                <p>
+
+                    You don't have to heal
+                    all at once. One honest
+                    moment at a time is enough.
+
+                </p>
+
+            </section>
+
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     ENTRY MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="entryModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Journal Entry
+            </h3>
+
+            <button
+                type="button"
+                class="close"
+                onclick="closeModal()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="entry-date"
+            id="modalDate">
+        </div>
+
+
+        <div
+            class="entry-content"
+            id="modalContent">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<!-- =========================
+     MOVEON APP
+     AUTH + USER + NAVIGATION
+========================= -->
+
+<script type="module" src="app.js"></script>
+
+
+<!-- =========================
+     JOURNAL FIREBASE LOGIC
+========================= -->
+
+<script type="module">
+
+import {
+    saveJournal as saveJournalToFirebase,
+    getJournals,
+    deleteJournal,
+    getProfile,
+    saveProfile
+} from "./storage.js";
+
+import {
+    auth
+} from "./firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* =========================
+   PROMPTS
+========================= */
+
+const prompts = [
+
+    "What is one thing you're finding difficult to let go of today?",
+
+    "What would you tell your best friend if they were going through what you're going through?",
+
+    "What is something you wish you could say, but don't need to send?",
+
+    "What made you smile today, even for a moment?",
+
+    "What do you need more of in your life right now?",
+
+    "What is one thing you are proud of yourself for surviving?",
+
+    "If today could be a fresh start, what would you do differently?",
+
+    "What part of yourself do you want to rediscover?",
+
+    "What does peace look like for you right now?",
+
+    "What is one small thing you can do for yourself today?",
+
+    "What have you learned about yourself from this experience?",
+
+    "What are three things you want your future self to remember?"
+
+];
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let selectedMood = "";
+
+let entries = [];
+
+let currentUser = null;
+
+let currentStreak = {
+    count: 0,
+    lastDate: ""
+};
+
+
+/* =========================
+   DATE
+========================= */
+
+function updateDate(){
+
+    const date = new Date();
+
+    const options = {
+        weekday:"long",
+        month:"short",
+        day:"numeric",
+        year:"numeric"
+    };
+
+    document
+        .getElementById("todayDate")
+        .textContent =
+        date.toLocaleDateString(
+            "en-IN",
+            options
+        );
+
+}
+
+
+/* =========================
+   MOOD
+========================= */
+
+window.selectMood = function(button){
+
+    document
+        .querySelectorAll(".mood")
+        .forEach(function(item){
+
+            item.classList.remove("selected");
+
+        });
+
+
+    button.classList.add("selected");
+
+
+    selectedMood =
+        button.dataset.mood;
+
+};
+
+
+/* =========================
+   WORD COUNT
+========================= */
+
+window.updateCount = function(){
+
+    const text =
+        document
+        .getElementById("journalText")
+        .value;
+
+
+    const characters =
+        text.length;
+
+
+    const words =
+        text.trim()
+        ? text.trim().split(/\s+/).length
+        : 0;
+
+
+    document
+        .getElementById("wordCount")
+        .textContent =
+        words +
+        " words • " +
+        characters +
+        " characters";
+
+};
+
+
+/* =========================
+   SAVE JOURNAL
+========================= */
+
+window.saveJournal = async function(){
+
+    if(!currentUser){
+
+        showToast(
+            "Please login first 🔐"
+        );
+
+        return;
+
+    }
+
+
+    const text =
+        document
+        .getElementById("journalText")
+        .value
+        .trim();
+
+
+    if(!text){
+
+        showToast(
+            "Write something before saving 💜"
+        );
+
+        return;
+
+    }
+
+
+    if(!selectedMood){
+
+        showToast(
+            "Choose your mood first 🌱"
+        );
+
+        return;
+
+    }
+
+
+    const saveButton =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+        "Saving...";
+
+
+    const now = new Date();
+
+
+    const entry = {
+
+        mood:
+            selectedMood,
+
+        text:
+            text,
+
+        date:
+            now.toLocaleDateString(
+                "en-IN",
+                {
+                    day:"numeric",
+                    month:"short",
+                    year:"numeric"
+                }
+            ),
+
+        timestamp:
+            now.toISOString()
+
+    };
+
+
+    try{
+
+        const journalId =
+            await saveJournalToFirebase(
+                entry
+            );
+
+
+        if(!journalId){
+
+            throw new Error(
+                "Journal could not be saved."
+            );
+
+        }
+
+
+        /*
+         * Firebase push() creates
+         * a unique ID.
+         */
+
+        entry.id =
+            journalId;
+
+
+        entries.unshift(entry);
+
+
+        /*
+         * Update writing streak
+         */
+
+        await updateStreak();
+
+
+        /*
+         * Clear editor
+         */
+
+        document
+            .getElementById("journalText")
+            .value = "";
+
+
+        selectedMood = "";
+
+
+        document
+            .querySelectorAll(".mood")
+            .forEach(function(item){
+
+                item.classList.remove(
+                    "selected"
+                );
+
+            });
+
+
+        updateCount();
+
+        renderEntries();
+
+
+        showToast(
+            "Journal saved safely 💜"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Firebase Journal Error:",
+            error
+        );
+
+
+        showToast(
+            "Unable to save journal. Try again."
+        );
+
+
+    }finally{
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+            "Save Journal 💜";
+
+    }
+
+};
+
+
+/* =========================
+   LOAD JOURNALS
+========================= */
+
+async function loadJournals(){
+
+    try{
+
+        const firebaseEntries =
+            await getJournals();
+
+
+        if(
+            firebaseEntries &&
+            typeof firebaseEntries === "object"
+        ){
+
+            entries =
+                Object.keys(
+                    firebaseEntries
+                )
+                .map(function(key){
+
+                    return {
+                        ...firebaseEntries[key],
+                        id:key
+                    };
+
+                })
+                .sort(function(a,b){
+
+                    return (
+                        new Date(
+                            b.timestamp || 0
+                        ) -
+                        new Date(
+                            a.timestamp || 0
+                        )
+                    );
+
+                });
+
+        }else{
+
+            entries = [];
+
+        }
+
+
+        renderEntries();
+
+
+    }catch(error){
+
+        console.error(
+            "Load Journals Error:",
+            error
+        );
+
+
+        entries = [];
+
+        renderEntries();
+
+
+        showToast(
+            "Unable to load journal entries."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   RENDER ENTRIES
+========================= */
+
+function renderEntries(){
+
+    const container =
+        document.getElementById(
+            "entries"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if(entries.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Your journal entries
+                will appear here.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const moodIcons = {
+
+        Happy:"😊",
+        Calm:"😌",
+        Okay:"🙂",
+        Sad:"😔",
+        Lonely:"🥺",
+        Angry:"😡",
+        Overthinking:"💭"
+
+    };
+
+
+    entries
+        .slice(0,5)
+        .forEach(function(entry,index){
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "entry";
+
+
+            div.onclick =
+                function(){
+
+                    openEntry(index);
+
+                };
+
+
+            const mood =
+                escapeHTML(
+                    entry.mood || "Mood"
+                );
+
+
+            const text =
+                escapeHTML(
+                    (entry.text || "")
+                    .substring(0,65)
+                );
+
+
+            div.innerHTML = `
+
+                <div class="entry-mood">
+
+                    ${moodIcons[entry.mood] || "💜"}
+
+                </div>
+
+                <div class="entry-info">
+
+                    <strong>
+                        ${mood}
+                    </strong>
+
+                    <span>
+                        ${text}
+                        ${(entry.text || "").length > 65 ? "..." : ""}
+                    </span>
+
+                </div>
+
+                <div class="entry-arrow">
+                    →
+                </div>
+
+            `;
+
+
+            container.appendChild(div);
+
+        });
+
+}
+
+
+/* =========================
+   OPEN ENTRY
+========================= */
+
+function openEntry(index){
+
+    const entry =
+        entries[index];
+
+
+    if(!entry){
+        return;
+    }
+
+
+    document
+        .getElementById("modalDate")
+        .textContent =
+        (entry.date || "") +
+        " • " +
+        (entry.mood || "");
+
+
+    document
+        .getElementById("modalContent")
+        .textContent =
+        entry.text || "";
+
+
+    document
+        .getElementById("entryModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+window.closeModal = function(){
+
+    document
+        .getElementById("entryModal")
+        .classList.remove("show");
+
+};
+
+
+/* =========================
+   CLEAR ENTRIES
+========================= */
+
+window.clearEntries = async function(){
+
+    if(entries.length === 0){
+
+        showToast(
+            "There are no entries to clear."
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Delete all journal entries permanently?"
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    try{
+
+        showToast(
+            "Deleting entries..."
+        );
+
+
+        /*
+         * Delete every Firebase entry.
+         */
+
+        for(
+            const entry of entries
+        ){
+
+            if(entry.id){
+
+                await deleteJournal(
+                    entry.id
+                );
+
+            }
+
+        }
+
+
+        entries = [];
+
+
+        currentStreak = {
+            count:0,
+            lastDate:""
+        };
+
+
+        /*
+         * Reset streak in Firebase.
+         */
+
+        await saveProfile({
+
+            journalStreak:0,
+
+            journalStreakLastDate:""
+
+        });
+
+
+        document
+            .getElementById(
+                "streakNumber"
+            )
+            .textContent =
+            "0";
+
+
+        renderEntries();
+
+
+        showToast(
+            "Journal entries cleared."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Clear Journal Error:",
+            error
+        );
+
+
+        showToast(
+            "Unable to clear entries."
+        );
+
+    }
+
+};
+
+
+/* =========================
+   NEW PROMPT
+========================= */
+
+window.newPrompt = function(){
+
+    const random =
+        Math.floor(
+            Math.random() *
+            prompts.length
+        );
+
+
+    document
+        .getElementById("sidePrompt")
+        .textContent =
+        prompts[random];
+
+
+    document
+        .getElementById("promptText")
+        .textContent =
+        prompts[random];
+
+};
+
+
+/* =========================
+   DATE KEY
+========================= */
+
+function getLocalDateKey(){
+
+    const date =
+        new Date();
+
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0");
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+/* =========================
+   UPDATE STREAK
+========================= */
+
+async function updateStreak(){
+
+    const today =
+        getLocalDateKey();
+
+
+    let count =
+        currentStreak.count || 0;
+
+
+    const lastDate =
+        currentStreak.lastDate || "";
+
+
+    if(lastDate === today){
+
+        document
+            .getElementById(
+                "streakNumber"
+            )
+            .textContent =
+            count;
+
+        return;
+
+    }
+
+
+    const yesterday =
+        new Date();
+
+
+    yesterday.setDate(
+        yesterday.getDate() - 1
+    );
+
+
+    const yesterdayKey =
+        (
+            yesterday.getFullYear() +
+            "-" +
+            String(
+                yesterday.getMonth() + 1
+            ).padStart(2,"0") +
+            "-" +
+            String(
+                yesterday.getDate()
+            ).padStart(2,"0")
+        );
+
+
+    if(lastDate === yesterdayKey){
+
+        count++;
+
+    }else{
+
+        count = 1;
+
+    }
+
+
+    currentStreak = {
+
+        count:count,
+
+        lastDate:today
+
+    };
+
+
+    await saveProfile({
+
+        journalStreak:
+            count,
+
+        journalStreakLastDate:
+            today
+
+    });
+
+
+    document
+        .getElementById(
+            "streakNumber"
+        )
+        .textContent =
+        count;
+
+}
+
+
+/* =========================
+   LOAD STREAK
+========================= */
+
+async function loadStreak(){
+
+    try{
+
+        const profile =
+            await getProfile();
+
+
+        if(profile){
+
+            currentStreak = {
+
+                count:
+                    Number(
+                        profile.journalStreak
+                    ) || 0,
+
+                lastDate:
+                    profile.journalStreakLastDate ||
+                    ""
+
+            };
+
+        }
+
+
+        document
+            .getElementById(
+                "streakNumber"
+            )
+            .textContent =
+            currentStreak.count || 0;
+
+
+    }catch(error){
+
+        console.error(
+            "Load Streak Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   RESTORE MOOD
+========================= */
+
+async function restoreMood(){
+
+    try{
+
+        const profile =
+            await getProfile();
+
+
+        if(
+            profile &&
+            profile.lastJournalMood
+        ){
+
+            selectedMood =
+                profile.lastJournalMood;
+
+
+            document
+                .querySelectorAll(".mood")
+                .forEach(function(button){
+
+                    if(
+                        button.dataset.mood ===
+                        selectedMood
+                    ){
+
+                        button.classList.add(
+                            "selected"
+                        );
+
+                    }
+
+                });
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Restore Mood Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SAVE LAST MOOD
+========================= */
+
+async function saveLastMood(){
+
+    if(!selectedMood){
+        return;
+    }
+
+
+    try{
+
+        await saveProfile({
+
+            lastJournalMood:
+                selectedMood
+
+        });
+
+    }catch(error){
+
+        console.error(
+            "Save Mood Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/*
+ * Override selectMood so the
+ * selected mood also gets stored
+ * in Firebase.
+ */
+
+const originalSelectMood =
+    window.selectMood;
+
+
+window.selectMood =
+    function(button){
+
+        originalSelectMood(button);
+
+        saveLastMood();
+
+    };
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text || "";
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(function(){
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },2500);
+
+}
+
+
+/* =========================
+   CLOSE MODAL OUTSIDE
+========================= */
+
+document
+    .getElementById("entryModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+
+                window.closeModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(!user){
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        updateDate();
+
+        updateCount();
+
+        await loadJournals();
+
+        await loadStreak();
+
+        await restoreMood();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

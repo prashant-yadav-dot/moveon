@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MoveOn — Contact & Support</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    color:#25243a;
+    background:
+        radial-gradient(circle at 5% 10%,#e6e1ff,transparent 28%),
+        radial-gradient(circle at 95% 30%,#ffe5f1,transparent 30%),
+        linear-gradient(135deg,#f8f7ff,#fff9fc);
+    overflow-x:hidden;
+}
+
+.blob{
+    position:fixed;
+    border-radius:50%;
+    z-index:-1;
+    opacity:.45;
+    animation:float 8s ease-in-out infinite;
+}
+
+.blob.one{
+    width:180px;
+    height:180px;
+    background:#cfc8ff;
+    left:-80px;
+    top:80px;
+}
+
+.blob.two{
+    width:220px;
+    height:220px;
+    background:#ffd1e7;
+    right:-100px;
+    bottom:80px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-25px)}
+}
+
+.header{
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#7667f8,#9b8cff);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    box-shadow:0 10px 25px #7667f833;
+}
+
+.brand h2{
+    font-size:19px;
+}
+
+.brand p{
+    color:#908ca0;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.back{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:14px;
+    background:#ffffffbd;
+    backdrop-filter:blur(12px);
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 8px 20px #39306112;
+}
+
+.container{
+    width:min(720px,92%);
+    margin:auto;
+    padding:10px 0 40px;
+}
+
+.hero{
+    text-align:center;
+    padding:10px 0 25px;
+}
+
+.support-circle{
+    width:110px;
+    height:110px;
+    margin:5px auto 20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    background:linear-gradient(135deg,#e1dcff,#fff0f7);
+    box-shadow:0 20px 45px #7667f82b;
+    animation:pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.07)}
+}
+
+.hero h1{
+    font-size:29px;
+    margin-bottom:9px;
+}
+
+.hero p{
+    color:#858298;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.card{
+    background:#ffffffba;
+    border:1px solid #fff;
+    backdrop-filter:blur(16px);
+    border-radius:24px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 15px 40px #463b7d12;
+}
+
+.card h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.card-description{
+    color:#918d9f;
+    font-size:12px;
+    line-height:1.5;
+    margin-bottom:18px;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.contact-option{
+    text-decoration:none;
+    color:#29263d;
+    background:#faf9ff;
+    border:1px solid #ebe8f6;
+    border-radius:18px;
+    padding:16px;
+    transition:.25s;
+}
+
+.contact-option:hover{
+    transform:translateY(-4px);
+    border-color:#7667f8;
+    box-shadow:0 10px 25px #7667f81c;
+}
+
+.contact-icon{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    background:#eeeaff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    margin-bottom:11px;
+}
+
+.contact-option strong{
+    display:block;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.contact-option span{
+    color:#9995a8;
+    font-size:10px;
+}
+
+.input-group{
+    margin-bottom:13px;
+}
+
+.input-group label{
+    display:block;
+    font-size:11px;
+    color:#777386;
+    margin-bottom:7px;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+    width:100%;
+    border:1px solid #e7e3f2;
+    outline:none;
+    border-radius:15px;
+    padding:13px;
+    font-family:inherit;
+    font-size:13px;
+    color:#29263d;
+    background:#faf9ff;
+    transition:.2s;
+}
+
+.input-group textarea{
+    min-height:125px;
+    resize:vertical;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus{
+    border-color:#7667f8;
+    box-shadow:0 0 0 3px #7667f81a;
+    background:white;
+}
+
+.send-btn{
+    width:100%;
+    border:none;
+    border-radius:16px;
+    padding:14px;
+    background:linear-gradient(135deg,#7667f8,#9c8eff);
+    color:white;
+    font-weight:bold;
+    font-size:14px;
+    cursor:pointer;
+    box-shadow:0 12px 25px #7667f833;
+    transition:.2s;
+}
+
+.send-btn:hover{
+    transform:translateY(-2px);
+}
+
+.send-btn:active{
+    transform:scale(.98);
+}
+
+.send-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.faq{
+    border-bottom:1px solid #ece9f5;
+}
+
+.faq:last-child{
+    border-bottom:none;
+}
+
+.faq-question{
+    width:100%;
+    border:none;
+    background:none;
+    padding:15px 0;
+    text-align:left;
+    font-size:13px;
+    color:#302d43;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+}
+
+.faq-question span{
+    color:#7667f8;
+    font-size:18px;
+    transition:.2s;
+}
+
+.faq-answer{
+    display:none;
+    color:#908c9e;
+    font-size:12px;
+    line-height:1.6;
+    padding:0 0 15px;
+}
+
+.faq.open .faq-answer{
+    display:block;
+}
+
+.faq.open .faq-question span{
+    transform:rotate(45deg);
+}
+
+.support-card{
+    background:linear-gradient(135deg,#eeeaff,#fff0f7);
+    border-radius:22px;
+    padding:20px;
+    margin-bottom:16px;
+}
+
+.support-card h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.support-card p{
+    color:#777386;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.support-btn{
+    display:inline-block;
+    margin-top:14px;
+    text-decoration:none;
+    background:white;
+    color:#7667f8;
+    padding:11px 15px;
+    border-radius:13px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    padding:10px 0 25px;
+    color:#aaa6b6;
+    font-size:10px;
+}
+
+.footer strong{
+    color:#7667f8;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,120px);
+    opacity:0;
+    background:#29263b;
+    color:white;
+    padding:13px 19px;
+    border-radius:30px;
+    font-size:12px;
+    transition:.35s;
+    z-index:20;
+    box-shadow:0 10px 30px #0003;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+    opacity:1;
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob one"></div>
+<div class="blob two"></div>
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">💜</div>
+
+        <div>
+            <h2>MoveOn</h2>
+            <p>Heal • Grow • Be You</p>
+        </div>
+
+    </div>
+
+    <button class="back" onclick="goBack()">←</button>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="hero">
+
+        <div class="support-circle">
+            💬
+        </div>
+
+        <h1>We're here for you</h1>
+
+        <p>
+            Have a question, suggestion, or just want to<br>
+            tell us something? We'd love to hear from you.
+        </p>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>How can we help?</h3>
+
+        <p class="card-description">
+            Choose the easiest way to connect with the MoveOn team.
+        </p>
+
+        <div class="contact-grid">
+
+            <a class="contact-option"
+               href="mailto:support@moveon.app">
+
+                <div class="contact-icon">📧</div>
+
+                <strong>Email Support</strong>
+
+                <span>Get help via email</span>
+
+            </a>
+
+
+            <a class="contact-option"
+               href="mailto:feedback@moveon.app">
+
+                <div class="contact-icon">💡</div>
+
+                <strong>Send Feedback</strong>
+
+                <span>Share your ideas</span>
+
+            </a>
+
+
+            <a class="contact-option"
+               href="mailto:privacy@moveon.app">
+
+                <div class="contact-icon">🔒</div>
+
+                <strong>Privacy</strong>
+
+                <span>Privacy-related questions</span>
+
+            </a>
+
+
+            <a class="contact-option"
+               href="mailto:hello@moveon.app">
+
+                <div class="contact-icon">👋</div>
+
+                <strong>Say Hello</strong>
+
+                <span>Just want to talk to us</span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>Send us a message</h3>
+
+        <p class="card-description">
+            Tell us what's on your mind. We'll try our best to help.
+        </p>
+
+
+        <form id="contactForm">
+
+            <div class="input-group">
+
+                <label>Your Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Email Address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>What is this about?</label>
+
+                <select id="topic">
+
+                    <option value="">Select a topic</option>
+
+                    <option>App Feedback</option>
+                    <option>Technical Problem</option>
+                    <option>Account Issue</option>
+                    <option>Privacy Question</option>
+                    <option>Suggestion</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Your Message</label>
+
+                <textarea
+                    id="message"
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button class="send-btn" id="sendBtn" type="submit">
+                💜 Send Message
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="support-card">
+
+        <h3>Feeling overwhelmed right now?</h3>
+
+        <p>
+            You don't have to handle everything alone.
+            Take a slow breath, reach out to someone you trust,
+            and give yourself some time.
+        </p>
+
+        <a href="calm.html" class="support-btn">
+            🌿 Open Calm Space
+        </a>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>Frequently Asked Questions</h3>
+
+        <div class="faq">
+
+            <button class="faq-question">
+                Is my journal private?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                Your journal entries are stored under your own
+                authenticated MoveOn account and are protected by
+                the Firebase database rules configured for your account.
+            </div>
+
+        </div>
+
+
+        <div class="faq">
+
+            <button class="faq-question">
+                Can I delete my data?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                Yes. MoveOn can provide account and data deletion
+                controls. Your personal data is stored under your
+                authenticated account.
+            </div>
+
+        </div>
+
+
+        <div class="faq">
+
+            <button class="faq-question">
+                Can I suggest a new feature?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                Absolutely. Feature suggestions help us make MoveOn better.
+                Use the feedback form above and tell us what you'd like to see.
+            </div>
+
+        </div>
+
+
+        <div class="faq">
+
+            <button class="faq-question">
+                Is MoveOn a replacement for professional help?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                No. MoveOn is intended as a self-care and emotional
+                support tool. If you're struggling significantly,
+                consider talking with a qualified mental-health professional
+                or someone you trust.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="footer">
+        Made with 💜 for <strong>MoveOn</strong> users
+    </div>
+
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script type="module">
+
+import { auth, database } from "./firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    ref,
+    push,
+    set
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+/* =========================================
+   GLOBAL VARIABLES
+========================================= */
+
+let currentUser = null;
+
+let authReady = false;
+
+
+/* =========================================
+   DOM ELEMENTS
+========================================= */
+
+const form =
+    document.getElementById("contactForm");
+
+const sendButton =
+    document.getElementById("sendBtn");
+
+const nameInput =
+    document.getElementById("name");
+
+const emailInput =
+    document.getElementById("email");
+
+const topicInput =
+    document.getElementById("topic");
+
+const messageInput =
+    document.getElementById("message");
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+onAuthStateChanged(auth, (user) => {
+
+    authReady = true;
+
+    if (!user) {
+
+        currentUser = null;
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    currentUser = user;
+
+
+    /*
+       Automatically use Firebase
+       account information.
+    */
+
+    if (!nameInput.value.trim()) {
+
+        nameInput.value =
+            user.displayName || "";
+
+    }
+
+
+    if (!emailInput.value.trim()) {
+
+        emailInput.value =
+            user.email || "";
+
+    }
+
+});
+
+
+/* =========================================
+   CONTACT FORM
+========================================= */
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        /* Wait for Firebase Auth */
+
+        if (!authReady) {
+
+            showToast(
+                "Please wait a moment..."
+            );
+
+            return;
+
+        }
+
+
+        /* Check logged-in user */
+
+        if (!currentUser) {
+
+            showToast(
+                "Please login first 💜"
+            );
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "login.html";
+
+            }, 1000);
+
+            return;
+
+        }
+
+
+        const name =
+            nameInput.value.trim();
+
+        const email =
+            emailInput.value.trim();
+
+        const topic =
+            topicInput.value;
+
+        const message =
+            messageInput.value.trim();
+
+
+        /* Validation */
+
+        if (!name) {
+
+            showToast(
+                "Please enter your name."
+            );
+
+            nameInput.focus();
+
+            return;
+
+        }
+
+
+        if (!email) {
+
+            showToast(
+                "Please enter your email."
+            );
+
+            emailInput.focus();
+
+            return;
+
+        }
+
+
+        if (!message) {
+
+            showToast(
+                "Please write your message."
+            );
+
+            messageInput.focus();
+
+            return;
+
+        }
+
+
+        /*
+           Email format validation
+        */
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (!emailPattern.test(email)) {
+
+            showToast(
+                "Please enter a valid email."
+            );
+
+            emailInput.focus();
+
+            return;
+
+        }
+
+
+        /* Loading state */
+
+        sendButton.disabled = true;
+
+        sendButton.textContent =
+            "Sending...";
+
+
+        try {
+
+
+            /*
+               Firebase path:
+
+               users
+                 └── UID
+                      └── contactMessages
+                           └── messageId
+            */
+
+            const messagesRef =
+                ref(
+                    database,
+                    `users/${currentUser.uid}/contactMessages`
+                );
+
+
+            const newMessageRef =
+                push(messagesRef);
+
+
+            await set(
+                newMessageRef,
+                {
+
+                    name: name,
+
+                    email: email,
+
+                    topic: topic || "General",
+
+                    message: message,
+
+                    createdAt:
+                        new Date().toISOString(),
+
+                    timestamp:
+                        Date.now(),
+
+                    status:
+                        "new"
+
+                }
+            );
+
+
+            /*
+               Clear form after
+               successful Firebase save.
+            */
+
+            form.reset();
+
+
+            /*
+               Put account details
+               back after reset.
+            */
+
+            nameInput.value =
+                currentUser.displayName || "";
+
+            emailInput.value =
+                currentUser.email || "";
+
+
+            showToast(
+                "Message sent successfully 💜"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Contact Firebase Error:",
+                error
+            );
+
+
+            /*
+               Firebase permission error
+            */
+
+            if (
+                error.code ===
+                "PERMISSION_DENIED"
+            ) {
+
+                showToast(
+                    "Permission denied. Please login again."
+                );
+
+            } else if (
+                error.code ===
+                "NETWORK_ERROR"
+            ) {
+
+                showToast(
+                    "Network error. Please try again."
+                );
+
+            } else {
+
+                showToast(
+                    "Unable to send message. Please try again."
+                );
+
+            }
+
+        }
+
+
+        /* Restore button */
+
+        sendButton.disabled = false;
+
+        sendButton.textContent =
+            "💜 Send Message";
+
+    }
+);
+
+
+/* =========================================
+   FAQ
+========================================= */
+
+document
+    .querySelectorAll(".faq-question")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const faq =
+                    button.parentElement;
+
+                faq.classList.toggle(
+                    "open"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+function goBack() {
+
+    if (history.length > 1) {
+
+        history.back();
+
+    } else {
+
+        window.location.href =
+            "home.html";
+
+    }
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
+
+
+/*
+   Inline HTML onclick ke liye
+*/
+
+window.goBack =
+    goBack;
+
+window.showToast =
+    showToast;
+
+</script>
+
+
+<!-- MoveOn common app controller -->
+
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
