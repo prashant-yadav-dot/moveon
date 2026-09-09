@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MoveOn — Mood</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    color:#25243a;
+    background:
+        radial-gradient(circle at 10% 10%, #e9e5ff 0, transparent 28%),
+        radial-gradient(circle at 90% 20%, #ffe8f4 0, transparent 30%),
+        linear-gradient(135deg,#f8f7ff,#fff8fc);
+    overflow-x:hidden;
+}
+
+/* Floating background */
+.blob{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.45;
+    z-index:-1;
+    animation:float 8s ease-in-out infinite;
+}
+
+.blob.one{
+    width:170px;
+    height:170px;
+    background:#cfc8ff;
+    top:80px;
+    left:-70px;
+}
+
+.blob.two{
+    width:220px;
+    height:220px;
+    background:#ffd1e7;
+    right:-100px;
+    top:400px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-25px) scale(1.05)}
+}
+
+/* Header */
+.header{
+    padding:22px 18px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#7667f8,#9b8cff);
+    color:white;
+    font-size:23px;
+    box-shadow:0 10px 25px #7667f833;
+}
+
+.brand-text h2{
+    font-size:19px;
+}
+
+.brand-text p{
+    font-size:11px;
+    color:#88859b;
+    margin-top:3px;
+}
+
+.back{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:14px;
+    background:#ffffffb8;
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 20px #39306112;
+    cursor:pointer;
+    font-size:19px;
+}
+
+/* Main */
+.container{
+    width:min(720px,92%);
+    margin:auto;
+    padding:15px 0 35px;
+}
+
+.hero{
+    text-align:center;
+    padding:12px 0 22px;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#858298;
+    line-height:1.5;
+    font-size:14px;
+}
+
+/* Mood visualization */
+.mood-visual{
+    width:190px;
+    height:190px;
+    margin:8px auto 22px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.orbit{
+    position:absolute;
+    width:175px;
+    height:175px;
+    border:1px solid #7667f833;
+    border-radius:50%;
+    animation:spin 16s linear infinite;
+}
+
+.orbit::before{
+    content:"";
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#7667f8;
+    position:absolute;
+    top:-5px;
+    left:50%;
+    box-shadow:0 0 20px #7667f8;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+.mood-circle{
+    width:125px;
+    height:125px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#ddd8ff,#f4edff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:62px;
+    box-shadow:
+        0 20px 50px #7667f82b,
+        inset 0 0 30px #ffffff;
+    animation:breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe{
+    0%,100%{transform:scale(.96)}
+    50%{transform:scale(1.05)}
+}
+
+/* Card */
+.card{
+    background:#ffffffb8;
+    border:1px solid #ffffff;
+    backdrop-filter:blur(16px);
+    border-radius:25px;
+    padding:20px;
+    margin-bottom:17px;
+    box-shadow:0 15px 40px #463b7d12;
+}
+
+.card-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:17px;
+}
+
+.card-title h3{
+    font-size:17px;
+}
+
+.card-title span{
+    font-size:12px;
+    color:#9995aa;
+}
+
+/* Mood options */
+.moods{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+}
+
+.mood{
+    border:2px solid transparent;
+    background:#f8f7fd;
+    border-radius:18px;
+    padding:10px 4px;
+    cursor:pointer;
+    transition:.25s;
+    text-align:center;
+}
+
+.mood:hover{
+    transform:translateY(-4px);
+    background:#efecff;
+}
+
+.mood.active{
+    border-color:#7667f8;
+    background:#eeeaff;
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px #7667f826;
+}
+
+.mood-emoji{
+    font-size:27px;
+    display:block;
+    margin-bottom:5px;
+}
+
+.mood-name{
+    font-size:9px;
+    color:#777388;
+}
+
+/* Selected mood */
+.selected{
+    text-align:center;
+    padding:5px 0 2px;
+}
+
+.selected strong{
+    color:#7667f8;
+}
+
+.note{
+    font-size:12px;
+    color:#9995a8;
+    margin-top:6px;
+}
+
+/* Slider */
+.intensity{
+    margin-top:20px;
+}
+
+.intensity-top{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#888497;
+    margin-bottom:10px;
+}
+
+input[type="range"]{
+    width:100%;
+    accent-color:#7667f8;
+    cursor:pointer;
+}
+
+/* Tags */
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+
+.tag{
+    padding:9px 13px;
+    border-radius:30px;
+    border:1px solid #e8e4f4;
+    background:#faf9ff;
+    font-size:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.tag.active{
+    background:#7667f8;
+    color:white;
+    border-color:#7667f8;
+}
+
+/* Save */
+.save-btn{
+    width:100%;
+    border:none;
+    padding:15px;
+    border-radius:17px;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(135deg,#7667f8,#9b8cff);
+    box-shadow:0 12px 25px #7667f833;
+    transition:.2s;
+}
+
+.save-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 16px 30px #7667f844;
+}
+
+.save-btn:active{
+    transform:scale(.98);
+}
+
+/* Weekly chart */
+.chart{
+    height:160px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-around;
+    gap:8px;
+    padding:10px 0 0;
+}
+
+.day{
+    height:100%;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    gap:7px;
+}
+
+.bar-wrap{
+    height:110px;
+    width:100%;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.bar{
+    width:27px;
+    min-height:8px;
+    border-radius:12px 12px 6px 6px;
+    background:linear-gradient(to top,#7667f8,#b2a9ff);
+    transition:.5s;
+}
+
+.day span{
+    font-size:10px;
+    color:#8c899a;
+}
+
+/* History */
+.history-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    border-radius:16px;
+    background:#faf9ff;
+    margin-top:9px;
+}
+
+.history-emoji{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#efecff;
+    font-size:23px;
+}
+
+.history-info{
+    flex:1;
+}
+
+.history-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.history-info small{
+    color:#9995a8;
+    font-size:10px;
+}
+
+.intensity-dot{
+    font-size:11px;
+    color:#7667f8;
+}
+
+/* Empty */
+.empty{
+    text-align:center;
+    padding:18px 5px;
+    color:#9995a8;
+    font-size:12px;
+}
+
+/* Toast */
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translate(-50%,120px);
+    background:#27243a;
+    color:white;
+    padding:13px 19px;
+    border-radius:30px;
+    font-size:13px;
+    opacity:0;
+    transition:.35s;
+    z-index:10;
+    box-shadow:0 10px 30px #0003;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+    opacity:1;
+}
+
+/* Responsive */
+@media(max-width:500px){
+    .hero h1{
+        font-size:26px;
+    }
+
+    .moods{
+        grid-template-columns:repeat(4,1fr);
+        gap:9px;
+    }
+
+    .mood{
+        padding:12px 4px;
+    }
+
+    .mood-visual{
+        width:165px;
+        height:165px;
+    }
+
+    .orbit{
+        width:155px;
+        height:155px;
+    }
+
+    .mood-circle{
+        width:110px;
+        height:110px;
+        font-size:54px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob one"></div>
+<div class="blob two"></div>
+
+<header class="header">
+
+    <div class="brand">
+        <div class="logo">💜</div>
+
+        <div class="brand-text">
+            <h2>MoveOn</h2>
+            <p>Heal • Grow • Be You</p>
+        </div>
+    </div>
+
+    <button class="back" onclick="goBack()">←</button>
+
+</header>
+
+
+<main class="container">
+
+    <section class="hero">
+
+        <div class="mood-visual">
+
+            <div class="orbit"></div>
+
+            <div class="mood-circle" id="mainMood">
+                💭
+            </div>
+
+        </div>
+
+        <h1>How are you feeling?</h1>
+
+        <p>
+            There is no right or wrong feeling.<br>
+            Just be honest with yourself today.
+        </p>
+
+    </section>
+
+
+    <!-- Mood Selection -->
+
+    <section class="card">
+
+        <div class="card-title">
+            <h3>Choose your mood</h3>
+            <span>Today</span>
+        </div>
+
+        <div class="moods">
+
+            <button class="mood" data-mood="Happy" data-emoji="😊">
+                <span class="mood-emoji">😊</span>
+                <span class="mood-name">Happy</span>
+            </button>
+
+            <button class="mood" data-mood="Calm" data-emoji="😌">
+                <span class="mood-emoji">😌</span>
+                <span class="mood-name">Calm</span>
+            </button>
+
+            <button class="mood" data-mood="Okay" data-emoji="🙂">
+                <span class="mood-emoji">🙂</span>
+                <span class="mood-name">Okay</span>
+            </button>
+
+            <button class="mood" data-mood="Sad" data-emoji="😔">
+                <span class="mood-emoji">😔</span>
+                <span class="mood-name">Sad</span>
+            </button>
+
+            <button class="mood" data-mood="Lonely" data-emoji="🥺">
+                <span class="mood-emoji">🥺</span>
+                <span class="mood-name">Lonely</span>
+            </button>
+
+            <button class="mood" data-mood="Angry" data-emoji="😡">
+                <span class="mood-emoji">😡</span>
+                <span class="mood-name">Angry</span>
+            </button>
+
+            <button class="mood" data-mood="Confused" data-emoji="💭">
+                <span class="mood-emoji">💭</span>
+                <span class="mood-name">Confused</span>
+            </button>
+
+        </div>
+
+        <div class="selected" id="selectedMood">
+            Select a mood to continue
+        </div>
+
+    </section>
+
+
+    <!-- Intensity -->
+
+    <section class="card">
+
+        <div class="card-title">
+            <h3>How strong is this feeling?</h3>
+            <span id="intensityValue">5/10</span>
+        </div>
+
+        <div class="intensity">
+
+            <div class="intensity-top">
+                <span>Very light</span>
+                <span>Very strong</span>
+            </div>
+
+            <input
+                type="range"
+                id="intensity"
+                min="1"
+                max="10"
+                value="5"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- Feelings -->
+
+    <section class="card">
+
+        <div class="card-title">
+            <h3>What's behind this feeling?</h3>
+            <span>Optional</span>
+        </div>
+
+        <div class="tags">
+
+            <button class="tag">Breakup</button>
+            <button class="tag">Missing them</button>
+            <button class="tag">Memories</button>
+            <button class="tag">Overthinking</button>
+            <button class="tag">Family</button>
+            <button class="tag">Friends</button>
+            <button class="tag">Studies</button>
+            <button class="tag">Work</button>
+            <button class="tag">Future</button>
+            <button class="tag">Just today</button>
+
+        </div>
+
+    </section>
+
+
+    <button class="save-btn" onclick="saveMood()">
+        💜 Save Today's Mood
+    </button>
+
+
+    <!-- Weekly Overview -->
+
+    <section class="card" style="margin-top:18px;">
+
+        <div class="card-title">
+            <h3>Your week</h3>
+            <span id="averageMood">No data yet</span>
+        </div>
+
+        <div class="chart" id="chart"></div>
+
+    </section>
+
+
+    <!-- History -->
+
+    <section class="card">
+
+        <div class="card-title">
+            <h3>Recent moods</h3>
+            <span>Private</span>
+        </div>
+
+        <div id="history"></div>
+
+    </section>
+
+</main>
+
+
+<div class="toast" id="toast"></div>
+<script type="module">
+
+import { auth } from "./firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    saveMood as saveMoodToFirebase,
+    getMoods
+} from "./storage.js";
+
+
+const moodButtons =
+    document.querySelectorAll(".mood");
+
+const mainMood =
+    document.getElementById("mainMood");
+
+const selectedMood =
+    document.getElementById("selectedMood");
+
+const intensity =
+    document.getElementById("intensity");
+
+const intensityValue =
+    document.getElementById("intensityValue");
+
+
+let selectedMoodData = null;
+let selectedTags = [];
+let firebaseMoods = {};
+
+let currentUser = null;
+
+
+/* =========================================
+   AUTHENTICATION
+========================================= */
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+        return;
+
+    }
+
+    currentUser = user;
+
+    await loadMoodsFromFirebase();
+
+});
+
+
+/* =========================================
+   MOOD SELECTION
+========================================= */
+
+moodButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        moodButtons.forEach(item => {
+            item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        const mood =
+            button.dataset.mood;
+
+        const emoji =
+            button.dataset.emoji;
+
+        selectedMoodData = {
+            mood: mood,
+            emoji: emoji
+        };
+
+        mainMood.textContent = emoji;
+
+        selectedMood.innerHTML =
+            `You're feeling <strong>${mood}</strong> today 💜`;
+
+    });
+
+});
+
+
+/* =========================================
+   INTENSITY
+========================================= */
+
+intensity.addEventListener("input", () => {
+
+    intensityValue.textContent =
+        intensity.value + "/10";
+
+});
+
+
+/* =========================================
+   TAGS
+========================================= */
+
+document.querySelectorAll(".tag").forEach(tag => {
+
+    tag.addEventListener("click", () => {
+
+        tag.classList.toggle("active");
+
+        const value =
+            tag.textContent.trim();
+
+        if (tag.classList.contains("active")) {
+
+            if (!selectedTags.includes(value)) {
+                selectedTags.push(value);
+            }
+
+        } else {
+
+            selectedTags =
+                selectedTags.filter(
+                    item => item !== value
+                );
+
+        }
+
+    });
+
+});
+
+
+/* =========================================
+   SAVE MOOD TO FIREBASE
+========================================= */
+
+async function saveMood() {
+
+    if (!currentUser) {
+
+        showToast("Please login first 💜");
+        return;
+
+    }
+
+    if (!selectedMoodData) {
+
+        showToast("Please choose your mood first 💜");
+        return;
+
+    }
+
+
+    const saveButton =
+        document.querySelector(".save-btn");
+
+
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+        "Saving...";
+
+
+    const now =
+        new Date();
+
+
+    const entry = {
+
+        mood: selectedMoodData.mood,
+
+        emoji: selectedMoodData.emoji,
+
+        intensity: Number(intensity.value),
+
+        tags: [...selectedTags],
+
+        date: now.toLocaleDateString(),
+
+        timestamp: Date.now()
+
+    };
+
+
+    try {
+
+        const moodId =
+            await saveMoodToFirebase(entry);
+
+
+        if (!moodId) {
+
+            throw new Error(
+                "Mood could not be saved."
+            );
+
+        }
+
+
+        /* Add Firebase ID locally */
+
+        entry.firebaseId =
+            moodId;
+
+
+        /*
+        Update local Firebase data
+        so the screen refreshes immediately.
+        */
+
+        firebaseMoods[moodId] =
+            entry;
+
+
+        showToast("Mood saved successfully 💜");
+
+
+        renderHistory();
+
+        renderChart();
+
+
+        /*
+        Reset selection after saving
+        */
+
+        selectedMoodData = null;
+
+        selectedTags = [];
+
+        moodButtons.forEach(item => {
+            item.classList.remove("active");
+        });
+
+        document.querySelectorAll(".tag").forEach(tag => {
+            tag.classList.remove("active");
+        });
+
+        mainMood.textContent = "💭";
+
+        selectedMood.textContent =
+            "Select a mood to continue";
+
+        intensity.value = 5;
+
+        intensityValue.textContent =
+            "5/10";
+
+
+    } catch (error) {
+
+        console.error(
+            "Firebase Mood Save Error:",
+            error
+        );
+
+        showToast(
+            "Unable to save mood. Please try again."
+        );
+
+    }
+
+
+    saveButton.disabled = false;
+
+    saveButton.textContent =
+        "💜 Save Today's Mood";
+
+}
+
+
+/* =========================================
+   LOAD MOODS FROM FIREBASE
+========================================= */
+
+async function loadMoodsFromFirebase() {
+
+    try {
+
+        const data =
+            await getMoods();
+
+
+        firebaseMoods =
+            data || {};
+
+
+        renderHistory();
+
+        renderChart();
+
+
+    } catch (error) {
+
+        console.error(
+            "Firebase Mood Load Error:",
+            error
+        );
+
+
+        firebaseMoods = {};
+
+        renderHistory();
+
+        renderChart();
+
+        showToast(
+            "Unable to load mood history."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CONVERT FIREBASE DATA TO ARRAY
+========================================= */
+
+function getMoodArray() {
+
+    return Object.entries(firebaseMoods)
+
+        .map(([id, item]) => ({
+
+            ...item,
+
+            firebaseId: id
+
+        }))
+
+        .sort(
+            (a, b) =>
+                Number(b.timestamp || 0) -
+                Number(a.timestamp || 0)
+        );
+
+}
+
+
+/* =========================================
+   HISTORY
+========================================= */
+
+function renderHistory() {
+
+    const container =
+        document.getElementById("history");
+
+
+    const moods =
+        getMoodArray();
+
+
+    if (moods.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                Your mood history will appear here 🌱
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+
+        moods.slice(0, 5)
+
+        .map(item => `
+
+            <div class="history-item">
+
+                <div class="history-emoji">
+                    ${escapeHTML(item.emoji || "💭")}
+                </div>
+
+                <div class="history-info">
+
+                    <strong>
+                        ${escapeHTML(item.mood || "Mood")}
+                    </strong>
+
+                    <small>
+
+                        ${escapeHTML(item.date || "")}
+
+                        ${
+                            Array.isArray(item.tags) &&
+                            item.tags.length
+                            ?
+                            " • " +
+                            item.tags
+                                .slice(0, 2)
+                                .map(tag =>
+                                    escapeHTML(tag)
+                                )
+                                .join(", ")
+                            :
+                            ""
+                        }
+
+                    </small>
+
+                </div>
+
+                <div class="intensity-dot">
+
+                    ${Number(item.intensity || 0)}/10
+
+                </div>
+
+            </div>
+
+        `)
+
+        .join("");
+
+}
+
+
+/* =========================================
+   WEEKLY CHART
+========================================= */
+
+function renderChart() {
+
+    const chart =
+        document.getElementById("chart");
+
+
+    const moods =
+        getMoodArray();
+
+
+    const days = [];
+
+
+    for (let i = 6; i >= 0; i--) {
+
+        const date =
+            new Date();
+
+        date.setDate(
+            date.getDate() - i
+        );
+
+        days.push(date);
+
+    }
+
+
+    const values =
+
+        days.map(day => {
+
+            const dayString =
+                day.toLocaleDateString();
+
+
+            /*
+            Find latest mood
+            for this particular day
+            */
+
+            const entry =
+
+                moods.find(item => {
+
+                    return item.date === dayString;
+
+                });
+
+
+            return entry
+                ? Number(entry.intensity || 0)
+                : 0;
+
+        });
+
+
+    chart.innerHTML =
+
+        days.map((day, index) => {
+
+            const height =
+
+                values[index] > 0
+
+                ? values[index] * 10
+
+                : 7;
+
+
+            return `
+
+                <div class="day">
+
+                    <div class="bar-wrap">
+
+                        <div
+                            class="bar"
+                            style="
+                                height:${height}px;
+                                opacity:${values[index] ? 1 : .18};
+                            "
+                            title="${
+                                values[index]
+                                ? values[index] + "/10"
+                                : "No entry"
+                            }"
+                        ></div>
+
+                    </div>
+
+                    <span>
+
+                        ${
+                            day.toLocaleDateString(
+                                "en-US",
+                                {
+                                    weekday:"short"
+                                }
+                            ).slice(0,2)
+                        }
+
+                    </span>
+
+                </div>
+
+            `;
+
+        })
+
+        .join("");
+
+
+    const valid =
+        values.filter(
+            value => value > 0
+        );
+
+
+    if (valid.length) {
+
+        const average =
+
+            valid.reduce(
+                (a, b) => a + b,
+                0
+            ) / valid.length;
+
+
+        document.getElementById(
+            "averageMood"
+        ).textContent =
+            "Avg " +
+            average.toFixed(1) +
+            "/10";
+
+    } else {
+
+        document.getElementById(
+            "averageMood"
+        ).textContent =
+            "No data yet";
+
+    }
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        String(value ?? "");
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2200);
+
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+function goBack() {
+
+    if (history.length > 1) {
+
+        history.back();
+
+    } else {
+
+        window.location.href =
+            "home.html";
+
+    }
+
+}
+
+
+/* =========================================
+   MAKE INLINE HTML EVENTS WORK
+========================================= */
+
+window.saveMood =
+    saveMood;
+
+window.goBack =
+    goBack;
+
+window.showToast =
+    showToast;
+
+
+/* =========================================
+   INITIAL UI
+========================================= */
+
+intensityValue.textContent =
+    intensity.value + "/10";
+
+</script>
+
+<script type="module" src="app.js"></script>
+
+ 
+<script src="emoji-sounds.js"></script>
+</body>
+</html>
