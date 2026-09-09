@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MoveOn — Calm Space</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    color:#29273d;
+    background:
+        radial-gradient(circle at 15% 10%,#ded9ff,transparent 30%),
+        radial-gradient(circle at 90% 35%,#d9f7ef,transparent 28%),
+        linear-gradient(135deg,#f7f7ff,#f4fffc);
+    overflow-x:hidden;
+}
+
+.blob{
+    position:fixed;
+    border-radius:50%;
+    z-index:-1;
+    opacity:.5;
+    filter:blur(2px);
+    animation:float 9s ease-in-out infinite;
+}
+
+.blob.one{
+    width:190px;
+    height:190px;
+    background:#d2ccff;
+    left:-90px;
+    top:90px;
+}
+
+.blob.two{
+    width:230px;
+    height:230px;
+    background:#c8f1e5;
+    right:-110px;
+    bottom:80px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-25px);
+    }
+}
+
+.header{
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#7667f8,#9a8cff);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    box-shadow:0 10px 25px #7667f833;
+}
+
+.brand h2{
+    font-size:19px;
+}
+
+.brand p{
+    font-size:11px;
+    color:#908ca0;
+    margin-top:3px;
+}
+
+.back{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:14px;
+    background:#ffffffc2;
+    backdrop-filter:blur(12px);
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 8px 20px #39306112;
+}
+
+.container{
+    width:min(720px,92%);
+    margin:auto;
+    padding:8px 0 40px;
+}
+
+.hero{
+    text-align:center;
+    padding:5px 0 20px;
+}
+
+.hero h1{
+    font-size:29px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#858298;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.breathing-area{
+    min-height:365px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.breathing-circle{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+        radial-gradient(circle,#ffffff 0%,#e8e4ff 55%,#dcd6ff 100%);
+    box-shadow:
+        0 0 0 18px #7667f80b,
+        0 0 0 38px #7667f806,
+        0 25px 70px #7667f82b;
+    transition:
+        transform 4s ease-in-out,
+        box-shadow 4s ease-in-out;
+}
+
+.breathing-circle.inhale{
+    transform:scale(1.23);
+    box-shadow:
+        0 0 0 25px #7667f80d,
+        0 0 0 50px #7667f806,
+        0 30px 90px #7667f82e;
+}
+
+.breathing-circle.hold{
+    transform:scale(1.23);
+}
+
+.breathing-circle.exhale{
+    transform:scale(.86);
+    box-shadow:
+        0 0 0 12px #7667f807,
+        0 0 0 28px #7667f803,
+        0 15px 45px #7667f81c;
+}
+
+.breath-text{
+    position:relative;
+    z-index:2;
+}
+
+.breath-text strong{
+    display:block;
+    font-size:18px;
+    color:#7667f8;
+}
+
+.breath-text span{
+    display:block;
+    margin-top:6px;
+    color:#9995a8;
+    font-size:11px;
+}
+
+.session-time{
+    margin-top:25px;
+    font-size:14px;
+    color:#777388;
+}
+
+.session-time strong{
+    color:#7667f8;
+    font-size:20px;
+}
+
+.controls{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.time-btn{
+    border:1px solid #e6e2f2;
+    background:#ffffffb8;
+    color:#777388;
+    padding:10px 16px;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:11px;
+    transition:.2s;
+}
+
+.time-btn.active,
+.time-btn:hover{
+    background:#7667f8;
+    border-color:#7667f8;
+    color:white;
+}
+
+.action-row{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+    width:100%;
+    justify-content:center;
+}
+
+.start-btn,
+.reset-btn{
+    border:none;
+    border-radius:16px;
+    padding:13px 25px;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.start-btn{
+    color:white;
+    background:linear-gradient(135deg,#7667f8,#9d90ff);
+    box-shadow:0 12px 25px #7667f833;
+}
+
+.start-btn:hover{
+    transform:translateY(-2px);
+}
+
+.reset-btn{
+    background:#ffffffb8;
+    border:1px solid #e5e1f1;
+    color:#858194;
+}
+
+.reset-btn:hover{
+    background:white;
+}
+
+.card{
+    background:#ffffffb8;
+    border:1px solid #fff;
+    backdrop-filter:blur(16px);
+    border-radius:24px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 15px 40px #463b7d10;
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.card-title h3{
+    font-size:17px;
+}
+
+.card-title span{
+    color:#9995a8;
+    font-size:10px;
+}
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.step{
+    text-align:center;
+    padding:14px 8px;
+    border-radius:18px;
+    background:#faf9ff;
+}
+
+.step-icon{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.step strong{
+    display:block;
+    font-size:12px;
+}
+
+.step span{
+    display:block;
+    margin-top:5px;
+    color:#9995a8;
+    font-size:9px;
+}
+
+.grounding-intro{
+    color:#8d899b;
+    font-size:12px;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.grounding{
+    display:grid;
+    gap:9px;
+}
+
+.ground-item{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:12px;
+    border-radius:16px;
+    background:#faf9ff;
+}
+
+.ground-number{
+    width:34px;
+    height:34px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eeeaff;
+    color:#7667f8;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.ground-item span{
+    color:#777388;
+    font-size:11px;
+}
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.quick{
+    text-decoration:none;
+    color:#29273d;
+    padding:15px;
+    border-radius:18px;
+    background:#faf9ff;
+    border:1px solid #ebe8f5;
+    transition:.2s;
+}
+
+.quick:hover{
+    transform:translateY(-3px);
+    border-color:#7667f8;
+}
+
+.quick-icon{
+    font-size:23px;
+    margin-bottom:7px;
+}
+
+.quick strong{
+    display:block;
+    font-size:12px;
+}
+
+.quick span{
+    display:block;
+    margin-top:4px;
+    color:#9995a8;
+    font-size:9px;
+    line-height:1.4;
+}
+
+.history{
+    text-align:center;
+    padding:8px 0;
+    color:#9995a8;
+    font-size:11px;
+}
+
+.history strong{
+    color:#7667f8;
+}
+
+.support{
+    background:linear-gradient(135deg,#eeeaff,#e7faf4);
+    border-radius:22px;
+    padding:20px;
+    margin-bottom:16px;
+}
+
+.support h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.support p{
+    color:#777388;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.support a{
+    display:inline-block;
+    margin-top:13px;
+    text-decoration:none;
+    background:white;
+    color:#7667f8;
+    padding:10px 14px;
+    border-radius:13px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,120px);
+    opacity:0;
+    background:#29263b;
+    color:white;
+    padding:13px 19px;
+    border-radius:30px;
+    font-size:12px;
+    transition:.35s;
+    z-index:30;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+    opacity:1;
+}
+
+.finish{
+    position:fixed;
+    inset:0;
+    background:#28253b66;
+    backdrop-filter:blur(5px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:40;
+    padding:20px;
+}
+
+.finish.show{
+    display:flex;
+}
+
+.finish-box{
+    width:min(350px,100%);
+    background:white;
+    border-radius:27px;
+    padding:28px;
+    text-align:center;
+    box-shadow:0 25px 70px #0003;
+    animation:pop .4s ease;
+}
+
+.finish-icon{
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+.finish-box h2{
+    font-size:21px;
+}
+
+.finish-box p{
+    color:#8d899b;
+    font-size:12px;
+    line-height:1.6;
+    margin:8px 0 18px;
+}
+
+.close-finish{
+    border:none;
+    background:#7667f8;
+    color:white;
+    padding:12px 22px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+@keyframes pop{
+    from{
+        transform:scale(.7);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .breathing-area{
+        min-height:340px;
+    }
+
+    .breathing-circle{
+        width:190px;
+        height:190px;
+    }
+
+    .breathing-circle.inhale,
+    .breathing-circle.hold{
+        transform:scale(1.18);
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .quick-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob one"></div>
+<div class="blob two"></div>
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">💜</div>
+
+        <div>
+            <h2>MoveOn</h2>
+            <p>Heal • Grow • Be You</p>
+        </div>
+
+    </div>
+
+    <button class="back" onclick="goBack()">←</button>
+
+</header>
+
+<main class="container">
+
+    <section class="hero">
+
+        <h1>Take a moment for yourself 🌿</h1>
+
+        <p>
+            Slow down. Breathe. Let your mind rest<br>
+            for a few peaceful moments.
+        </p>
+
+    </section>
+
+    <section class="breathing-area">
+
+        <div class="breathing-circle" id="breathingCircle">
+
+            <div class="breath-text">
+
+                <strong id="breathInstruction">
+                    Ready?
+                </strong>
+
+                <span id="breathSub">
+                    Start when you're ready
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="session-time">
+
+            <strong id="timer">
+                01:00
+            </strong>
+
+            <div>
+                remaining
+            </div>
+
+        </div>
+
+        <div class="controls">
+
+            <button
+                class="time-btn active"
+                data-time="60">
+                1 min
+            </button>
+
+            <button
+                class="time-btn"
+                data-time="180">
+                3 min
+            </button>
+
+            <button
+                class="time-btn"
+                data-time="300">
+                5 min
+            </button>
+
+        </div>
+
+        <div class="action-row">
+
+            <button
+                class="start-btn"
+                id="startBtn"
+                onclick="startSession()">
+                🌿 Start Breathing
+            </button>
+
+            <button
+                class="reset-btn"
+                onclick="resetSession()">
+                Reset
+            </button>
+
+        </div>
+
+    </section>
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <h3>Simple breathing pattern</h3>
+
+            <span>4 • 4 • 6</span>
+
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-icon">🌬️</div>
+
+                <strong>Inhale</strong>
+
+                <span>4 seconds</span>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-icon">⏸️</div>
+
+                <strong>Hold</strong>
+
+                <span>4 seconds</span>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-icon">🍃</div>
+
+                <strong>Exhale</strong>
+
+                <span>6 seconds</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <h3>5-4-3-2-1 Grounding</h3>
+
+            <span>Quick reset</span>
+
+        </div>
+
+        <p class="grounding-intro">
+            If your thoughts feel overwhelming, gently bring
+            your attention back to the present moment.
+        </p>
+
+        <div class="grounding">
+
+            <div class="ground-item">
+
+                <div class="ground-number">5</div>
+
+                <span>
+                    Notice 5 things you can see.
+                </span>
+
+            </div>
+
+            <div class="ground-item">
+
+                <div class="ground-number">4</div>
+
+                <span>
+                    Notice 4 things you can touch.
+                </span>
+
+            </div>
+
+            <div class="ground-item">
+
+                <div class="ground-number">3</div>
+
+                <span>
+                    Notice 3 sounds around you.
+                </span>
+
+            </div>
+
+            <div class="ground-item">
+
+                <div class="ground-number">2</div>
+
+                <span>
+                    Notice 2 things you can smell.
+                </span>
+
+            </div>
+
+            <div class="ground-item">
+
+                <div class="ground-number">1</div>
+
+                <span>
+                    Notice 1 thing you appreciate right now.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <h3>Need something else?</h3>
+
+            <span>Explore</span>
+
+        </div>
+
+        <div class="quick-grid">
+
+            <a href="journal.html" class="quick">
+
+                <div class="quick-icon">📖</div>
+
+                <strong>Write it out</strong>
+
+                <span>
+                    Put your thoughts into words.
+                </span>
+
+            </a>
+
+            <a href="mood.html" class="quick">
+
+                <div class="quick-icon">😊</div>
+
+                <strong>Check your mood</strong>
+
+                <span>
+                    Notice how you're feeling today.
+                </span>
+
+            </a>
+
+            <a href="challenges.html" class="quick">
+
+                <div class="quick-icon">🌱</div>
+
+                <strong>Daily challenge</strong>
+
+                <span>
+                    Take one small step forward.
+                </span>
+
+            </a>
+
+            <a href="home.html" class="quick">
+
+                <div class="quick-icon">🏠</div>
+
+                <strong>Go Home</strong>
+
+                <span>
+                    Return to your MoveOn space.
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <h3>Your calm sessions</h3>
+
+            <span>Private</span>
+
+        </div>
+
+        <div class="history">
+
+            You've completed
+            <strong id="sessionCount">0</strong>
+            calm sessions.
+
+        </div>
+
+    </section>
+
+    <section class="support">
+
+        <h3>Feeling really overwhelmed? 💜</h3>
+
+        <p>
+            You don't have to deal with difficult moments alone.
+            Consider reaching out to someone you trust or a
+            qualified professional for support.
+        </p>
+
+        <a href="contact.html">
+            Contact MoveOn
+        </a>
+
+    </section>
+
+</main>
+
+<div class="finish" id="finishModal">
+
+    <div class="finish-box">
+
+        <div class="finish-icon">
+            🌿
+        </div>
+
+        <h2>Well done.</h2>
+
+        <p>
+            You gave yourself a few moments to pause and breathe.
+            That's a small but meaningful step.
+        </p>
+
+        <button
+            class="close-finish"
+            onclick="closeFinish()">
+            Continue
+        </button>
+
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<!-- Firebase + Calm Session Logic -->
+
+<script type="module">
+
+import { auth, database } from "./firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    ref,
+    get,
+    push,
+    set
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+let selectedDuration = 60;
+let remaining = selectedDuration;
+
+let timerInterval = null;
+let breathingInterval = null;
+
+let isRunning = false;
+
+let currentUser = null;
+
+
+/* Elements */
+
+const circle =
+    document.getElementById("breathingCircle");
+
+const instruction =
+    document.getElementById("breathInstruction");
+
+const sub =
+    document.getElementById("breathSub");
+
+const timer =
+    document.getElementById("timer");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+const sessionCount =
+    document.getElementById("sessionCount");
+
+
+/* --------------------------------
+   Firebase Authentication
+-------------------------------- */
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    currentUser = user;
+
+    await loadSessions();
+
+});
+
+
+/* --------------------------------
+   Duration buttons
+-------------------------------- */
+
+document
+.querySelectorAll(".time-btn")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        if (isRunning) {
+
+            showToast(
+                "Finish or reset the current session first."
+            );
+
+            return;
+        }
+
+        document
+        .querySelectorAll(".time-btn")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+        button.classList.add("active");
+
+        selectedDuration =
+            Number(button.dataset.time);
+
+        remaining =
+            selectedDuration;
+
+        updateTimer();
+
+    });
+
+});
+
+
+/* --------------------------------
+   Start / Resume
+-------------------------------- */
+
+function startSession(){
+
+    if (!currentUser) {
+
+        showToast("Please wait...");
+
+        return;
+    }
+
+
+    if (isRunning) {
+
+        pauseSession();
+
+        return;
+    }
+
+
+    if (remaining <= 0) {
+
+        remaining =
+            selectedDuration;
+
+    }
+
+
+    isRunning = true;
+
+    startBtn.textContent =
+        "⏸ Pause";
+
+
+    runTimer();
+
+    startBreathing();
+
+}
+
+
+/* --------------------------------
+   Timer
+-------------------------------- */
+
+function runTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval =
+        setInterval(() => {
+
+            if (!isRunning) {
+
+                return;
+            }
+
+
+            remaining--;
+
+            updateTimer();
+
+
+            if (remaining <= 0) {
+
+                finishSession();
+
+            }
+
+        }, 1000);
+
+}
+
+
+/* --------------------------------
+   Breathing cycle
+-------------------------------- */
+
+function startBreathing(){
+
+    clearInterval(breathingInterval);
+
+    breathingCycle();
+
+    breathingInterval =
+        setInterval(() => {
+
+            if (isRunning) {
+
+                breathingCycle();
+
+            }
+
+        }, 14000);
+
+}
+
+
+/*
+    Inhale = 4 sec
+    Hold   = 4 sec
+    Exhale = 6 sec
+*/
+
+function breathingCycle(){
+
+    circle.className =
+        "breathing-circle inhale";
+
+    instruction.textContent =
+        "Breathe in";
+
+    sub.textContent =
+        "Slowly • 4 seconds";
+
+
+    setTimeout(() => {
+
+        if (!isRunning) return;
+
+        circle.className =
+            "breathing-circle hold";
+
+        instruction.textContent =
+            "Hold";
+
+        sub.textContent =
+            "Stay relaxed • 4 seconds";
+
+    }, 4000);
+
+
+    setTimeout(() => {
+
+        if (!isRunning) return;
+
+        circle.className =
+            "breathing-circle exhale";
+
+        instruction.textContent =
+            "Breathe out";
+
+        sub.textContent =
+            "Slowly • 6 seconds";
+
+    }, 8000);
+
+}
+
+
+/* --------------------------------
+   Pause
+-------------------------------- */
+
+function pauseSession(){
+
+    isRunning = false;
+
+    clearInterval(timerInterval);
+    clearInterval(breathingInterval);
+
+    circle.className =
+        "breathing-circle";
+
+    instruction.textContent =
+        "Paused";
+
+    sub.textContent =
+        "Continue whenever you're ready";
+
+    startBtn.textContent =
+        "🌿 Resume";
+
+}
+
+
+/* --------------------------------
+   Reset
+-------------------------------- */
+
+function resetSession(){
+
+    isRunning = false;
+
+    clearInterval(timerInterval);
+    clearInterval(breathingInterval);
+
+    remaining =
+        selectedDuration;
+
+    circle.className =
+        "breathing-circle";
+
+    instruction.textContent =
+        "Ready?";
+
+    sub.textContent =
+        "Start when you're ready";
+
+    startBtn.textContent =
+        "🌿 Start Breathing";
+
+    updateTimer();
+
+}
+
+
+/* --------------------------------
+   Timer display
+-------------------------------- */
+
+function updateTimer(){
+
+    const minutes =
+        Math.floor(remaining / 60);
+
+    const seconds =
+        remaining % 60;
+
+
+    timer.textContent =
+        String(minutes).padStart(2, "0")
+        + ":"
+        + String(seconds).padStart(2, "0");
+
+}
+
+
+/* --------------------------------
+   Finish Session
+-------------------------------- */
+
+async function finishSession(){
+
+    isRunning = false;
+
+    clearInterval(timerInterval);
+    clearInterval(breathingInterval);
+
+    remaining = 0;
+
+    updateTimer();
+
+
+    circle.className =
+        "breathing-circle";
+
+    instruction.textContent =
+        "Finished";
+
+    sub.textContent =
+        "You did something kind for yourself.";
+
+    startBtn.textContent =
+        "🌿 Start Again";
+
+
+    /*
+       Save completed session
+       to Firebase
+    */
+
+    await saveCalmSession();
+
+
+    document
+        .getElementById("finishModal")
+        .classList.add("show");
+
+}
+
+
+/* --------------------------------
+   Save Calm Session
+-------------------------------- */
+
+async function saveCalmSession(){
+
+    if (!currentUser) {
+
+        return false;
+    }
+
+
+    try {
+
+        const sessionsRef =
+            ref(
+                database,
+                `users/${currentUser.uid}/calmSessions`
+            );
+
+
+        const newSessionRef =
+            push(sessionsRef);
+
+
+        await set(newSessionRef, {
+
+            durationSeconds:
+                selectedDuration,
+
+            durationMinutes:
+                selectedDuration / 60,
+
+            completed:
+                true,
+
+            completedAt:
+                new Date().toISOString(),
+
+            timestamp:
+                Date.now()
+
+        });
+
+
+        await loadSessions();
+
+        return true;
+
+
+    } catch (error) {
+
+        console.error(
+            "Save Calm Session Error:",
+            error
+        );
+
+        showToast(
+            "Session finished, but could not be saved."
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* --------------------------------
+   Load Session Count
+-------------------------------- */
+
+async function loadSessions(){
+
+    if (!currentUser) {
+
+        return;
+    }
+
+
+    try {
+
+        const sessionsRef =
+            ref(
+                database,
+                `users/${currentUser.uid}/calmSessions`
+            );
+
+
+        const snapshot =
+            await get(sessionsRef);
+
+
+        if (!snapshot.exists()) {
+
+            sessionCount.textContent = "0";
+
+            return;
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        const sessions =
+            Object.keys(data).length;
+
+
+        sessionCount.textContent =
+            sessions;
+
+
+    } catch (error) {
+
+        console.error(
+            "Load Calm Sessions Error:",
+            error
+        );
+
+        sessionCount.textContent =
+            "0";
+
+    }
+
+}
+
+
+/* --------------------------------
+   Close Finish Modal
+-------------------------------- */
+
+function closeFinish(){
+
+    document
+        .getElementById("finishModal")
+        .classList.remove("show");
+
+}
+
+
+/* --------------------------------
+   Toast
+-------------------------------- */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2200);
+
+}
+
+
+/* --------------------------------
+   Back
+-------------------------------- */
+
+function goBack(){
+
+    if (history.length > 1) {
+
+        history.back();
+
+    } else {
+
+        window.location.href =
+            "home.html";
+
+    }
+
+}
+
+
+/* --------------------------------
+   Make inline onclick functions
+   available globally
+-------------------------------- */
+
+window.startSession =
+    startSession;
+
+window.resetSession =
+    resetSession;
+
+window.closeFinish =
+    closeFinish;
+
+window.goBack =
+    goBack;
+
+
+/* --------------------------------
+   Initial UI
+-------------------------------- */
+
+updateTimer();
+
+</script>
+
+<script src="emoji-sounds.js"></script>
+</body>
+</html>
