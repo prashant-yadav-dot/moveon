@@ -1377,7 +1377,7 @@ function renderTodayChallenge(){
 window.completeChallenge=async function(){
     const button=document.getElementById('challengeButton');
     if(!todayChallenge) return;
-    if(button?.dataset.completed==='true'){ showToast('Today's challenge is already completed 🌱'); return; }
+    if(button?.dataset.completed==='true'){ showToast("Today's challenge is already completed 🌱"); return; }
     const today=challengeDate();
     try{
         const result=await saveChallengeProgress(todayChallenge.id,{
