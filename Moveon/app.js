@@ -393,7 +393,7 @@ export function redirectIfLoggedIn() {
                 );
 
                 window.location.replace(
-                    "home.html"
+                    "index.html"
                 );
 
             }
