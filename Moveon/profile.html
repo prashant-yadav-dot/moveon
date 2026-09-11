@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MoveOn - Profile</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MoveOn - Profile</title><style>
 *{
     box-sizing:border-box;
     margin:0;
@@ -320,6 +315,11 @@ body{
     border-radius:17px;
     background:rgba(255,255,255,.72);
     border:1px solid rgba(255,255,255,.9);
+    transition:.25s;
+}
+
+.setting:hover{
+    transform:translateY(-2px);
 }
 
 .setting-left{
@@ -337,6 +337,7 @@ body{
     align-items:center;
     justify-content:center;
     font-size:20px;
+    flex-shrink:0;
 }
 
 .setting strong{
@@ -348,6 +349,7 @@ body{
     display:block;
     margin-top:3px;
     color:#858293;
+    line-height:1.4;
 }
 
 .setting button{
@@ -358,6 +360,7 @@ body{
     border-radius:10px;
     cursor:pointer;
     font-weight:700;
+    flex-shrink:0;
 }
 
 .danger{
@@ -499,323 +502,353 @@ body{
     .profile-card h1{
         font-size:25px;
     }
+
+    .setting{
+        padding:15px;
+    }
+
+    .setting small{
+        max-width:190px;
+    }
+
+    .setting button{
+        padding:8px 11px;
+    }
 }
-</style>
-</head>
+</style></head><body><div class="blob one"></div>
+<div class="blob two"></div><header class="header"><div class="logo">
+    <div class="logo-icon">💜</div>
+    MoveOn
+</div>
 
-<body>
+<button class="back" onclick="goBack()">← Back</button>
 
-<div class="blob one"></div>
-<div class="blob two"></div>
+</header><main class="container"><!-- PROFILE -->
 
-<header class="header">
+<section class="profile-card">
 
-    <div class="logo">
-        <div class="logo-icon">💜</div>
-        MoveOn
+    <div class="profile-glow"></div>
+
+    <div class="avatar" id="avatar">
+        💜
     </div>
 
-    <button class="back" onclick="goBack()">← Back</button>
+    <h1 id="profileName">Loading...</h1>
 
-</header>
+    <div class="email" id="profileEmail">
+        Loading profile...
+    </div>
+
+    <div class="tagline">
+        Heal • Grow • Be You 🌱
+    </div>
+
+    <button class="edit-btn" onclick="openEdit()">
+        ✏️ Edit Profile
+    </button>
+
+</section>
 
 
-<main class="container">
+<!-- JOURNEY -->
 
-    <section class="profile-card">
+<section class="section">
 
-        <div class="profile-glow"></div>
+    <h2 class="section-title">📊 Your Journey</h2>
 
-        <div class="avatar" id="avatar">
-            💜
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-icon">📖</div>
+            <strong id="journalCount">0</strong>
+            <span>Journal Entries</span>
         </div>
 
-        <h1 id="profileName">Loading...</h1>
-
-        <div class="email" id="profileEmail">
-            Loading profile...
+        <div class="stat">
+            <div class="stat-icon">😊</div>
+            <strong id="moodCount">0</strong>
+            <span>Mood Check-ins</span>
         </div>
 
-        <div class="tagline">
-            Heal • Grow • Be You 🌱
+        <div class="stat">
+            <div class="stat-icon">🎯</div>
+            <strong id="challengeCount">0</strong>
+            <span>Challenges</span>
         </div>
 
-        <button class="edit-btn" onclick="openEdit()">
-            ✏️ Edit Profile
+        <div class="stat">
+            <div class="stat-icon">🧘</div>
+            <strong id="calmCount">0</strong>
+            <span>Calm Sessions</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- QUICK ACCESS -->
+
+<section class="section">
+
+    <h2 class="section-title">⚡ Quick Access</h2>
+
+    <div class="actions">
+
+        <a href="progress.html" class="action">
+            <div class="action-icon">📈</div>
+            <strong>Progress</strong>
+            <small>See how far you've come</small>
+        </a>
+
+        <a href="journal.html" class="action">
+            <div class="action-icon">📔</div>
+            <strong>Journal</strong>
+            <small>Write what's on your mind</small>
+        </a>
+
+        <a href="calm.html" class="action">
+            <div class="action-icon">🧘</div>
+            <strong>Calm</strong>
+            <small>Take a peaceful moment</small>
+        </a>
+
+        <a href="mood.html" class="action">
+            <div class="action-icon">💭</div>
+            <strong>Mood</strong>
+            <small>Check in with yourself</small>
+        </a>
+
+        <a href="challenges.html" class="action">
+            <div class="action-icon">🎯</div>
+            <strong>Challenges</strong>
+            <small>Take today's small step</small>
+        </a>
+
+        <a href="support.html" class="action">
+            <div class="action-icon">🤝</div>
+            <strong>Support</strong>
+            <small>Find helpful resources</small>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ACHIEVEMENTS -->
+
+<section class="section">
+
+    <h2 class="section-title">🏆 Achievements</h2>
+
+    <div class="achievements">
+
+        <div class="badge locked" id="badgeJournal">
+            <div class="badge-icon">📖</div>
+            <strong>First Page</strong>
+            <small>First journal</small>
+        </div>
+
+        <div class="badge locked" id="badgeMood">
+            <div class="badge-icon">😊</div>
+            <strong>Self Aware</strong>
+            <small>Track a mood</small>
+        </div>
+
+        <div class="badge locked" id="badgeChallenge">
+            <div class="badge-icon">🎯</div>
+            <strong>Action Taker</strong>
+            <small>5 challenges</small>
+        </div>
+
+        <div class="badge locked" id="badgeCalm">
+            <div class="badge-icon">🧘</div>
+            <strong>Inner Calm</strong>
+            <small>5 calm sessions</small>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ACCOUNT -->
+
+<section class="section">
+
+    <h2 class="section-title">⚙️ Account</h2>
+
+    <div class="settings">
+
+        <!-- NOTIFICATIONS -->
+
+        <div class="setting">
+
+            <div class="setting-left">
+
+                <div class="setting-icon">🔔</div>
+
+                <div>
+                    <strong>Notifications</strong>
+                    <small>Manage your healing reminders</small>
+                </div>
+
+            </div>
+
+            <button onclick="openNotifications()">
+                Open
+            </button>
+
+        </div>
+
+
+        <!-- PRIVACY -->
+
+        <div class="setting">
+
+            <div class="setting-left">
+
+                <div class="setting-icon">🔒</div>
+
+                <div>
+                    <strong>Privacy</strong>
+                    <small>Learn how your MoveOn data is handled</small>
+                </div>
+
+            </div>
+
+            <button onclick="openPrivacy()">
+                View
+            </button>
+
+        </div>
+
+
+        <!-- SUPPORT -->
+
+        <div class="setting">
+
+            <div class="setting-left">
+
+                <div class="setting-icon">❓</div>
+
+                <div>
+                    <strong>Support</strong>
+                    <small>Need help?</small>
+                </div>
+
+            </div>
+
+            <button onclick="openSupport()">
+                Help
+            </button>
+
+        </div>
+
+
+        <!-- ABOUT -->
+
+        <div class="setting">
+
+            <div class="setting-left">
+
+                <div class="setting-icon">💜</div>
+
+                <div>
+                    <strong>About MoveOn</strong>
+                    <small>Learn about MoveOn and its mission</small>
+                </div>
+
+            </div>
+
+            <button onclick="openAbout()">
+                About
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DATA -->
+
+<section class="danger">
+
+    <h3>⚠️ Data & Account</h3>
+
+    <p>
+        Your MoveOn progress is linked to your secure account.
+        Resetting your data will permanently remove your
+        journal, moods, challenges and calm-session records.
+    </p>
+
+    <div class="danger-buttons">
+
+        <button class="danger-btn" onclick="clearMoveOnData()">
+            🗑️ Reset My Data
         </button>
 
-    </section>
-
-
-    <section class="section">
-
-        <h2 class="section-title">📊 Your Journey</h2>
-
-        <div class="stats">
-
-            <div class="stat">
-                <div class="stat-icon">📖</div>
-                <strong id="journalCount">0</strong>
-                <span>Journal Entries</span>
-            </div>
-
-            <div class="stat">
-                <div class="stat-icon">😊</div>
-                <strong id="moodCount">0</strong>
-                <span>Mood Check-ins</span>
-            </div>
-
-            <div class="stat">
-                <div class="stat-icon">🎯</div>
-                <strong id="challengeCount">0</strong>
-                <span>Challenges</span>
-            </div>
-
-            <div class="stat">
-                <div class="stat-icon">🧘</div>
-                <strong id="calmCount">0</strong>
-                <span>Calm Sessions</span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section class="section">
-
-        <h2 class="section-title">⚡ Quick Access</h2>
-
-        <div class="actions">
-
-            <a href="progress.html" class="action">
-                <div class="action-icon">📈</div>
-                <strong>Progress</strong>
-                <small>See how far you've come</small>
-            </a>
-
-            <a href="journal.html" class="action">
-                <div class="action-icon">📔</div>
-                <strong>Journal</strong>
-                <small>Write what's on your mind</small>
-            </a>
-
-            <a href="calm.html" class="action">
-                <div class="action-icon">🧘</div>
-                <strong>Calm</strong>
-                <small>Take a peaceful moment</small>
-            </a>
-
-            <a href="mood.html" class="action">
-                <div class="action-icon">💭</div>
-                <strong>Mood</strong>
-                <small>Check in with yourself</small>
-            </a>
-
-            <a href="challenges.html" class="action">
-                <div class="action-icon">🎯</div>
-                <strong>Challenges</strong>
-                <small>Take today's small step</small>
-            </a>
-
-            <a href="support.html" class="action">
-                <div class="action-icon">🤝</div>
-                <strong>Support</strong>
-                <small>Find helpful resources</small>
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <section class="section">
-
-        <h2 class="section-title">🏆 Achievements</h2>
-
-        <div class="achievements">
-
-            <div class="badge locked" id="badgeJournal">
-                <div class="badge-icon">📖</div>
-                <strong>First Page</strong>
-                <small>First journal</small>
-            </div>
-
-            <div class="badge locked" id="badgeMood">
-                <div class="badge-icon">😊</div>
-                <strong>Self Aware</strong>
-                <small>Track a mood</small>
-            </div>
-
-            <div class="badge locked" id="badgeChallenge">
-                <div class="badge-icon">🎯</div>
-                <strong>Action Taker</strong>
-                <small>5 challenges</small>
-            </div>
-
-            <div class="badge locked" id="badgeCalm">
-                <div class="badge-icon">🧘</div>
-                <strong>Inner Calm</strong>
-                <small>5 calm sessions</small>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section class="section">
-
-        <h2 class="section-title">⚙️ Account</h2>
-
-        <div class="settings">
-
-            <div class="setting">
-
-                <div class="setting-left">
-
-                    <div class="setting-icon">🔔</div>
-
-                    <div>
-                        <strong>Notifications</strong>
-                        <small>Manage reminders</small>
-                    </div>
-
-                </div>
-
-                <button onclick="comingSoon()">
-                    Open
-                </button>
-
-            </div>
-
-
-            <div class="setting">
-
-                <div class="setting-left">
-
-                    <div class="setting-icon">🔒</div>
-
-                    <div>
-                        <strong>Privacy</strong>
-                        <small>Your data is securely linked to your account</small>
-                    </div>
-
-                </div>
-
-                <button onclick="comingSoon()">
-                    View
-                </button>
-
-            </div>
-
-
-            <div class="setting">
-
-                <div class="setting-left">
-
-                    <div class="setting-icon">❓</div>
-
-                    <div>
-                        <strong>Support</strong>
-                        <small>Need help?</small>
-                    </div>
-
-                </div>
-
-                <button onclick="location.href='support.html'">
-                    Help
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section class="danger">
-
-        <h3>⚠️ Data & Account</h3>
-
-        <p>
-            Your MoveOn progress is linked to your secure account.
-            Resetting your data will permanently remove your
-            journal, moods, challenges and calm-session records.
-        </p>
-
-        <div class="danger-buttons">
-
-            <button class="danger-btn" onclick="clearMoveOnData()">
-                🗑️ Reset My Data
-            </button>
-
-            <button class="danger-btn" onclick="logout()">
-                🚪 Log Out
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <div class="footer">
-
-        <p>MoveOn • Heal • Grow • Be You 💜</p>
-
-        <p>
-            You are becoming stronger, one small step at a time.
-        </p>
+        <button class="danger-btn" onclick="logout()">
+            🚪 Log Out
+        </button>
 
     </div>
 
-</main>
+</section>
 
 
-<div class="modal" id="editModal">
+<div class="footer">
 
-    <div class="modal-box">
+    <p>MoveOn • Heal • Grow • Be You 💜</p>
 
-        <h2>✏️ Edit Profile</h2>
+    <p>
+        You are becoming stronger, one small step at a time.
+    </p>
 
-        <input
-            class="input"
-            id="nameInput"
-            type="text"
-            maxlength="40"
-            placeholder="Your name"
-        >
+</div>
 
-        <input
-            class="input"
-            id="emailInput"
-            type="email"
-            maxlength="100"
-            placeholder="Your email"
-        >
+</main><!-- EDIT PROFILE MODAL --><div class="modal" id="editModal"><div class="modal-box">
 
-        <div class="modal-actions">
+    <h2>✏️ Edit Profile</h2>
 
-            <button
-                class="cancel"
-                onclick="closeEdit()">
-                Cancel
-            </button>
+    <input
+        class="input"
+        id="nameInput"
+        type="text"
+        maxlength="40"
+        placeholder="Your name"
+    >
 
-            <button
-                class="save"
-                onclick="saveProfile()">
-                Save
-            </button>
+    <input
+        class="input"
+        id="emailInput"
+        type="email"
+        maxlength="100"
+        placeholder="Your email"
+    >
 
-        </div>
+    <div class="modal-actions">
+
+        <button
+            class="cancel"
+            onclick="closeEdit()">
+            Cancel
+        </button>
+
+        <button
+            class="save"
+            onclick="saveProfile()">
+            Save
+        </button>
 
     </div>
 
 </div>
 
-
-<script type="module">
+</div><script type="module">
 
 /* =========================================
    FIREBASE IMPORTS
@@ -835,8 +868,7 @@ import {
 import {
     ref,
     get,
-    update,
-    remove
+    update
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
@@ -1010,11 +1042,13 @@ async function loadFirebaseStats(){
         const calmSessions =
             data.calmSessions || {};
 
+
         const journalCount =
             Object.keys(journals).length;
 
         const moodCount =
             Object.keys(moods).length;
+
 
         let challengeCount = 0;
 
@@ -1035,6 +1069,7 @@ async function loadFirebaseStats(){
                 }
 
             });
+
 
         const calmCount =
             Object.keys(calmSessions).length;
@@ -1084,8 +1119,6 @@ function setStats(
     document.getElementById("calmCount")
         .textContent = calmCount;
 
-
-    /* Achievements */
 
     if(journalCount >= 1){
 
@@ -1197,12 +1230,6 @@ window.saveProfile = async function(){
 
     try{
 
-        /*
-           IMPORTANT:
-           Firebase Auth email is NOT changed here.
-           The email field is saved as profile information.
-        */
-
         await updateProfile(
             currentUser,
             {
@@ -1262,6 +1289,38 @@ window.saveProfile = async function(){
 
 
 /* =========================================
+   OPEN ACCOUNT PAGES
+========================================= */
+
+window.openNotifications = function(){
+
+    window.location.href = "notifications.html";
+
+};
+
+
+window.openPrivacy = function(){
+
+    window.location.href = "privacy.html";
+
+};
+
+
+window.openAbout = function(){
+
+    window.location.href = "about.html";
+
+};
+
+
+window.openSupport = function(){
+
+    window.location.href = "support.html";
+
+};
+
+
+/* =========================================
    RESET FIREBASE DATA
 ========================================= */
 
@@ -1290,11 +1349,6 @@ window.clearMoveOnData = async function(){
             currentUser.uid;
 
 
-        /*
-           Only progress-related data is deleted.
-           Account/profile remains safe.
-        */
-
         const userRef =
             ref(database, "users/" + uid);
 
@@ -1310,8 +1364,6 @@ window.clearMoveOnData = async function(){
             }
         );
 
-
-        /* Also clear old local data */
 
         const localKeys = [
 
@@ -1360,7 +1412,7 @@ window.clearMoveOnData = async function(){
 
 
 /* =========================================
-   FIREBASE LOGOUT
+   LOGOUT
 ========================================= */
 
 window.logout = async function(){
@@ -1375,11 +1427,6 @@ window.logout = async function(){
     try{
 
         await signOut(auth);
-
-        /*
-           Firebase automatically clears
-           the authenticated session.
-        */
 
         window.location.href =
             "login.html";
@@ -1396,19 +1443,6 @@ window.logout = async function(){
         );
 
     }
-
-};
-
-
-/* =========================================
-   COMING SOON
-========================================= */
-
-window.comingSoon = function(){
-
-    alert(
-        "This feature will be available soon. 💜"
-    );
 
 };
 
@@ -1455,8 +1489,5 @@ document
         }
     );
 
-</script>
-
-<script src="emoji-sounds.js"></script>
-</body>
+</script><script src="emoji-sounds.js"></script></body>
 </html>
