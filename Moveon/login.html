@@ -857,7 +857,8 @@ body{
 </div><div id="toast" class="toast"></div><script type="module">
 
 import {
-    loginUser
+    loginUser,
+    redirectIfLoggedIn
 } from "./auth.js";
 
 import {
@@ -871,6 +872,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import { auth } from "./firebase-config.js";
+    redirectIfLoggedIn();
 
 
 // =========================
