@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#6c63ff">
-
 <title>Ex Roleplay — MoveOn</title>
 
 <style>
@@ -12,86 +11,40 @@
   box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
   margin:0;
-  padding:0;
   width:100%;
   min-height:100%;
-}
-
-body{
   font-family:Inter,Arial,sans-serif;
   background:linear-gradient(135deg,#f7f5ff,#fff);
   color:#202033;
+}
+
+body{
   min-height:100vh;
-  transition:background .3s ease;
-  overflow:hidden;
 }
-
-/* =========================
-   CUSTOM BACKGROUND
-========================= */
-
-body.custom-bg{
-  background-size:cover;
-  background-position:center;
-  background-attachment:fixed;
-  background-repeat:no-repeat;
-}
-
-body.custom-bg::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.70);
-  pointer-events:none;
-  z-index:-1;
-}
-
-/* =========================
-   MAIN APP
-========================= */
 
 .wrap{
-  width:100%;
   max-width:900px;
   margin:auto;
-
-  height:100vh;
-  height:100dvh;
-
+  min-height:100vh;
   display:flex;
   flex-direction:column;
-
   position:relative;
 }
 
-/* =========================
-   HEADER
-========================= */
-
+/* TOP */
 .top{
-  flex:0 0 auto;
-
-  padding:
-    max(14px,env(safe-area-inset-top))
-    16px
-    14px
-    16px;
-
+  padding:14px 16px;
   display:flex;
   align-items:center;
   gap:12px;
-
   border-bottom:1px solid #eceaf5;
-
   background:rgba(255,255,255,.88);
   backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-
-  position:relative;
-  z-index:5;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .back{
@@ -101,26 +54,17 @@ body.custom-bg::before{
   padding:10px 13px;
   font-size:18px;
   cursor:pointer;
-  flex-shrink:0;
-}
-
-.back:active{
-  transform:scale(.96);
 }
 
 .avatar{
   width:42px;
   height:42px;
   border-radius:50%;
-
   display:grid;
   place-items:center;
-
   background:linear-gradient(135deg,#6c63ff,#a98cff);
-
   color:white;
   font-size:19px;
-
   flex-shrink:0;
 }
 
@@ -132,7 +76,6 @@ body.custom-bg::before{
 .title strong{
   display:block;
   font-size:17px;
-
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -149,289 +92,153 @@ body.custom-bg::before{
   border-radius:12px;
   padding:10px;
   cursor:pointer;
-  font-size:17px;
-  flex-shrink:0;
 }
 
-/* =========================
-   CHAT AREA
-========================= */
-
+/* CHAT */
 .chat{
-  flex:1 1 auto;
-
-  min-height:0;
-
+  flex:1;
+  padding:22px 16px 90px;
   overflow-y:auto;
-  overflow-x:hidden;
-
-  padding:20px 16px 20px;
-
-  scroll-behavior:smooth;
-
   -webkit-overflow-scrolling:touch;
-
-  overscroll-behavior-y:contain;
+  scroll-behavior:smooth;
 }
-
-/* =========================
-   NOTICE
-========================= */
 
 .notice{
   font-size:12px;
   color:#777;
-
   text-align:center;
-
   margin:4px auto 18px;
-
   max-width:600px;
-
   line-height:1.5;
-
-  background:rgba(255,255,255,.70);
-
-  padding:8px 12px;
-
-  border-radius:12px;
 }
-
-/* =========================
-   CHAT BUBBLES
-========================= */
 
 .bubble{
   max-width:78%;
-
   padding:12px 15px;
-
   border-radius:18px;
-
   margin:10px 0;
-
   line-height:1.45;
-
   white-space:pre-wrap;
-
   word-break:break-word;
-
-  overflow-wrap:anywhere;
 }
 
 .ai{
-  background:rgba(255,255,255,.92);
-
+  background:white;
   border:1px solid #eceaf5;
-
   border-bottom-left-radius:5px;
-
-  box-shadow:
-    0 4px 18px rgba(50,40,100,.05);
+  box-shadow:0 4px 18px rgba(50,40,100,.05);
 }
 
 .user{
   margin-left:auto;
-
   background:#6c63ff;
-
   color:white;
-
   border-bottom-right-radius:5px;
-
-  box-shadow:
-    0 4px 14px rgba(108,99,255,.18);
 }
-
-/* =========================
-   TYPING
-========================= */
 
 .typing{
   display:none;
-
   color:#777;
-
   font-size:13px;
-
   margin:10px 0;
-
-  padding-bottom:4px;
 }
 
-/* =========================
-   EMPTY STATE
-========================= */
-
-.empty{
-  opacity:.75;
-  text-align:center;
-
-  margin-top:20vh;
-
-  padding-bottom:30px;
-}
-
-.quick{
-  display:flex;
-  flex-wrap:wrap;
-
-  gap:8px;
-
-  margin-top:12px;
-
-  justify-content:center;
-}
-
-.quick button{
+/* COLLAPSED MESSAGE BUTTON */
+.message-trigger{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:14px;
+  width:calc(100% - 28px);
+  max-width:868px;
+  z-index:15;
   border:1px solid #ddd9ee;
-
-  background:rgba(255,255,255,.90);
-
-  border-radius:20px;
-
-  padding:8px 11px;
-
-  color:#4b4660;
-
-  cursor:pointer;
-}
-
-.quick button:active{
-  transform:scale(.97);
-}
-
-/* =========================
-   COMPOSER
-========================= */
-
-.composer{
-  flex:0 0 auto;
-
-  width:100%;
-
-  background:rgba(255,255,255,.95);
-
-  border-top:1px solid #eceaf5;
-
-  padding:
-    10px
-    16px
-    max(10px,env(safe-area-inset-bottom))
-    16px;
-
+  background:rgba(255,255,255,.96);
   backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:13px 16px;
+  color:#777;
+  text-align:left;
+  font-size:15px;
+  cursor:text;
+  box-shadow:0 6px 25px rgba(50,40,100,.12);
+}
 
-  position:relative;
+/* COMPOSER */
+.composer{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:20;
+  background:rgba(255,255,255,.97);
+  border-top:1px solid #eceaf5;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  backdrop-filter:blur(12px);
+  display:none;
+}
 
-  z-index:10;
-
-  transition:
-    transform .15s ease;
+.composer.open{
+  display:block;
 }
 
 .composer-inner{
   max-width:900px;
-
   margin:auto;
-
   display:flex;
-
   gap:8px;
-
   align-items:center;
 }
 
 .composer input{
   flex:1;
-
   min-width:0;
-
-  height:48px;
-
   border:1px solid #ddd9ee;
-
   border-radius:16px;
-
-  padding:12px 15px;
-
+  padding:13px 15px;
   font-size:16px;
-
   outline:none;
-
-  background:white;
-
+  background:#fff;
   color:#202033;
-
-  -webkit-appearance:none;
 }
 
 .composer input:focus{
   border-color:#6c63ff;
-
-  box-shadow:
-    0 0 0 2px rgba(108,99,255,.08);
 }
 
 .send{
-  height:48px;
-
   border:0;
-
   background:#6c63ff;
-
   color:white;
-
   border-radius:15px;
-
   padding:0 18px;
-
+  min-height:46px;
   font-weight:700;
-
   cursor:pointer;
-
   flex-shrink:0;
 }
 
 .send:disabled{
   opacity:.5;
-  cursor:not-allowed;
 }
 
-/* =========================
-   SETTINGS MODAL
-========================= */
-
+/* MODAL */
 .modal{
   display:none;
-
   position:fixed;
-
   inset:0;
-
   background:rgba(20,16,40,.45);
-
-  z-index:20;
-
+  z-index:50;
   padding:20px;
-
   overflow-y:auto;
 }
 
 .panel{
   max-width:440px;
-
-  margin:5vh auto;
-
+  margin:8vh auto;
   background:white;
-
   border-radius:22px;
-
   padding:22px;
-
-  box-shadow:
-    0 20px 60px rgba(20,15,50,.20);
 }
 
 .panel h2{
@@ -440,18 +247,53 @@ body.custom-bg::before{
 
 .panel input[type="text"]{
   width:100%;
-
   padding:13px;
-
   border:1px solid #ddd9ee;
-
   border-radius:12px;
-
   margin:8px 0 14px;
-
   font-size:15px;
+}
 
-  outline:none;
+.theme-section{
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid #eeeaf7;
+}
+
+.theme-section h3{
+  margin:0 0 6px;
+  font-size:15px;
+}
+
+.theme-section p{
+  color:#777;
+  font-size:13px;
+  line-height:1.45;
+}
+
+.theme-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.theme-btn{
+  border:1px solid #ddd9ee;
+  background:#f7f5ff;
+  border-radius:12px;
+  padding:10px 12px;
+  cursor:pointer;
+}
+
+.theme-preview{
+  width:100%;
+  height:100px;
+  border-radius:14px;
+  margin:10px 0;
+  background:#f5f3fb;
+  background-size:cover;
+  background-position:center;
+  display:none;
 }
 
 .actions{
@@ -461,13 +303,9 @@ body.custom-bg::before{
 
 .actions button{
   flex:1;
-
   padding:12px;
-
   border:0;
-
   border-radius:12px;
-
   cursor:pointer;
 }
 
@@ -482,119 +320,54 @@ body.custom-bg::before{
 
 .danger{
   margin-top:12px;
-
   color:#a33;
-
   font-size:12px;
-
-  line-height:1.5;
+  line-height:1.4;
 }
 
-/* =========================
-   THEME
-========================= */
-
-.theme-section{
-  margin-top:18px;
-
-  padding-top:18px;
-
-  border-top:1px solid #eeeaf7;
+.empty{
+  opacity:.75;
+  text-align:center;
+  margin-top:25vh;
 }
 
-.theme-section h3{
-  margin:0 0 6px;
-}
-
-.theme-preview{
-  width:100%;
-
-  height:130px;
-
-  border-radius:14px;
-
-  background:
-    linear-gradient(135deg,#f7f5ff,#fff);
-
-  background-size:cover;
-
-  background-position:center;
-
-  background-repeat:no-repeat;
-
-  border:1px solid #ddd9ee;
-
-  margin:10px 0 14px;
-
+.quick{
   display:flex;
-
-  align-items:center;
-
+  flex-wrap:wrap;
   justify-content:center;
-
-  color:#777;
-
-  font-size:13px;
-
-  overflow:hidden;
-}
-
-.theme-preview span{
-  background:rgba(255,255,255,.78);
-
-  padding:6px 10px;
-
-  border-radius:10px;
-}
-
-.theme-buttons{
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
   gap:8px;
+  margin-top:12px;
 }
 
-.theme-buttons button{
-  padding:11px;
-
-  border:0;
-
-  border-radius:12px;
-
+.quick button{
+  border:1px solid #ddd9ee;
+  background:#fff;
+  border-radius:20px;
+  padding:8px 11px;
+  color:#4b4660;
   cursor:pointer;
-
-  font-weight:600;
 }
 
-.upload-theme{
-  background:#6c63ff;
-  color:white;
-}
-
-.remove-theme{
-  background:#f4eff7;
-  color:#a33;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
+/* MOBILE */
 @media(max-width:600px){
 
   .top{
-    padding-left:12px;
-    padding-right:12px;
+    padding:11px 12px;
   }
 
   .chat{
     padding-left:12px;
     padding-right:12px;
+    padding-bottom:90px;
   }
 
   .bubble{
     max-width:88%;
+  }
+
+  .message-trigger{
+    width:calc(100% - 20px);
+    bottom:10px;
   }
 
   .composer{
@@ -602,19 +375,16 @@ body.custom-bg::before{
     padding-right:10px;
   }
 
+  .composer-inner{
+    gap:6px;
+  }
+
   .composer input{
-    height:46px;
-    font-size:16px;
+    padding:12px 13px;
   }
 
   .send{
-    height:46px;
     padding:0 15px;
-  }
-
-  .panel{
-    margin:3vh auto;
-    padding:18px;
   }
 }
 </style>
@@ -624,134 +394,98 @@ body.custom-bg::before{
 
 <div class="wrap">
 
-  <!-- HEADER -->
+<header class="top">
 
-  <header class="top">
+  <button class="back" onclick="history.back()">←</button>
 
-    <button
-      class="back"
-      onclick="history.back()"
-      aria-label="Go back"
-    >
-      ←
-    </button>
+  <div class="avatar">💬</div>
 
-    <div class="avatar">
-      💬
-    </div>
+  <div class="title">
+    <strong id="screenTitle">Ex Roleplay</strong>
+    <span>Talk. Feel. Let it out.</span>
+  </div>
 
-    <div class="title">
-      <strong id="screenTitle">
-        Ex Roleplay
-      </strong>
+  <button class="settings" onclick="openSettings()">⚙️</button>
 
-      <span>
-        Talk. Feel. Let it out.
-      </span>
-    </div>
-
-    <button
-      class="settings"
-      onclick="openSettings()"
-      aria-label="Settings"
-    >
-      ⚙️
-    </button>
-
-  </header>
+</header>
 
 
-  <!-- CHAT -->
+<main class="chat" id="chat">
 
-  <main
-    class="chat"
-    id="chat"
-  >
+  <div class="notice">
+    Ex Roleplay is an AI simulation, not your real ex.
+    Keep it as a space for reflection and closure.
+  </div>
 
-    <div class="notice">
-      Ex Roleplay is an AI simulation, not your real ex.
-      Keep it as a space for reflection and closure.
-    </div>
+  <div class="empty" id="empty">
 
+    <div style="font-size:42px">💜</div>
 
-    <div
-      class="empty"
-      id="empty"
-    >
+    <h3>What do you want to say?</h3>
 
-      <div style="font-size:42px">
-        💜
-      </div>
+    <p style="color:#777">
+      You can start the conversation whenever you're ready.
+    </p>
 
-      <h3>
-        What do you want to say?
-      </h3>
+    <div class="quick">
 
-      <p style="color:#777">
-        You can start the conversation whenever you're ready.
-      </p>
+      <button onclick="quickSend('I miss you.')">
+        I miss you.
+      </button>
 
-      <div class="quick">
+      <button onclick="quickSend('I still have so many questions.')">
+        I have questions.
+      </button>
 
-        <button
-          onclick="quickSend('I miss you.')"
-        >
-          I miss you.
-        </button>
-
-        <button
-          onclick="quickSend('I still have so many questions.')"
-        >
-          I have questions.
-        </button>
-
-        <button
-          onclick="quickSend('I want closure.')"
-        >
-          I want closure.
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="typing"
-      id="typing"
-    >
-      Typing…
-    </div>
-
-  </main>
-
-
-  <!-- MESSAGE BOX -->
-
-  <div
-    class="composer"
-    id="composer"
-  >
-
-    <div class="composer-inner">
-
-      <input
-        id="message"
-        maxlength="2000"
-        placeholder="Message your Ex Roleplay…"
-        autocomplete="off"
-        enterkeyhint="send"
-      >
-
-      <button
-        class="send"
-        id="send"
-        onclick="sendMessage()"
-      >
-        Send
+      <button onclick="quickSend('I want closure.')">
+        I want closure.
       </button>
 
     </div>
+
+  </div>
+
+  <div class="typing" id="typing">
+    Typing…
+  </div>
+
+</main>
+
+</div>
+
+
+<!-- COLLAPSED MESSAGE BUTTON -->
+
+<button
+  class="message-trigger"
+  id="messageTrigger"
+  onclick="openComposer()"
+>
+  Message your Ex Roleplay…
+</button>
+
+
+<!-- ACTUAL TYPING BOX -->
+
+<div class="composer" id="composer">
+
+  <div class="composer-inner">
+
+    <input
+      id="message"
+      maxlength="2000"
+      placeholder="Message your Ex Roleplay…"
+      autocomplete="off"
+      enterkeyhint="send"
+    >
+
+    <button
+      class="send"
+      id="send"
+      onclick="sendMessage()"
+    >
+      Send
+    </button>
 
   </div>
 
@@ -760,35 +494,18 @@ body.custom-bg::before{
 
 <!-- SETTINGS -->
 
-<div
-  class="modal"
-  id="settingsModal"
->
+<div class="modal" id="settingsModal">
 
   <div class="panel">
 
-    <h2>
-      Ex Roleplay
-    </h2>
+    <h2>Ex Roleplay</h2>
 
-    <p
-      style="
-        color:#777;
-        font-size:14px;
-        line-height:1.5
-      "
-    >
-      Give the roleplay a name. This changes how the
-      character is addressed; it does not turn the AI
-      into your real ex.
+    <p style="color:#777;font-size:14px">
+      Give the roleplay a name. This changes how the character is addressed;
+      it does not turn the AI into your real ex.
     </p>
 
-
-    <!-- NAME -->
-
-    <label for="exName">
-      Ex's name
-    </label>
+    <label for="exName">Ex's name</label>
 
     <input
       type="text"
@@ -802,54 +519,29 @@ body.custom-bg::before{
 
     <div class="theme-section">
 
-      <h3>
-        🎨 Chat Theme
-      </h3>
+      <h3>🎨 Chat Theme</h3>
 
-      <p
-        style="
-          color:#777;
-          font-size:13px;
-          line-height:1.5
-        "
-      >
-        Choose any image from your phone and use it
-        as the Ex Roleplay background.
+      <p>
+        Choose your own background image from your phone.
+        The image stays on this device.
       </p>
-
 
       <div
         class="theme-preview"
         id="themePreview"
-      >
-        <span id="themePreviewText">
-          No custom background
-        </span>
-      </div>
-
-
-      <input
-        type="file"
-        id="themeImage"
-        accept="image/*"
-        style="display:none"
-        onchange="handleThemeImage(event)"
-      >
-
+      ></div>
 
       <div class="theme-buttons">
 
         <button
-          type="button"
-          class="upload-theme"
-          onclick="chooseThemeImage()"
+          class="theme-btn"
+          onclick="document.getElementById('themeFile').click()"
         >
-          📱 Choose Image
+          📷 Choose Image
         </button>
 
         <button
-          type="button"
-          class="remove-theme"
+          class="theme-btn"
           onclick="removeTheme()"
         >
           🗑️ Remove
@@ -857,15 +549,17 @@ body.custom-bg::before{
 
       </div>
 
+      <input
+        type="file"
+        id="themeFile"
+        accept="image/*"
+        style="display:none"
+      >
+
     </div>
 
 
-    <!-- ACTIONS -->
-
-    <div
-      class="actions"
-      style="margin-top:18px"
-    >
+    <div class="actions">
 
       <button
         class="cancel"
@@ -886,10 +580,7 @@ body.custom-bg::before{
 
     <button
       class="cancel"
-      style="
-        width:100%;
-        margin-top:8px
-      "
+      style="width:100%;margin-top:8px"
       onclick="clearChat()"
     >
       Clear conversation
@@ -897,9 +588,9 @@ body.custom-bg::before{
 
 
     <div class="danger">
-      If you're in immediate danger or thinking about
-      hurting yourself, contact local emergency services
-      or a trusted person instead of relying on roleplay.
+      If you're in immediate danger or thinking about hurting yourself,
+      contact local emergency services or a trusted person instead of
+      relying on roleplay.
     </div>
 
   </div>
@@ -909,74 +600,35 @@ body.custom-bg::before{
 
 <script>
 
-/* =========================================
-   API + STORAGE
-========================================= */
+const API_URL = "/api/ex-roleplay";
 
-const API_URL =
-  "/api/ex-roleplay";
-
-const NAME_KEY =
-  "moveon_ex_roleplay_name";
-
-const CHAT_KEY =
-  "moveon_ex_roleplay_chat";
-
-const THEME_KEY =
-  "moveon_ex_roleplay_theme";
+const NAME_KEY = "moveon_ex_roleplay_name";
+const CHAT_KEY = "moveon_ex_roleplay_chat";
+const THEME_KEY = "moveon_ex_roleplay_theme";
 
 
-/* =========================================
-   ELEMENTS
-========================================= */
+const chat = document.getElementById("chat");
+const input = document.getElementById("message");
+const send = document.getElementById("send");
+const typing = document.getElementById("typing");
+const empty = document.getElementById("empty");
 
-const chat =
-  document.getElementById("chat");
+const composer = document.getElementById("composer");
+const messageTrigger = document.getElementById("messageTrigger");
 
-const input =
-  document.getElementById("message");
-
-const send =
-  document.getElementById("send");
-
-const typing =
-  document.getElementById("typing");
-
-const empty =
-  document.getElementById("empty");
-
-const composer =
-  document.getElementById("composer");
-
-const themePreview =
-  document.getElementById("themePreview");
-
-const themePreviewText =
-  document.getElementById("themePreviewText");
-
-
-/* =========================================
-   NAME
-========================================= */
 
 let exName =
-  localStorage.getItem(NAME_KEY) ||
-  "Ex Roleplay";
-
-
-/* =========================================
-   CHAT HISTORY
-========================================= */
+  localStorage.getItem(NAME_KEY) || "Ex Roleplay";
 
 let historyData = [];
+
+
+/* LOAD CHAT */
 
 try {
 
   const saved =
-    JSON.parse(
-      localStorage.getItem(CHAT_KEY) ||
-      "[]"
-    );
+    JSON.parse(localStorage.getItem(CHAT_KEY) || "[]");
 
   historyData =
     Array.isArray(saved)
@@ -990,53 +642,27 @@ try {
 }
 
 
-/* =========================================
-   SAVE CHAT
-========================================= */
+/* SAVE CHAT */
 
 function saveChat(){
 
-  try{
-
-    localStorage.setItem(
-      CHAT_KEY,
-      JSON.stringify(
-        historyData.slice(-60)
-      )
-    );
-
-  }catch(error){
-
-    console.error(
-      "Chat save error:",
-      error
-    );
-
-  }
+  localStorage.setItem(
+    CHAT_KEY,
+    JSON.stringify(historyData.slice(-60))
+  );
 
 }
 
 
-/* =========================================
-   SCROLL TO LATEST MESSAGE
-========================================= */
+/* SCROLL TO LATEST */
 
-function scrollToBottom(
-  smooth = true
-){
+function scrollToLatest(smooth = true){
 
   requestAnimationFrame(() => {
 
-    requestAnimationFrame(() => {
-
-      chat.scrollTo({
-        top:chat.scrollHeight,
-        behavior:
-          smooth
-            ? "smooth"
-            : "auto"
-      });
-
+    chat.scrollTo({
+      top: chat.scrollHeight,
+      behavior: smooth ? "smooth" : "auto"
     });
 
   });
@@ -1044,42 +670,35 @@ function scrollToBottom(
 }
 
 
-/* =========================================
-   ADD BUBBLE
-========================================= */
+/* ADD MESSAGE */
 
-function addBubble(
-  role,
-  text,
-  save = true
-){
+function addBubble(role,text,save=true){
 
   const d =
     document.createElement("div");
 
   d.className =
     "bubble " +
-    (
-      role === "user"
-        ? "user"
-        : "ai"
-    );
+    (role === "user" ? "user" : "ai");
 
   d.textContent =
     String(text || "");
 
-  chat.insertBefore(
-    d,
-    typing
-  );
+  chat.insertBefore(d,typing);
 
 
   if(save){
 
     historyData.push({
-      role,
+
+      role:
+        role === "user"
+          ? "user"
+          : "assistant",
+
       content:
         String(text || "")
+
     });
 
     saveChat();
@@ -1087,14 +706,12 @@ function addBubble(
   }
 
 
-  scrollToBottom(true);
+  scrollToLatest(true);
 
 }
 
 
-/* =========================================
-   RENDER
-========================================= */
+/* RENDER */
 
 function render(){
 
@@ -1112,16 +729,15 @@ function render(){
 
   historyData.forEach(item => {
 
-    if(
-      item &&
-      item.content
-    ){
+    if(item?.content){
 
       addBubble(
         item.role === "user"
           ? "user"
           : "assistant",
+
         item.content,
+
         false
       );
 
@@ -1130,14 +746,51 @@ function render(){
   });
 
 
-  scrollToBottom(false);
+  scrollToLatest(false);
 
 }
 
 
-/* =========================================
-   SETTINGS
-========================================= */
+/* OPEN TYPING BOX */
+
+function openComposer(){
+
+  composer.classList.add("open");
+
+  messageTrigger.style.display =
+    "none";
+
+
+  setTimeout(() => {
+
+    input.focus();
+
+    scrollToLatest(false);
+
+  },100);
+
+}
+
+
+/* CLOSE TYPING BOX */
+
+function closeComposer(){
+
+  if(document.activeElement === input){
+
+    input.blur();
+
+  }
+
+  composer.classList.remove("open");
+
+  messageTrigger.style.display =
+    "block";
+
+}
+
+
+/* SETTINGS */
 
 function openSettings(){
 
@@ -1147,9 +800,6 @@ function openSettings(){
     exName === "Ex Roleplay"
       ? ""
       : exName;
-
-
-  updateThemePreview();
 
 
   document.getElementById(
@@ -1169,6 +819,8 @@ function closeSettings(){
 
 }
 
+
+/* SAVE SETTINGS */
 
 function saveSettings(){
 
@@ -1201,37 +853,37 @@ function saveSettings(){
 }
 
 
-/* =========================================
-   QUICK SEND
-========================================= */
+/* QUICK MESSAGE */
 
 function quickSend(text){
 
+  openComposer();
+
   input.value = text;
 
-  sendMessage();
+  setTimeout(() => {
+
+    sendMessage();
+
+  },100);
 
 }
 
 
-/* =========================================
-   CLEAR CHAT
-========================================= */
+/* CLEAR CHAT */
 
 function clearChat(){
 
-  if(!historyData.length){
+  if(!historyData.length)
     return;
-  }
 
 
   if(
     !confirm(
       "Clear this roleplay conversation?"
     )
-  ){
+  )
     return;
-  }
 
 
   historyData = [];
@@ -1241,41 +893,38 @@ function clearChat(){
 
   chat
     .querySelectorAll(".bubble")
-    .forEach(
-      el => el.remove()
-    );
+    .forEach(el => el.remove());
 
 
   empty.style.display =
     "block";
 
 
-  scrollToBottom(false);
+  scrollToLatest(false);
 
 }
 
 
-/* =========================================
-   ERROR
-========================================= */
+/* ERROR */
 
 function showError(message){
 
-  addBubble(
-    "assistant",
-    "⚠️ " +
+  const safe =
     String(
       message ||
       "Unable to reply right now."
-    )
+    );
+
+
+  addBubble(
+    "assistant",
+    "⚠️ " + safe
   );
 
 }
 
 
-/* =========================================
-   SEND MESSAGE
-========================================= */
+/* SEND MESSAGE */
 
 async function sendMessage(){
 
@@ -1286,10 +935,11 @@ async function sendMessage(){
   if(
     !text ||
     send.disabled
-  ){
+  )
     return;
-  }
 
+
+  /* USER MESSAGE */
 
   addBubble(
     "user",
@@ -1309,7 +959,7 @@ async function sendMessage(){
     "block";
 
 
-  scrollToBottom(true);
+  scrollToLatest(true);
 
 
   try{
@@ -1341,11 +991,18 @@ async function sendMessage(){
           },
 
           body:JSON.stringify({
-            exName,
-            message:text,
+
+            exName:
+              exName,
+
+            message:
+              text,
+
             history:
               requestHistory
+
           })
+
         }
       );
 
@@ -1364,11 +1021,7 @@ async function sendMessage(){
           ? JSON.parse(raw)
           : {};
 
-    }catch{
-
-      data = {};
-
-    }
+    }catch{}
 
 
     if(!res.ok){
@@ -1389,6 +1042,8 @@ async function sendMessage(){
 
     }
 
+
+    /* AI REPLY */
 
     addBubble(
       "assistant",
@@ -1415,494 +1070,36 @@ async function sendMessage(){
     typing.style.display =
       "none";
 
-    send.disabled = false;
+    send.disabled =
+      false;
 
-    /*
-      Keep input active after
-      AI reply.
-    */
 
-    input.focus();
+    /* KEEP TYPING BOX OPEN */
 
-    scrollToBottom(true);
+    composer.classList.add("open");
+
+    messageTrigger.style.display =
+      "none";
+
+
+    setTimeout(() => {
+
+      input.focus();
+
+      scrollToLatest(true);
+
+    },100);
 
   }
 
 }
 
 
-/* =========================================
-   THEME IMAGE
-========================================= */
-
-function chooseThemeImage(){
-
-  const picker =
-    document.getElementById(
-      "themeImage"
-    );
-
-
-  picker.value = "";
-
-  picker.click();
-
-}
-
-
-function handleThemeImage(event){
-
-  const file =
-    event.target.files?.[0];
-
-
-  if(!file){
-    return;
-  }
-
-
-  if(
-    !file.type.startsWith("image/")
-  ){
-
-    alert(
-      "Please choose an image."
-    );
-
-    return;
-
-  }
-
-
-  const reader =
-    new FileReader();
-
-
-  reader.onload =
-    function(e){
-
-      const img =
-        new Image();
-
-
-      img.onload =
-        function(){
-
-          const canvas =
-            document.createElement(
-              "canvas"
-            );
-
-
-          const MAX_SIZE =
-            900;
-
-
-          let width =
-            img.width;
-
-          let height =
-            img.height;
-
-
-          if(
-            width > height &&
-            width > MAX_SIZE
-          ){
-
-            height =
-              Math.round(
-                height *
-                MAX_SIZE /
-                width
-              );
-
-            width =
-              MAX_SIZE;
-
-          }
-          else if(
-            height > MAX_SIZE
-          ){
-
-            width =
-              Math.round(
-                width *
-                MAX_SIZE /
-                height
-              );
-
-            height =
-              MAX_SIZE;
-
-          }
-
-
-          canvas.width =
-            width;
-
-          canvas.height =
-            height;
-
-
-          const ctx =
-            canvas.getContext(
-              "2d"
-            );
-
-
-          ctx.drawImage(
-            img,
-            0,
-            0,
-            width,
-            height
-          );
-
-
-          const compressedImage =
-            canvas.toDataURL(
-              "image/jpeg",
-              0.65
-            );
-
-
-          try{
-
-            localStorage.setItem(
-              THEME_KEY,
-              compressedImage
-            );
-
-
-            applySavedTheme();
-
-            updateThemePreview();
-
-          }catch(error){
-
-            console.error(
-              "Theme save error:",
-              error
-            );
-
-
-            alert(
-              "This image is too large. Please choose another image."
-            );
-
-          }
-
-        };
-
-
-      img.onerror =
-        function(){
-
-          alert(
-            "Could not read this image. Please try another image."
-          );
-
-        };
-
-
-      img.src =
-        e.target.result;
-
-    };
-
-
-  reader.onerror =
-    function(){
-
-      alert(
-        "Could not load the selected image."
-      );
-
-    };
-
-
-  reader.readAsDataURL(file);
-
-}
-
-
-/* =========================================
-   APPLY THEME
-========================================= */
-
-function applySavedTheme(){
-
-  const savedTheme =
-    localStorage.getItem(
-      THEME_KEY
-    );
-
-
-  if(savedTheme){
-
-    document.body.style.backgroundImage =
-      `url("${savedTheme}")`;
-
-
-    document.body.classList.add(
-      "custom-bg"
-    );
-
-  }else{
-
-    document.body.style.backgroundImage =
-      "";
-
-    document.body.classList.remove(
-      "custom-bg"
-    );
-
-  }
-
-
-  updateThemePreview();
-
-}
-
-
-/* =========================================
-   THEME PREVIEW
-========================================= */
-
-function updateThemePreview(){
-
-  if(!themePreview){
-    return;
-  }
-
-
-  const savedTheme =
-    localStorage.getItem(
-      THEME_KEY
-    );
-
-
-  if(savedTheme){
-
-    themePreview.style.backgroundImage =
-      `url("${savedTheme}")`;
-
-
-    themePreviewText.textContent =
-      "Current background";
-
-  }else{
-
-    themePreview.style.backgroundImage =
-      "linear-gradient(135deg,#f7f5ff,#fff)";
-
-
-    themePreviewText.textContent =
-      "No custom background";
-
-  }
-
-}
-
-
-/* =========================================
-   REMOVE THEME
-========================================= */
-
-function removeTheme(){
-
-  localStorage.removeItem(
-    THEME_KEY
-  );
-
-
-  document.body.style.backgroundImage =
-    "";
-
-  document.body.classList.remove(
-    "custom-bg"
-  );
-
-
-  updateThemePreview();
-
-}
-
-
-/* =========================================
-   MOBILE KEYBOARD FIX
-========================================= */
-
-/*
-  Android/iOS keyboard changes the
-  visual viewport.
-
-  We use visualViewport to keep the
-  composer above the keyboard.
-*/
-
-function updateKeyboardLayout(){
-
-  if(
-    !window.visualViewport
-  ){
-    return;
-  }
-
-
-  const viewport =
-    window.visualViewport;
-
-
-  const keyboardHeight =
-    Math.max(
-      0,
-      window.innerHeight -
-      viewport.height -
-      viewport.offsetTop
-    );
-
-
-  /*
-    Move composer upward by the
-    keyboard height.
-  */
-
-  composer.style.transform =
-    keyboardHeight > 0
-      ? `translateY(-${keyboardHeight}px)`
-      : "translateY(0)";
-
-
-  /*
-    Give chat enough bottom space
-    so latest messages are never
-    hidden behind composer.
-  */
-
-  const composerHeight =
-    composer.offsetHeight;
-
-
-  chat.style.paddingBottom =
-    (
-      composerHeight +
-      keyboardHeight +
-      20
-    ) + "px";
-
-
-  /*
-    When keyboard is visible,
-    keep latest message visible.
-  */
-
-  if(
-    keyboardHeight > 0
-  ){
-
-    scrollToBottom(false);
-
-  }
-
-}
-
-
-/* =========================================
-   KEYBOARD EVENTS
-========================================= */
-
-if(window.visualViewport){
-
-  window.visualViewport.addEventListener(
-    "resize",
-    updateKeyboardLayout
-  );
-
-
-  window.visualViewport.addEventListener(
-    "scroll",
-    updateKeyboardLayout
-  );
-
-}
-
-
-window.addEventListener(
-  "resize",
-  updateKeyboardLayout
-);
-
-
-/*
-  When user taps the input,
-  wait for keyboard animation and
-  then scroll to latest message.
-*/
-
-input.addEventListener(
-  "focus",
-  function(){
-
-    setTimeout(
-      function(){
-
-        updateKeyboardLayout();
-
-        scrollToBottom(true);
-
-      },
-      150
-    );
-
-
-    setTimeout(
-      function(){
-
-        updateKeyboardLayout();
-
-        scrollToBottom(false);
-
-      },
-      400
-    );
-
-  }
-);
-
-
-/*
-  Additional delay for slower
-  Android keyboards.
-*/
-
-input.addEventListener(
-  "focus",
-  function(){
-
-    setTimeout(
-      function(){
-
-        updateKeyboardLayout();
-
-        scrollToBottom(false);
-
-      },
-      700
-    );
-
-  }
-);
-
-
-/* =========================================
-   ENTER KEY
-========================================= */
+/* ENTER TO SEND */
 
 input.addEventListener(
   "keydown",
-  function(event){
+  event => {
 
     if(
       event.key === "Enter" &&
@@ -1919,33 +1116,410 @@ input.addEventListener(
 );
 
 
-/* =========================================
-   CLOSE MODAL OUTSIDE
-========================================= */
+/* WHEN USER STARTS TYPING */
 
-document
-  .getElementById(
-    "settingsModal"
-  )
-  .addEventListener(
-    "click",
-    function(event){
+input.addEventListener(
+  "input",
+  () => {
 
-      if(
-        event.target === this
-      ){
+    scrollToLatest(false);
 
-        closeSettings();
+  }
+);
 
-      }
+
+/* MOBILE KEYBOARD SUPPORT */
+
+if(window.visualViewport){
+
+  let lastHeight =
+    window.visualViewport.height;
+
+
+  function handleViewport(){
+
+    const viewport =
+      window.visualViewport;
+
+
+    const keyboardHeight =
+      Math.max(
+        0,
+        window.innerHeight -
+        viewport.height -
+        viewport.offsetTop
+      );
+
+
+    if(
+      keyboardHeight > 80 &&
+      composer.classList.contains("open")
+    ){
+
+      /*
+       * Move composer above keyboard
+       * WITHOUT using transform.
+       * This keeps the input fully usable.
+       */
+
+      composer.style.bottom =
+        keyboardHeight + "px";
+
+
+      setTimeout(() => {
+
+        scrollToLatest(false);
+
+      },50);
+
+    }else{
+
+      composer.style.bottom =
+        "0px";
 
     }
+
+
+    lastHeight =
+      viewport.height;
+
+  }
+
+
+  window.visualViewport.addEventListener(
+    "resize",
+    handleViewport
   );
 
 
-/* =========================================
-   EXPOSE FUNCTIONS
-========================================= */
+  window.visualViewport.addEventListener(
+    "scroll",
+    handleViewport
+  );
+
+}
+
+
+/* AUTO SCROLL WHEN INPUT FOCUSES */
+
+input.addEventListener(
+  "focus",
+  () => {
+
+    openComposer();
+
+
+    setTimeout(() => {
+
+      scrollToLatest(false);
+
+    },100);
+
+
+    setTimeout(() => {
+
+      scrollToLatest(false);
+
+    },350);
+
+
+    setTimeout(() => {
+
+      scrollToLatest(false);
+
+    },700);
+
+  }
+);
+
+
+/* CUSTOM THEME */
+
+function applyTheme(){
+
+  const savedTheme =
+    localStorage.getItem(
+      THEME_KEY
+    );
+
+
+  if(savedTheme){
+
+    document.body.style.backgroundImage =
+      `url("${savedTheme}")`;
+
+    document.body.style.backgroundSize =
+      "cover";
+
+    document.body.style.backgroundAttachment =
+      "fixed";
+
+    document.body.style.backgroundPosition =
+      "center";
+
+    document.body.style.backgroundRepeat =
+      "no-repeat";
+
+
+    chat.style.background =
+      "rgba(255,255,255,.12)";
+
+  }else{
+
+    document.body.style.backgroundImage =
+      "linear-gradient(135deg,#f7f5ff,#fff)";
+
+    document.body.style.backgroundSize =
+      "";
+
+    document.body.style.backgroundAttachment =
+      "";
+
+    document.body.style.backgroundPosition =
+      "";
+
+    document.body.style.backgroundRepeat =
+      "";
+
+
+    chat.style.background =
+      "";
+
+  }
+
+
+  updateThemePreview();
+
+}
+
+
+/* THEME PREVIEW */
+
+function updateThemePreview(){
+
+  const preview =
+    document.getElementById(
+      "themePreview"
+    );
+
+
+  const savedTheme =
+    localStorage.getItem(
+      THEME_KEY
+    );
+
+
+  if(savedTheme){
+
+    preview.style.display =
+      "block";
+
+    preview.style.backgroundImage =
+      `url("${savedTheme}")`;
+
+  }else{
+
+    preview.style.display =
+      "none";
+
+  }
+
+}
+
+
+/* IMAGE SELECT */
+
+document.getElementById(
+  "themeFile"
+).addEventListener(
+  "change",
+  function(){
+
+    const file =
+      this.files?.[0];
+
+
+    if(!file)
+      return;
+
+
+    if(
+      !file.type.startsWith("image/")
+    ){
+
+      alert(
+        "Please select an image."
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * Compress image before saving.
+     * This helps prevent localStorage
+     * from becoming too large.
+     */
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+      function(event){
+
+        const img =
+          new Image();
+
+
+        img.onload =
+          function(){
+
+            const canvas =
+              document.createElement(
+                "canvas"
+              );
+
+
+            const maxWidth = 1200;
+            const maxHeight = 1200;
+
+
+            let width =
+              img.width;
+
+            let height =
+              img.height;
+
+
+            if(
+              width > maxWidth ||
+              height > maxHeight
+            ){
+
+              const ratio =
+                Math.min(
+                  maxWidth / width,
+                  maxHeight / height
+                );
+
+
+              width =
+                Math.round(
+                  width * ratio
+                );
+
+
+              height =
+                Math.round(
+                  height * ratio
+                );
+
+            }
+
+
+            canvas.width =
+              width;
+
+            canvas.height =
+              height;
+
+
+            const ctx =
+              canvas.getContext(
+                "2d"
+              );
+
+
+            ctx.drawImage(
+              img,
+              0,
+              0,
+              width,
+              height
+            );
+
+
+            const compressed =
+              canvas.toDataURL(
+                "image/jpeg",
+                0.78
+              );
+
+
+            try{
+
+              localStorage.setItem(
+                THEME_KEY,
+                compressed
+              );
+
+
+              applyTheme();
+
+            }catch(error){
+
+              alert(
+                "This image is too large. Please choose another image."
+              );
+
+              console.error(error);
+
+            }
+
+          };
+
+
+        img.src =
+          event.target.result;
+
+      };
+
+
+    reader.readAsDataURL(file);
+
+
+    this.value = "";
+
+  }
+);
+
+
+/* REMOVE THEME */
+
+function removeTheme(){
+
+  localStorage.removeItem(
+    THEME_KEY
+  );
+
+  applyTheme();
+
+}
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+
+document.getElementById(
+  "settingsModal"
+).addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target === this
+    ){
+
+      closeSettings();
+
+    }
+
+  }
+);
+
+
+/* EXPOSE FUNCTIONS */
 
 window.openSettings =
   openSettings;
@@ -1965,33 +1539,27 @@ window.sendMessage =
 window.clearChat =
   clearChat;
 
-window.chooseThemeImage =
-  chooseThemeImage;
+window.openComposer =
+  openComposer;
 
-window.handleThemeImage =
-  handleThemeImage;
+window.closeComposer =
+  closeComposer;
 
 window.removeTheme =
   removeTheme;
 
 
-/* =========================================
-   START APPLICATION
-========================================= */
+/* START */
 
-applySavedTheme();
+applyTheme();
 
 render();
-
-setTimeout(
-  updateKeyboardLayout,
-  100
-);
 
 </script>
 
 
-<!-- EXISTING EMOJI SOUND SYSTEM -->
+<!-- KEEP YOUR EXISTING EMOJI SOUND SYSTEM -->
+
 <script src="emoji-sounds.js"></script>
 
 </body>
