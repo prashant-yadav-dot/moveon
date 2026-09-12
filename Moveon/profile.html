@@ -949,10 +949,28 @@ async function loadFirebaseProfile(){
             email === "Welcome to MoveOn"
                 ? ""
                 : email;
+const avatar = document.getElementById("avatar");
+const removePhotoBtn = document.getElementById("removePhotoBtn");
 
-        document.getElementById("avatar")
-            .textContent = getInitials(name);
+if(data.profileImage){
 
+avatar.innerHTML =
+    `<img src="${data.profileImage}" alt="Profile Photo">`;
+
+avatar.classList.add("has-image");
+
+removePhotoBtn.style.display = "inline-block";
+
+}else{
+
+avatar.textContent = getInitials(name);
+
+avatar.classList.remove("has-image");
+
+removePhotoBtn.style.display = "none";
+
+}
+        
     }catch(error){
 
         console.error(
@@ -1488,6 +1506,313 @@ document
 
         }
     );
+    
+/* =========================================
+PROFILE PHOTO
+========================================= */
 
+document
+.getElementById("profileImageInput")
+.addEventListener("change", async function(){
+
+    const file = this.files[0];
+
+    if(!file) return;
+
+    if(!currentUser){
+
+        alert("Please log in first.");
+
+        this.value = "";
+
+        return;
+    }
+
+    /* Check image */
+
+    if(!file.type.startsWith("image/")){
+
+        alert("Please select an image file.");
+
+        this.value = "";
+
+        return;
+    }
+
+    /* Maximum original file size */
+
+    if(file.size > 10 * 1024 * 1024){
+
+        alert("Please choose an image smaller than 10 MB.");
+
+        this.value = "";
+
+        return;
+    }
+
+
+    try{
+
+        /* Compress image before Firebase save */
+
+        const compressedImage =
+            await compressProfileImage(file);
+
+
+        /* Save image in Firebase */
+
+        await update(
+            ref(
+                database,
+                "users/" + currentUser.uid
+            ),
+            {
+                profileImage: compressedImage,
+                updatedAt:
+                    new Date().toISOString()
+            }
+        );
+
+
+        /* Show image immediately */
+
+        const avatar =
+            document.getElementById("avatar");
+
+        avatar.innerHTML =
+            `<img src="${compressedImage}" alt="Profile Photo">`;
+
+        avatar.classList.add("has-image");
+
+
+        document
+            .getElementById("removePhotoBtn")
+            .style.display = "inline-block";
+
+
+        alert("Profile photo updated successfully. 💜");
+
+    }catch(error){
+
+        console.error(
+            "Profile photo error:",
+            error
+        );
+
+        alert(
+            "Unable to update profile photo. Please try again."
+        );
+
+    }
+
+
+    /* Reset input so same photo can be selected again */
+
+    this.value = "";
+
+});
+
+/* =========================================
+COMPRESS PROFILE IMAGE
+========================================= */
+
+function compressProfileImage(file){
+
+return new Promise((resolve,reject)=>{
+
+    const reader = new FileReader();
+
+
+    reader.onload = function(event){
+
+        const img = new Image();
+
+
+        img.onload = function(){
+
+            const MAX_SIZE = 500;
+
+            let width = img.width;
+            let height = img.height;
+
+
+            /* Keep image square-friendly */
+
+            if(width > height){
+
+                if(width > MAX_SIZE){
+
+                    height =
+                        Math.round(
+                            height *
+                            MAX_SIZE /
+                            width
+                        );
+
+                    width = MAX_SIZE;
+
+                }
+
+            }else{
+
+                if(height > MAX_SIZE){
+
+                    width =
+                        Math.round(
+                            width *
+                            MAX_SIZE /
+                            height
+                        );
+
+                    height = MAX_SIZE;
+
+                }
+
+            }
+
+
+            const canvas =
+                document.createElement("canvas");
+
+            canvas.width = width;
+            canvas.height = height;
+
+
+            const ctx =
+                canvas.getContext("2d");
+
+
+            ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            /* JPEG keeps Firebase data smaller */
+
+            const compressed =
+                canvas.toDataURL(
+                    "image/jpeg",
+                    0.78
+                );
+
+
+            resolve(compressed);
+
+        };
+
+
+        img.onerror = function(){
+
+            reject(
+                new Error("Invalid image")
+            );
+
+        };
+
+
+        img.src = event.target.result;
+
+    };
+
+
+    reader.onerror = function(){
+
+        reject(
+            new Error("Unable to read image")
+        );
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+});
+
+}
+
+/* =========================================
+REMOVE PROFILE PHOTO
+========================================= */
+
+window.removeProfilePhoto = async function(){
+
+if(!currentUser){
+
+    alert("Please log in first.");
+
+    return;
+}
+
+
+const confirmed =
+    confirm(
+        "Remove your profile photo?"
+    );
+
+
+if(!confirmed) return;
+
+
+try{
+
+    await update(
+        ref(
+            database,
+            "users/" + currentUser.uid
+        ),
+        {
+            profileImage: null,
+            updatedAt:
+                new Date().toISOString()
+        }
+    );
+
+
+    const name =
+        document
+            .getElementById("profileName")
+            .textContent ||
+        "MoveOn User";
+
+
+    const avatar =
+        document.getElementById("avatar");
+
+
+    avatar.innerHTML =
+        getInitials(name);
+
+    avatar.classList.remove(
+        "has-image"
+    );
+
+
+    document
+        .getElementById("removePhotoBtn")
+        .style.display = "none";
+
+
+    alert(
+        "Profile photo removed. 💜"
+    );
+
+}catch(error){
+
+    console.error(
+        "Remove photo error:",
+        error
+    );
+
+    alert(
+        "Unable to remove profile photo. Please try again."
+    );
+
+}
+
+};
 </script><script src="emoji-sounds.js"></script></body>
 </html>
