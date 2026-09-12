@@ -89,6 +89,191 @@ export default {
         return json({error:error?.message || "Unable to process your message right now."},500);
       }
     }
+        /* ================================
+       EX ROLEPLAY - AI IMAGE CREATION
+       ================================ */
+
+    if (url.pathname === "/api/ex-roleplay-image") {
+
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          status: 204,
+          headers: corsHeaders()
+        });
+      }
+
+      if (request.method !== "POST") {
+        return json(
+          {error:"Method not allowed. Use POST."},
+          405
+        );
+      }
+
+      if (!env.OPENAI_API_KEY) {
+        return json(
+          {
+            error:
+              "OPENAI_API_KEY is not configured in Cloudflare Worker Secrets."
+          },
+          500
+        );
+      }
+
+      try {
+
+        const body = await request.json();
+
+        const prompt =
+          String(body.prompt || "")
+            .trim()
+            .slice(0,2000);
+
+        const exName =
+          String(body.exName || "Ex Roleplay")
+            .trim()
+            .slice(0,40) || "Ex Roleplay";
+
+        if (!prompt) {
+          return json(
+            {error:"Image prompt required."},
+            400
+          );
+        }
+
+
+        /*
+         * Keep image generation focused on
+         * emotional / romantic / healing scenes.
+         */
+
+        const imagePrompt = `
+Create a tasteful, non-explicit cinematic image
+for the MoveOn Ex Roleplay experience.
+
+Fictional character name:
+${exName}
+
+User's requested scene:
+${prompt}
+
+Style:
+emotional, cinematic, realistic,
+beautiful lighting, natural expressions,
+tasteful composition.
+
+Do not create explicit sexual content,
+nudity, or pornographic imagery.
+Do not depict minors in romantic or sexual situations.
+        `.trim();
+
+
+        const response =
+          await fetch(
+            "https://api.openai.com/v1/images/generations",
+            {
+              method:"POST",
+
+              headers:{
+                "Authorization":
+                  `Bearer ${env.OPENAI_API_KEY}`,
+
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:JSON.stringify({
+
+                model:"gpt-image-2",
+
+                prompt:imagePrompt,
+
+                size:"1024x1024",
+
+                quality:"auto",
+
+                output_format:"webp",
+
+                output_compression:80
+
+              })
+            }
+          );
+
+
+        const raw =
+          await response.text();
+
+
+        let data = {};
+
+        try {
+          data =
+            raw
+              ? JSON.parse(raw)
+              : {};
+        } catch {}
+
+
+        if (!response.ok) {
+
+          return json(
+            {
+              error:
+                data?.error?.message ||
+                data?.message ||
+                raw ||
+                `Image generation failed (${response.status}).`
+            },
+            502
+          );
+
+        }
+
+
+        const image =
+          data?.data?.[0];
+
+
+        if (!image?.b64_json) {
+
+          return json(
+            {
+              error:
+                "Image server returned no image."
+            },
+            502
+          );
+
+        }
+
+
+        return json({
+
+          image:
+            `data:image/webp;base64,${image.b64_json}`
+
+        });
+
+
+      } catch(error) {
+
+        console.error(
+          "Ex Roleplay Image Worker error:",
+          error
+        );
+
+        return json(
+          {
+            error:
+              error?.message ||
+              "Unable to generate image right now."
+          },
+          500
+        );
+
+      }
+
+    }
 
     return env.ASSETS.fetch(request);
   }
