@@ -1,23 +1,56 @@
-<!DOCTYPE html><html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MoveOn - Profile</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+«»
+
+<title>MoveOn - Profile</title><style>
+
+/* =========================================
+   RESET
+========================================= */
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
+
+/* =========================================
+   BODY
+========================================= */
+
 body{
     font-family:Arial,sans-serif;
     min-height:100vh;
     color:#29263d;
+
     background:
-        radial-gradient(circle at 8% 10%,rgba(118,103,248,.20),transparent 30%),
-        radial-gradient(circle at 92% 20%,rgba(238,169,255,.20),transparent 30%),
-        linear-gradient(135deg,#f8f6ff,#eef4ff,#fff7fb);
+        radial-gradient(
+            circle at 8% 10%,
+            rgba(118,103,248,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 92% 20%,
+            rgba(238,169,255,.20),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #f8f6ff,
+            #eef4ff,
+            #fff7fb
+        );
+
     overflow-x:hidden;
 }
+
+
+/* =========================================
+   BLOBS
+========================================= */
 
 .blob{
     position:fixed;
@@ -46,20 +79,36 @@ body{
 }
 
 @keyframes float{
-    0%,100%{transform:translate(0,0)}
-    50%{transform:translate(25px,-25px)}
+
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(25px,-25px);
+    }
+
 }
+
+
+/* =========================================
+   HEADER
+========================================= */
 
 .header{
     position:sticky;
     top:0;
     z-index:50;
+
     padding:16px 6%;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     background:rgba(255,255,255,.68);
     backdrop-filter:blur(18px);
+
     border-bottom:1px solid rgba(255,255,255,.85);
 }
 
@@ -67,6 +116,7 @@ body{
     display:flex;
     align-items:center;
     gap:10px;
+
     color:#6557e9;
     font-size:21px;
     font-weight:800;
@@ -75,75 +125,252 @@ body{
 .logo-icon{
     width:40px;
     height:40px;
+
     border-radius:13px;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     color:white;
-    background:linear-gradient(135deg,#7667f8,#a28cff);
-    box-shadow:0 8px 20px rgba(118,103,248,.25);
+
+    background:
+        linear-gradient(
+            135deg,
+            #7667f8,
+            #a28cff
+        );
+
+    box-shadow:
+        0 8px 20px
+        rgba(118,103,248,.25);
 }
 
 .back{
     border:none;
+
     padding:10px 16px;
+
     border-radius:12px;
-    background:rgba(118,103,248,.11);
+
+    background:
+        rgba(118,103,248,.11);
+
     color:#6557e9;
+
     font-weight:700;
+
     cursor:pointer;
 }
+
+
+/* =========================================
+   CONTAINER
+========================================= */
 
 .container{
     width:min(950px,92%);
     margin:35px auto 60px;
 }
 
+
+/* =========================================
+   PROFILE CARD
+========================================= */
+
 .profile-card{
     position:relative;
     overflow:hidden;
+
     padding:35px 25px;
+
     text-align:center;
+
     border-radius:28px;
-    background:rgba(255,255,255,.72);
+
+    background:
+        rgba(255,255,255,.72);
+
     backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,.9);
-    box-shadow:0 18px 45px rgba(55,43,110,.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,.9);
+
+    box-shadow:
+        0 18px 45px
+        rgba(55,43,110,.09);
 }
 
 .profile-glow{
     position:absolute;
+
     width:180px;
     height:180px;
+
     border-radius:50%;
-    background:rgba(118,103,248,.12);
+
+    background:
+        rgba(118,103,248,.12);
+
     top:-100px;
     left:50%;
+
     transform:translateX(-50%);
 }
+
+
+/* =========================================
+   AVATAR
+========================================= */
 
 .avatar{
     width:105px;
     height:105px;
+
     margin:auto;
+
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:45px;
-    background:linear-gradient(135deg,#7667f8,#b09cff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #7667f8,
+            #b09cff
+        );
+
     color:white;
-    border:5px solid rgba(255,255,255,.85);
-    box-shadow:0 15px 30px rgba(118,103,248,.25);
+
+    border:
+        5px solid
+        rgba(255,255,255,.85);
+
+    box-shadow:
+        0 15px 30px
+        rgba(118,103,248,.25);
+
     position:relative;
     z-index:2;
-    animation:avatarFloat 3s ease-in-out infinite;
+
+    animation:
+        avatarFloat
+        3s
+        ease-in-out
+        infinite;
 }
 
 @keyframes avatarFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-5px)}
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+
 }
+
+
+/* =========================================
+   PROFILE IMAGE
+========================================= */
+
+.avatar.has-image{
+    padding:0;
+    overflow:hidden;
+    background:#fff;
+}
+
+.avatar.has-image img{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    border-radius:50%;
+}
+
+
+/* =========================================
+   PROFILE PHOTO BUTTONS
+========================================= */
+
+.photo-actions{
+    position:relative;
+    z-index:5;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:14px;
+}
+
+.photo-btn,
+.remove-photo-btn{
+    border:none;
+
+    padding:9px 14px;
+
+    border-radius:11px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.photo-btn{
+    background:
+        rgba(118,103,248,.12);
+
+    color:#6557e9;
+}
+
+.photo-btn:hover{
+    background:
+        rgba(118,103,248,.20);
+
+    transform:translateY(-2px);
+}
+
+.remove-photo-btn{
+    display:none;
+
+    background:
+        rgba(201,84,118,.10);
+
+    color:#c95476;
+}
+
+.remove-photo-btn:hover{
+    background:
+        rgba(201,84,118,.18);
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================
+   PROFILE TEXT
+========================================= */
 
 .profile-card h1{
     margin-top:17px;
@@ -158,21 +385,35 @@ body{
 
 .tagline{
     margin-top:12px;
+
     color:#6557e9;
+
     font-weight:700;
     font-size:13px;
 }
 
 .edit-btn{
     margin-top:18px;
+
     padding:10px 18px;
+
     border:none;
+
     border-radius:12px;
+
     background:#7667f8;
+
     color:white;
+
     font-weight:700;
+
     cursor:pointer;
 }
+
+
+/* =========================================
+   SECTIONS
+========================================= */
 
 .section{
     margin-top:28px;
@@ -183,20 +424,40 @@ body{
     margin-bottom:15px;
 }
 
+
+/* =========================================
+   STATS
+========================================= */
+
 .stats{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:14px;
 }
 
 .stat{
     padding:20px 10px;
+
     text-align:center;
-    background:rgba(255,255,255,.72);
+
+    background:
+        rgba(255,255,255,.72);
+
     backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,.9);
+
+    border:
+        1px solid
+        rgba(255,255,255,.9);
+
     border-radius:20px;
-    box-shadow:0 12px 30px rgba(55,43,110,.07);
+
+    box-shadow:
+        0 12px 30px
+        rgba(55,43,110,.07);
+
     transition:.3s;
 }
 
@@ -211,30 +472,52 @@ body{
 
 .stat strong{
     display:block;
+
     font-size:22px;
+
     color:#6557e9;
 }
 
 .stat span{
     display:block;
+
     margin-top:4px;
+
     color:#858293;
+
     font-size:11px;
 }
 
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
+
 .actions{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:14px;
 }
 
 .action{
     padding:20px;
+
     border-radius:20px;
-    background:rgba(255,255,255,.72);
-    border:1px solid rgba(255,255,255,.9);
+
+    background:
+        rgba(255,255,255,.72);
+
+    border:
+        1px solid
+        rgba(255,255,255,.9);
+
     text-decoration:none;
+
     color:#29263d;
+
     transition:.3s;
 }
 
@@ -257,30 +540,57 @@ body{
     line-height:1.4;
 }
 
+
+/* =========================================
+   ACHIEVEMENTS
+========================================= */
+
 .achievements{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:12px;
 }
 
 .badge{
     padding:18px 9px;
+
     text-align:center;
+
     border-radius:18px;
-    background:rgba(255,255,255,.72);
-    border:1px solid rgba(255,255,255,.9);
+
+    background:
+        rgba(255,255,255,.72);
+
+    border:
+        1px solid
+        rgba(255,255,255,.9);
 }
 
 .badge-icon{
     width:50px;
     height:50px;
+
     margin:auto auto 9px;
+
     border-radius:50%;
+
     display:flex;
+
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#7667f8,#ac98ff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #7667f8,
+            #ac98ff
+        );
+
     color:white;
+
     font-size:23px;
 }
 
@@ -296,10 +606,18 @@ body{
 
 .badge small{
     display:block;
+
     margin-top:4px;
+
     font-size:10px;
+
     color:#858293;
 }
+
+
+/* =========================================
+   SETTINGS
+========================================= */
 
 .settings{
     display:flex;
@@ -309,12 +627,22 @@ body{
 
 .setting{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     padding:18px;
+
     border-radius:17px;
-    background:rgba(255,255,255,.72);
-    border:1px solid rgba(255,255,255,.9);
+
+    background:
+        rgba(255,255,255,.72);
+
+    border:
+        1px solid
+        rgba(255,255,255,.9);
+
     transition:.25s;
 }
 
@@ -324,19 +652,28 @@ body{
 
 .setting-left{
     display:flex;
+
     align-items:center;
+
     gap:13px;
 }
 
 .setting-icon{
     width:42px;
     height:42px;
+
     border-radius:13px;
-    background:rgba(118,103,248,.11);
+
+    background:
+        rgba(118,103,248,.11);
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     font-size:20px;
+
     flex-shrink:0;
 }
 
@@ -347,28 +684,51 @@ body{
 
 .setting small{
     display:block;
+
     margin-top:3px;
+
     color:#858293;
+
     line-height:1.4;
 }
 
 .setting button{
     border:none;
-    background:rgba(118,103,248,.1);
+
+    background:
+        rgba(118,103,248,.1);
+
     color:#6557e9;
+
     padding:9px 13px;
+
     border-radius:10px;
+
     cursor:pointer;
+
     font-weight:700;
+
     flex-shrink:0;
 }
 
+
+/* =========================================
+   DANGER
+========================================= */
+
 .danger{
     margin-top:25px;
+
     padding:22px;
+
     border-radius:20px;
-    background:rgba(255,247,249,.75);
-    border:1px solid rgba(245,190,205,.65);
+
+    background:
+        rgba(255,247,249,.75);
+
+    border:
+        1px solid
+        rgba(245,190,205,.65);
 }
 
 .danger h3{
@@ -378,36 +738,61 @@ body{
 
 .danger p{
     color:#817e90;
+
     font-size:13px;
+
     line-height:1.6;
 }
 
 .danger-buttons{
     display:flex;
+
     flex-wrap:wrap;
+
     gap:10px;
+
     margin-top:15px;
 }
 
 .danger-btn{
     border:none;
+
     padding:10px 15px;
+
     border-radius:11px;
+
     background:#fff;
+
     color:#c95476;
+
     font-weight:700;
+
     cursor:pointer;
 }
 
+
+/* =========================================
+   MODAL
+========================================= */
+
 .modal{
     display:none;
+
     position:fixed;
+
     inset:0;
+
     z-index:100;
-    background:rgba(30,25,55,.42);
+
+    background:
+        rgba(30,25,55,.42);
+
     backdrop-filter:blur(7px);
+
     align-items:center;
+
     justify-content:center;
+
     padding:20px;
 }
 
@@ -417,10 +802,16 @@ body{
 
 .modal-box{
     width:min(430px,100%);
+
     padding:25px;
+
     border-radius:24px;
+
     background:#fff;
-    box-shadow:0 25px 70px rgba(30,25,55,.25);
+
+    box-shadow:
+        0 25px 70px
+        rgba(30,25,55,.25);
 }
 
 .modal-box h2{
@@ -429,11 +820,19 @@ body{
 
 .input{
     width:100%;
+
     padding:13px;
+
     margin-bottom:12px;
-    border:1px solid #e2def1;
+
+    border:
+        1px solid
+        #e2def1;
+
     border-radius:12px;
+
     outline:none;
+
     font-size:14px;
 }
 
@@ -443,16 +842,23 @@ body{
 
 .modal-actions{
     display:flex;
+
     gap:10px;
+
     margin-top:8px;
 }
 
 .modal-actions button{
     flex:1;
+
     padding:12px;
+
     border:none;
+
     border-radius:11px;
+
     cursor:pointer;
+
     font-weight:700;
 }
 
@@ -466,18 +872,33 @@ body{
     color:#6557e9;
 }
 
+
+/* =========================================
+   FOOTER
+========================================= */
+
 .footer{
     text-align:center;
+
     margin-top:35px;
+
     color:#8b8998;
+
     font-size:13px;
+
     line-height:1.7;
 }
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 
 @media(max-width:800px){
 
     .stats{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .actions{
@@ -485,9 +906,12 @@ body{
     }
 
     .achievements{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
+
 }
+
 
 @media(max-width:450px){
 
@@ -514,305 +938,618 @@ body{
     .setting button{
         padding:8px 11px;
     }
+
+    .photo-btn,
+    .remove-photo-btn{
+        padding:8px 11px;
+        font-size:11px;
+    }
+
 }
-</style></head><body><div class="blob one"></div>
-<div class="blob two"></div><header class="header"><div class="logo">
-    <div class="logo-icon">💜</div>
-    MoveOn
-</div>
 
-<button class="back" onclick="goBack()">← Back</button>
+</style></head><body><div class="blob one"></div><div class="blob two"></div><!-- =========================================
+     HEADER
+========================================= --><header class="header"><div class="logo">
 
-</header><main class="container"><!-- PROFILE -->
-
-<section class="profile-card">
-
-    <div class="profile-glow"></div>
-
-    <div class="avatar" id="avatar">
+    <div class="logo-icon">
         💜
     </div>
 
-    <h1 id="profileName">Loading...</h1>
-
-    <div class="email" id="profileEmail">
-        Loading profile...
-    </div>
-
-    <div class="tagline">
-        Heal • Grow • Be You 🌱
-    </div>
-
-    <button class="edit-btn" onclick="openEdit()">
-        ✏️ Edit Profile
-    </button>
-
-</section>
-
-
-<!-- JOURNEY -->
-
-<section class="section">
-
-    <h2 class="section-title">📊 Your Journey</h2>
-
-    <div class="stats">
-
-        <div class="stat">
-            <div class="stat-icon">📖</div>
-            <strong id="journalCount">0</strong>
-            <span>Journal Entries</span>
-        </div>
-
-        <div class="stat">
-            <div class="stat-icon">😊</div>
-            <strong id="moodCount">0</strong>
-            <span>Mood Check-ins</span>
-        </div>
-
-        <div class="stat">
-            <div class="stat-icon">🎯</div>
-            <strong id="challengeCount">0</strong>
-            <span>Challenges</span>
-        </div>
-
-        <div class="stat">
-            <div class="stat-icon">🧘</div>
-            <strong id="calmCount">0</strong>
-            <span>Calm Sessions</span>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- QUICK ACCESS -->
-
-<section class="section">
-
-    <h2 class="section-title">⚡ Quick Access</h2>
-
-    <div class="actions">
-
-        <a href="progress.html" class="action">
-            <div class="action-icon">📈</div>
-            <strong>Progress</strong>
-            <small>See how far you've come</small>
-        </a>
-
-        <a href="journal.html" class="action">
-            <div class="action-icon">📔</div>
-            <strong>Journal</strong>
-            <small>Write what's on your mind</small>
-        </a>
-
-        <a href="calm.html" class="action">
-            <div class="action-icon">🧘</div>
-            <strong>Calm</strong>
-            <small>Take a peaceful moment</small>
-        </a>
-
-        <a href="mood.html" class="action">
-            <div class="action-icon">💭</div>
-            <strong>Mood</strong>
-            <small>Check in with yourself</small>
-        </a>
-
-        <a href="challenges.html" class="action">
-            <div class="action-icon">🎯</div>
-            <strong>Challenges</strong>
-            <small>Take today's small step</small>
-        </a>
-
-        <a href="support.html" class="action">
-            <div class="action-icon">🤝</div>
-            <strong>Support</strong>
-            <small>Find helpful resources</small>
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ACHIEVEMENTS -->
-
-<section class="section">
-
-    <h2 class="section-title">🏆 Achievements</h2>
-
-    <div class="achievements">
-
-        <div class="badge locked" id="badgeJournal">
-            <div class="badge-icon">📖</div>
-            <strong>First Page</strong>
-            <small>First journal</small>
-        </div>
-
-        <div class="badge locked" id="badgeMood">
-            <div class="badge-icon">😊</div>
-            <strong>Self Aware</strong>
-            <small>Track a mood</small>
-        </div>
-
-        <div class="badge locked" id="badgeChallenge">
-            <div class="badge-icon">🎯</div>
-            <strong>Action Taker</strong>
-            <small>5 challenges</small>
-        </div>
-
-        <div class="badge locked" id="badgeCalm">
-            <div class="badge-icon">🧘</div>
-            <strong>Inner Calm</strong>
-            <small>5 calm sessions</small>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ACCOUNT -->
-
-<section class="section">
-
-    <h2 class="section-title">⚙️ Account</h2>
-
-    <div class="settings">
-
-        <!-- NOTIFICATIONS -->
-
-        <div class="setting">
-
-            <div class="setting-left">
-
-                <div class="setting-icon">🔔</div>
-
-                <div>
-                    <strong>Notifications</strong>
-                    <small>Manage your healing reminders</small>
-                </div>
-
-            </div>
-
-            <button onclick="openNotifications()">
-                Open
-            </button>
-
-        </div>
-
-
-        <!-- PRIVACY -->
-
-        <div class="setting">
-
-            <div class="setting-left">
-
-                <div class="setting-icon">🔒</div>
-
-                <div>
-                    <strong>Privacy</strong>
-                    <small>Learn how your MoveOn data is handled</small>
-                </div>
-
-            </div>
-
-            <button onclick="openPrivacy()">
-                View
-            </button>
-
-        </div>
-
-
-        <!-- SUPPORT -->
-
-        <div class="setting">
-
-            <div class="setting-left">
-
-                <div class="setting-icon">❓</div>
-
-                <div>
-                    <strong>Support</strong>
-                    <small>Need help?</small>
-                </div>
-
-            </div>
-
-            <button onclick="openSupport()">
-                Help
-            </button>
-
-        </div>
-
-
-        <!-- ABOUT -->
-
-        <div class="setting">
-
-            <div class="setting-left">
-
-                <div class="setting-icon">💜</div>
-
-                <div>
-                    <strong>About MoveOn</strong>
-                    <small>Learn about MoveOn and its mission</small>
-                </div>
-
-            </div>
-
-            <button onclick="openAbout()">
-                About
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- DATA -->
-
-<section class="danger">
-
-    <h3>⚠️ Data & Account</h3>
-
-    <p>
-        Your MoveOn progress is linked to your secure account.
-        Resetting your data will permanently remove your
-        journal, moods, challenges and calm-session records.
-    </p>
-
-    <div class="danger-buttons">
-
-        <button class="danger-btn" onclick="clearMoveOnData()">
-            🗑️ Reset My Data
-        </button>
-
-        <button class="danger-btn" onclick="logout()">
-            🚪 Log Out
-        </button>
-
-    </div>
-
-</section>
-
-
-<div class="footer">
-
-    <p>MoveOn • Heal • Grow • Be You 💜</p>
-
-    <p>
-        You are becoming stronger, one small step at a time.
-    </p>
+    MoveOn
 
 </div>
 
-</main><!-- EDIT PROFILE MODAL --><div class="modal" id="editModal"><div class="modal-box">
 
-    <h2>✏️ Edit Profile</h2>
+<button
+    class="back"
+    onclick="goBack()"
+>
+    ← Back
+</button>
+
+</header><main class="container"><!-- =========================================
+     PROFILE
+========================================= --><section class="profile-card"><div class="profile-glow"></div>
+
+
+<!-- AVATAR -->
+
+<div
+    class="avatar"
+    id="avatar"
+>
+    💜
+</div>
+
+
+<!-- HIDDEN FILE INPUT -->
+
+<input
+    type="file"
+    id="profileImageInput"
+    accept="image/*"
+    style="display:none;"
+>
+
+
+<!-- PHOTO BUTTONS -->
+
+<div class="photo-actions">
+
+    <button
+        class="photo-btn"
+        type="button"
+        onclick="chooseProfilePhoto()"
+    >
+        📷 Change Photo
+    </button>
+
+
+    <button
+        class="remove-photo-btn"
+        id="removePhotoBtn"
+        type="button"
+        onclick="removeProfilePhoto()"
+    >
+        🗑️ Remove
+    </button>
+
+</div>
+
+
+<h1 id="profileName">
+    Loading...
+</h1>
+
+
+<div
+    class="email"
+    id="profileEmail"
+>
+    Loading profile...
+</div>
+
+
+<div class="tagline">
+    Heal • Grow • Be You 🌱
+</div>
+
+
+<button
+    class="edit-btn"
+    onclick="openEdit()"
+>
+    ✏️ Edit Profile
+</button>
+
+</section><!-- =========================================
+     JOURNEY
+========================================= --><section class="section"><h2 class="section-title">
+    📊 Your Journey
+</h2>
+
+
+<div class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            📖
+        </div>
+
+        <strong id="journalCount">
+            0
+        </strong>
+
+        <span>
+            Journal Entries
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            😊
+        </div>
+
+        <strong id="moodCount">
+            0
+        </strong>
+
+        <span>
+            Mood Check-ins
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🎯
+        </div>
+
+        <strong id="challengeCount">
+            0
+        </strong>
+
+        <span>
+            Challenges
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🧘
+        </div>
+
+        <strong id="calmCount">
+            0
+        </strong>
+
+        <span>
+            Calm Sessions
+        </span>
+
+    </div>
+
+
+</div>
+
+</section><!-- =========================================
+     QUICK ACCESS
+========================================= --><section class="section"><h2 class="section-title">
+    ⚡ Quick Access
+</h2>
+
+
+<div class="actions">
+
+
+    <a
+        href="progress.html"
+        class="action"
+    >
+
+        <div class="action-icon">
+            📈
+        </div>
+
+        <strong>
+            Progress
+        </strong>
+
+        <small>
+            See how far you've come
+        </small>
+
+    </a>
+
+
+    <a
+        href="journal.html"
+        class="action"
+    >
+
+        <div class="action-icon">
+            📔
+        </div>
+
+        <strong>
+            Journal
+        </strong>
+
+        <small>
+            Write what's on your mind
+        </small>
+
+    </a>
+
+
+    <a
+        href="calm.html"
+        class="action"
+    >
+
+        <div class="action-icon">
+            🧘
+        </div>
+
+        <strong>
+            Calm
+        </strong>
+
+        <small>
+            Take a peaceful moment
+        </small>
+
+    </a>
+
+
+    <a
+        href="mood.html"
+        class="action"
+    >
+
+        <div class="action-icon">
+            💭
+        </div>
+
+        <strong>
+            Mood
+        </strong>
+
+        <small>
+            Check in with yourself
+        </small>
+
+    </a>
+
+
+    <a
+        href="challenges.html"
+        class="action"
+    >
+
+        <div class="action-icon">
+            🎯
+        </div>
+
+        <strong>
+            Challenges
+        </strong>
+
+        <small>
+            Take today's small step
+        </small>
+
+    </a>
+
+
+    <a
+        href="support.html"
+        class="action"
+    >
+
+        <div class="action-icon">
+            🤝
+        </div>
+
+        <strong>
+            Support
+        </strong>
+
+        <small>
+            Find helpful resources
+        </small>
+
+    </a>
+
+
+</div>
+
+</section><!-- =========================================
+     ACHIEVEMENTS
+========================================= --><section class="section"><h2 class="section-title">
+    🏆 Achievements
+</h2>
+
+
+<div class="achievements">
+
+
+    <div
+        class="badge locked"
+        id="badgeJournal"
+    >
+
+        <div class="badge-icon">
+            📖
+        </div>
+
+        <strong>
+            First Page
+        </strong>
+
+        <small>
+            First journal
+        </small>
+
+    </div>
+
+
+    <div
+        class="badge locked"
+        id="badgeMood"
+    >
+
+        <div class="badge-icon">
+            😊
+        </div>
+
+        <strong>
+            Self Aware
+        </strong>
+
+        <small>
+            Track a mood
+        </small>
+
+    </div>
+
+
+    <div
+        class="badge locked"
+        id="badgeChallenge"
+    >
+
+        <div class="badge-icon">
+            🎯
+        </div>
+
+        <strong>
+            Action Taker
+        </strong>
+
+        <small>
+            5 challenges
+        </small>
+
+    </div>
+
+
+    <div
+        class="badge locked"
+        id="badgeCalm"
+    >
+
+        <div class="badge-icon">
+            🧘
+        </div>
+
+        <strong>
+            Inner Calm
+        </strong>
+
+        <small>
+            5 calm sessions
+        </small>
+
+    </div>
+
+
+</div>
+
+</section><!-- =========================================
+     ACCOUNT
+========================================= --><section class="section"><h2 class="section-title">
+    ⚙️ Account
+</h2>
+
+
+<div class="settings">
+
+
+    <!-- NOTIFICATIONS -->
+
+    <div class="setting">
+
+        <div class="setting-left">
+
+            <div class="setting-icon">
+                🔔
+            </div>
+
+            <div>
+
+                <strong>
+                    Notifications
+                </strong>
+
+                <small>
+                    Manage your healing reminders
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            onclick="openNotifications()"
+        >
+            Open
+        </button>
+
+    </div>
+
+
+    <!-- PRIVACY -->
+
+    <div class="setting">
+
+        <div class="setting-left">
+
+            <div class="setting-icon">
+                🔒
+            </div>
+
+            <div>
+
+                <strong>
+                    Privacy
+                </strong>
+
+                <small>
+                    Learn how your MoveOn data is handled
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            onclick="openPrivacy()"
+        >
+            View
+        </button>
+
+    </div>
+
+
+    <!-- SUPPORT -->
+
+    <div class="setting">
+
+        <div class="setting-left">
+
+            <div class="setting-icon">
+                ❓
+            </div>
+
+            <div>
+
+                <strong>
+                    Support
+                </strong>
+
+                <small>
+                    Need help?
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            onclick="openSupport()"
+        >
+            Help
+        </button>
+
+    </div>
+
+
+    <!-- ABOUT -->
+
+    <div class="setting">
+
+        <div class="setting-left">
+
+            <div class="setting-icon">
+                💜
+            </div>
+
+            <div>
+
+                <strong>
+                    About MoveOn
+                </strong>
+
+                <small>
+                    Learn about MoveOn and its mission
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            onclick="openAbout()"
+        >
+            About
+        </button>
+
+    </div>
+
+
+</div>
+
+</section><!-- =========================================
+     DATA & ACCOUNT
+========================================= --><section class="danger"><h3>
+    ⚠️ Data & Account
+</h3>
+
+
+<p>
+    Your MoveOn progress is linked to your secure account.
+    Resetting your data will permanently remove your
+    journal, moods, challenges and calm-session records.
+</p>
+
+
+<div class="danger-buttons">
+
+
+    <button
+        class="danger-btn"
+        onclick="clearMoveOnData()"
+    >
+        🗑️ Reset My Data
+    </button>
+
+
+    <button
+        class="danger-btn"
+        onclick="logout()"
+    >
+        🚪 Log Out
+    </button>
+
+
+</div>
+
+</section><!-- =========================================
+     FOOTER
+========================================= --><div class="footer"><p>
+    MoveOn • Heal • Grow • Be You 💜
+</p>
+
+<p>
+    You are becoming stronger, one small step at a time.
+</p>
+
+</div></main><!-- =========================================
+     EDIT PROFILE MODAL
+========================================= --><div
+    class="modal"
+    id="editModal"
+><div class="modal-box">
+
+    <h2>
+        ✏️ Edit Profile
+    </h2>
+
 
     <input
         class="input"
@@ -822,6 +1559,7 @@ body{
         placeholder="Your name"
     >
 
+
     <input
         class="input"
         id="emailInput"
@@ -830,25 +1568,34 @@ body{
         placeholder="Your email"
     >
 
+
     <div class="modal-actions">
+
 
         <button
             class="cancel"
-            onclick="closeEdit()">
+            onclick="closeEdit()"
+        >
             Cancel
         </button>
 
+
         <button
             class="save"
-            onclick="saveProfile()">
+            onclick="saveProfile()"
+        >
             Save
         </button>
+
 
     </div>
 
 </div>
 
-</div><script type="module">
+</div><!-- =========================================
+     FIREBASE SCRIPT
+========================================= --><script type="module">
+
 
 /* =========================================
    FIREBASE IMPORTS
@@ -859,11 +1606,13 @@ import {
     database
 } from "./firebase-config.js";
 
+
 import {
     onAuthStateChanged,
     updateProfile,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
 import {
     ref,
@@ -883,22 +1632,29 @@ let currentUser = null;
    AUTH CHECK
 ========================================= */
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(
+    auth,
+    async (user) => {
 
-    if(!user){
+        if(!user){
 
-        window.location.href = "login.html";
+            window.location.href =
+                "login.html";
 
-        return;
+            return;
+        }
+
+
+        currentUser = user;
+
+
+        await loadFirebaseProfile();
+
+
+        await loadFirebaseStats();
+
     }
-
-    currentUser = user;
-
-    await loadFirebaseProfile();
-
-    await loadFirebaseStats();
-
-});
+);
 
 
 /* =========================================
@@ -909,68 +1665,138 @@ async function loadFirebaseProfile(){
 
     if(!currentUser) return;
 
+
     try{
 
         const userRef =
-            ref(database, "users/" + currentUser.uid);
+            ref(
+                database,
+                "users/" +
+                currentUser.uid
+            );
+
 
         const snapshot =
             await get(userRef);
+
 
         const data =
             snapshot.exists()
                 ? snapshot.val()
                 : {};
 
+
         const name =
             data.name ||
             currentUser.displayName ||
             "MoveOn User";
+
 
         const email =
             currentUser.email ||
             data.email ||
             "Welcome to MoveOn";
 
-        document.getElementById("profileName")
+
+        document
+            .getElementById("profileName")
             .textContent = name;
 
-        document.getElementById("profileEmail")
+
+        document
+            .getElementById("profileEmail")
             .textContent = email;
 
-        document.getElementById("nameInput")
+
+        document
+            .getElementById("nameInput")
             .value =
             name === "MoveOn User"
                 ? ""
                 : name;
 
-        document.getElementById("emailInput")
+
+        document
+            .getElementById("emailInput")
             .value =
             email === "Welcome to MoveOn"
                 ? ""
                 : email;
-const avatar = document.getElementById("avatar");
-const removePhotoBtn = document.getElementById("removePhotoBtn");
 
-if(data.profileImage){
 
-avatar.innerHTML =
-    `<img src="${data.profileImage}" alt="Profile Photo">`;
+        /* =====================================
+           PROFILE PHOTO
+        ===================================== */
 
-avatar.classList.add("has-image");
+        const avatar =
+            document.getElementById("avatar");
 
-removePhotoBtn.style.display = "inline-block";
 
-}else{
+        const removePhotoBtn =
+            document.getElementById(
+                "removePhotoBtn"
+            );
 
-avatar.textContent = getInitials(name);
 
-avatar.classList.remove("has-image");
+        if(data.profileImage){
 
-removePhotoBtn.style.display = "none";
+            avatar.innerHTML =
+                "";
 
-}
-        
+
+            const image =
+                document.createElement("img");
+
+
+            image.src =
+                data.profileImage;
+
+
+            image.alt =
+                "Profile Photo";
+
+
+            image.onerror =
+                function(){
+
+                    avatar.innerHTML =
+                        getInitials(name);
+
+                    avatar.classList
+                        .remove("has-image");
+
+                    removePhotoBtn.style
+                        .display = "none";
+
+                };
+
+
+            avatar.appendChild(image);
+
+
+            avatar.classList
+                .add("has-image");
+
+
+            removePhotoBtn.style
+                .display = "inline-block";
+
+        }else{
+
+            avatar.textContent =
+                getInitials(name);
+
+
+            avatar.classList
+                .remove("has-image");
+
+
+            removePhotoBtn.style
+                .display = "none";
+
+        }
+
+
     }catch(error){
 
         console.error(
@@ -978,15 +1804,30 @@ removePhotoBtn.style.display = "none";
             error
         );
 
-        document.getElementById("profileName")
+
+        document
+            .getElementById("profileName")
             .textContent =
             currentUser.displayName ||
             "MoveOn User";
 
-        document.getElementById("profileEmail")
+
+        document
+            .getElementById("profileEmail")
             .textContent =
             currentUser.email ||
             "Welcome to MoveOn";
+
+
+        const avatar =
+            document.getElementById("avatar");
+
+
+        avatar.textContent =
+            getInitials(
+                currentUser.displayName ||
+                "MoveOn User"
+            );
 
     }
 
@@ -999,10 +1840,14 @@ removePhotoBtn.style.display = "none";
 
 function getInitials(name){
 
-    if(!name) return "💜";
+    if(!name)
+        return "💜";
+
 
     const words =
-        name.trim().split(/\s+/);
+        name.trim()
+            .split(/\s+/);
+
 
     if(words.length === 1){
 
@@ -1011,6 +1856,7 @@ function getInitials(name){
             .toUpperCase();
 
     }
+
 
     return (
         words[0][0] +
@@ -1028,34 +1874,52 @@ async function loadFirebaseStats(){
 
     if(!currentUser) return;
 
+
     try{
 
-        const uid = currentUser.uid;
+        const uid =
+            currentUser.uid;
+
 
         const userRef =
-            ref(database, "users/" + uid);
+            ref(
+                database,
+                "users/" + uid
+            );
+
 
         const snapshot =
             await get(userRef);
 
+
         if(!snapshot.exists()){
 
-            setStats(0,0,0,0);
+            setStats(
+                0,
+                0,
+                0,
+                0
+            );
 
             return;
         }
 
+
         const data =
             snapshot.val();
+
 
         const journals =
             data.journal || {};
 
+
         const moods =
             data.moods || {};
 
+
         const challenges =
             data.challenges || {};
+
 
         const calmSessions =
             data.calmSessions || {};
@@ -1064,33 +1928,39 @@ async function loadFirebaseStats(){
         const journalCount =
             Object.keys(journals).length;
 
+
         const moodCount =
             Object.keys(moods).length;
 
 
         let challengeCount = 0;
 
+
         Object.values(challenges)
-            .forEach(challenge => {
+            .forEach(
+                challenge => {
 
-                if(
-                    challenge &&
-                    (
-                        challenge.completed === true ||
-                        challenge.completed === "true" ||
-                        challenge.status === "completed"
-                    )
-                ){
+                    if(
+                        challenge &&
+                        (
+                            challenge.completed === true ||
+                            challenge.completed === "true" ||
+                            challenge.status === "completed"
+                        )
+                    ){
 
-                    challengeCount++;
+                        challengeCount++;
+
+                    }
 
                 }
-
-            });
+            );
 
 
         const calmCount =
-            Object.keys(calmSessions).length;
+            Object.keys(
+                calmSessions
+            ).length;
 
 
         setStats(
@@ -1100,6 +1970,7 @@ async function loadFirebaseStats(){
             calmCount
         );
 
+
     }catch(error){
 
         console.error(
@@ -1107,7 +1978,13 @@ async function loadFirebaseStats(){
             error
         );
 
-        setStats(0,0,0,0);
+
+        setStats(
+            0,
+            0,
+            0,
+            0
+        );
 
     }
 
@@ -1125,48 +2002,66 @@ function setStats(
     calmCount
 ){
 
-    document.getElementById("journalCount")
-        .textContent = journalCount;
+    document
+        .getElementById("journalCount")
+        .textContent =
+        journalCount;
 
-    document.getElementById("moodCount")
-        .textContent = moodCount;
 
-    document.getElementById("challengeCount")
-        .textContent = challengeCount;
+    document
+        .getElementById("moodCount")
+        .textContent =
+        moodCount;
 
-    document.getElementById("calmCount")
-        .textContent = calmCount;
+
+    document
+        .getElementById("challengeCount")
+        .textContent =
+        challengeCount;
+
+
+    document
+        .getElementById("calmCount")
+        .textContent =
+        calmCount;
 
 
     if(journalCount >= 1){
 
         document
             .getElementById("badgeJournal")
-            .classList.remove("locked");
+            .classList
+            .remove("locked");
 
     }
+
 
     if(moodCount >= 1){
 
         document
             .getElementById("badgeMood")
-            .classList.remove("locked");
+            .classList
+            .remove("locked");
 
     }
+
 
     if(challengeCount >= 5){
 
         document
             .getElementById("badgeChallenge")
-            .classList.remove("locked");
+            .classList
+            .remove("locked");
 
     }
+
 
     if(calmCount >= 5){
 
         document
             .getElementById("badgeCalm")
-            .classList.remove("locked");
+            .classList
+            .remove("locked");
 
     }
 
@@ -1174,318 +2069,968 @@ function setStats(
 
 
 /* =========================================
+   CHOOSE PROFILE PHOTO
+========================================= */
+
+window.chooseProfilePhoto =
+    function(){
+
+        if(!currentUser){
+
+            alert(
+                "Please log in first."
+            );
+
+            return;
+        }
+
+
+        const input =
+            document.getElementById(
+                "profileImageInput"
+            );
+
+
+        input.click();
+
+    };
+
+
+/* =========================================
+   PROFILE IMAGE INPUT
+========================================= */
+
+document
+    .getElementById(
+        "profileImageInput"
+    )
+    .addEventListener(
+        "change",
+        async function(){
+
+            const file =
+                this.files[0];
+
+
+            if(!file)
+                return;
+
+
+            if(!currentUser){
+
+                alert(
+                    "Please log in first."
+                );
+
+                this.value = "";
+
+                return;
+            }
+
+
+            /* =================================
+               CHECK FILE TYPE
+            ================================= */
+
+            if(
+                !file.type.startsWith(
+                    "image/"
+                )
+            ){
+
+                alert(
+                    "Please select an image file."
+                );
+
+                this.value = "";
+
+                return;
+            }
+
+
+            /* =================================
+               CHECK ORIGINAL SIZE
+            ================================= */
+
+            if(
+                file.size >
+                10 * 1024 * 1024
+            ){
+
+                alert(
+                    "Please choose an image smaller than 10 MB."
+                );
+
+                this.value = "";
+
+                return;
+            }
+
+
+            const button =
+                document.querySelector(
+                    ".photo-btn"
+                );
+
+
+            const oldText =
+                button.textContent;
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Uploading...";
+
+
+            try{
+
+                /* =============================
+                   COMPRESS IMAGE
+                ============================= */
+
+                const compressedImage =
+                    await compressProfileImage(
+                        file
+                    );
+
+
+                /* =============================
+                   SAVE TO FIREBASE
+                ============================= */
+
+                await update(
+
+                    ref(
+                        database,
+                        "users/" +
+                        currentUser.uid
+                    ),
+
+                    {
+                        profileImage:
+                            compressedImage,
+
+                        updatedAt:
+                            new Date()
+                                .toISOString()
+                    }
+
+                );
+
+
+                /* =============================
+                   SHOW IMMEDIATELY
+                ============================= */
+
+                showProfileImage(
+                    compressedImage
+                );
+
+
+                document
+                    .getElementById(
+                        "removePhotoBtn"
+                    )
+                    .style.display =
+                    "inline-block";
+
+
+                alert(
+                    "Profile photo updated successfully. 💜"
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    "Profile photo error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to update profile photo. Please try again."
+                );
+
+            }finally{
+
+                button.disabled = false;
+
+                button.textContent =
+                    oldText;
+
+
+                this.value = "";
+
+            }
+
+        }
+    );
+
+
+/* =========================================
+   SHOW PROFILE IMAGE
+========================================= */
+
+function showProfileImage(
+    imageData
+){
+
+    const avatar =
+        document.getElementById(
+            "avatar"
+        );
+
+
+    avatar.innerHTML =
+        "";
+
+
+    const image =
+        document.createElement("img");
+
+
+    image.src =
+        imageData;
+
+
+    image.alt =
+        "Profile Photo";
+
+
+    avatar.appendChild(
+        image
+    );
+
+
+    avatar.classList.add(
+        "has-image"
+    );
+
+}
+
+
+/* =========================================
+   COMPRESS PROFILE IMAGE
+========================================= */
+
+function compressProfileImage(file){
+
+    return new Promise(
+        (resolve,reject)=>{
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(event){
+
+                    const image =
+                        new Image();
+
+
+                    image.onload =
+                        function(){
+
+                            const MAX_SIZE =
+                                500;
+
+
+                            let width =
+                                image.width;
+
+
+                            let height =
+                                image.height;
+
+
+                            /*
+                               Keep aspect ratio.
+                               Maximum dimension = 500px.
+                            */
+
+                            if(
+                                width >
+                                height
+                            ){
+
+                                if(
+                                    width >
+                                    MAX_SIZE
+                                ){
+
+                                    height =
+                                        Math.round(
+                                            height *
+                                            MAX_SIZE /
+                                            width
+                                        );
+
+                                    width =
+                                        MAX_SIZE;
+
+                                }
+
+                            }else{
+
+                                if(
+                                    height >
+                                    MAX_SIZE
+                                ){
+
+                                    width =
+                                        Math.round(
+                                            width *
+                                            MAX_SIZE /
+                                            height
+                                        );
+
+                                    height =
+                                        MAX_SIZE;
+
+                                }
+
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                width;
+
+
+                            canvas.height =
+                                height;
+
+
+                            const context =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            context.drawImage(
+                                image,
+                                0,
+                                0,
+                                width,
+                                height
+                            );
+
+
+                            /*
+                               JPEG compression
+                               keeps Firebase
+                               data smaller.
+                            */
+
+                            const compressed =
+                                canvas.toDataURL(
+                                    "image/jpeg",
+                                    0.78
+                                );
+
+
+                            resolve(
+                                compressed
+                            );
+
+                        };
+
+
+                    image.onerror =
+                        function(){
+
+                            reject(
+                                new Error(
+                                    "Invalid image"
+                                )
+                            );
+
+                        };
+
+
+                    image.src =
+                        event.target.result;
+
+                };
+
+
+            reader.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "Unable to read image"
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   REMOVE PROFILE PHOTO
+========================================= */
+
+window.removeProfilePhoto =
+    async function(){
+
+        if(!currentUser){
+
+            alert(
+                "Please log in first."
+            );
+
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                "Remove your profile photo?"
+            );
+
+
+        if(!confirmed)
+            return;
+
+
+        const removeButton =
+            document.getElementById(
+                "removePhotoBtn"
+            );
+
+
+        removeButton.disabled =
+            true;
+
+
+        try{
+
+            await update(
+
+                ref(
+                    database,
+                    "users/" +
+                    currentUser.uid
+                ),
+
+                {
+                    profileImage:null,
+
+                    updatedAt:
+                        new Date()
+                            .toISOString()
+                }
+
+            );
+
+
+            const name =
+                document
+                    .getElementById(
+                        "profileName"
+                    )
+                    .textContent ||
+                "MoveOn User";
+
+
+            const avatar =
+                document.getElementById(
+                    "avatar"
+                );
+
+
+            avatar.innerHTML =
+                getInitials(name);
+
+
+            avatar.classList.remove(
+                "has-image"
+            );
+
+
+            removeButton.style.display =
+                "none";
+
+
+            alert(
+                "Profile photo removed. 💜"
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Remove photo error:",
+                error
+            );
+
+
+            alert(
+                "Unable to remove profile photo. Please try again."
+            );
+
+        }finally{
+
+            removeButton.disabled =
+                false;
+
+        }
+
+    };
+
+
+/* =========================================
    EDIT PROFILE
 ========================================= */
 
-window.openEdit = function(){
+window.openEdit =
+    function(){
 
-    document
-        .getElementById("editModal")
-        .classList.add("show");
+        document
+            .getElementById(
+                "editModal"
+            )
+            .classList.add(
+                "show"
+            );
 
-};
+    };
 
 
-window.closeEdit = function(){
+window.closeEdit =
+    function(){
 
-    document
-        .getElementById("editModal")
-        .classList.remove("show");
+        document
+            .getElementById(
+                "editModal"
+            )
+            .classList.remove(
+                "show"
+            );
 
-};
+    };
 
 
 /* =========================================
    SAVE PROFILE
 ========================================= */
 
-window.saveProfile = async function(){
+window.saveProfile =
+    async function(){
 
-    if(!currentUser){
+        if(!currentUser){
 
-        alert("Please log in first.");
+            alert(
+                "Please log in first."
+            );
 
-        return;
-    }
-
-
-    const name =
-        document
-            .getElementById("nameInput")
-            .value
-            .trim();
-
-    const email =
-        document
-            .getElementById("emailInput")
-            .value
-            .trim();
+            return;
+        }
 
 
-    if(!name){
-
-        alert("Please enter your name.");
-
-        return;
-    }
-
-
-    if(!email){
-
-        alert("Please enter your email.");
-
-        return;
-    }
+        const name =
+            document
+                .getElementById(
+                    "nameInput"
+                )
+                .value
+                .trim();
 
 
-    const saveButton =
-        document.querySelector(".save");
+        const email =
+            document
+                .getElementById(
+                    "emailInput"
+                )
+                .value
+                .trim();
 
-    saveButton.disabled = true;
 
-    saveButton.textContent = "Saving...";
+        if(!name){
+
+            alert(
+                "Please enter your name."
+            );
+
+            return;
+        }
 
 
-    try{
+        if(!email){
 
-        await updateProfile(
-            currentUser,
-            {
-                displayName: name
+            alert(
+                "Please enter your email."
+            );
+
+            return;
+        }
+
+
+        const saveButton =
+            document.querySelector(
+                ".save"
+            );
+
+
+        saveButton.disabled =
+            true;
+
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try{
+
+            await updateProfile(
+                currentUser,
+                {
+                    displayName:name
+                }
+            );
+
+
+            await update(
+
+                ref(
+                    database,
+                    "users/" +
+                    currentUser.uid
+                ),
+
+                {
+                    name:name,
+
+                    email:email,
+
+                    updatedAt:
+                        new Date()
+                            .toISOString()
+                }
+
+            );
+
+
+            document
+                .getElementById(
+                    "profileName"
+                )
+                .textContent =
+                name;
+
+
+            document
+                .getElementById(
+                    "profileEmail"
+                )
+                .textContent =
+                email;
+
+
+            /*
+               IMPORTANT:
+               If a profile photo exists,
+               do NOT replace it with initials.
+            */
+
+            const avatar =
+                document.getElementById(
+                    "avatar"
+                );
+
+
+            if(
+                !avatar.classList
+                    .contains(
+                        "has-image"
+                    )
+            ){
+
+                avatar.textContent =
+                    getInitials(name);
+
             }
-        );
 
 
-        await update(
-            ref(
-                database,
-                "users/" + currentUser.uid
-            ),
-            {
-                name: name,
-                email: email,
-                updatedAt:
-                    new Date().toISOString()
-            }
-        );
+            closeEdit();
 
 
-        document.getElementById("profileName")
-            .textContent = name;
-
-        document.getElementById("profileEmail")
-            .textContent = email;
-
-        document.getElementById("avatar")
-            .textContent = getInitials(name);
+            alert(
+                "Profile updated successfully. 💜"
+            );
 
 
-        closeEdit();
+        }catch(error){
 
-        alert("Profile updated successfully. 💜");
+            console.error(
+                "Save profile error:",
+                error
+            );
 
-    }catch(error){
 
-        console.error(
-            "Save profile error:",
-            error
-        );
+            alert(
+                "Unable to save profile. Please try again."
+            );
 
-        alert(
-            "Unable to save profile. Please try again."
-        );
+        }finally{
 
-    }finally{
+            saveButton.disabled =
+                false;
 
-        saveButton.disabled = false;
 
-        saveButton.textContent = "Save";
+            saveButton.textContent =
+                "Save";
 
-    }
+        }
 
-};
+    };
 
 
 /* =========================================
    OPEN ACCOUNT PAGES
 ========================================= */
 
-window.openNotifications = function(){
+window.openNotifications =
+    function(){
 
-    window.location.href = "notifications.html";
+        window.location.href =
+            "notifications.html";
 
-};
-
-
-window.openPrivacy = function(){
-
-    window.location.href = "privacy.html";
-
-};
+    };
 
 
-window.openAbout = function(){
+window.openPrivacy =
+    function(){
 
-    window.location.href = "about.html";
+        window.location.href =
+            "privacy.html";
 
-};
+    };
 
 
-window.openSupport = function(){
+window.openAbout =
+    function(){
 
-    window.location.href = "support.html";
+        window.location.href =
+            "about.html";
 
-};
+    };
+
+
+window.openSupport =
+    function(){
+
+        window.location.href =
+            "support.html";
+
+    };
 
 
 /* =========================================
    RESET FIREBASE DATA
 ========================================= */
 
-window.clearMoveOnData = async function(){
+window.clearMoveOnData =
+    async function(){
 
-    if(!currentUser){
+        if(!currentUser){
 
-        alert("Please log in first.");
+            alert(
+                "Please log in first."
+            );
 
-        return;
-    }
-
-
-    const confirmReset =
-        confirm(
-            "Are you sure you want to delete your MoveOn progress? This cannot be undone."
-        );
+            return;
+        }
 
 
-    if(!confirmReset) return;
+        const confirmReset =
+            confirm(
+                "Are you sure you want to delete your MoveOn progress? This cannot be undone."
+            );
 
 
-    try{
-
-        const uid =
-            currentUser.uid;
+        if(!confirmReset)
+            return;
 
 
-        const userRef =
-            ref(database, "users/" + uid);
+        try{
+
+            const uid =
+                currentUser.uid;
 
 
-        await update(
-            userRef,
-            {
-                journal: null,
-                moods: null,
-                challenges: null,
-                calmSessions: null,
-                progress: null
-            }
-        );
+            const userRef =
+                ref(
+                    database,
+                    "users/" + uid
+                );
 
 
-        const localKeys = [
+            await update(
+                userRef,
+                {
 
-            "moveon_journal_entries",
-            "moveon_journal_mood",
-            "moveon_journal_streak",
-            "moveon_moods",
-            "moveon_challenges",
-            "moveon_total_xp",
-            "moveon_challenge_streak",
-            "moveon_total_completed",
-            "moveon_last_challenge_date",
-            "moveon_calm_sessions"
+                    journal:null,
 
-        ];
+                    moods:null,
 
+                    challenges:null,
 
-        localKeys.forEach(key => {
+                    calmSessions:null,
 
-            localStorage.removeItem(key);
+                    progress:null
 
-        });
+                }
+            );
 
 
-        alert(
-            "Your MoveOn progress has been reset. 💜"
-        );
+            const localKeys = [
+
+                "moveon_journal_entries",
+
+                "moveon_journal_mood",
+
+                "moveon_journal_streak",
+
+                "moveon_moods",
+
+                "moveon_challenges",
+
+                "moveon_total_xp",
+
+                "moveon_challenge_streak",
+
+                "moveon_total_completed",
+
+                "moveon_last_challenge_date",
+
+                "moveon_calm_sessions"
+
+            ];
 
 
-        location.reload();
+            localKeys.forEach(
+                key => {
 
-    }catch(error){
+                    localStorage.removeItem(
+                        key
+                    );
 
-        console.error(
-            "Reset data error:",
-            error
-        );
+                }
+            );
 
-        alert(
-            "Unable to reset your data. Please try again."
-        );
 
-    }
+            alert(
+                "Your MoveOn progress has been reset. 💜"
+            );
 
-};
+
+            location.reload();
+
+
+        }catch(error){
+
+            console.error(
+                "Reset data error:",
+                error
+            );
+
+
+            alert(
+                "Unable to reset your data. Please try again."
+            );
+
+        }
+
+    };
 
 
 /* =========================================
    LOGOUT
 ========================================= */
 
-window.logout = async function(){
+window.logout =
+    async function(){
 
-    const confirmLogout =
-        confirm("Do you want to log out?");
+        const confirmLogout =
+            confirm(
+                "Do you want to log out?"
+            );
 
 
-    if(!confirmLogout) return;
+        if(!confirmLogout)
+            return;
 
 
-    try{
+        try{
 
-        await signOut(auth);
+            await signOut(
+                auth
+            );
 
-        window.location.href =
-            "login.html";
 
-    }catch(error){
+            window.location.href =
+                "login.html";
 
-        console.error(
-            "Logout error:",
-            error
-        );
 
-        alert(
-            "Unable to logout. Please try again."
-        );
+        }catch(error){
 
-    }
+            console.error(
+                "Logout error:",
+                error
+            );
 
-};
+
+            alert(
+                "Unable to logout. Please try again."
+            );
+
+        }
+
+    };
 
 
 /* =========================================
    BACK BUTTON
 ========================================= */
 
-window.goBack = function(){
+window.goBack =
+    function(){
 
-    if(
-        document.referrer &&
-        document.referrer !== window.location.href
-    ){
+        if(
+            document.referrer &&
+            document.referrer !==
+            window.location.href
+        ){
 
-        history.back();
+            history.back();
 
-    }else{
+        }else{
 
-        window.location.href =
-            "home.html";
+            window.location.href =
+                "home.html";
 
-    }
+        }
 
-};
+    };
 
 
 /* =========================================
@@ -1493,12 +3038,16 @@ window.goBack = function(){
 ========================================= */
 
 document
-    .getElementById("editModal")
+    .getElementById(
+        "editModal"
+    )
     .addEventListener(
         "click",
         function(e){
 
-            if(e.target === this){
+            if(
+                e.target === this
+            ){
 
                 closeEdit();
 
@@ -1506,313 +3055,9 @@ document
 
         }
     );
-    
-/* =========================================
-PROFILE PHOTO
-========================================= */
 
-document
-.getElementById("profileImageInput")
-.addEventListener("change", async function(){
 
-    const file = this.files[0];
-
-    if(!file) return;
-
-    if(!currentUser){
-
-        alert("Please log in first.");
-
-        this.value = "";
-
-        return;
-    }
-
-    /* Check image */
-
-    if(!file.type.startsWith("image/")){
-
-        alert("Please select an image file.");
-
-        this.value = "";
-
-        return;
-    }
-
-    /* Maximum original file size */
-
-    if(file.size > 10 * 1024 * 1024){
-
-        alert("Please choose an image smaller than 10 MB.");
-
-        this.value = "";
-
-        return;
-    }
-
-
-    try{
-
-        /* Compress image before Firebase save */
-
-        const compressedImage =
-            await compressProfileImage(file);
-
-
-        /* Save image in Firebase */
-
-        await update(
-            ref(
-                database,
-                "users/" + currentUser.uid
-            ),
-            {
-                profileImage: compressedImage,
-                updatedAt:
-                    new Date().toISOString()
-            }
-        );
-
-
-        /* Show image immediately */
-
-        const avatar =
-            document.getElementById("avatar");
-
-        avatar.innerHTML =
-            `<img src="${compressedImage}" alt="Profile Photo">`;
-
-        avatar.classList.add("has-image");
-
-
-        document
-            .getElementById("removePhotoBtn")
-            .style.display = "inline-block";
-
-
-        alert("Profile photo updated successfully. 💜");
-
-    }catch(error){
-
-        console.error(
-            "Profile photo error:",
-            error
-        );
-
-        alert(
-            "Unable to update profile photo. Please try again."
-        );
-
-    }
-
-
-    /* Reset input so same photo can be selected again */
-
-    this.value = "";
-
-});
-
-/* =========================================
-COMPRESS PROFILE IMAGE
-========================================= */
-
-function compressProfileImage(file){
-
-return new Promise((resolve,reject)=>{
-
-    const reader = new FileReader();
-
-
-    reader.onload = function(event){
-
-        const img = new Image();
-
-
-        img.onload = function(){
-
-            const MAX_SIZE = 500;
-
-            let width = img.width;
-            let height = img.height;
-
-
-            /* Keep image square-friendly */
-
-            if(width > height){
-
-                if(width > MAX_SIZE){
-
-                    height =
-                        Math.round(
-                            height *
-                            MAX_SIZE /
-                            width
-                        );
-
-                    width = MAX_SIZE;
-
-                }
-
-            }else{
-
-                if(height > MAX_SIZE){
-
-                    width =
-                        Math.round(
-                            width *
-                            MAX_SIZE /
-                            height
-                        );
-
-                    height = MAX_SIZE;
-
-                }
-
-            }
-
-
-            const canvas =
-                document.createElement("canvas");
-
-            canvas.width = width;
-            canvas.height = height;
-
-
-            const ctx =
-                canvas.getContext("2d");
-
-
-            ctx.drawImage(
-                img,
-                0,
-                0,
-                width,
-                height
-            );
-
-
-            /* JPEG keeps Firebase data smaller */
-
-            const compressed =
-                canvas.toDataURL(
-                    "image/jpeg",
-                    0.78
-                );
-
-
-            resolve(compressed);
-
-        };
-
-
-        img.onerror = function(){
-
-            reject(
-                new Error("Invalid image")
-            );
-
-        };
-
-
-        img.src = event.target.result;
-
-    };
-
-
-    reader.onerror = function(){
-
-        reject(
-            new Error("Unable to read image")
-        );
-
-    };
-
-
-    reader.readAsDataURL(file);
-
-});
-
-}
-
-/* =========================================
-REMOVE PROFILE PHOTO
-========================================= */
-
-window.removeProfilePhoto = async function(){
-
-if(!currentUser){
-
-    alert("Please log in first.");
-
-    return;
-}
-
-
-const confirmed =
-    confirm(
-        "Remove your profile photo?"
-    );
-
-
-if(!confirmed) return;
-
-
-try{
-
-    await update(
-        ref(
-            database,
-            "users/" + currentUser.uid
-        ),
-        {
-            profileImage: null,
-            updatedAt:
-                new Date().toISOString()
-        }
-    );
-
-
-    const name =
-        document
-            .getElementById("profileName")
-            .textContent ||
-        "MoveOn User";
-
-
-    const avatar =
-        document.getElementById("avatar");
-
-
-    avatar.innerHTML =
-        getInitials(name);
-
-    avatar.classList.remove(
-        "has-image"
-    );
-
-
-    document
-        .getElementById("removePhotoBtn")
-        .style.display = "none";
-
-
-    alert(
-        "Profile photo removed. 💜"
-    );
-
-}catch(error){
-
-    console.error(
-        "Remove photo error:",
-        error
-    );
-
-    alert(
-        "Unable to remove profile photo. Please try again."
-    );
-
-}
-
-};
-</script><script src="emoji-sounds.js"></script></body>
+</script><!-- =========================================
+     EMOJI SOUNDS
+========================================= --><script src="emoji-sounds.js"></script></body>
 </html>
