@@ -229,15 +229,13 @@ export function requireAuth() {
 // ==========================================
 // REDIRECT IF ALREADY LOGGED IN
 // ==========================================
-// This function is mainly for login/signup pages.
-//
-// If the user is already logged in and opens:
+// Use ONLY on public authentication pages:
 // login.html
+// signup.html
 //
-// They should NOT be sent to onboarding.
-// They should go directly to home.html.
-//
-// index.html remains the PUBLIC landing page.
+// Already logged-in user -> home.html
+// Not logged-in user -> stays on current page
+// ==========================================
 
 export function redirectIfLoggedIn() {
 
@@ -247,9 +245,9 @@ export function redirectIfLoggedIn() {
 
             if (user) {
 
-                window.location.replace(
-                    "home.html"
-                );
+                // Already logged in
+                // Directly go to Home
+                window.location.replace("home.html");
 
             }
 
@@ -260,6 +258,7 @@ export function redirectIfLoggedIn() {
                 "Redirect Auth Error:",
                 error
             );
+
         }
     );
 }
