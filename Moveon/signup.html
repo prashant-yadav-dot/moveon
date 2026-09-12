@@ -1799,5 +1799,10 @@ window.showToast = function(message){
 </script>
 
 <script src="emoji-sounds.js"></script>
+   <script type="module">
+    import { redirectIfLoggedIn } from "./auth.js";
+
+    redirectIfLoggedIn();
+</script>
 </body>
 </html>
