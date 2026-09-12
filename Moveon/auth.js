@@ -248,7 +248,7 @@ export function redirectIfLoggedIn() {
             if (user) {
 
                 window.location.replace(
-                    "home.html"
+                    "index.html"
                 );
 
             }
