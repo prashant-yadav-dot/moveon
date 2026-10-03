@@ -1,1180 +1,889 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
-    >
-
-    <title>MoveOn Premium</title>
-
-    <!-- Razorpay Checkout -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family:
-                Inter,
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                sans-serif;
-
-            min-height: 100vh;
-
-            background:
-                radial-gradient(
-                    circle at top left,
-                    rgba(118, 103, 248, 0.18),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    rgba(236, 180, 255, 0.18),
-                    transparent 35%
-                ),
-                #f8f7ff;
-
-            color: #24223a;
-        }
-
-        .page {
-            width: 100%;
-            max-width: 620px;
-            margin: auto;
-            padding: 24px 16px 40px;
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 18px;
-        }
-
-        .back-btn {
-            border: none;
-            background: white;
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow:
-                0 8px 25px rgba(70, 60, 130, 0.08);
-        }
-
-        .brand {
-            font-size: 18px;
-            font-weight: 800;
-            color: #5d52d8;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 18px 8px 24px;
-        }
-
-        .premium-icon {
-            width: 76px;
-            height: 76px;
-            margin: 0 auto 16px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 24px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #7667f8,
-                    #a58cff
-                );
-
-            color: white;
-            font-size: 34px;
-
-            box-shadow:
-                0 18px 45px rgba(118, 103, 248, 0.30);
-        }
-
-        h1 {
-            font-size: 32px;
-            line-height: 1.15;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: #74718b;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .price-card {
-            background: white;
-            border-radius: 28px;
-            padding: 25px 20px;
-            box-shadow:
-                0 15px 45px rgba(68, 61, 125, 0.10);
-            margin-bottom: 18px;
-        }
-
-        .price {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .price strong {
-            font-size: 42px;
-            color: #554bd8;
-        }
-
-        .price span {
-            color: #77748d;
-            font-size: 15px;
-        }
-
-        .features {
-            display: grid;
-            gap: 12px;
-            margin-bottom: 22px;
-        }
-
-        .feature {
-            display: flex;
-            align-items: flex-start;
-            gap: 11px;
-
-            padding: 12px;
-
-            background: #faf9ff;
-            border-radius: 15px;
-
-            color: #4f4c67;
-            font-size: 14px;
-            line-height: 1.45;
-        }
-
-        .check {
-            flex: 0 0 auto;
-
-            width: 24px;
-            height: 24px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #eceaff;
-            color: #5d52d8;
-
-            font-weight: 800;
-        }
-
-        .premium-btn {
-            width: 100%;
-            border: none;
-            border-radius: 17px;
-
-            padding: 16px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #7667f8,
-                    #554bd8
-                );
-
-            color: white;
-
-            font-size: 16px;
-            font-weight: 800;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 14px 30px rgba(85, 75, 216, 0.25);
-
-            transition:
-                transform 0.15s ease,
-                opacity 0.15s ease;
-        }
-
-        .premium-btn:active {
-            transform: scale(0.98);
-        }
-
-        .premium-btn:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-        }
-
-        .status {
-            display: none;
-
-            margin-top: 14px;
-            padding: 13px 14px;
-
-            border-radius: 14px;
-
-            font-size: 13px;
-            line-height: 1.5;
-
-            text-align: center;
-        }
-
-        .status.show {
-            display: block;
-        }
-
-        .status.success {
-            background: #eafaf0;
-            color: #18753d;
-        }
-
-        .status.error {
-            background: #fff0f0;
-            color: #b42323;
-        }
-
-        .status.info {
-            background: #f0efff;
-            color: #554bd8;
-        }
-
-        .account-card {
-            background: rgba(255,255,255,0.75);
-            border: 1px solid rgba(118,103,248,0.10);
-            border-radius: 20px;
-            padding: 15px;
-            margin-top: 15px;
-
-            font-size: 13px;
-            color: #77748d;
-            text-align: center;
-        }
-
-        .account-email {
-            margin-top: 5px;
-            color: #4f4c67;
-            font-weight: 700;
-            word-break: break-word;
-        }
-
-        .secure {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 12px;
-            color: #8b889e;
-            line-height: 1.5;
-        }
-
-        .loading {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-        }
-
-        .loading.show {
-            display: flex;
-        }
-
-        .spinner {
-            width: 18px;
-            height: 18px;
-
-            border: 2px solid rgba(255,255,255,0.4);
-            border-top-color: white;
-
-            border-radius: 50%;
-
-            animation:
-                spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .normal-text {
-            display: inline;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>MoveOn Premium</title>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f7f4ff,
+          #fff7fb
+        );
+
+      color: #222;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+
+      background: rgba(255,255,255,0.96);
+
+      border-radius: 28px;
+
+      padding: 32px 24px;
+
+      box-shadow:
+        0 20px 60px
+        rgba(70,50,120,0.12);
+
+      text-align: center;
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+
+      margin: 0 auto 18px;
+
+      border-radius: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7667f8,
+          #b47cff
+        );
+
+      color: white;
+
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #777;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .price {
+      font-size: 44px;
+      font-weight: 800;
+      color: #5b4ed8;
+    }
+
+    .price span {
+      font-size: 16px;
+      font-weight: 500;
+      color: #777;
+    }
+
+    .features {
+      text-align: left;
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .features li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .features li:last-child {
+      border-bottom: 0;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 16px;
+
+      padding: 16px;
+
+      font-size: 17px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          #6c63ff,
+          #8b5cf6
+        );
+
+      box-shadow:
+        0 10px 25px
+        rgba(108,99,255,0.25);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 16px;
+      min-height: 24px;
+
+      font-size: 14px;
+      color: #666;
+    }
+
+    .success {
+      color: #178b4d;
+      font-weight: 700;
+    }
+
+    .error {
+      color: #d33;
+      font-weight: 600;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 18px;
+      color: #6c63ff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="page">
 
-    <div class="topbar">
+  <div class="card">
 
-        <button
-            class="back-btn"
-            id="backBtn"
-            type="button"
-            aria-label="Go back"
-        >
-            ←
-        </button>
-
-        <div class="brand">
-            MoveOn
-        </div>
-
-        <div style="width:42px;"></div>
-
+    <div class="logo">
+      M
     </div>
 
+    <h1>MoveOn Premium</h1>
 
-    <section class="hero">
-
-        <div class="premium-icon">
-            ✦
-        </div>
-
-        <h1>
-            MoveOn Premium
-        </h1>
-
-        <p class="subtitle">
-            Unlock deeper healing tools and continue
-            your journey with MoveOn.
-        </p>
-
-    </section>
-
-
-    <div class="price-card">
-
-        <div class="price">
-            <strong>₹49</strong>
-            <span>/ month</span>
-        </div>
-
-
-        <div class="features">
-
-            <div class="feature">
-                <div class="check">✓</div>
-
-                <div>
-                    Premium MoveOn healing features
-                </div>
-            </div>
-
-
-            <div class="feature">
-                <div class="check">✓</div>
-
-                <div>
-                    Ex Roleplay access
-                </div>
-            </div>
-
-
-            <div class="feature">
-                <div class="check">✓</div>
-
-                <div>
-                    Premium emotional reflection tools
-                </div>
-            </div>
-
-
-            <div class="feature">
-                <div class="check">✓</div>
-
-                <div>
-                    Premium content and experiences
-                </div>
-            </div>
-
-        </div>
-
-
-        <button
-            class="premium-btn"
-            id="startPremiumBtn"
-            type="button"
-        >
-
-            <span
-                id="normalButtonText"
-                class="normal-text"
-            >
-                Start Premium — ₹49/month
-            </span>
-
-            <span
-                id="loadingButton"
-                class="loading"
-            >
-                <span class="spinner"></span>
-                Processing...
-            </span>
-
-        </button>
-
-
-        <div
-            id="status"
-            class="status"
-        ></div>
-
+    <div class="subtitle">
+      Heal better. Grow stronger. Move forward.
     </div>
 
+    <div class="price">
+      ₹49
+      <span>/ month</span>
+    </div>
+
+    <ul class="features">
+      <li>✓ Premium MoveOn features</li>
+      <li>✓ Ex Roleplay access</li>
+      <li>✓ Premium healing experience</li>
+      <li>✓ Monthly subscription</li>
+    </ul>
+
+    <button
+      id="premiumBtn"
+      disabled
+    >
+      Checking Premium...
+    </button>
 
     <div
-        class="account-card"
-        id="accountCard"
+      id="status"
+      class="status"
+    ></div>
+
+    <a
+      href="home.html"
+      class="back"
     >
-        Checking your MoveOn account...
-    </div>
+      ← Back to MoveOn
+    </a>
 
-
-    <div class="secure">
-        🔒 Secure payment powered by Razorpay.<br>
-        Your payment information is processed securely.
-    </div>
+  </div>
 
 </div>
 
 
 <script type="module">
 
-/* =========================================================
-   FIREBASE
-   ========================================================= */
-
 import {
-    auth
+  auth
 } from "./firebase-config.js";
 
 import {
-    onAuthStateChanged
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const startPremiumBtn =
-    document.getElementById(
-        "startPremiumBtn"
-    );
-
-const normalButtonText =
-    document.getElementById(
-        "normalButtonText"
-    );
-
-const loadingButton =
-    document.getElementById(
-        "loadingButton"
-    );
-
-const statusBox =
-    document.getElementById(
-        "status"
-    );
-
-const accountCard =
-    document.getElementById(
-        "accountCard"
-    );
-
-const backBtn =
-    document.getElementById(
-        "backBtn"
-    );
+const API_BASE =
+  "https://moveon.shanydv001.workers.dev";
 
 
-/* =========================================================
-   STATE
-   ========================================================= */
+const button =
+  document.getElementById("premiumBtn");
+
+const statusEl =
+  document.getElementById("status");
+
 
 let currentUser = null;
 
 
-/* =========================================================
-   STATUS
-   ========================================================= */
+/* =========================
+   HELPERS
+========================= */
 
-function showStatus(
-    message,
-    type = "info"
+function setStatus(
+  message,
+  type = ""
 ) {
-    statusBox.textContent =
-        message;
+  statusEl.textContent =
+    message;
 
-    statusBox.className =
-        `status show ${type}`;
+  statusEl.className =
+    "status " + type;
 }
 
 
-function hideStatus() {
-    statusBox.textContent =
-        "";
+async function getToken() {
 
-    statusBox.className =
-        "status";
+  if (!currentUser) {
+    throw new Error(
+      "Please login first."
+    );
+  }
+
+  return await currentUser.getIdToken(
+    true
+  );
 }
 
 
-/* =========================================================
-   LOADING
-   ========================================================= */
-
-function setLoading(
-    loading
+async function api(
+  path,
+  options = {}
 ) {
-    startPremiumBtn.disabled =
-        loading;
 
-    if (loading) {
+  const token =
+    await getToken();
 
-        normalButtonText.classList.add(
-            "hidden"
-        );
+  const response =
+    await fetch(
+      API_BASE + path,
+      {
+        ...options,
 
-        loadingButton.classList.add(
-            "show"
-        );
+        headers: {
+          "Content-Type":
+            "application/json",
 
-    } else {
+          "Authorization":
+            `Bearer ${token}`,
 
-        normalButtonText.classList.remove(
-            "hidden"
-        );
-
-        loadingButton.classList.remove(
-            "show"
-        );
-    }
-}
-
-
-/* =========================================================
-   AUTH STATE
-   ========================================================= */
-
-onAuthStateChanged(
-    auth,
-    user => {
-
-        currentUser =
-            user;
-
-        if (!user) {
-
-            accountCard.innerHTML =
-                `
-                Please login to your MoveOn account
-                before starting Premium.
-                `;
-
-            startPremiumBtn.disabled =
-                false;
-
-            return;
+          ...(options.headers || {})
         }
+      }
+    );
 
+  let data = {};
 
-        accountCard.innerHTML =
-            `
-            Logged in as
-            <div class="account-email">
-                ${escapeHtml(
-                    user.email ||
-                    user.displayName ||
-                    "MoveOn user"
-                )}
-            </div>
-            `;
+  try {
+    data =
+      await response.json();
+  } catch {}
 
-        startPremiumBtn.disabled =
-            false;
-    }
-);
+  if (!response.ok) {
 
+    const error =
+      data.error ||
+      `Request failed (${response.status})`;
 
-/* =========================================================
-   HTML ESCAPE
-   ========================================================= */
+    const err =
+      new Error(error);
 
-function escapeHtml(
-    value
-) {
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    err.status =
+      response.status;
+
+    err.data =
+      data;
+
+    throw err;
+  }
+
+  return data;
 }
 
 
-/* =========================================================
-   GET FRESH FIREBASE ID TOKEN
-   ========================================================= */
+/* =========================
+   CHECK EXISTING PREMIUM
+========================= */
 
-async function getFreshIdToken() {
+async function checkPremium() {
 
-    if (!auth.currentUser) {
-        throw new Error(
-            "Please login to your MoveOn account first."
-        );
+  try {
+
+    setStatus(
+      "Checking your subscription..."
+    );
+
+    const data =
+      await api(
+        "/api/premium/status",
+        {
+          method: "GET"
+        }
+      );
+
+    if (
+      data.active === true
+    ) {
+
+      setStatus(
+        "✓ Premium is already active.",
+        "success"
+      );
+
+      button.disabled = false;
+
+      button.textContent =
+        "Open MoveOn";
+
+      button.onclick =
+        () => {
+          window.location.href =
+            "home.html";
+        };
+
+      return true;
     }
 
     /*
-     * true forces Firebase to refresh
-     * the ID token if necessary.
-     */
-    const token =
-        await auth.currentUser.getIdToken(
-            true
-        );
+      No active subscription found.
+    */
 
-    if (!token) {
-        throw new Error(
-            "Firebase authentication token was not created."
-        );
-    }
+    button.disabled =
+      false;
 
-    return token;
-}
+    button.textContent =
+      "Start Premium — ₹49/month";
 
-
-/* =========================================================
-   CREATE RAZORPAY SUBSCRIPTION
-   ========================================================= */
-
-async function createSubscription(
-    idToken
-) {
-
-    const response =
-        await fetch(
-            "/api/premium/create-subscription",
-            {
-                method:
-                    "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body:
-                    JSON.stringify({
-                        idToken:
-                            idToken
-                    })
-            }
-        );
-
-
-    const data =
-        await response
-            .json()
-            .catch(
-                () => ({})
-            );
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            data?.error ||
-            `Unable to create subscription (${response.status}).`
-        );
-    }
-
-
-    if (
-        !data.subscriptionId
-    ) {
-
-        throw new Error(
-            "Worker did not return a Razorpay subscription ID."
-        );
-    }
-
-
-    if (
-        !data.keyId
-    ) {
-
-        throw new Error(
-            "Worker did not return the Razorpay Key ID."
-        );
-    }
-
-
-    return data;
-}
-
-
-/* =========================================================
-   CONFIRM SUBSCRIPTION
-   ========================================================= */
-
-async function confirmSubscription(
-    idToken,
-    subscriptionId,
-    paymentId
-) {
-
-    const response =
-        await fetch(
-            "/api/premium/confirm-subscription",
-            {
-                method:
-                    "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body:
-                    JSON.stringify({
-                        idToken:
-                            idToken,
-
-                        subscriptionId:
-                            subscriptionId,
-
-                        paymentId:
-                            paymentId || ""
-                    })
-            }
-        );
-
-
-    const data =
-        await response
-            .json()
-            .catch(
-                () => ({})
-            );
-
-
-    return {
-        response,
-        data
-    };
-}
-
-
-/* =========================================================
-   START PREMIUM
-   ========================================================= */
-
-startPremiumBtn.addEventListener(
-    "click",
-    async () => {
-
-        hideStatus();
-
-        try {
-
-            /* -----------------------------------------
-               STEP 1 — CHECK LOGIN
-               ----------------------------------------- */
-
-            if (
-                !auth.currentUser
-            ) {
-
-                showStatus(
-                    "Please login to your MoveOn account first.",
-                    "error"
-                );
-
-                setTimeout(
-                    () => {
-                        window.location.href =
-                            "login.html";
-                    },
-                    1200
-                );
-
-                return;
-            }
-
-
-            /* -----------------------------------------
-               STEP 2 — GET FRESH FIREBASE TOKEN
-               ----------------------------------------- */
-
-            setLoading(true);
-
-            showStatus(
-                "Verifying your MoveOn account...",
-                "info"
-            );
-
-
-            const idToken =
-                await getFreshIdToken();
-
-
-            /* -----------------------------------------
-               STEP 3 — CREATE RAZORPAY SUBSCRIPTION
-               ----------------------------------------- */
-
-            showStatus(
-                "Creating your Premium subscription...",
-                "info"
-            );
-
-
-            const subscriptionData =
-                await createSubscription(
-                    idToken
-                );
-
-
-            /* -----------------------------------------
-               STEP 4 — RAZORPAY CHECKOUT
-               ----------------------------------------- */
-
-            await openRazorpayCheckout(
-                subscriptionData,
-                idToken
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "MoveOn Premium Error:",
-                error
-            );
-
-            setLoading(false);
-
-            showStatus(
-                error?.message ||
-                "Something went wrong. Please try again.",
-                "error"
-            );
-        }
-    }
-);
-
-
-/* =========================================================
-   RAZORPAY CHECKOUT
-   ========================================================= */
-
-function openRazorpayCheckout(
-    subscriptionData,
-    idToken
-) {
-
-    return new Promise(
-        (
-            resolve,
-            reject
-        ) => {
-
-            if (
-                typeof Razorpay ===
-                "undefined"
-            ) {
-
-                reject(
-                    new Error(
-                        "Razorpay Checkout failed to load."
-                    )
-                );
-
-                return;
-            }
-
-
-            const options = {
-
-                key:
-                    subscriptionData.keyId,
-
-                subscription_id:
-                    subscriptionData.subscriptionId,
-
-                name:
-                    "MoveOn",
-
-                description:
-                    "MoveOn Premium — ₹49/month",
-
-                image:
-                    "",
-
-                theme: {
-                    color:
-                        "#7667f8"
-                },
-
-
-                handler:
-                    async function (
-                        response
-                    ) {
-
-                        try {
-
-                            showStatus(
-                                "Payment received. Verifying your Premium subscription...",
-                                "info"
-                            );
-
-
-                            /*
-                             * Get a fresh Firebase token again
-                             * before confirmation.
-                             */
-                            const freshToken =
-                                await getFreshIdToken();
-
-
-                            const result =
-                                await confirmSubscription(
-                                    freshToken,
-
-                                    response
-                                        .razorpay_subscription_id ||
-                                    subscriptionData.subscriptionId,
-
-                                    response
-                                        .razorpay_payment_id ||
-                                    ""
-                                );
-
-
-                            /*
-                             * ACTIVE
-                             */
-                            if (
-                                result
-                                    .response
-                                    .ok &&
-                                result
-                                    .data
-                                    .active ===
-                                    true
-                            ) {
-
-                                showStatus(
-                                    "🎉 MoveOn Premium is now active!",
-                                    "success"
-                                );
-
-
-                                setTimeout(
-                                    () => {
-
-                                        window.location.href =
-                                            "profile.html";
-
-                                    },
-                                    1200
-                                );
-
-
-                                resolve(
-                                    result.data
-                                );
-
-                                return;
-                            }
-
-
-                            /*
-                             * Payment may be successful while
-                             * Razorpay subscription status is
-                             * still being processed.
-                             */
-                            if (
-                                result
-                                    .response
-                                    .status ===
-                                409
-                            ) {
-
-                                showStatus(
-                                    "Payment received. Your Premium activation is being processed. Please refresh shortly.",
-                                    "info"
-                                );
-
-                                resolve(
-                                    result.data
-                                );
-
-                                return;
-                            }
-
-
-                            throw new Error(
-                                result
-                                    .data
-                                    ?.error ||
-                                "Premium verification failed."
-                            );
-
-                        } catch (error) {
-
-                            console.error(
-                                "Premium confirmation error:",
-                                error
-                            );
-
-                            showStatus(
-                                error?.message ||
-                                "Payment was received but Premium verification failed.",
-                                "error"
-                            );
-
-                            reject(
-                                error
-                            );
-                        } finally {
-
-                            setLoading(
-                                false
-                            );
-                        }
-                    },
-
-
-                modal: {
-
-                    ondismiss:
-                        function () {
-
-                            setLoading(
-                                false
-                            );
-
-                            showStatus(
-                                "Payment window closed.",
-                                "info"
-                            );
-
-                            resolve();
-                        }
-                },
-
-
-                notes: {
-                    product:
-                        "moveon_premium_49"
-                }
-            };
-
-
-            const razorpay =
-                new Razorpay(
-                    options
-                );
-
-
-            razorpay.on(
-                "payment.failed",
-                function (
-                    response
-                ) {
-
-                    console.error(
-                        "Razorpay payment failed:",
-                        response
-                    );
-
-                    setLoading(
-                        false
-                    );
-
-                    showStatus(
-                        response?.error
-                            ?.description ||
-                        "Payment failed. Please try again.",
-                        "error"
-                    );
-
-                    reject(
-                        new Error(
-                            response?.error
-                                ?.description ||
-                            "Payment failed."
-                        )
-                    );
-                }
-            );
-
-
-            razorpay.open();
-        }
+    setStatus(
+      "Premium is not active yet."
     );
+
+    button.onclick =
+      startPremium;
+
+    return false;
+
+  } catch (error) {
+
+    console.error(
+      "Premium status error:",
+      error
+    );
+
+    /*
+      Even if status endpoint fails,
+      allow checkout.
+    */
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "Start Premium — ₹49/month";
+
+    setStatus(
+      "Ready to continue."
+    );
+
+    button.onclick =
+      startPremium;
+
+    return false;
+  }
 }
 
 
-/* =========================================================
-   BACK BUTTON
-   ========================================================= */
+/* =========================
+   START PREMIUM
+========================= */
 
-backBtn.addEventListener(
-    "click",
-    () => {
+async function startPremium() {
 
-        if (
-            window.history.length >
-            1
-        ) {
+  button.disabled =
+    true;
 
-            window.history.back();
+  button.textContent =
+    "Checking...";
 
-        } else {
+  setStatus(
+    "Checking for an existing subscription..."
+  );
 
-            window.location.href =
-                "home.html";
+  /*
+    IMPORTANT:
+    This first checks whether the user already
+    has an ACTIVE Razorpay subscription.
+
+    This prevents another ₹49 subscription
+    from being created.
+  */
+
+  try {
+
+    const existing =
+      await api(
+        "/api/premium/status",
+        {
+          method: "GET"
         }
+      );
+
+    if (
+      existing.active === true
+    ) {
+
+      setStatus(
+        "✓ Your existing Premium subscription is active.",
+        "success"
+      );
+
+      button.textContent =
+        "Open MoveOn";
+
+      button.disabled =
+        false;
+
+      button.onclick =
+        () => {
+          window.location.href =
+            "home.html";
+        };
+
+      return;
     }
+
+  } catch (error) {
+
+    console.warn(
+      "Existing subscription check failed:",
+      error
+    );
+  }
+
+
+  /* =========================
+     CREATE RAZORPAY SUBSCRIPTION
+  ========================= */
+
+  button.textContent =
+    "Opening Razorpay...";
+
+  setStatus(
+    "Please complete the payment in Razorpay."
+  );
+
+  try {
+
+    const result =
+      await api(
+        "/api/premium/create-subscription",
+        {
+          method: "POST"
+        }
+      );
+
+    /*
+      If Worker found an already active
+      subscription, don't open checkout.
+    */
+
+    if (
+      result.alreadyActive === true
+    ) {
+
+      setStatus(
+        "✓ Premium activated from your existing subscription.",
+        "success"
+      );
+
+      button.textContent =
+        "Open MoveOn";
+
+      button.disabled =
+        false;
+
+      button.onclick =
+        () => {
+          window.location.href =
+            "home.html";
+        };
+
+      return;
+    }
+
+
+    const subscription =
+      result.subscription;
+
+
+    if (
+      !subscription ||
+      !subscription.id
+    ) {
+      throw new Error(
+        "Razorpay subscription was not created."
+      );
+    }
+
+
+    const options = {
+
+      key:
+        "rzp_live_Tj4noldihrkqS4",
+
+      subscription_id:
+        subscription.id,
+
+      name:
+        "MoveOn",
+
+      description:
+        "MoveOn Premium ₹49/month",
+
+      image:
+        "https://moveon.shanydv001.workers.dev/favicon.ico",
+
+      handler:
+        async function(response) {
+
+          await handlePaymentSuccess(
+            response
+          );
+        },
+
+      modal: {
+        ondismiss:
+          function() {
+
+            button.disabled =
+              false;
+
+            button.textContent =
+              "Start Premium — ₹49/month";
+
+            setStatus(
+              "Payment window closed."
+            );
+          }
+      },
+
+      theme: {
+        color:
+          "#6c63ff"
+      }
+
+    };
+
+
+    const razorpay =
+      new Razorpay(
+        options
+      );
+
+
+    razorpay.on(
+      "payment.failed",
+      function(response) {
+
+        console.error(
+          "Razorpay payment failed:",
+          response
+        );
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Try Again";
+
+        setStatus(
+          response.error?.description ||
+          "Payment failed.",
+          "error"
+        );
+      }
+    );
+
+
+    razorpay.open();
+
+
+  } catch (error) {
+
+    console.error(
+      "Premium start error:",
+      error
+    );
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "Start Premium — ₹49/month";
+
+    setStatus(
+      error.message ||
+      "Unable to start Premium.",
+      "error"
+    );
+  }
+}
+
+
+/* =========================
+   PAYMENT SUCCESS
+========================= */
+
+async function handlePaymentSuccess(
+  response
+) {
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    "Activating Premium...";
+
+  setStatus(
+    "Payment received. Activating your Premium..."
+  );
+
+
+  const subscriptionId =
+    response.razorpay_subscription_id;
+
+
+  /*
+    Send the subscription ID returned
+    by Razorpay to our Worker.
+  */
+
+  try {
+
+    const result =
+      await api(
+        "/api/premium/confirm-subscription",
+        {
+          method: "POST",
+
+          body:
+            JSON.stringify({
+              subscriptionId
+            })
+        }
+      );
+
+
+    if (
+      result.active === true
+    ) {
+
+      setStatus(
+        "✓ Premium activated successfully!",
+        "success"
+      );
+
+      button.textContent =
+        "Open MoveOn";
+
+      button.disabled =
+        false;
+
+      button.onclick =
+        () => {
+          window.location.href =
+            "home.html";
+        };
+
+      return;
+    }
+
+
+  } catch (error) {
+
+    console.warn(
+      "Initial confirmation:",
+      error
+    );
+  }
+
+
+  /*
+    If Razorpay activation is asynchronous,
+    try the status/sync endpoint again.
+  */
+
+  for (
+    let attempt = 1;
+    attempt <= 5;
+    attempt++
+  ) {
+
+    try {
+
+      setStatus(
+        `Activating Premium... (${attempt}/5)`
+      );
+
+      await new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            2500
+          )
+      );
+
+
+      const sync =
+        await api(
+          "/api/premium/status",
+          {
+            method: "GET"
+          }
+        );
+
+
+      if (
+        sync.active === true
+      ) {
+
+        setStatus(
+          "✓ Premium activated successfully!",
+          "success"
+        );
+
+        button.textContent =
+          "Open MoveOn";
+
+        button.disabled =
+          false;
+
+        button.onclick =
+          () => {
+            window.location.href =
+              "home.html";
+          };
+
+        return;
+      }
+
+    } catch (error) {
+
+      console.warn(
+        "Activation attempt failed:",
+        error
+      );
+    }
+  }
+
+
+  /*
+    If webhook/API is still processing.
+  */
+
+  button.disabled =
+    false;
+
+  button.textContent =
+    "Check Premium Again";
+
+  setStatus(
+    "Payment completed. Premium activation is still processing."
+  );
+
+  button.onclick =
+    checkPremium;
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+    if (!user) {
+
+      currentUser =
+        null;
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "Login to Continue";
+
+      setStatus(
+        "Please login to use MoveOn Premium.",
+        "error"
+      );
+
+      button.onclick =
+        () => {
+          window.location.href =
+            "login.html?redirect=premium.html";
+        };
+
+      return;
+    }
+
+
+    currentUser =
+      user;
+
+
+    await checkPremium();
+
+  }
 );
 
 </script>
