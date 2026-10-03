@@ -1,2523 +1,1013 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
->
-
-<title>Ex Roleplay • MoveOn</title>
-
-<meta
-    name="description"
-    content="MoveOn Ex Roleplay - a fictional conversation companion for heartbreak reflection."
->
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#6c63ff">
+<title>Ex Roleplay — MoveOn</title>
 
 <style>
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html,
-body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    background: #f7f6ff;
-    color: #25243a;
-}
-
-button,
-textarea,
-input {
-    font: inherit;
-}
-
-button {
-    border: 0;
-    cursor: pointer;
-}
-
-.app {
-    width: 100%;
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    background:
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(118,103,248,.12),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(255,170,210,.10),
-            transparent 30%
-        ),
-        #f8f7ff;
-}
-
-/* TOP BAR */
-
-.topbar {
-    flex: 0 0 auto;
-    height: 66px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding:
-        max(8px, env(safe-area-inset-top))
-        14px
-        8px
-        14px;
-    background: rgba(255,255,255,.88);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(80,70,130,.08);
-    z-index: 10;
-}
-
-.back-btn,
-.icon-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    background: #f1efff;
-    color: #554bd8;
-    display: grid;
-    place-items: center;
-    font-size: 20px;
-}
-
-.title-wrap {
-    flex: 1;
-    min-width: 0;
-    padding: 0 12px;
-}
-
-.title {
-    font-size: 17px;
-    font-weight: 800;
-}
-
-.subtitle {
-    margin-top: 2px;
-    font-size: 11px;
-    color: #88869b;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.header-actions {
-    display: flex;
-    gap: 7px;
-}
-
-/* CHAT */
-
-.chat {
-    flex: 1 1 auto;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: 18px 14px 16px;
-    scroll-behavior: smooth;
-}
-
-.chat-inner {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.empty {
-    margin: auto;
-    width: min(430px, 100%);
-    text-align: center;
-    padding: 30px 20px;
-}
-
-.empty-avatar {
-    width: 74px;
-    height: 74px;
-    border-radius: 50%;
-    margin: 0 auto 14px;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(135deg,#7667f8,#b9a8ff);
-    color: white;
-    font-size: 31px;
-    box-shadow: 0 12px 30px rgba(118,103,248,.22);
-}
-
-.empty h2 {
-    margin: 0 0 8px;
-    font-size: 21px;
-}
-
-.empty p {
-    margin: 0;
-    line-height: 1.55;
-    color: #858397;
-    font-size: 14px;
-}
-
-/* MESSAGES */
-
-.message-row {
-    display: flex;
-    margin: 7px 0;
-    animation: messageIn .2s ease;
-}
-
-.message-row.user {
-    justify-content: flex-end;
-}
-
-.message-row.assistant {
-    justify-content: flex-start;
-}
-
-@keyframes messageIn {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.bubble {
-    max-width: min(78%, 590px);
-    padding: 11px 14px;
-    border-radius: 19px;
-    line-height: 1.48;
-    font-size: 15px;
-    word-break: break-word;
-    white-space: pre-wrap;
-}
-
-.user .bubble {
-    color: white;
-    background: linear-gradient(135deg,#7667f8,#6258e8);
-    border-bottom-right-radius: 6px;
-    box-shadow: 0 7px 18px rgba(100,90,230,.17);
-}
-
-.assistant .bubble {
-    color: #343248;
-    background: white;
-    border: 1px solid rgba(80,70,130,.07);
-    border-bottom-left-radius: 6px;
-    box-shadow: 0 5px 18px rgba(70,65,110,.06);
-}
-
-.time {
-    font-size: 9px;
-    opacity: .45;
-    margin-top: 4px;
-    text-align: right;
-}
-
-.image-message {
-    max-width: min(82%, 520px);
-    border-radius: 18px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 7px 24px rgba(60,55,100,.1);
-}
-
-.image-message img {
-    display: block;
-    width: 100%;
-    height: auto;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:linear-gradient(135deg,#f7f5ff,#fff);
+  color:#202033;
+  min-height:100vh;
 }
-
-/* TYPING */
-
-.typing {
-    display: none;
-    padding: 6px 0 12px;
-}
-
-.typing.show {
-    display: flex;
-}
-
-.typing-bubble {
-    background: white;
-    border: 1px solid rgba(80,70,130,.07);
-    border-radius: 18px;
-    border-bottom-left-radius: 6px;
-    padding: 12px 15px;
-}
-
-.dots {
-    display: flex;
-    gap: 4px;
-}
-
-.dots span {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #9189c9;
-    animation: dot 1.1s infinite;
-}
-
-.dots span:nth-child(2) {
-    animation-delay: .15s;
-}
-
-.dots span:nth-child(3) {
-    animation-delay: .3s;
-}
-
-@keyframes dot {
-    0%,60%,100% {
-        transform: translateY(0);
-        opacity: .45;
-    }
-    30% {
-        transform: translateY(-4px);
-        opacity: 1;
-    }
-}
-
-/* NEW MESSAGE */
-
-.new-message {
-    position: absolute;
-    right: 16px;
-    bottom: 92px;
-    display: none;
-    padding: 9px 13px;
-    border-radius: 999px;
-    background: #554bd8;
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-    box-shadow: 0 7px 20px rgba(70,60,200,.25);
-    z-index: 8;
-}
-
-.new-message.show {
-    display: block;
-}
-
-/* COMPOSER */
-
-.composer-wrap {
-    flex: 0 0 auto;
-    padding:
-        8px
-        12px
-        max(10px, env(safe-area-inset-bottom))
-        12px;
-    background: rgba(255,255,255,.91);
-    backdrop-filter: blur(18px);
-    border-top: 1px solid rgba(80,70,130,.07);
-}
-
-.composer {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: 8px;
-}
-
-.composer-box {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    align-items: flex-end;
-    background: #f4f2ff;
-    border: 1px solid rgba(90,80,180,.08);
-    border-radius: 21px;
-    padding: 4px 5px 4px 14px;
+
+.wrap{
+  max-width:900px;
+  margin:auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
-
-.message-input {
-    width: 100%;
-    max-height: 130px;
-    min-height: 42px;
-    resize: none;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: #2d2b42;
-    padding: 10px 2px;
-    line-height: 1.35;
-}
-
-.message-input::placeholder {
-    color: #a29fb2;
-}
-
-.send-btn {
-    width: 43px;
-    height: 43px;
-    flex: 0 0 43px;
-    border-radius: 50%;
-    color: white;
-    background: linear-gradient(135deg,#7667f8,#554bd8);
-    display: grid;
-    place-items: center;
-    font-size: 18px;
-}
-
-.send-btn:disabled {
-    opacity: .45;
-}
-
-.image-btn {
-    width: 43px;
-    height: 43px;
-    flex: 0 0 43px;
-    border-radius: 50%;
-    background: #eeeaff;
-    color: #6258e8;
-    display: grid;
-    place-items: center;
-    font-size: 18px;
-}
-
-/* MODALS */
-
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: none;
-    align-items: flex-end;
-    justify-content: center;
-    background: rgba(25,20,50,.44);
-    backdrop-filter: blur(5px);
-}
-
-.modal-backdrop.show {
-    display: flex;
+
+.top{
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid #eceaf5;
+  background:rgba(255,255,255,.9);
+  position:sticky;
+  top:0;
+  z-index:5;
 }
 
-.modal {
-    width: min(560px, 100%);
-    max-height: 92dvh;
-    overflow-y: auto;
-    background: white;
-    border-radius: 27px 27px 0 0;
-    padding: 22px;
-    animation: sheet .22s ease;
+.back,
+.settings{
+  border:0;
+  background:#f0eefb;
+  border-radius:12px;
+  padding:10px 13px;
+  font-size:18px;
+  cursor:pointer;
 }
 
-@keyframes sheet {
-    from {
-        transform: translateY(30px);
-        opacity: .5;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.modal h2 {
-    margin: 0 0 6px;
-    font-size: 21px;
-}
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#6c63ff,#a98cff);
+  color:white;
+  font-size:19px;
+}
 
-.modal-sub {
-    color: #858397;
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 20px;
+.title{
+  flex:1;
 }
 
-.field {
-    margin-bottom: 16px;
+.title strong{
+  display:block;
+  font-size:17px;
 }
 
-.field label {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 13px;
-    font-weight: 700;
+.title span{
+  font-size:12px;
+  color:#777;
 }
 
-.field input[type="text"] {
-    width: 100%;
-    border: 1px solid #e5e2ef;
-    outline: 0;
-    border-radius: 14px;
-    padding: 13px;
-    background: #faf9ff;
+.chat{
+  flex:1;
+  padding:22px 16px 120px;
+  overflow-y:auto;
 }
 
-.gender-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
+.notice{
+  font-size:12px;
+  color:#777;
+  text-align:center;
+  margin:4px auto 18px;
+  max-width:600px;
+  line-height:1.5;
 }
 
-.gender {
-    padding: 13px;
-    border-radius: 14px;
-    background: #f5f3ff;
-    color: #56526e;
-    border: 1px solid transparent;
-    font-weight: 700;
+.bubble{
+  max-width:78%;
+  padding:12px 15px;
+  border-radius:18px;
+  margin:10px 0;
+  line-height:1.45;
+  white-space:pre-wrap;
+  word-break:break-word;
 }
-
-.gender.selected {
-    border-color: #7667f8;
-    background: #eeeaff;
-    color: #554bd8;
-}
-
-.photo-upload {
-    border: 1.5px dashed #cfc9ec;
-    border-radius: 17px;
-    padding: 18px;
-    text-align: center;
-    background: #faf9ff;
+
+.ai{
+  background:white;
+  border:1px solid #eceaf5;
+  border-bottom-left-radius:5px;
+  box-shadow:0 4px 18px rgba(50,40,100,.05);
 }
 
-.photo-preview {
-    display: none;
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin: 0 auto 10px;
+.user{
+  margin-left:auto;
+  background:#6c63ff;
+  color:white;
+  border-bottom-right-radius:5px;
 }
 
-.photo-preview.show {
-    display: block;
+.typing{
+  display:none;
+  color:#777;
+  font-size:13px;
+  margin:10px 0;
 }
 
-.upload-label {
-    display: inline-block;
-    padding: 10px 15px;
-    border-radius: 12px;
-    background: #eeeaff;
-    color: #554bd8;
-    font-size: 13px;
-    font-weight: 700;
+.composer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(255,255,255,.95);
+  border-top:1px solid #eceaf5;
+  padding:12px 16px;
 }
 
-.hidden-file {
-    display: none;
+.composer-inner{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  gap:8px;
 }
 
-.note {
-    font-size: 11px;
-    color: #9692a6;
-    margin-top: 8px;
-    line-height: 1.45;
+.composer input{
+  flex:1;
+  border:1px solid #ddd9ee;
+  border-radius:16px;
+  padding:13px 15px;
+  font-size:15px;
+  outline:none;
 }
 
-.primary {
-    width: 100%;
-    padding: 14px;
-    border-radius: 15px;
-    color: white;
-    background: linear-gradient(135deg,#7667f8,#554bd8);
-    font-weight: 800;
-    margin-top: 5px;
+.send{
+  border:0;
+  background:#6c63ff;
+  color:white;
+  border-radius:15px;
+  padding:0 18px;
+  font-weight:700;
+  cursor:pointer;
 }
 
-.secondary {
-    width: 100%;
-    padding: 13px;
-    border-radius: 15px;
-    background: #f1effa;
-    color: #55516a;
-    font-weight: 700;
-    margin-top: 9px;
+.send:disabled{
+  opacity:.5;
 }
 
-.danger {
-    color: #d44d64;
+.empty{
+  opacity:.75;
+  text-align:center;
+  margin-top:25vh;
 }
-
-/* SETTINGS */
 
-.profile-card {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    background: #f7f5ff;
-    padding: 13px;
-    border-radius: 16px;
-    margin-bottom: 16px;
+.quick{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+  justify-content:center;
 }
 
-.profile-photo {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #ddd8f7;
-    display: grid;
-    place-items: center;
+.quick button{
+  border:1px solid #ddd9ee;
+  background:#fff;
+  border-radius:20px;
+  padding:8px 11px;
+  color:#4b4660;
+  cursor:pointer;
 }
 
-.profile-info {
-    min-width: 0;
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(20,16,40,.45);
+  z-index:20;
+  padding:20px;
 }
 
-.profile-name {
-    font-weight: 800;
+.panel{
+  max-width:440px;
+  margin:10vh auto;
+  background:white;
+  border-radius:22px;
+  padding:22px;
 }
 
-.profile-gender {
-    font-size: 12px;
-    color: #8c889b;
-    margin-top: 2px;
+.panel input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd9ee;
+  border-radius:12px;
+  margin:8px 0 14px;
+  font-size:15px;
 }
 
-.setting-btn {
-    width: 100%;
-    text-align: left;
-    padding: 14px;
-    border-radius: 14px;
-    background: #f7f6fb;
-    margin-top: 8px;
-    color: #403c56;
-    font-weight: 700;
+.actions{
+  display:flex;
+  gap:8px;
 }
 
-.error {
-    display: none;
-    color: #c84d62;
-    font-size: 12px;
-    margin: 9px 0;
-    line-height: 1.45;
+.actions button{
+  flex:1;
+  padding:12px;
+  border:0;
+  border-radius:12px;
+  cursor:pointer;
 }
 
-.error.show {
-    display: block;
+.save{
+  background:#6c63ff;
+  color:white;
 }
 
-/* IMAGE GENERATOR */
-
-.image-prompt {
-    width: 100%;
-    min-height: 100px;
-    resize: vertical;
-    border: 1px solid #e5e2ef;
-    border-radius: 14px;
-    padding: 12px;
-    outline: none;
-    background: #faf9ff;
+.cancel{
+  background:#eeeaf7;
 }
-
-/* DESKTOP */
-
-@media (min-width: 700px) {
 
-    .modal-backdrop {
-        align-items: center;
-    }
-
-    .modal {
-        border-radius: 25px;
-        max-height: 88vh;
-    }
-
-    .composer-wrap {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .chat {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
+.error{
+  color:#c33;
+  text-align:center;
+  margin:20px;
 }
-
 </style>
-
 </head>
 
 <body>
 
-<div class="app">
+<div class="wrap">
 
-    <header class="topbar">
+<header class="top">
 
-        <button
-            class="back-btn"
-            id="backBtn"
-            aria-label="Back"
-        >
-            ‹
-        </button>
+<button class="back" onclick="history.back()">←</button>
 
-        <div class="title-wrap">
-            <div class="title" id="headerTitle">
-                Ex Roleplay
-            </div>
+<div class="avatar">💬</div>
 
-            <div class="subtitle" id="headerSubtitle">
-                Fictional healing conversation
-            </div>
-        </div>
+<div class="title">
+<strong id="screenTitle">Ex Roleplay</strong>
+<span>Talk. Feel. Let it out.</span>
+</div>
 
-        <div class="header-actions">
+<button class="settings" onclick="openSettings()">⚙️</button>
 
-            <button
-                class="icon-btn"
-                id="imageOpenBtn"
-                title="Create image"
-            >
-                ✨
-            </button>
+</header>
 
-            <button
-                class="icon-btn"
-                id="settingsBtn"
-                title="Settings"
-            >
-                ⚙
-            </button>
+<main class="chat" id="chat">
 
-        </div>
+<div class="notice">
+Ex Roleplay is a fictional AI simulation, not your real ex.
+Use it as a space for reflection and closure.
+</div>
 
-    </header>
+<div class="empty" id="empty">
 
-    <main
-        class="chat"
-        id="chat"
-    >
+<div style="font-size:42px">💜</div>
 
-        <div class="chat-inner" id="chatInner">
+<h3>What do you want to say?</h3>
 
-            <div
-                class="empty"
-                id="emptyState"
-            >
+<p style="color:#777">
+You can start the conversation whenever you're ready.
+</p>
 
-                <div class="empty-avatar">
-                    💜
-                </div>
+<div class="quick">
 
-                <h2 id="emptyTitle">
-                    Start a conversation
-                </h2>
+<button onclick="quickSend('I miss you.')">
+I miss you.
+</button>
 
-                <p id="emptyText">
-                    This is a fictional roleplay space for
-                    reflection and closure. It is not your
-                    real ex.
-                </p>
+<button onclick="quickSend('I still have so many questions.')">
+I have questions.
+</button>
 
-            </div>
+<button onclick="quickSend('I want closure.')">
+I want closure.
+</button>
 
-            <div
-                class="typing"
-                id="typing"
-            >
-                <div class="typing-bubble">
-                    <div class="dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-            </div>
+</div>
 
-        </div>
+</div>
 
-    </main>
+<div class="typing" id="typing">
+Typing…
+</div>
 
-    <button
-        class="new-message"
-        id="newMessageBtn"
-    >
-        ↓ New messages
-    </button>
+</main>
 
-    <div class="composer-wrap">
+<div class="composer">
 
-        <div class="composer">
+<div class="composer-inner">
 
-            <button
-                class="image-btn"
-                id="imageComposerBtn"
-                title="Create image"
-            >
-                ✨
-            </button>
+<input
+id="message"
+maxlength="2000"
+placeholder="Message your Ex Roleplay…"
+autocomplete="off">
 
-            <div class="composer-box">
+<button
+class="send"
+id="send"
+onclick="sendMessage()">
 
-                <textarea
-                    class="message-input"
-                    id="messageInput"
-                    rows="1"
-                    maxlength="2000"
-                    placeholder="Write something..."
-                ></textarea>
+Send
 
-            </div>
+</button>
 
-            <button
-                class="send-btn"
-                id="sendBtn"
-                disabled
-            >
-                ↑
-            </button>
+</div>
 
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- SETUP MODAL -->
+<div class="modal" id="settingsModal">
 
-<div
-    class="modal-backdrop"
-    id="setupModal"
->
+<div class="panel">
 
-    <div class="modal">
+<h2>Ex Roleplay</h2>
 
-        <h2>Set up your Ex Roleplay</h2>
+<p style="color:#777;font-size:14px">
+Give the fictional character a name.
+</p>
 
-        <div class="modal-sub">
-            Create a fictional character for your healing
-            conversation. This character is not your real ex.
-        </div>
+<label>Ex's name</label>
 
-        <div class="field">
+<input
+id="exName"
+maxlength="40"
+placeholder="e.g. Aisha">
 
-            <label>Ex name</label>
+<div class="actions">
 
-            <input
-                type="text"
-                id="exNameInput"
-                maxlength="40"
-                placeholder="Enter a name"
-            >
+<button
+class="cancel"
+onclick="closeSettings()">
 
-        </div>
+Cancel
 
-        <div class="field">
+</button>
 
-            <label>Ex gender</label>
+<button
+class="save"
+onclick="saveSettings()">
 
-            <div class="gender-grid">
+Save
 
-                <button
-                    class="gender"
-                    data-gender="male"
-                >
-                    Male
-                </button>
-
-                <button
-                    class="gender"
-                    data-gender="female"
-                >
-                    Female
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="field">
-
-            <label>Ex photo — optional</label>
-
-            <div class="photo-upload">
-
-                <img
-                    class="photo-preview"
-                    id="photoPreview"
-                    alt="Preview"
-                >
-
-                <label class="upload-label">
-                    Choose photo
-                    <input
-                        class="hidden-file"
-                        type="file"
-                        id="photoInput"
-                        accept="image/*"
-                    >
-                </label>
-
-                <div class="note">
-                    Upload only a photo you have the right or
-                    permission to use. The photo is stored under
-                    your own MoveOn account.
-                </div>
-
-            </div>
-
-        </div>
-
-        <div
-            class="error"
-            id="setupError"
-        ></div>
-
-        <button
-            class="primary"
-            id="saveSetupBtn"
-        >
-            Start conversation
-        </button>
-
-    </div>
+</button>
 
 </div>
 
-
-<!-- SETTINGS MODAL -->
-
-<div
-    class="modal-backdrop"
-    id="settingsModal"
->
-
-    <div class="modal">
-
-        <h2>Ex Roleplay</h2>
-
-        <div class="modal-sub">
-            Manage your fictional character and conversation.
-        </div>
-
-        <div class="profile-card">
-
-            <img
-                class="profile-photo"
-                id="profilePhoto"
-                alt=""
-            >
-
-            <div class="profile-info">
-
-                <div
-                    class="profile-name"
-                    id="profileName"
-                >
-                    —
-                </div>
-
-                <div
-                    class="profile-gender"
-                    id="profileGender"
-                >
-                    —
-                </div>
-
-            </div>
-
-        </div>
-
-        <button
-            class="setting-btn"
-            id="changeProfileBtn"
-        >
-            ✏️ Change character setup
-        </button>
-
-        <button
-            class="setting-btn"
-            id="clearChatBtn"
-        >
-            🗑️ Clear this conversation
-        </button>
-
-        <button
-            class="setting-btn danger"
-            id="deletePhotoBtn"
-        >
-            Remove uploaded photo
-        </button>
-
-        <button
-            class="secondary"
-            id="closeSettingsBtn"
-        >
-            Close
-        </button>
-
-    </div>
-
 </div>
-
-
-<!-- IMAGE MODAL -->
-
-<div
-    class="modal-backdrop"
-    id="imageModal"
->
-
-    <div class="modal">
-
-        <h2>Create a fictional image</h2>
-
-        <div class="modal-sub">
-            You can describe a scene involving your fictional
-            Ex Roleplay character.
-        </div>
-
-        <textarea
-            class="image-prompt"
-            id="imagePrompt"
-            maxlength="2000"
-            placeholder="Example: sitting in a quiet cafe during rain..."
-        ></textarea>
-
-        <div
-            class="error"
-            id="imageError"
-        ></div>
-
-        <button
-            class="primary"
-            id="generateImageBtn"
-        >
-            ✨ Generate image
-        </button>
-
-        <button
-            class="secondary"
-            id="closeImageBtn"
-        >
-            Cancel
-        </button>
-
-    </div>
 
 </div>
 
 
 <script type="module">
 
-import {
-    auth,
-    database,
-    storage
-} from "./firebase-config.js";
+import { auth } from "./firebase-config.js";
 
 import {
-    onAuthStateChanged
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-import {
-    ref,
-    push,
-    set,
-    get,
-    remove,
-    onValue
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-import {
-    ref as storageRef,
-    uploadBytes,
-    getDownloadURL,
-    deleteObject
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
-
-import {
-    requirePremium
-} from "./premium.js";
+const API_URL =
+  "/api/ex-roleplay";
 
 
-/* ==========================================
-   PREMIUM
-========================================== */
-
-requirePremium("premium.html");
+const PREMIUM_URL =
+  "/api/premium/status";
 
 
-/* ==========================================
-   DOM
-========================================== */
+const NAME_KEY =
+  "moveon_ex_roleplay_name";
 
-const chat = document.getElementById("chat");
-const chatInner = document.getElementById("chatInner");
-const emptyState = document.getElementById("emptyState");
 
-const messageInput =
-    document.getElementById("messageInput");
+const CHAT_KEY =
+  "moveon_ex_roleplay_chat";
 
-const sendBtn =
-    document.getElementById("sendBtn");
+
+const chat =
+  document.getElementById("chat");
+
+
+const input =
+  document.getElementById("message");
+
+
+const send =
+  document.getElementById("send");
+
 
 const typing =
-    document.getElementById("typing");
-
-const newMessageBtn =
-    document.getElementById("newMessageBtn");
-
-const setupModal =
-    document.getElementById("setupModal");
-
-const settingsModal =
-    document.getElementById("settingsModal");
-
-const imageModal =
-    document.getElementById("imageModal");
-
-const setupError =
-    document.getElementById("setupError");
-
-const imageError =
-    document.getElementById("imageError");
-
-const exNameInput =
-    document.getElementById("exNameInput");
-
-const photoInput =
-    document.getElementById("photoInput");
-
-const photoPreview =
-    document.getElementById("photoPreview");
-
-const headerTitle =
-    document.getElementById("headerTitle");
-
-const headerSubtitle =
-    document.getElementById("headerSubtitle");
+  document.getElementById("typing");
 
 
-/* ==========================================
-   STATE
-========================================== */
+const empty =
+  document.getElementById("empty");
 
-const API_URL = "/api/ex-roleplay";
-const IMAGE_API_URL = "/api/ex-roleplay-image";
 
 let currentUser = null;
-let profile = null;
-let messages = [];
-let selectedGender = "";
-let selectedPhotoFile = null;
 
-let unsubscribeMessages = null;
+let exName =
+  localStorage.getItem(NAME_KEY)
+  || "Ex Roleplay";
 
-let sending = false;
-let imageGenerating = false;
 
-let userNearBottom = true;
+let historyData = [];
 
 
-/* ==========================================
-   AUTH
-========================================== */
+try {
 
-onAuthStateChanged(auth, async (user) => {
-
-    if (!user) {
-        window.location.replace("login.html");
-        return;
-    }
-
-    currentUser = user;
-
-    await loadProfile();
-
-});
-
-
-/* ==========================================
-   PROFILE
-========================================== */
-
-async function loadProfile() {
-
-    try {
-
-        const snapshot = await get(
-            ref(
-                database,
-                `users/${currentUser.uid}/exRoleplay/profile`
-            )
-        );
-
-        if (!snapshot.exists()) {
-
-            openSetup();
-
-            return;
-        }
-
-        profile = snapshot.val();
-
-        if (
-            !profile.name ||
-            !profile.gender
-        ) {
-
-            openSetup();
-
-            return;
-        }
-
-        updateHeader();
-
-        subscribeMessages();
-
-    } catch (error) {
-
-        console.error(error);
-
-        showSetupError(
-            "Profile load nahi ho paaya. Please try again."
-        );
-
-    }
-
-}
-
-
-/* ==========================================
-   SETUP
-========================================== */
-
-function openSetup() {
-
-    setupError.classList.remove("show");
-
-    exNameInput.value =
-        profile?.name || "";
-
-    selectedGender =
-        profile?.gender || "";
-
-    document
-        .querySelectorAll(".gender")
-        .forEach(button => {
-
-            button.classList.toggle(
-                "selected",
-                button.dataset.gender === selectedGender
-            );
-
-        });
-
-    if (profile?.photoUrl) {
-
-        photoPreview.src =
-            profile.photoUrl;
-
-        photoPreview.classList.add("show");
-
-    } else {
-
-        photoPreview.classList.remove("show");
-
-    }
-
-    setupModal.classList.add("show");
-
-}
-
-
-function closeSetup() {
-
-    setupModal.classList.remove("show");
-
-}
-
-
-document
-    .querySelectorAll(".gender")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                selectedGender =
-                    button.dataset.gender;
-
-                document
-                    .querySelectorAll(".gender")
-                    .forEach(item => {
-
-                        item.classList.toggle(
-                            "selected",
-                            item === button
-                        );
-
-                    });
-
-            }
-        );
-
-    });
-
-
-photoInput.addEventListener(
-    "change",
-    () => {
-
-        const file =
-            photoInput.files?.[0];
-
-        if (!file) return;
-
-        if (!file.type.startsWith("image/")) {
-
-            showSetupError(
-                "Please select an image file."
-            );
-
-            return;
-        }
-
-        if (file.size > 10 * 1024 * 1024) {
-
-            showSetupError(
-                "Photo must be smaller than 10 MB."
-            );
-
-            return;
-        }
-
-        selectedPhotoFile = file;
-
-        const reader =
-            new FileReader();
-
-        reader.onload = () => {
-
-            photoPreview.src =
-                reader.result;
-
-            photoPreview.classList.add(
-                "show"
-            );
-
-        };
-
-        reader.readAsDataURL(file);
-
-    }
-);
-
-
-document
-    .getElementById("saveSetupBtn")
-    .addEventListener(
-        "click",
-        saveSetup
+  const saved =
+    JSON.parse(
+      localStorage.getItem(CHAT_KEY)
+      || "[]"
     );
 
+  historyData =
+    Array.isArray(saved)
+      ? saved.slice(-60)
+      : [];
 
-async function saveSetup() {
+} catch {
 
-    const name =
-        exNameInput.value.trim();
-
-    if (!name) {
-
-        showSetupError(
-            "Ex name enter karo."
-        );
-
-        return;
-    }
-
-    if (!selectedGender) {
-
-        showSetupError(
-            "Ex gender select karo."
-        );
-
-        return;
-    }
-
-    if (name.length > 40) {
-
-        showSetupError(
-            "Name bahut long hai."
-        );
-
-        return;
-    }
-
-    const button =
-        document.getElementById("saveSetupBtn");
-
-    button.disabled = true;
-    button.textContent = "Saving...";
-
-    try {
-
-        let photoUrl =
-            profile?.photoUrl || "";
-
-        let photoPath =
-            profile?.photoPath || "";
-
-        if (selectedPhotoFile) {
-
-            const path =
-                `users/${currentUser.uid}/exRoleplay/ex-photo-${Date.now()}`;
-
-            const fileRef =
-                storageRef(
-                    storage,
-                    path
-                );
-
-            await uploadBytes(
-                fileRef,
-                selectedPhotoFile,
-                {
-                    contentType:
-                        selectedPhotoFile.type
-                }
-            );
-
-            photoUrl =
-                await getDownloadURL(
-                    fileRef
-                );
-
-            photoPath = path;
-        }
-
-        profile = {
-            name,
-            gender: selectedGender,
-            photoUrl,
-            photoPath,
-            createdAt:
-                profile?.createdAt ||
-                Date.now(),
-            updatedAt:
-                Date.now()
-        };
-
-        await set(
-            ref(
-                database,
-                `users/${currentUser.uid}/exRoleplay/profile`
-            ),
-            profile
-        );
-
-        closeSetup();
-
-        updateHeader();
-
-        subscribeMessages();
-
-    } catch (error) {
-
-        console.error(error);
-
-        showSetupError(
-            error?.message ||
-            "Setup save nahi ho paaya."
-        );
-
-    } finally {
-
-        button.disabled = false;
-        button.textContent =
-            "Start conversation";
-
-    }
+  historyData = [];
 
 }
 
 
-/* ==========================================
-   HEADER
-========================================== */
+/* =========================
+   SAVE CHAT
+========================= */
 
-function updateHeader() {
+function saveChat(){
 
-    if (!profile) return;
-
-    headerTitle.textContent =
-        profile.name;
-
-    headerSubtitle.textContent =
-        profile.gender === "male"
-            ? "Fictional male character"
-            : "Fictional female character";
-
-    document.getElementById(
-        "emptyTitle"
-    ).textContent =
-        `Talk with ${profile.name}`;
-
-    document.getElementById(
-        "emptyText"
-    ).textContent =
-        "A fictional conversation space for reflection and closure.";
+  localStorage.setItem(
+    CHAT_KEY,
+    JSON.stringify(
+      historyData.slice(-60)
+    )
+  );
 
 }
 
 
-/* ==========================================
-   FIREBASE CHAT
-========================================== */
+/* =========================
+   ADD MESSAGE
+========================= */
 
-function subscribeMessages() {
+function addBubble(
+  role,
+  text,
+  save = true
+){
 
-    if (!currentUser || !profile) return;
+  const d =
+    document.createElement("div");
 
-    if (unsubscribeMessages) {
+  d.className =
+    "bubble " +
+    (role === "user"
+      ? "user"
+      : "ai");
 
-        unsubscribeMessages();
+  d.textContent =
+    String(text || "");
 
-    }
+  chat.insertBefore(
+    d,
+    typing
+  );
 
-    const messagesRef =
-        ref(
-            database,
-            `users/${currentUser.uid}/exRoleplay/messages`
-        );
+  if(save){
 
-    unsubscribeMessages =
-        onValue(
-            messagesRef,
-            snapshot => {
+    historyData.push({
+      role,
+      content:
+        String(text || "")
+    });
 
-                const value =
-                    snapshot.val() || {};
+    saveChat();
 
-                messages =
-                    Object.entries(value)
-                        .map(([id, item]) => ({
-                            id,
-                            ...item
-                        }))
-                        .sort(
-                            (a,b) =>
-                                Number(a.createdAt || 0) -
-                                Number(b.createdAt || 0)
-                        )
-                        .slice(-100);
+  }
 
-                renderMessages();
-
-            },
-            error => {
-
-                console.error(
-                    "Chat listener error:",
-                    error
-                );
-
-            }
-        );
+  chat.scrollTop =
+    chat.scrollHeight;
 
 }
 
 
-/* ==========================================
+/* =========================
    RENDER
-========================================== */
+========================= */
 
-function renderMessages() {
+function render(){
 
-    const wasNear =
-        userNearBottom;
-
-    chatInner
-        .querySelectorAll(".message-row")
-        .forEach(element =>
-            element.remove()
-        );
-
-    if (!messages.length) {
-
-        emptyState.style.display =
-            "block";
-
-    } else {
-
-        emptyState.style.display =
-            "none";
-
-        messages.forEach(
-            renderMessage
-        );
-
-    }
-
-    chatInner.appendChild(
-        typing
-    );
-
-    if (wasNear) {
-
-        requestAnimationFrame(
-            scrollToBottom
-        );
-
-    }
-
-}
+  document.getElementById(
+    "screenTitle"
+  ).textContent =
+    exName || "Ex Roleplay";
 
 
-/* ==========================================
-   MESSAGE
-========================================== */
+  empty.style.display =
+    historyData.length
+      ? "none"
+      : "block";
 
-function renderMessage(message) {
 
-    const row =
-        document.createElement("div");
+  historyData.forEach(
+    item => {
 
-    row.className =
-        `message-row ${message.role === "user"
+      if(item?.content){
+
+        addBubble(
+          item.role === "user"
             ? "user"
-            : "assistant"}`;
+            : "assistant",
 
-    if (message.type === "image") {
+          item.content,
 
-        const wrapper =
-            document.createElement("div");
-
-        wrapper.className =
-            "image-message";
-
-        const img =
-            document.createElement("img");
-
-        img.src =
-            message.imageUrl;
-
-        img.alt =
-            "Generated fictional scene";
-
-        img.loading =
-            "lazy";
-
-        wrapper.appendChild(img);
-
-        row.appendChild(wrapper);
-
-    } else {
-
-        const bubble =
-            document.createElement("div");
-
-        bubble.className =
-            "bubble";
-
-        bubble.textContent =
-            message.content || "";
-
-        if (message.createdAt) {
-
-            const time =
-                document.createElement("div");
-
-            time.className =
-                "time";
-
-            time.textContent =
-                formatTime(
-                    message.createdAt
-                );
-
-            bubble.appendChild(
-                time
-            );
-
-        }
-
-        row.appendChild(
-            bubble
+          false
         );
 
-    }
+      }
 
-    chatInner.insertBefore(
-        row,
-        typing
-    );
+    }
+  );
+
+
+  chat.scrollTop =
+    chat.scrollHeight;
 
 }
 
 
-/* ==========================================
-   SEND
-========================================== */
+/* =========================
+   GET FIREBASE TOKEN
+========================= */
 
-messageInput.addEventListener(
-    "input",
-    () => {
+async function getToken(){
 
-        autoResize();
+  if(!currentUser){
 
-        sendBtn.disabled =
-            !messageInput.value.trim() ||
-            sending;
+    throw new Error(
+      "Please login first."
+    );
 
-    }
-);
+  }
+
+  return await currentUser.getIdToken(
+    true
+  );
+
+}
 
 
-messageInput.addEventListener(
-    "keydown",
-    event => {
+/* =========================
+   CHECK PREMIUM
+========================= */
 
-        if (
-            event.key === "Enter" &&
-            !event.shiftKey
-        ) {
+async function checkPremium(){
 
-            event.preventDefault();
+  try{
 
-            sendMessage();
+    const token =
+      await getToken();
 
+
+    const response =
+      await fetch(
+        PREMIUM_URL,
+        {
+          method:"GET",
+
+          headers:{
+            "Authorization":
+              `Bearer ${token}`
+          }
         }
-
-    }
-);
+      );
 
 
-sendBtn.addEventListener(
-    "click",
-    sendMessage
-);
+    const data =
+      await response.json()
+        .catch(() => ({}));
 
 
-async function sendMessage() {
+    if(
+      !response.ok ||
+      data.active !== true
+    ){
 
-    if (sending) return;
+      alert(
+        "MoveOn Premium is required for Ex Roleplay."
+      );
 
-    const text =
-        messageInput.value.trim();
+      window.location.href =
+        "premium.html";
 
-    if (!text) return;
-
-    if (!currentUser || !profile) {
-
-        openSetup();
-
-        return;
-    }
-
-    sending = true;
-
-    sendBtn.disabled =
-        true;
-
-    messageInput.value =
-        "";
-
-    autoResize();
-
-    userNearBottom =
-        true;
-
-    const userMessage = {
-        role: "user",
-        content: text,
-        createdAt: Date.now()
-    };
-
-    try {
-
-        await pushMessage(
-            userMessage
-        );
-
-        showTyping();
-
-        const history =
-            messages
-                .slice(-16)
-                .map(item => ({
-                    role:
-                        item.role === "user"
-                            ? "user"
-                            : "assistant",
-                    content:
-                        item.content || ""
-                }))
-                .filter(item =>
-                    item.content
-                );
-
-        const idToken =
-            await currentUser.getIdToken();
-
-        const response =
-            await fetch(
-                API_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            `Bearer ${idToken}`
-                    },
-
-                    body: JSON.stringify({
-
-                        exName:
-                            profile.name,
-
-                        exGender:
-                            profile.gender,
-
-                        message:
-                            text,
-
-                        history
-
-                    })
-                }
-            );
-
-        const data =
-            await response.json()
-                .catch(() => ({}));
-
-        if (!response.ok) {
-
-            throw new Error(
-                data?.error ||
-                "AI response failed."
-            );
-
-        }
-
-        const reply =
-            String(
-                data?.reply || ""
-            ).trim();
-
-        if (!reply) {
-
-            throw new Error(
-                "AI returned an empty response."
-            );
-
-        }
-
-        await pushMessage({
-
-            role: "assistant",
-
-            content: reply,
-
-            createdAt: Date.now()
-
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-        await pushMessage({
-
-            role: "assistant",
-
-            content:
-                "Sorry, abhi reply nahi aa paaya. Please thodi der baad try karo.",
-
-            createdAt:
-                Date.now(),
-
-            error: true
-
-        });
-
-    } finally {
-
-        hideTyping();
-
-        sending =
-            false;
-
-        sendBtn.disabled =
-            !messageInput.value.trim();
-
-        messageInput.focus();
+      return false;
 
     }
 
-}
 
+    return true;
 
-/* ==========================================
-   PUSH MESSAGE
-========================================== */
+  }catch(error){
 
-async function pushMessage(message) {
-
-    const messageRef =
-        push(
-            ref(
-                database,
-                `users/${currentUser.uid}/exRoleplay/messages`
-            )
-        );
-
-    await set(
-        messageRef,
-        message
+    console.error(
+      "Premium check error:",
+      error
     );
 
-}
-
-
-/* ==========================================
-   TYPING
-========================================== */
-
-function showTyping() {
-
-    typing.classList.add(
-        "show"
+    alert(
+      "Unable to verify Premium. Please try again."
     );
 
-    userNearBottom =
-        true;
+    window.location.href =
+      "premium.html";
 
-    requestAnimationFrame(
-        scrollToBottom
-    );
+    return false;
 
-}
-
-
-function hideTyping() {
-
-    typing.classList.remove(
-        "show"
-    );
+  }
 
 }
 
 
-/* ==========================================
-   SCROLL
-========================================== */
-
-chat.addEventListener(
-    "scroll",
-    () => {
-
-        const distance =
-            chat.scrollHeight -
-            chat.scrollTop -
-            chat.clientHeight;
-
-        userNearBottom =
-            distance < 100;
-
-        if (userNearBottom) {
-
-            newMessageBtn.classList.remove(
-                "show"
-            );
-
-        }
-
-    },
-    {
-        passive: true
-    }
-);
-
-
-function scrollToBottom() {
-
-    chat.scrollTo({
-        top:
-            chat.scrollHeight,
-        behavior:
-            "smooth"
-    });
-
-}
-
-
-newMessageBtn.addEventListener(
-    "click",
-    () => {
-
-        userNearBottom =
-            true;
-
-        scrollToBottom();
-
-        newMessageBtn.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
-/* ==========================================
-   AUTO RESIZE
-========================================== */
-
-function autoResize() {
-
-    messageInput.style.height =
-        "auto";
-
-    messageInput.style.height =
-        Math.min(
-            messageInput.scrollHeight,
-            130
-        ) + "px";
-
-}
-
-
-/* ==========================================
+/* =========================
    SETTINGS
-========================================== */
+========================= */
 
-document.getElementById(
-    "settingsBtn"
-).addEventListener(
-    "click",
-    () => {
+window.openSettings =
+function(){
 
-        updateSettingsUI();
-
-        settingsModal.classList.add(
-            "show"
-        );
-
-    }
-);
+  document.getElementById(
+    "exName"
+  ).value =
+    exName === "Ex Roleplay"
+      ? ""
+      : exName;
 
 
-document.getElementById(
-    "closeSettingsBtn"
-).addEventListener(
-    "click",
-    () => {
+  document.getElementById(
+    "settingsModal"
+  ).style.display =
+    "block";
 
-        settingsModal.classList.remove(
-            "show"
-        );
-
-    }
-);
+};
 
 
-function updateSettingsUI() {
+window.closeSettings =
+function(){
 
-    if (!profile) return;
+  document.getElementById(
+    "settingsModal"
+  ).style.display =
+    "none";
 
+};
+
+
+window.saveSettings =
+function(){
+
+  const value =
     document.getElementById(
-        "profileName"
-    ).textContent =
-        profile.name;
+      "exName"
+    ).value
+      .trim()
+      .slice(0,40);
 
-    document.getElementById(
-        "profileGender"
-    ).textContent =
-        profile.gender === "male"
-            ? "Male"
-            : "Female";
 
-    const img =
-        document.getElementById(
-            "profilePhoto"
-        );
+  exName =
+    value || "Ex Roleplay";
 
-    if (profile.photoUrl) {
 
-        img.src =
-            profile.photoUrl;
+  localStorage.setItem(
+    NAME_KEY,
+    exName
+  );
 
-    } else {
 
-        img.removeAttribute(
-            "src"
-        );
+  document.getElementById(
+    "screenTitle"
+  ).textContent =
+    exName;
+
+
+  closeSettings();
+
+};
+
+
+/* =========================
+   QUICK SEND
+========================= */
+
+window.quickSend =
+function(text){
+
+  input.value =
+    text;
+
+  sendMessage();
+
+};
+
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+window.sendMessage =
+async function(){
+
+  const text =
+    input.value.trim();
+
+
+  if(
+    !text ||
+    send.disabled
+  ){
+
+    return;
+
+  }
+
+
+  /*
+    Check Premium again before sending.
+  */
+
+  const premium =
+    await checkPremium();
+
+
+  if(!premium){
+
+    return;
+
+  }
+
+
+  addBubble(
+    "user",
+    text
+  );
+
+
+  input.value =
+    "";
+
+
+  empty.style.display =
+    "none";
+
+
+  send.disabled =
+    true;
+
+
+  typing.style.display =
+    "block";
+
+
+  chat.scrollTop =
+    chat.scrollHeight;
+
+
+  try{
+
+    const token =
+      await getToken();
+
+
+    const requestHistory =
+      historyData
+        .slice(-16)
+        .filter(
+          x =>
+            x &&
+            (
+              x.role === "user" ||
+              x.role === "assistant"
+            ) &&
+            x.content
+        )
+        .slice(0,16);
+
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json",
+
+            "Authorization":
+              `Bearer ${token}`
+          },
+
+          body:
+            JSON.stringify({
+
+              exName,
+
+              message:text,
+
+              history:
+                requestHistory
+
+            })
+        }
+      );
+
+
+    const raw =
+      await response.text();
+
+
+    let data = {};
+
+    try{
+
+      data =
+        raw
+          ? JSON.parse(raw)
+          : {};
+
+    }catch{}
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data?.error ||
+        `Server error (${response.status})`
+      );
 
     }
 
-}
 
+    if(!data?.reply){
 
-/* ==========================================
-   CHANGE PROFILE
-========================================== */
-
-document.getElementById(
-    "changeProfileBtn"
-).addEventListener(
-    "click",
-    () => {
-
-        settingsModal.classList.remove(
-            "show"
-        );
-
-        openSetup();
+      throw new Error(
+        "AI returned an empty reply."
+      );
 
     }
-);
 
 
-/* ==========================================
+    addBubble(
+      "assistant",
+      data.reply
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "MoveOn Ex Roleplay error:",
+      error
+    );
+
+
+    addBubble(
+      "assistant",
+      "⚠️ " +
+      (
+        error?.message ||
+        "Unable to reply right now."
+      )
+    );
+
+
+  }finally{
+
+    typing.style.display =
+      "none";
+
+    send.disabled =
+      false;
+
+    input.focus();
+
+  }
+
+};
+
+
+/* =========================
    CLEAR CHAT
-========================================== */
+========================= */
 
-document.getElementById(
-    "clearChatBtn"
-).addEventListener(
-    "click",
-    async () => {
+window.clearChat =
+function(){
 
-        if (!currentUser) return;
-
-        const yes =
-            confirm(
-                "Is account ki Ex Roleplay conversation delete karni hai?"
-            );
-
-        if (!yes) return;
-
-        try {
-
-            await remove(
-                ref(
-                    database,
-                    `users/${currentUser.uid}/exRoleplay/messages`
-                )
-            );
-
-            settingsModal.classList.remove(
-                "show"
-            );
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert(
-                "Chat delete nahi ho paayi."
-            );
-
-        }
-
-    }
-);
+  if(!historyData.length)
+    return;
 
 
-/* ==========================================
-   DELETE PHOTO
-========================================== */
+  if(
+    !confirm(
+      "Clear this roleplay conversation?"
+    )
+  ){
 
-document.getElementById(
-    "deletePhotoBtn"
-).addEventListener(
-    "click",
-    async () => {
+    return;
 
-        if (
-            !profile?.photoPath
-        ) {
-
-            alert(
-                "Koi uploaded photo nahi hai."
-            );
-
-            return;
-        }
-
-        const yes =
-            confirm(
-                "Uploaded Ex Roleplay photo delete karni hai?"
-            );
-
-        if (!yes) return;
-
-        try {
-
-            const fileRef =
-                storageRef(
-                    storage,
-                    profile.photoPath
-                );
-
-            await deleteObject(
-                fileRef
-            ).catch(() => {});
-
-            profile.photoUrl =
-                "";
-
-            profile.photoPath =
-                "";
-
-            profile.updatedAt =
-                Date.now();
-
-            await set(
-                ref(
-                    database,
-                    `users/${currentUser.uid}/exRoleplay/profile`
-                ),
-                profile
-            );
-
-            updateSettingsUI();
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert(
-                "Photo remove nahi ho paayi."
-            );
-
-        }
-
-    }
-);
+  }
 
 
-/* ==========================================
-   IMAGE GENERATOR
-========================================== */
+  historyData = [];
 
-document.getElementById(
-    "imageOpenBtn"
-).addEventListener(
-    "click",
-    openImageModal
-);
-
-document.getElementById(
-    "imageComposerBtn"
-).addEventListener(
-    "click",
-    openImageModal
-);
+  saveChat();
 
 
-function openImageModal() {
-
-    if (!profile) {
-
-        openSetup();
-
-        return;
-    }
-
-    imageError.classList.remove(
-        "show"
+  chat
+    .querySelectorAll(".bubble")
+    .forEach(
+      el => el.remove()
     );
 
-    imageModal.classList.add(
-        "show"
-    );
 
-    document.getElementById(
-        "imagePrompt"
-    ).focus();
+  empty.style.display =
+    "block";
 
-}
+};
 
 
-document.getElementById(
-    "closeImageBtn"
-).addEventListener(
-    "click",
-    () => {
+/* =========================
+   ENTER TO SEND
+========================= */
 
-        imageModal.classList.remove(
-            "show"
-        );
+input.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key === "Enter" &&
+      !event.shiftKey
+    ){
+
+      event.preventDefault();
+
+      sendMessage();
 
     }
+
+  }
 );
 
 
-document.getElementById(
-    "generateImageBtn"
-).addEventListener(
-    "click",
-    generateImage
+/* =========================
+   AUTH + PREMIUM
+========================= */
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    if(!user){
+
+      window.location.href =
+        "login.html?redirect=ex-roleplay.html";
+
+      return;
+
+    }
+
+
+    currentUser =
+      user;
+
+
+    /*
+      IMPORTANT:
+      Don't open Ex Roleplay unless
+      Premium is confirmed.
+    */
+
+    const premium =
+      await checkPremium();
+
+
+    if(!premium)
+      return;
+
+
+    render();
+
+  }
 );
-
-
-async function generateImage() {
-
-    if (imageGenerating) return;
-
-    const prompt =
-        document.getElementById(
-            "imagePrompt"
-        ).value.trim();
-
-    if (!prompt) {
-
-        showImageError(
-            "Scene describe karo."
-        );
-
-        return;
-    }
-
-    imageGenerating =
-        true;
-
-    const button =
-        document.getElementById(
-            "generateImageBtn"
-        );
-
-    button.disabled =
-        true;
-
-    button.textContent =
-        "Generating...";
-
-    try {
-
-        const idToken =
-            await currentUser.getIdToken();
-
-        const response =
-            await fetch(
-                IMAGE_API_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            `Bearer ${idToken}`
-                    },
-
-                    body: JSON.stringify({
-
-                        exName:
-                            profile.name,
-
-                        exGender:
-                            profile.gender,
-
-                        exPhotoUrl:
-                            profile.photoUrl || "",
-
-                        prompt
-
-                    })
-                }
-            );
-
-        const data =
-            await response.json()
-                .catch(() => ({}));
-
-        if (!response.ok) {
-
-            throw new Error(
-                data?.error ||
-                "Image generation failed."
-            );
-
-        }
-
-        if (!data?.image) {
-
-            throw new Error(
-                "Image server returned no image."
-            );
-
-        }
-
-        await pushMessage({
-
-            role: "assistant",
-
-            type: "image",
-
-            imageUrl:
-                data.image,
-
-            createdAt:
-                Date.now()
-
-        });
-
-        document.getElementById(
-            "imagePrompt"
-        ).value = "";
-
-        imageModal.classList.remove(
-            "show"
-        );
-
-        userNearBottom =
-            true;
-
-    } catch (error) {
-
-        console.error(error);
-
-        showImageError(
-            error?.message ||
-            "Image generate nahi ho paayi."
-        );
-
-    } finally {
-
-        imageGenerating =
-            false;
-
-        button.disabled =
-            false;
-
-        button.textContent =
-            "✨ Generate image";
-
-    }
-
-}
-
-
-/* ==========================================
-   HELPERS
-========================================== */
-
-function showSetupError(message) {
-
-    setupError.textContent =
-        message;
-
-    setupError.classList.add(
-        "show"
-    );
-
-}
-
-
-function showImageError(message) {
-
-    imageError.textContent =
-        message;
-
-    imageError.classList.add(
-        "show"
-    );
-
-}
-
-
-function formatTime(timestamp) {
-
-    try {
-
-        return new Date(
-            timestamp
-        ).toLocaleTimeString(
-            [],
-            {
-                hour: "numeric",
-                minute: "2-digit"
-            }
-        );
-
-    } catch {
-
-        return "";
-
-    }
-
-}
-
-
-/* ==========================================
-   BACK
-========================================== */
-
-document.getElementById(
-    "backBtn"
-).addEventListener(
-    "click",
-    () => {
-
-        window.location.href =
-            "home.html";
-
-    }
-);
-
-
-/* ==========================================
-   MODAL OUTSIDE CLICK
-========================================== */
-
-[
-    setupModal,
-    settingsModal,
-    imageModal
-].forEach(modal => {
-
-    modal.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target === modal &&
-                modal !== setupModal
-            ) {
-
-                modal.classList.remove(
-                    "show"
-                );
-
-            }
-
-        }
-    );
-
-});
-
 
 </script>
 
