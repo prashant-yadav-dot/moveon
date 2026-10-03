@@ -23,10 +23,4 @@ const database = getDatabase(app);
 const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
-export {
-    app,
-    auth,
-    database,
-    storage,
-    analytics
-};
+export { app, auth, database, storage, analytics };
