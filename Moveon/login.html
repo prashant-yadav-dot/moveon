@@ -1,864 +1,421 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#7667f8"><title>MoveOn — Login</title><style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    min-height:100vh;
-    font-family:Arial,Helvetica,sans-serif;
-    overflow-x:hidden;
-    color:#202348;
-    background:
-        radial-gradient(circle at 10% 10%,#ddd8ff 0%,transparent 30%),
-        radial-gradient(circle at 90% 20%,#ffdce9 0%,transparent 30%),
-        linear-gradient(135deg,#f8f7ff,#fff7f9,#f4f1ff);
-}
-
-.background{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:-1;
-}
-
-.blob{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(5px);
-    opacity:.45;
-    animation:float 8s ease-in-out infinite;
-}
-
-.blob.one{
-    width:220px;
-    height:220px;
-    background:#c9c2ff;
-    top:-70px;
-    left:-70px;
-}
-
-.blob.two{
-    width:180px;
-    height:180px;
-    background:#ffcbdc;
-    right:-50px;
-    top:25%;
-    animation-delay:2s;
-}
-
-.blob.three{
-    width:160px;
-    height:160px;
-    background:#d7f2e6;
-    bottom:-50px;
-    left:20%;
-    animation-delay:4s;
-}
-
-@keyframes float{
-    0%,100%{
-        transform:translate(0,0);
-    }
-    50%{
-        transform:translate(15px,-25px);
-    }
-}
-
-.heart{
-    position:fixed;
-    font-size:22px;
-    opacity:.22;
-    animation:heartFloat linear infinite;
-    pointer-events:none;
-}
-
-.heart:nth-child(1){
-    left:8%;
-    bottom:-30px;
-    animation-duration:9s;
-}
-
-.heart:nth-child(2){
-    left:25%;
-    bottom:-40px;
-    animation-duration:12s;
-    animation-delay:2s;
-}
-
-.heart:nth-child(3){
-    right:20%;
-    bottom:-30px;
-    animation-duration:10s;
-    animation-delay:4s;
-}
-
-.heart:nth-child(4){
-    right:7%;
-    bottom:-50px;
-    animation-duration:13s;
-    animation-delay:1s;
-}
-
-@keyframes heartFloat{
-    0%{
-        transform:translateY(0) rotate(0);
-        opacity:0;
-    }
-
-    20%{
-        opacity:.25;
-    }
-
-    80%{
-        opacity:.2;
-    }
-
-    100%{
-        transform:translateY(-110vh) rotate(25deg);
-        opacity:0;
-    }
-}
-
-.wrapper{
-    width:100%;
-    max-width:1050px;
-    margin:auto;
-    min-height:100vh;
-    padding:35px 25px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:25px;
-}
-
-.logo{
-    width:50px;
-    height:50px;
-    border-radius:17px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:27px;
-    background:linear-gradient(135deg,#7063f5,#a38dff);
-    color:white;
-    box-shadow:0 10px 25px rgba(112,99,245,.25);
-}
-
-.brand h1{
-    font-size:25px;
-    letter-spacing:-.5px;
-}
-
-.brand p{
-    font-size:11px;
-    color:#85849a;
-    margin-top:3px;
-}
-
-.content{
-    display:grid;
-    grid-template-columns:1fr 440px;
-    gap:60px;
-    align-items:center;
-}
-
-.visual{
-    padding:20px 0;
-}
-
-.visual h2{
-    font-size:45px;
-    line-height:1.1;
-    letter-spacing:-1.8px;
-    margin-bottom:18px;
-}
-
-.visual h2 span{
-    color:#7667f8;
-}
-
-.visual-description{
-    max-width:480px;
-    color:#73738a;
-    line-height:1.7;
-    font-size:15px;
-    margin-bottom:28px;
-}
-
-.illustration{
-    height:270px;
-    border-radius:35px;
-    position:relative;
-    overflow:hidden;
-    background:
-        linear-gradient(
-            180deg,
-            #dcd7ff 0%,
-            #f7d5dc 55%,
-            #ffdcae 100%
-        );
-    box-shadow:0 20px 50px rgba(70,60,130,.12);
-}
-
-.sun{
-    position:absolute;
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    background:#fff4c7;
-    right:18%;
-    top:28%;
-    box-shadow:0 0 35px rgba(255,225,130,.8);
-}
-
-.mountain{
-    position:absolute;
-    bottom:55px;
-    width:0;
-    height:0;
-    border-left:170px solid transparent;
-    border-right:170px solid transparent;
-    border-bottom:145px solid #9289c9;
-}
-
-.mountain.one{
-    left:-90px;
-}
-
-.mountain.two{
-    right:-100px;
-    border-bottom-color:#7d78b5;
-}
-
-.mountain.three{
-    left:25%;
-    bottom:45px;
-    border-left-width:130px;
-    border-right-width:130px;
-    border-bottom-width:110px;
-    border-bottom-color:#aaa1d7;
-}
-
-.water{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:70px;
-    background:linear-gradient(
-        180deg,
-        rgba(120,135,190,.65),
-        rgba(87,105,165,.85)
-    );
-}
-
-.person{
-    position:absolute;
-    bottom:50px;
-    left:50%;
-    transform:translateX(-50%);
-    width:80px;
-    height:115px;
-}
-
-.head{
-    position:absolute;
-    width:43px;
-    height:43px;
-    background:#f1b58f;
-    border-radius:50%;
-    top:0;
-    left:19px;
-}
-
-.hair{
-    position:absolute;
-    width:47px;
-    height:30px;
-    background:#29253d;
-    border-radius:50% 50% 30% 30%;
-    top:-4px;
-    left:17px;
-}
-
-.body{
-    position:absolute;
-    width:70px;
-    height:70px;
-    background:#665bb5;
-    border-radius:30px 30px 10px 10px;
-    top:37px;
-    left:5px;
-}
-
-.leg{
-    position:absolute;
-    width:30px;
-    height:65px;
-    background:#25283f;
-    border-radius:20px;
-    bottom:-10px;
-}
-
-.leg.one{
-    left:10px;
-    transform:rotate(15deg);
-}
-
-.leg.two{
-    right:8px;
-    transform:rotate(-12deg);
-}
-
-.visual-quote{
-    position:absolute;
-    left:25px;
-    top:22px;
-    background:rgba(255,255,255,.55);
-    backdrop-filter:blur(8px);
-    padding:9px 14px;
-    border-radius:20px;
-    font-size:12px;
-    color:#514b78;
-}
-
-.login-card{
-    background:rgba(255,255,255,.78);
-    backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,.9);
-    border-radius:30px;
-    padding:34px;
-    box-shadow:0 25px 70px rgba(55,48,100,.13);
-    animation:cardIn .7s ease;
-}
-
-@keyframes cardIn{
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.login-title{
-    text-align:center;
-    margin-bottom:27px;
-}
-
-.login-title h2{
-    font-size:27px;
-    margin-bottom:8px;
-}
-
-.login-title p{
-    color:#85859a;
-    font-size:13px;
-}
-
-.input-group{
-    margin-bottom:17px;
-}
-
-.input-group label{
-    display:block;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:8px;
-    color:#4b4b66;
-}
-
-.input-box{
-    position:relative;
-}
-
-.input-box span{
-    position:absolute;
-    left:15px;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:18px;
-}
-
-.input-box input{
-    width:100%;
-    height:51px;
-    border:1px solid #e1dff0;
-    border-radius:15px;
-    padding:0 45px;
-    outline:none;
-    background:rgba(255,255,255,.75);
-    color:#30314b;
-    font-size:14px;
-    transition:.25s;
-}
-
-.input-box input:focus{
-    border-color:#7667f8;
-    box-shadow:0 0 0 4px rgba(118,103,248,.10);
-}
-
-.eye{
-    position:absolute;
-    right:15px;
-    top:50%;
-    transform:translateY(-50%);
-    cursor:pointer;
-    color:#85859a;
-    font-size:17px;
-}
-
-.options{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:5px 0 20px;
-    font-size:12px;
-}
-
-.remember{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    color:#77778b;
-}
-
-.remember input{
-    accent-color:#7667f8;
-}
-
-.forgot{
-    color:#6d5ff1;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.login-btn{
-    width:100%;
-    height:52px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#7163f5,#9381ff);
-    color:white;
-    font-weight:bold;
-    font-size:15px;
-    box-shadow:0 12px 25px rgba(113,99,245,.25);
-    transition:.25s;
-    border:none;
-    cursor:pointer;
-}
-
-.login-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 30px rgba(113,99,245,.32);
-}
-
-.login-btn:active{
-    transform:scale(.98);
-}
-
-.login-btn:disabled{
-    opacity:.7;
-    cursor:not-allowed;
-    transform:none;
-}
-
-.divider{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin:22px 0;
-    color:#aaa9b7;
-    font-size:11px;
-}
-
-.divider::before,
-.divider::after{
-    content:"";
-    height:1px;
-    background:#e5e3ed;
-    flex:1;
-}
-
-.socials{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.social{
-    height:47px;
-    border:1px solid #e3e1ec;
-    background:white;
-    border-radius:14px;
-    font-size:12px;
-    font-weight:bold;
-    color:#4f5068;
-    transition:.2s;
-    cursor:pointer;
-}
-
-.social:hover{
-    transform:translateY(-2px);
-    background:#faf9ff;
-}
-
-.signup{
-    margin-top:22px;
-    text-align:center;
-    font-size:12px;
-    color:#85859a;
-}
-
-.signup a{
-    color:#6d5ff1;
-    font-weight:bold;
-    text-decoration:none;
-}
-
-.privacy{
-    text-align:center;
-    margin-top:20px;
-    font-size:10px;
-    color:#aaa9b7;
-}
-
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:25px;
-    transform:translate(-50%,20px);
-    background:#292943;
-    color:white;
-    padding:12px 18px;
-    border-radius:12px;
-    font-size:12px;
-    opacity:0;
-    pointer-events:none;
-    transition:.3s;
-    z-index:999;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-
-@media(max-width:850px){
-
-    .wrapper{
-        padding:25px 18px 40px;
-    }
-
-    .content{
-        grid-template-columns:1fr;
-        gap:25px;
-    }
-
-    .visual{
-        text-align:center;
-    }
-
-    .visual h2{
-        font-size:35px;
-    }
-
-    .visual-description{
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    .illustration{
-        max-width:600px;
-        margin:auto;
-    }
-
-    .login-card{
-        max-width:500px;
-        width:100%;
-        margin:auto;
-    }
-
-}
-
-@media(max-width:480px){
-
-    .brand{
-        margin-bottom:20px;
-    }
-
-    .brand h1{
-        font-size:22px;
-    }
-
-    .visual{
-        padding:5px 0;
-    }
-
-    .visual h2{
-        font-size:31px;
-    }
-
-    .visual-description{
-        font-size:13px;
-    }
-
-    .illustration{
-        height:220px;
-        border-radius:25px;
-    }
-
-    .login-card{
-        padding:25px 18px;
-        border-radius:25px;
-    }
-
-    .login-title h2{
-        font-size:24px;
-    }
-
-    .socials{
-        grid-template-columns:1fr;
-    }
-
-}
-
-</style></head><body><div class="background"><div class="blob one"></div>
-<div class="blob two"></div>
-<div class="blob three"></div>
-
-<div class="heart">♡</div>
-<div class="heart">♡</div>
-<div class="heart">♡</div>
-<div class="heart">♡</div>
-
-</div><div class="wrapper"><div class="brand">
-
-    <div class="logo">
-        💜
-    </div>
-
-    <div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | MoveOn</title>
+    <meta name="description" content="Login to MoveOn and continue your healing journey.">
+
+    <link rel="icon" href="favicon.ico">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(118,103,248,.14), transparent 30%),
+                radial-gradient(circle at 90% 90%, rgba(255,170,205,.16), transparent 30%),
+                #faf9ff;
+            color: #26233a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #7667f8, #a995ff);
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 12px 30px rgba(118,103,248,.25);
+        }
+
+        .brand h1 {
+            margin-top: 13px;
+            font-size: 29px;
+            letter-spacing: -1px;
+        }
+
+        .brand p {
+            margin-top: 6px;
+            color: #77738a;
+            font-size: 14px;
+        }
+
+        .card {
+            background: rgba(255,255,255,.94);
+            border: 1px solid rgba(118,103,248,.10);
+            border-radius: 26px;
+            padding: 30px 25px;
+            box-shadow: 0 18px 55px rgba(61,50,110,.10);
+        }
+
+        .card h2 {
+            font-size: 23px;
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #858194;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+            color: #4d485f;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #e5e1ef;
+            border-radius: 14px;
+            outline: none;
+            padding: 0 15px;
+            font-size: 15px;
+            color: #28243b;
+            background: #fcfbff;
+            transition: .2s;
+        }
+
+        input:focus {
+            border-color: #7667f8;
+            box-shadow: 0 0 0 4px rgba(118,103,248,.10);
+        }
+
+        .password-input {
+            padding-right: 48px;
+        }
+
+        .eye {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3px 0 20px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #706b7e;
+        }
+
+        .remember input {
+            width: 16px;
+            height: 16px;
+            accent-color: #7667f8;
+        }
+
+        .forgot {
+            color: #6558e8;
+            border: 0;
+            background: none;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 51px;
+            border: 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #7667f8, #6656e9);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(102,86,233,.22);
+            transition: .2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .login-btn:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 23px 0;
+            color: #aaa5b7;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: #ebe8f1;
+        }
+
+        .social-btn {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #e5e1ed;
+            background: white;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #403b50;
+            margin-bottom: 10px;
+            transition: .2s;
+        }
+
+        .social-btn:hover {
+            background: #faf9ff;
+            border-color: #d7d1e8;
+        }
+
+        .signup {
+            text-align: center;
+            margin-top: 23px;
+            font-size: 14px;
+            color: #817c8d;
+        }
+
+        .signup a {
+            color: #6656e9;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 18px;
+            color: #aaa5b5;
+            font-size: 12px;
+        }
+
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            transform: translate(-50%, 20px);
+            background: #29263a;
+            color: white;
+            padding: 13px 18px;
+            border-radius: 13px;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s;
+            z-index: 9999;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 8px 0 0;
+            color: #7667f8;
+            font-size: 13px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 14px;
+            }
+
+            .card {
+                padding: 25px 19px;
+                border-radius: 22px;
+            }
+
+            .brand h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="brand">
+        <div class="logo">🌱</div>
         <h1>MoveOn</h1>
         <p>Heal • Grow • Be You</p>
     </div>
 
-</div>
+    <div class="card">
 
-
-<div class="content">
-
-    <section class="visual">
-
-        <h2>
-            Better days<br>
-            <span>are ahead.</span>
-        </h2>
-
-        <p class="visual-description">
-            You don't have to figure everything out today.
-            MoveOn gives you a private space to understand
-            your emotions, build healthy habits and slowly
-            find yourself again.
+        <h2>Welcome back 💜</h2>
+        <p class="subtitle">
+            Continue your healing journey.
         </p>
-
-        <div class="illustration">
-
-            <div class="visual-quote">
-                🌱 One small step at a time
-            </div>
-
-            <div class="sun"></div>
-
-            <div class="mountain one"></div>
-            <div class="mountain two"></div>
-            <div class="mountain three"></div>
-
-            <div class="water"></div>
-
-            <div class="person">
-
-                <div class="hair"></div>
-                <div class="head"></div>
-
-                <div class="body"></div>
-
-                <div class="leg one"></div>
-                <div class="leg two"></div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section class="login-card">
-
-        <div class="login-title">
-
-            <h2>Welcome Back 👋</h2>
-
-            <p>
-                Continue your healing journey.
-            </p>
-
-        </div>
-
 
         <form id="loginForm">
 
-            <div class="input-group">
-
-                <label>Email Address</label>
-
-                <div class="input-box">
-
-                    <span>✉️</span>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        autocomplete="email"
-                        required
-                    >
-
-                </div>
-
+            <div class="field">
+                <label for="email">Email</label>
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
             </div>
 
+            <div class="field">
+                <label for="password">Password</label>
 
-            <div class="input-group">
-
-                <label>Password</label>
-
-                <div class="input-box">
-
-                    <span>🔒</span>
-
+                <div class="input-wrap">
                     <input
-                        type="password"
                         id="password"
+                        class="password-input"
+                        type="password"
                         placeholder="Enter your password"
                         autocomplete="current-password"
                         required
                     >
 
-                    <span
+                    <button
+                        type="button"
                         class="eye"
+                        id="eye"
                         onclick="togglePassword()"
-                        id="eye">
-                        👁
-                    </span>
-
+                    >👁</button>
                 </div>
-
             </div>
-
 
             <div class="options">
 
                 <label class="remember">
-
-                    <input
-                        type="checkbox"
-                        id="remember"
-                    >
-
-                    Remember me
-
+                    <input type="checkbox" id="remember" checked>
+                    <span>Remember me</span>
                 </label>
 
-                <span
+                <button
+                    type="button"
                     class="forgot"
-                    onclick="forgotPassword()">
+                    onclick="forgotPassword()"
+                >
                     Forgot password?
-                </span>
+                </button>
 
             </div>
-
 
             <button
                 type="submit"
                 class="login-btn"
-                id="loginBtn">
-
+                id="loginBtn"
+            >
                 Log In →
-
             </button>
 
         </form>
 
+        <div class="loading" id="loading">
+            Checking your account...
+        </div>
 
         <div class="divider">
             OR
         </div>
 
+        <button
+            type="button"
+            class="social-btn"
+            onclick="socialLogin('Google')"
+        >
+            Continue with Google
+        </button>
 
-        <div class="socials">
-
-            <button
-                type="button"
-                class="social"
-                onclick="socialLogin('Google')">
-
-                🌈 Continue with Google
-
-            </button>
-
-            <button
-                type="button"
-                class="social"
-                onclick="appleLogin()">
-
-                 Continue with Apple
-
-            </button>
-
-        </div>
-
+        <button
+            type="button"
+            class="social-btn"
+            onclick="appleLogin()"
+        >
+            Continue with Apple
+        </button>
 
         <div class="signup">
-
             Don't have an account?
-
-            <a href="signup.html">
-                Sign Up →
-            </a>
-
+            <a href="signup.html">Create account</a>
         </div>
 
+    </div>
 
-        <div class="privacy">
-
-            🔒 Your privacy matters •
-            We're here for you 🤍
-
-        </div>
-
-    </section>
+    <div class="footer">
+        Your healing space is private and personal. 🌱
+    </div>
 
 </div>
 
-</div><div id="toast" class="toast"></div><script type="module">
+<div id="toast"></div>
+
+
+<script type="module">
 
 import {
     loginUser,
-    redirectIfLoggedIn
+    redirectIfLoggedIn,
+    redirectUser
 } from "./auth.js";
 
 import {
@@ -872,27 +429,30 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import { auth } from "./firebase-config.js";
-    redirectIfLoggedIn();
 
 
-// =========================
-// PASSWORD
-// =========================
+// ==========================================
+// CHECK ALREADY LOGGED-IN USER
+// ==========================================
 
-window.togglePassword = function(){
+redirectIfLoggedIn();
 
-    const password =
-        document.getElementById("password");
 
-    const eye =
-        document.getElementById("eye");
+// ==========================================
+// PASSWORD SHOW / HIDE
+// ==========================================
 
-    if(password.type === "password"){
+window.togglePassword = function () {
+
+    const password = document.getElementById("password");
+    const eye = document.getElementById("eye");
+
+    if (password.type === "password") {
 
         password.type = "text";
         eye.textContent = "🙈";
 
-    }else{
+    } else {
 
         password.type = "password";
         eye.textContent = "👁";
@@ -902,13 +462,13 @@ window.togglePassword = function(){
 };
 
 
-// =========================
-// LOGIN
-// =========================
+// ==========================================
+// NORMAL EMAIL LOGIN
+// ==========================================
 
 document
 .getElementById("loginForm")
-.addEventListener("submit", async function(e){
+.addEventListener("submit", async function (e) {
 
     e.preventDefault();
 
@@ -928,13 +488,11 @@ document
     const loginBtn =
         document.getElementById("loginBtn");
 
+    if (!email || !password) {
 
-    if(!email || !password){
-
-        showToast("Please fill all fields");
+        showToast("Please fill all fields.");
 
         return;
-
     }
 
 
@@ -942,8 +500,9 @@ document
     loginBtn.textContent = "Logging in...";
 
 
-    try{
+    try {
 
+        // Remember Me setting
         await setPersistence(
             auth,
             remember
@@ -959,31 +518,97 @@ document
             );
 
 
-        if(result.success){
+        if (result.success) {
 
-            showToast(
-                "Login successful! 💜"
+            showToast("Login successful! 💜");
+
+            /*
+             * IMPORTANT:
+             * Do NOT directly send to home/onboarding.
+             *
+             * auth.js checks:
+             *
+             * profileCompleted === true
+             *       → home.html
+             *
+             * profileCompleted === false
+             *       → onboarding.html
+             */
+
+            setTimeout(async function () {
+
+                await redirectUser();
+
+            }, 700);
+
+
+        } else {
+
+            console.error(
+                "Login failed:",
+                result.error
             );
 
+            let message =
+                "Unable to login.";
 
-            setTimeout(function(){
 
-                window.location.href =
-                    "onboarding.html";
+            if (
+                result.error &&
+                result.error.code ===
+                "auth/invalid-credential"
+            ) {
 
-            },1000);
+                message =
+                    "Email or password is incorrect.";
 
-        }else{
+            } else if (
+                result.error &&
+                result.error.code ===
+                "auth/user-not-found"
+            ) {
 
-            showToast(result.error);
+                message =
+                    "No account found with this email.";
+
+            } else if (
+                result.error &&
+                result.error.code ===
+                "auth/wrong-password"
+            ) {
+
+                message =
+                    "Incorrect password.";
+
+            } else if (
+                result.error &&
+                result.error.code ===
+                "auth/too-many-requests"
+            ) {
+
+                message =
+                    "Too many attempts. Try again later.";
+
+            } else if (
+                result.error &&
+                result.error.code ===
+                "auth/invalid-email"
+            ) {
+
+                message =
+                    "Please enter a valid email.";
+
+            }
+
+
+            showToast(message);
 
             loginBtn.disabled = false;
-            loginBtn.textContent =
-                "Log In →";
+            loginBtn.textContent = "Log In →";
 
         }
 
-    }catch(error){
+    } catch (error) {
 
         console.error(
             "Login Error:",
@@ -995,19 +620,18 @@ document
         );
 
         loginBtn.disabled = false;
-        loginBtn.textContent =
-            "Log In →";
+        loginBtn.textContent = "Log In →";
 
     }
 
 });
 
 
-// =========================
+// ==========================================
 // FORGOT PASSWORD
-// =========================
+// ==========================================
 
-window.forgotPassword = async function(){
+window.forgotPassword = async function () {
 
     const email =
         document.getElementById("email")
@@ -1015,22 +639,21 @@ window.forgotPassword = async function(){
         .trim();
 
 
-    if(!email){
+    if (!email) {
 
         showToast(
             "Enter your email first 📧"
         );
 
         document
-        .getElementById("email")
-        .focus();
+            .getElementById("email")
+            .focus();
 
         return;
-
     }
 
 
-    try{
+    try {
 
         await sendPasswordResetEmail(
             auth,
@@ -1041,38 +664,34 @@ window.forgotPassword = async function(){
             "Password reset email sent 📧"
         );
 
-    }catch(error){
+    } catch (error) {
 
         console.error(
             "Password Reset Error:",
             error
         );
 
-
         let message =
             "Unable to send reset email.";
 
 
-        if(
+        if (
             error.code ===
             "auth/user-not-found"
-        ){
+        ) {
 
             message =
                 "No account found with this email.";
 
-        }
-
-        else if(
+        } else if (
             error.code ===
             "auth/invalid-email"
-        ){
+        ) {
 
             message =
                 "Please enter a valid email.";
 
         }
-
 
         showToast(message);
 
@@ -1081,13 +700,15 @@ window.forgotPassword = async function(){
 };
 
 
-// =========================
+// ==========================================
 // GOOGLE LOGIN
-// =========================
+// ==========================================
 
-window.socialLogin = async function(providerName){
+window.socialLogin = async function (
+    providerName
+) {
 
-    if(providerName !== "Google"){
+    if (providerName !== "Google") {
 
         showToast(
             providerName +
@@ -1095,36 +716,50 @@ window.socialLogin = async function(providerName){
         );
 
         return;
-
     }
 
 
-    try{
+    try {
 
         const provider =
             new GoogleAuthProvider();
 
 
-        await signInWithPopup(
+        await setPersistence(
             auth,
-            provider
+            browserLocalPersistence
         );
 
+
+        const result =
+            await signInWithPopup(
+                auth,
+                provider
+            );
+
+
+        /*
+         * Google users may not have a
+         * MoveOn database profile yet.
+         *
+         * auth.js routeUser() handles
+         * that situation and sends them
+         * to onboarding.
+         */
 
         showToast(
             "Google login successful! 💜"
         );
 
 
-        setTimeout(function(){
+        setTimeout(async function () {
 
-            window.location.href =
-                "onboarding.html";
+            await redirectUser();
 
-        },1000);
+        }, 700);
 
 
-    }catch(error){
+    } catch (error) {
 
         console.error(
             "Google Login Error:",
@@ -1132,25 +767,34 @@ window.socialLogin = async function(providerName){
         );
 
 
-        if(
+        if (
             error.code ===
             "auth/popup-closed-by-user"
-        ){
+        ) {
 
             showToast(
                 "Google login cancelled."
             );
 
-        }else if(
+        } else if (
             error.code ===
             "auth/popup-blocked"
-        ){
+        ) {
 
             showToast(
                 "Please allow popups for Google login."
             );
 
-        }else{
+        } else if (
+            error.code ===
+            "auth/account-exists-with-different-credential"
+        ) {
+
+            showToast(
+                "This email already uses another login method."
+            );
+
+        } else {
 
             showToast(
                 "Google login failed."
@@ -1163,16 +807,24 @@ window.socialLogin = async function(providerName){
 };
 
 
-// =========================
+// ==========================================
 // APPLE LOGIN
-// =========================
+// ==========================================
 
-window.appleLogin = async function(){
+window.appleLogin = async function () {
 
-    try{
+    try {
 
         const provider =
-            new OAuthProvider("apple.com");
+            new OAuthProvider(
+                "apple.com"
+            );
+
+
+        await setPersistence(
+            auth,
+            browserLocalPersistence
+        );
 
 
         await signInWithPopup(
@@ -1186,15 +838,14 @@ window.appleLogin = async function(){
         );
 
 
-        setTimeout(function(){
+        setTimeout(async function () {
 
-            window.location.href =
-                "onboarding.html";
+            await redirectUser();
 
-        },1000);
+        }, 700);
 
 
-    }catch(error){
+    } catch (error) {
 
         console.error(
             "Apple Login Error:",
@@ -1202,45 +853,54 @@ window.appleLogin = async function(){
         );
 
 
-        showToast(
-            "Apple login is not configured yet."
-        );
+        if (
+            error.code ===
+            "auth/popup-closed-by-user"
+        ) {
+
+            showToast(
+                "Apple login cancelled."
+            );
+
+        } else {
+
+            showToast(
+                "Apple login is not configured yet."
+            );
+
+        }
 
     }
 
 };
 
 
-// =========================
+// ==========================================
 // TOAST
-// =========================
+// ==========================================
 
-function showToast(message){
+function showToast(message) {
 
     const toast =
         document.getElementById("toast");
 
-
-    toast.textContent =
-        message;
-
+    toast.textContent = message;
 
     toast.classList.add("show");
 
 
-    setTimeout(function(){
+    setTimeout(function () {
 
         toast.classList.remove("show");
 
-    },2800);
+    }, 2800);
 
 }
 
-</script><script src="emoji-sounds.js"></script>
-    <script type="module">
-    import { redirectIfLoggedIn } from "./auth.js";
-
-    redirectIfLoggedIn();
 </script>
+
+
+<script src="emoji-sounds.js"></script>
+
 </body>
 </html>
