@@ -14,7 +14,7 @@ body{
   font-family:Inter,Arial,sans-serif;
   background:linear-gradient(135deg,#f7f5ff,#fff);
   color:#202033;
-  min-height:100vh;
+  min-height:100vh
 }
 
 .wrap{
@@ -22,100 +22,97 @@ body{
   margin:auto;
   min-height:100vh;
   display:flex;
-  flex-direction:column;
+  flex-direction:column
 }
 
 .top{
-  padding:14px 16px;
+  padding:18px 16px;
   display:flex;
   align-items:center;
   gap:12px;
-  border-bottom:1px solid #eceaf5;
-  background:rgba(255,255,255,.9);
-  position:sticky;
-  top:0;
-  z-index:5;
+  background:rgba(255,255,255,.85);
+  border-bottom:1px solid #eee
 }
 
 .back,
 .settings{
   border:0;
-  background:#f0eefb;
-  border-radius:12px;
-  padding:10px 13px;
-  font-size:18px;
-  cursor:pointer;
+  background:transparent;
+  font-size:22px;
+  cursor:pointer
 }
 
 .avatar{
   width:42px;
   height:42px;
   border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#6c63ff,#a98cff);
-  color:white;
-  font-size:19px;
+  background:#eeeaff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px
 }
 
 .title{
   flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:3px
 }
 
 .title strong{
-  display:block;
-  font-size:17px;
+  font-size:17px
 }
 
 .title span{
-  font-size:12px;
   color:#777;
+  font-size:12px
 }
 
 .chat{
   flex:1;
-  padding:22px 16px 120px;
-  overflow-y:auto;
+  padding:18px 16px 110px;
+  overflow-y:auto
 }
 
 .notice{
+  background:#f1efff;
+  color:#5b5578;
+  border-radius:14px;
+  padding:11px 13px;
   font-size:12px;
-  color:#777;
-  text-align:center;
-  margin:4px auto 18px;
-  max-width:600px;
-  line-height:1.5;
+  margin-bottom:16px
 }
 
 .bubble{
   max-width:78%;
-  padding:12px 15px;
-  border-radius:18px;
-  margin:10px 0;
+  padding:11px 14px;
+  border-radius:17px;
+  margin:8px 0;
   line-height:1.45;
   white-space:pre-wrap;
-  word-break:break-word;
+  word-break:break-word
 }
 
-.ai{
-  background:white;
-  border:1px solid #eceaf5;
-  border-bottom-left-radius:5px;
-  box-shadow:0 4px 18px rgba(50,40,100,.05);
-}
-
-.user{
+.bubble.user{
   margin-left:auto;
   background:#6c63ff;
   color:white;
-  border-bottom-right-radius:5px;
+  border-bottom-right-radius:5px
+}
+
+.bubble.ai{
+  margin-right:auto;
+  background:#eeeaf7;
+  color:#29263b;
+  border-bottom-left-radius:5px
 }
 
 .typing{
   display:none;
   color:#777;
   font-size:13px;
-  margin:10px 0;
+  padding:8px
 }
 
 .composer{
@@ -124,15 +121,15 @@ body{
   left:0;
   right:0;
   background:rgba(255,255,255,.95);
-  border-top:1px solid #eceaf5;
-  padding:12px 16px;
+  border-top:1px solid #eee;
+  padding:12px
 }
 
 .composer-inner{
   max-width:900px;
   margin:auto;
   display:flex;
-  gap:8px;
+  gap:8px
 }
 
 .composer input{
@@ -141,7 +138,11 @@ body{
   border-radius:16px;
   padding:13px 15px;
   font-size:15px;
-  outline:none;
+  outline:none
+}
+
+.composer input:focus{
+  border-color:#6c63ff
 }
 
 .send{
@@ -151,34 +152,11 @@ body{
   border-radius:15px;
   padding:0 18px;
   font-weight:700;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .send:disabled{
-  opacity:.5;
-}
-
-.empty{
-  opacity:.75;
-  text-align:center;
-  margin-top:25vh;
-}
-
-.quick{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:12px;
-  justify-content:center;
-}
-
-.quick button{
-  border:1px solid #ddd9ee;
-  background:#fff;
-  border-radius:20px;
-  padding:8px 11px;
-  color:#4b4660;
-  cursor:pointer;
+  opacity:.5
 }
 
 .modal{
@@ -187,7 +165,7 @@ body{
   inset:0;
   background:rgba(20,16,40,.45);
   z-index:20;
-  padding:20px;
+  padding:20px
 }
 
 .panel{
@@ -195,7 +173,11 @@ body{
   margin:10vh auto;
   background:white;
   border-radius:22px;
-  padding:22px;
+  padding:22px
+}
+
+.panel h2{
+  margin-top:0
 }
 
 .panel input{
@@ -204,12 +186,12 @@ body{
   border:1px solid #ddd9ee;
   border-radius:12px;
   margin:8px 0 14px;
-  font-size:15px;
+  font-size:15px
 }
 
 .actions{
   display:flex;
-  gap:8px;
+  gap:8px
 }
 
 .actions button{
@@ -217,22 +199,44 @@ body{
   padding:12px;
   border:0;
   border-radius:12px;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .save{
   background:#6c63ff;
-  color:white;
+  color:#fff
 }
 
 .cancel{
-  background:#eeeaf7;
+  background:#eeeaf7
 }
 
-.error{
-  color:#c33;
+.danger{
+  margin-top:12px;
+  color:#a33;
+  font-size:12px
+}
+
+.empty{
+  opacity:.75;
   text-align:center;
-  margin:20px;
+  margin-top:25vh
+}
+
+.quick{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px
+}
+
+.quick button{
+  border:1px solid #ddd9ee;
+  background:#fff;
+  border-radius:20px;
+  padding:8px 11px;
+  color:#4b4660;
+  cursor:pointer
 }
 </style>
 </head>
@@ -256,11 +260,11 @@ body{
 
 </header>
 
+
 <main class="chat" id="chat">
 
 <div class="notice">
-Ex Roleplay is a fictional AI simulation, not your real ex.
-Use it as a space for reflection and closure.
+Ex Roleplay is an AI simulation, not your real ex. Keep it as a space for reflection and closure.
 </div>
 
 <div class="empty" id="empty">
@@ -288,7 +292,6 @@ I want closure.
 </button>
 
 </div>
-
 </div>
 
 <div class="typing" id="typing">
@@ -296,6 +299,7 @@ Typing…
 </div>
 
 </main>
+
 
 <div class="composer">
 
@@ -305,15 +309,15 @@ Typing…
 id="message"
 maxlength="2000"
 placeholder="Message your Ex Roleplay…"
-autocomplete="off">
+autocomplete="off"
+>
 
 <button
 class="send"
 id="send"
-onclick="sendMessage()">
-
+onclick="sendMessage()"
+>
 Send
-
 </button>
 
 </div>
@@ -330,34 +334,47 @@ Send
 <h2>Ex Roleplay</h2>
 
 <p style="color:#777;font-size:14px">
-Give the fictional character a name.
+Give the roleplay a name. This changes how the character is addressed; it does not turn the AI into your real ex.
 </p>
 
-<label>Ex's name</label>
+<label for="exName">
+Ex's name
+</label>
 
 <input
 id="exName"
 maxlength="40"
-placeholder="e.g. Aisha">
+placeholder="e.g. Aisha"
+>
 
 <div class="actions">
 
 <button
 class="cancel"
-onclick="closeSettings()">
-
+onclick="closeSettings()"
+>
 Cancel
-
 </button>
 
 <button
 class="save"
-onclick="saveSettings()">
-
+onclick="saveSettings()"
+>
 Save
-
 </button>
 
+</div>
+
+<button
+class="cancel"
+style="width:100%;margin-top:8px"
+onclick="clearChat()"
+>
+Clear conversation
+</button>
+
+<div class="danger">
+If you're in immediate danger or thinking about hurting yourself, contact local emergency services or a trusted person instead of relying on roleplay.
 </div>
 
 </div>
@@ -367,6 +384,10 @@ Save
 
 <script type="module">
 
+/* =========================================================
+   FIREBASE AUTH
+   ========================================================= */
+
 import { auth } from "./firebase-config.js";
 
 import {
@@ -374,58 +395,63 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-const API_URL =
-  "/api/ex-roleplay";
+/* =========================================================
+   API
+   ========================================================= */
+
+const API_URL = "/api/ex-roleplay";
+
+const NAME_KEY = "moveon_ex_roleplay_name";
+
+const CHAT_KEY = "moveon_ex_roleplay_chat";
 
 
-const PREMIUM_URL =
-  "/api/premium/status";
-
-
-const NAME_KEY =
-  "moveon_ex_roleplay_name";
-
-
-const CHAT_KEY =
-  "moveon_ex_roleplay_chat";
-
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
 
 const chat =
   document.getElementById("chat");
 
-
 const input =
   document.getElementById("message");
-
 
 const send =
   document.getElementById("send");
 
-
 const typing =
   document.getElementById("typing");
-
 
 const empty =
   document.getElementById("empty");
 
 
+/* =========================================================
+   CURRENT USER
+   ========================================================= */
+
 let currentUser = null;
 
-let exName =
-  localStorage.getItem(NAME_KEY)
-  || "Ex Roleplay";
 
+/* =========================================================
+   EX NAME
+   ========================================================= */
+
+let exName =
+  localStorage.getItem(NAME_KEY) || "Ex Roleplay";
+
+
+/* =========================================================
+   CHAT HISTORY
+   ========================================================= */
 
 let historyData = [];
-
 
 try {
 
   const saved =
     JSON.parse(
-      localStorage.getItem(CHAT_KEY)
-      || "[]"
+      localStorage.getItem(CHAT_KEY) || "[]"
     );
 
   historyData =
@@ -440,9 +466,9 @@ try {
 }
 
 
-/* =========================
+/* =========================================================
    SAVE CHAT
-========================= */
+   ========================================================= */
 
 function saveChat(){
 
@@ -456,9 +482,80 @@ function saveChat(){
 }
 
 
-/* =========================
-   ADD MESSAGE
-========================= */
+/* =========================================================
+   PREMIUM CHECK
+   ========================================================= */
+
+async function checkPremium(){
+
+  if(!currentUser){
+
+    return false;
+
+  }
+
+  try{
+
+    const token =
+      await currentUser.getIdToken(true);
+
+
+    const res =
+      await fetch(
+        "/api/premium/status",
+        {
+          method:"GET",
+
+          headers:{
+            "Authorization":
+              `Bearer ${token}`
+          }
+        }
+      );
+
+
+    const data =
+      await res
+        .json()
+        .catch(() => ({}));
+
+
+    if(
+      !res.ok ||
+      data.active !== true
+    ){
+
+      window.location.href =
+        "premium.html";
+
+      return false;
+
+    }
+
+
+    return true;
+
+
+  }catch(error){
+
+    console.error(
+      "Premium check error:",
+      error
+    );
+
+    window.location.href =
+      "premium.html";
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   ADD MESSAGE BUBBLE
+   ========================================================= */
 
 function addBubble(
   role,
@@ -471,29 +568,39 @@ function addBubble(
 
   d.className =
     "bubble " +
-    (role === "user"
-      ? "user"
-      : "ai");
+    (
+      role === "user"
+        ? "user"
+        : "ai"
+    );
+
 
   d.textContent =
     String(text || "");
+
 
   chat.insertBefore(
     d,
     typing
   );
 
+
   if(save){
 
     historyData.push({
+
       role,
+
       content:
         String(text || "")
+
     });
+
 
     saveChat();
 
   }
+
 
   chat.scrollTop =
     chat.scrollHeight;
@@ -501,9 +608,9 @@ function addBubble(
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* =========================================================
+   RENDER CHAT
+   ========================================================= */
 
 function render(){
 
@@ -525,6 +632,7 @@ function render(){
       if(item?.content){
 
         addBubble(
+
           item.role === "user"
             ? "user"
             : "assistant",
@@ -532,6 +640,7 @@ function render(){
           item.content,
 
           false
+
         );
 
       }
@@ -546,104 +655,11 @@ function render(){
 }
 
 
-/* =========================
-   GET FIREBASE TOKEN
-========================= */
-
-async function getToken(){
-
-  if(!currentUser){
-
-    throw new Error(
-      "Please login first."
-    );
-
-  }
-
-  return await currentUser.getIdToken(
-    true
-  );
-
-}
-
-
-/* =========================
-   CHECK PREMIUM
-========================= */
-
-async function checkPremium(){
-
-  try{
-
-    const token =
-      await getToken();
-
-
-    const response =
-      await fetch(
-        PREMIUM_URL,
-        {
-          method:"GET",
-
-          headers:{
-            "Authorization":
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json()
-        .catch(() => ({}));
-
-
-    if(
-      !response.ok ||
-      data.active !== true
-    ){
-
-      alert(
-        "MoveOn Premium is required for Ex Roleplay."
-      );
-
-      window.location.href =
-        "premium.html";
-
-      return false;
-
-    }
-
-
-    return true;
-
-  }catch(error){
-
-    console.error(
-      "Premium check error:",
-      error
-    );
-
-    alert(
-      "Unable to verify Premium. Please try again."
-    );
-
-    window.location.href =
-      "premium.html";
-
-    return false;
-
-  }
-
-}
-
-
-/* =========================
+/* =========================================================
    SETTINGS
-========================= */
+   ========================================================= */
 
-window.openSettings =
-function(){
+function openSettings(){
 
   document.getElementById(
     "exName"
@@ -658,27 +674,25 @@ function(){
   ).style.display =
     "block";
 
-};
+}
 
 
-window.closeSettings =
-function(){
+function closeSettings(){
 
   document.getElementById(
     "settingsModal"
   ).style.display =
     "none";
 
-};
+}
 
 
-window.saveSettings =
-function(){
+function saveSettings(){
 
   const value =
-    document.getElementById(
-      "exName"
-    ).value
+    document
+      .getElementById("exName")
+      .value
       .trim()
       .slice(0,40);
 
@@ -701,30 +715,92 @@ function(){
 
   closeSettings();
 
-};
+}
 
 
-/* =========================
-   QUICK SEND
-========================= */
+/* =========================================================
+   QUICK MESSAGE
+   ========================================================= */
 
-window.quickSend =
-function(text){
+function quickSend(text){
 
   input.value =
     text;
 
   sendMessage();
 
-};
+}
 
 
-/* =========================
+/* =========================================================
+   CLEAR CHAT
+   ========================================================= */
+
+function clearChat(){
+
+  if(!historyData.length){
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "Clear this roleplay conversation?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  historyData = [];
+
+
+  saveChat();
+
+
+  chat
+    .querySelectorAll(".bubble")
+    .forEach(
+      el => el.remove()
+    );
+
+
+  empty.style.display =
+    "block";
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+function showError(message){
+
+  const safe =
+    String(
+      message ||
+      "Unable to reply right now."
+    );
+
+
+  addBubble(
+    "assistant",
+    "⚠️ " + safe
+  );
+
+}
+
+
+/* =========================================================
    SEND MESSAGE
-========================= */
+   ========================================================= */
 
-window.sendMessage =
-async function(){
+async function sendMessage(){
 
   const text =
     input.value.trim();
@@ -740,15 +816,11 @@ async function(){
   }
 
 
-  /*
-    Check Premium again before sending.
-  */
+  if(!currentUser){
 
-  const premium =
-    await checkPremium();
-
-
-  if(!premium){
+    showError(
+      "Please login first."
+    );
 
     return;
 
@@ -761,8 +833,7 @@ async function(){
   );
 
 
-  input.value =
-    "";
+  input.value = "";
 
 
   empty.style.display =
@@ -783,10 +854,6 @@ async function(){
 
   try{
 
-    const token =
-      await getToken();
-
-
     const requestHistory =
       historyData
         .slice(-16)
@@ -802,18 +869,32 @@ async function(){
         .slice(0,16);
 
 
-    const response =
+    /* =====================================================
+       FIREBASE ID TOKEN
+       ===================================================== */
+
+    const token =
+      await currentUser.getIdToken(true);
+
+
+    /* =====================================================
+       WORKER REQUEST
+       ===================================================== */
+
+    const res =
       await fetch(
         API_URL,
         {
           method:"POST",
 
           headers:{
+
             "Content-Type":
               "application/json",
 
             "Authorization":
               `Bearer ${token}`
+
           },
 
           body:
@@ -821,18 +902,20 @@ async function(){
 
               exName,
 
-              message:text,
+              message:
+                text,
 
               history:
                 requestHistory
 
             })
+
         }
       );
 
 
     const raw =
-      await response.text();
+      await res.text();
 
 
     let data = {};
@@ -844,14 +927,20 @@ async function(){
           ? JSON.parse(raw)
           : {};
 
-    }catch{}
+    }catch{
+
+      data = {};
+
+    }
 
 
-    if(!response.ok){
+    if(!res.ok){
 
       throw new Error(
+
         data?.error ||
-        `Server error (${response.status})`
+        `Server error (${res.status})`
+
       );
 
     }
@@ -860,7 +949,7 @@ async function(){
     if(!data?.reply){
 
       throw new Error(
-        "AI returned an empty reply."
+        "The AI server returned an empty reply."
       );
 
     }
@@ -880,13 +969,9 @@ async function(){
     );
 
 
-    addBubble(
-      "assistant",
-      "⚠️ " +
-      (
-        error?.message ||
-        "Unable to reply right now."
-      )
+    showError(
+      error?.message ||
+      "Unable to reply right now. Please try again."
     );
 
 
@@ -895,59 +980,21 @@ async function(){
     typing.style.display =
       "none";
 
+
     send.disabled =
       false;
+
 
     input.focus();
 
   }
 
-};
+}
 
 
-/* =========================
-   CLEAR CHAT
-========================= */
-
-window.clearChat =
-function(){
-
-  if(!historyData.length)
-    return;
-
-
-  if(
-    !confirm(
-      "Clear this roleplay conversation?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  historyData = [];
-
-  saveChat();
-
-
-  chat
-    .querySelectorAll(".bubble")
-    .forEach(
-      el => el.remove()
-    );
-
-
-  empty.style.display =
-    "block";
-
-};
-
-
-/* =========================
+/* =========================================================
    ENTER TO SEND
-========================= */
+   ========================================================= */
 
 input.addEventListener(
   "keydown",
@@ -968,9 +1015,32 @@ input.addEventListener(
 );
 
 
-/* =========================
-   AUTH + PREMIUM
-========================= */
+/* =========================================================
+   WINDOW FUNCTIONS
+   ========================================================= */
+
+window.openSettings =
+  openSettings;
+
+window.closeSettings =
+  closeSettings;
+
+window.saveSettings =
+  saveSettings;
+
+window.quickSend =
+  quickSend;
+
+window.sendMessage =
+  sendMessage;
+
+window.clearChat =
+  clearChat;
+
+
+/* =========================================================
+   AUTH + PREMIUM STARTUP
+   ========================================================= */
 
 onAuthStateChanged(
   auth,
@@ -990,26 +1060,23 @@ onAuthStateChanged(
       user;
 
 
-    /*
-      IMPORTANT:
-      Don't open Ex Roleplay unless
-      Premium is confirmed.
-    */
-
-    const premium =
+    const premiumOK =
       await checkPremium();
 
 
-    if(!premium)
-      return;
+    if(premiumOK){
 
+      render();
 
-    render();
+    }
 
   }
 );
 
 </script>
+
+
+<script src="emoji-sounds.js"></script>
 
 </body>
 </html>
