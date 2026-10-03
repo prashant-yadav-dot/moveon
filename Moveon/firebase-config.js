@@ -4,6 +4,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebas
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyC2xqSeAK7U0uDVzpbSo0EAw3ZtMsPYRZg",
@@ -16,21 +17,16 @@ const firebaseConfig = {
     measurementId: "G-KX88FX2G7J"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Firebase Authentication
 const auth = getAuth(app);
-
-// Realtime Database
 const database = getDatabase(app);
-
-// Firebase Analytics
+const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
 export {
     app,
     auth,
     database,
+    storage,
     analytics
 };
