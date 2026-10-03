@@ -1,6 +1,6 @@
 // ==========================================
-// MoveOn - Authentication System
-// Firebase Auth + Profile/Onboarding Routing
+// MoveOn - Complete Authentication System
+// Firebase Authentication + Realtime Database
 // ==========================================
 
 import {
@@ -9,14 +9,14 @@ import {
     signOut,
     onAuthStateChanged,
     updateProfile,
-    setPersistence,
-    browserLocalPersistence
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
     ref,
     set,
-    get
+    get,
+    update
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 import {
@@ -26,19 +26,22 @@ import {
 
 
 // ==========================================
-// HELPER: GET USER PROFILE
+// GET USER PROFILE
 // ==========================================
 
-async function getUserProfile(uid) {
+export async function getUserProfile(uid) {
+
+    if (!uid) {
+        return null;
+    }
 
     try {
 
-        const userRef = ref(
-            database,
-            "users/" + uid
-        );
+        const userRef =
+            ref(database, "users/" + uid);
 
-        const snapshot = await get(userRef);
+        const snapshot =
+            await get(userRef);
 
         if (snapshot.exists()) {
             return snapshot.val();
@@ -49,7 +52,7 @@ async function getUserProfile(uid) {
     } catch (error) {
 
         console.error(
-            "Get user profile error:",
+            "Get User Profile Error:",
             error
         );
 
@@ -59,60 +62,83 @@ async function getUserProfile(uid) {
 
 
 // ==========================================
-// HELPER: ROUTE USER
+// CREATE INITIAL USER PROFILE
 // ==========================================
 
-async function routeUser(user) {
+export async function createUserProfile(
+    user,
+    extraData = {}
+) {
 
     if (!user) {
-
-        window.location.replace("login.html");
-
-        return;
+        return false;
     }
 
+    try {
 
-    const profile =
-        await getUserProfile(user.uid);
+        const userRef =
+            ref(database, "users/" + user.uid);
+
+        const existing =
+            await get(userRef);
 
 
-    // --------------------------------------
-    // New user / profile not found
-    // --------------------------------------
+        // Don't overwrite existing profile
+        if (existing.exists()) {
 
-    if (!profile) {
+            return true;
+        }
 
-        window.location.replace(
-            "onboarding.html"
+
+        const name =
+            extraData.name ||
+            user.displayName ||
+            "";
+
+
+        const profile = {
+
+            uid: user.uid,
+
+            name: name,
+
+            email:
+                user.email || "",
+
+            createdAt:
+                Date.now(),
+
+            profileCompleted:
+                false,
+
+            onboardingSkipped:
+                false
+
+        };
+
+
+        await set(
+            userRef,
+            profile
         );
 
-        return;
-    }
 
-
-    // --------------------------------------
-    // Onboarding completed
-    // --------------------------------------
-
-    if (
-        profile.profileCompleted === true
-    ) {
-
-        window.location.replace(
-            "home.html"
+        console.log(
+            "MoveOn user profile created."
         );
 
-        return;
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Create User Profile Error:",
+            error
+        );
+
+        return false;
     }
-
-
-    // --------------------------------------
-    // Onboarding not completed
-    // --------------------------------------
-
-    window.location.replace(
-        "onboarding.html"
-    );
 }
 
 
@@ -128,18 +154,32 @@ export async function signupUser(
 
     try {
 
-        // Make login persistent
-        await setPersistence(
-            auth,
-            browserLocalPersistence
-        );
+        const cleanName =
+            name
+                ? name.trim()
+                : "";
+
+        const cleanEmail =
+            email
+                ? email.trim()
+                : "";
 
 
-        // Create Firebase Auth user
+        if (!cleanEmail || !password) {
+
+            return {
+                success: false,
+                error: {
+                    code: "auth/missing-fields"
+                }
+            };
+        }
+
+
         const userCredential =
             await createUserWithEmailAndPassword(
                 auth,
-                email,
+                cleanEmail,
                 password
             );
 
@@ -148,14 +188,8 @@ export async function signupUser(
             userCredential.user;
 
 
-        // Save display name
-        const cleanName =
-            name
-                ? name.trim()
-                : "";
-
-
-        if (cleanName !== "") {
+        // Set Firebase Auth display name
+        if (cleanName) {
 
             await updateProfile(
                 user,
@@ -164,11 +198,10 @@ export async function signupUser(
                         cleanName
                 }
             );
-
         }
 
 
-        // Create user profile
+        // Create MoveOn database profile
         await set(
             ref(
                 database,
@@ -183,7 +216,7 @@ export async function signupUser(
                     cleanName,
 
                 email:
-                    email,
+                    cleanEmail,
 
                 createdAt:
                     Date.now(),
@@ -222,13 +255,12 @@ export async function signupUser(
             error: error
 
         };
-
     }
 }
 
 
 // ==========================================
-// LOGIN
+// EMAIL LOGIN
 // ==========================================
 
 export async function loginUser(
@@ -238,24 +270,26 @@ export async function loginUser(
 
     try {
 
-        // Keep user logged in
-        await setPersistence(
-            auth,
-            browserLocalPersistence
-        );
+        const cleanEmail =
+            email
+                ? email.trim()
+                : "";
 
 
-        // Firebase login
         const userCredential =
             await signInWithEmailAndPassword(
                 auth,
-                email,
+                cleanEmail,
                 password
             );
 
 
         const user =
             userCredential.user;
+
+
+        // Make sure database profile exists
+        await createUserProfile(user);
 
 
         return {
@@ -282,129 +316,155 @@ export async function loginUser(
             error: error
 
         };
-
     }
 }
 
 
 // ==========================================
-// LOGOUT
+// GOOGLE / APPLE USER PROFILE
 // ==========================================
 
-export async function logoutUser() {
+export async function ensureSocialUserProfile(
+    user
+) {
+
+    if (!user) {
+        return null;
+    }
+
 
     try {
 
-        await signOut(auth);
+        let profile =
+            await getUserProfile(
+                user.uid
+            );
 
+
+        // Existing profile
+        if (profile) {
+
+            return profile;
+        }
+
+
+        // First-time Google / Apple user
+        await createUserProfile(
+            user
+        );
+
+
+        profile =
+            await getUserProfile(
+                user.uid
+            );
+
+
+        return profile;
+
+    } catch (error) {
+
+        console.error(
+            "Social Profile Error:",
+            error
+        );
+
+        return null;
+    }
+}
+
+
+// ==========================================
+// ROUTE USER
+//
+// profileCompleted = true
+//      -> home.html
+//
+// profileCompleted = false
+//      -> onboarding.html
+//
+// no profile
+//      -> onboarding.html
+// ==========================================
+
+export async function routeUser(
+    user
+) {
+
+    if (!user) {
 
         window.location.replace(
             "login.html"
         );
 
+        return;
+    }
 
-    } catch (error) {
 
-        console.error(
-            "Logout Error:",
-            error
+    console.log(
+        "MoveOn Auth User:",
+        user.uid
+    );
+
+
+    let profile =
+        await getUserProfile(
+            user.uid
         );
 
 
-        return {
+    // If Google/Apple user has no profile
+    if (!profile) {
 
-            success: false,
+        await createUserProfile(
+            user
+        );
 
-            error: error
 
-        };
-
+        profile =
+            await getUserProfile(
+                user.uid
+            );
     }
-}
 
 
-// ==========================================
-// GET CURRENT USER
-// ==========================================
+    // Still no profile
+    if (!profile) {
 
-export function getCurrentUser() {
+        console.error(
+            "Unable to load user profile."
+        );
 
-    return auth.currentUser;
+        window.location.replace(
+            "onboarding.html"
+        );
 
-}
+        return;
+    }
 
 
-// ==========================================
-// WATCH AUTH STATE
-// ==========================================
-
-export function watchAuthState(
-    callback
-) {
-
-    return onAuthStateChanged(
-        auth,
-        (user) => {
-
-            callback(user);
-
-        },
-        (error) => {
-
-            console.error(
-                "Auth State Error:",
-                error
-            );
-
-            callback(null);
-
-        }
+    console.log(
+        "MoveOn Profile:",
+        profile
     );
-}
 
 
-// ==========================================
-// REQUIRE LOGIN
-// ==========================================
-// Use on protected pages:
-// home.html
-// journal.html
-// mood.html
-// challenges.html
-// calm.html
-// support.html
-// progress.html
-// profile.html
-// etc.
-// ==========================================
+    // Completed onboarding
+    if (
+        profile.profileCompleted === true
+    ) {
 
-export function requireAuth() {
+        window.location.replace(
+            "home.html"
+        );
 
-    return onAuthStateChanged(
-        auth,
-        (user) => {
+        return;
+    }
 
-            if (!user) {
 
-                window.location.replace(
-                    "login.html"
-                );
-
-            }
-
-        },
-        (error) => {
-
-            console.error(
-                "Require Auth Error:",
-                error
-            );
-
-            window.location.replace(
-                "login.html"
-            );
-
-        }
+    // New / incomplete user
+    window.location.replace(
+        "onboarding.html"
     );
 }
 
@@ -412,53 +472,41 @@ export function requireAuth() {
 // ==========================================
 // REDIRECT IF ALREADY LOGGED IN
 // ==========================================
-// Public pages:
-// login.html
-// signup.html
-//
-// New user -> onboarding.html
-// Completed user -> home.html
-// ==========================================
 
 export function redirectIfLoggedIn() {
 
     return onAuthStateChanged(
         auth,
+
         async (user) => {
 
             if (!user) {
-
                 return;
-
             }
 
 
             console.log(
-                "Logged-in user detected:",
-                user.uid
+                "Existing MoveOn session detected."
             );
 
 
             await routeUser(user);
 
         },
+
         (error) => {
 
             console.error(
-                "Redirect Auth Error:",
+                "Auth State Error:",
                 error
             );
-
         }
     );
 }
 
 
 // ==========================================
-// ROUTE CURRENT USER
-// ==========================================
-// Can be used manually from login/signup
-// after successful authentication.
+// REDIRECT CURRENT USER
 // ==========================================
 
 export async function redirectUser() {
@@ -474,7 +522,6 @@ export async function redirectUser() {
         );
 
         return;
-
     }
 
 
@@ -483,7 +530,82 @@ export async function redirectUser() {
 
 
 // ==========================================
-// EXPORT PROFILE HELPER
+// REQUIRE LOGIN
+// ==========================================
+
+export function requireAuth() {
+
+    return onAuthStateChanged(
+        auth,
+
+        (user) => {
+
+            if (!user) {
+
+                window.location.replace(
+                    "login.html"
+                );
+            }
+
+        },
+
+        (error) => {
+
+            console.error(
+                "Require Auth Error:",
+                error
+            );
+
+            window.location.replace(
+                "login.html"
+            );
+        }
+    );
+}
+
+
+// ==========================================
+// AUTH STATE WATCHER
+// ==========================================
+
+export function watchAuthState(
+    callback
+) {
+
+    return onAuthStateChanged(
+        auth,
+
+        (user) => {
+
+            callback(user);
+
+        },
+
+        (error) => {
+
+            console.error(
+                "Auth State Error:",
+                error
+            );
+
+            callback(null);
+        }
+    );
+}
+
+
+// ==========================================
+// CURRENT USER
+// ==========================================
+
+export function getCurrentUser() {
+
+    return auth.currentUser;
+}
+
+
+// ==========================================
+// CURRENT USER PROFILE
 // ==========================================
 
 export async function getCurrentUserProfile() {
@@ -493,9 +615,7 @@ export async function getCurrentUserProfile() {
 
 
     if (!user) {
-
         return null;
-
     }
 
 
@@ -503,3 +623,307 @@ export async function getCurrentUserProfile() {
         user.uid
     );
 }
+
+
+// ==========================================
+// UPDATE USER PROFILE
+// ==========================================
+
+export async function updateUserProfile(
+    data
+) {
+
+    const user =
+        auth.currentUser;
+
+
+    if (!user) {
+
+        return {
+            success: false,
+            error: "NOT_LOGGED_IN"
+        };
+    }
+
+
+    try {
+
+        await update(
+            ref(
+                database,
+                "users/" + user.uid
+            ),
+            data
+        );
+
+
+        // Update Firebase Auth display name
+        if (
+            data.name &&
+            data.name.trim()
+        ) {
+
+            await updateProfile(
+                user,
+                {
+                    displayName:
+                        data.name.trim()
+                }
+            );
+        }
+
+
+        return {
+            success: true
+        };
+
+
+    } catch (error) {
+
+        console.error(
+            "Update Profile Error:",
+            error
+        );
+
+
+        return {
+            success: false,
+            error: error
+        };
+    }
+}
+
+
+// ==========================================
+// COMPLETE ONBOARDING
+// ==========================================
+
+export async function completeOnboarding(
+    onboardingData = {}
+) {
+
+    const user =
+        auth.currentUser;
+
+
+    if (!user) {
+
+        return {
+            success: false,
+            error: "NOT_LOGGED_IN"
+        };
+    }
+
+
+    try {
+
+        await update(
+            ref(
+                database,
+                "users/" + user.uid
+            ),
+            {
+
+                onboarding:
+                    onboardingData,
+
+                profileCompleted:
+                    true,
+
+                onboardingSkipped:
+                    false,
+
+                onboardingCompletedAt:
+                    Date.now()
+
+            }
+        );
+
+
+        return {
+            success: true
+        };
+
+
+    } catch (error) {
+
+        console.error(
+            "Complete Onboarding Error:",
+            error
+        );
+
+
+        return {
+            success: false,
+            error: error
+        };
+    }
+}
+
+
+// ==========================================
+// SKIP ONBOARDING
+// ==========================================
+
+export async function skipOnboarding() {
+
+    const user =
+        auth.currentUser;
+
+
+    if (!user) {
+
+        return {
+            success: false,
+            error: "NOT_LOGGED_IN"
+        };
+    }
+
+
+    try {
+
+        await update(
+            ref(
+                database,
+                "users/" + user.uid
+            ),
+            {
+
+                profileCompleted:
+                    true,
+
+                onboardingSkipped:
+                    true,
+
+                onboardingCompletedAt:
+                    Date.now()
+
+            }
+        );
+
+
+        return {
+            success: true
+        };
+
+
+    } catch (error) {
+
+        console.error(
+            "Skip Onboarding Error:",
+            error
+        );
+
+
+        return {
+            success: false,
+            error: error
+        };
+    }
+}
+
+
+// ==========================================
+// PASSWORD RESET
+// ==========================================
+
+export async function resetPassword(
+    email
+) {
+
+    try {
+
+        const cleanEmail =
+            email
+                ? email.trim()
+                : "";
+
+
+        if (!cleanEmail) {
+
+            return {
+                success: false,
+                error: {
+                    code: "auth/invalid-email"
+                }
+            };
+        }
+
+
+        await sendPasswordResetEmail(
+            auth,
+            cleanEmail
+        );
+
+
+        return {
+            success: true
+        };
+
+
+    } catch (error) {
+
+        console.error(
+            "Password Reset Error:",
+            error
+        );
+
+
+        return {
+            success: false,
+            error: error
+        };
+    }
+}
+
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+export async function logoutUser() {
+
+    try {
+
+        await signOut(auth);
+
+
+        // Clear only MoveOn auth/onboarding flags
+        localStorage.removeItem(
+            "moveon_onboarding_completed"
+        );
+
+
+        window.location.replace(
+            "login.html"
+        );
+
+
+        return {
+            success: true
+        };
+
+
+    } catch (error) {
+
+        console.error(
+            "Logout Error:",
+            error
+        );
+
+
+        return {
+            success: false,
+            error: error
+        };
+    }
+}
+
+
+// ==========================================
+// EXPORT AUTH OBJECT
+// ==========================================
+
+export {
+    auth
+};
