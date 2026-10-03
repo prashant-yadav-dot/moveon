@@ -1,5 +1,6 @@
 // ==========================================
 // MoveOn - Authentication System
+// Firebase Auth + Profile/Onboarding Routing
 // ==========================================
 
 import {
@@ -25,13 +26,116 @@ import {
 
 
 // ==========================================
-// SIGN UP
+// HELPER: GET USER PROFILE
 // ==========================================
 
-export async function signupUser(name, email, password) {
+async function getUserProfile(uid) {
 
     try {
 
+        const userRef = ref(
+            database,
+            "users/" + uid
+        );
+
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+            return snapshot.val();
+        }
+
+        return null;
+
+    } catch (error) {
+
+        console.error(
+            "Get user profile error:",
+            error
+        );
+
+        return null;
+    }
+}
+
+
+// ==========================================
+// HELPER: ROUTE USER
+// ==========================================
+
+async function routeUser(user) {
+
+    if (!user) {
+
+        window.location.replace("login.html");
+
+        return;
+    }
+
+
+    const profile =
+        await getUserProfile(user.uid);
+
+
+    // --------------------------------------
+    // New user / profile not found
+    // --------------------------------------
+
+    if (!profile) {
+
+        window.location.replace(
+            "onboarding.html"
+        );
+
+        return;
+    }
+
+
+    // --------------------------------------
+    // Onboarding completed
+    // --------------------------------------
+
+    if (
+        profile.profileCompleted === true
+    ) {
+
+        window.location.replace(
+            "home.html"
+        );
+
+        return;
+    }
+
+
+    // --------------------------------------
+    // Onboarding not completed
+    // --------------------------------------
+
+    window.location.replace(
+        "onboarding.html"
+    );
+}
+
+
+// ==========================================
+// SIGN UP
+// ==========================================
+
+export async function signupUser(
+    name,
+    email,
+    password
+) {
+
+    try {
+
+        // Make login persistent
+        await setPersistence(
+            auth,
+            browserLocalPersistence
+        );
+
+
+        // Create Firebase Auth user
         const userCredential =
             await createUserWithEmailAndPassword(
                 auth,
@@ -39,42 +143,86 @@ export async function signupUser(name, email, password) {
                 password
             );
 
-        const user = userCredential.user;
+
+        const user =
+            userCredential.user;
+
 
         // Save display name
-        if (name && name.trim() !== "") {
+        const cleanName =
+            name
+                ? name.trim()
+                : "";
 
-            await updateProfile(user, {
-                displayName: name.trim()
-            });
+
+        if (cleanName !== "") {
+
+            await updateProfile(
+                user,
+                {
+                    displayName:
+                        cleanName
+                }
+            );
 
         }
 
-        // Save user profile in Firebase Database
+
+        // Create user profile
         await set(
-            ref(database, "users/" + user.uid),
+            ref(
+                database,
+                "users/" + user.uid
+            ),
             {
-                uid: user.uid,
-                name: name ? name.trim() : "",
-                email: email,
-                createdAt: Date.now(),
-                profileCompleted: false
+
+                uid:
+                    user.uid,
+
+                name:
+                    cleanName,
+
+                email:
+                    email,
+
+                createdAt:
+                    Date.now(),
+
+                profileCompleted:
+                    false,
+
+                onboardingSkipped:
+                    false
+
             }
         );
 
+
         return {
+
             success: true,
+
             user: user
+
         };
+
 
     } catch (error) {
 
-        console.error("Signup Error:", error);
+        console.error(
+            "Signup Error:",
+            error
+        );
+
 
         return {
+
             success: false,
+
             error: error
+
         };
+
     }
 }
 
@@ -83,18 +231,21 @@ export async function signupUser(name, email, password) {
 // LOGIN
 // ==========================================
 
-export async function loginUser(email, password) {
+export async function loginUser(
+    email,
+    password
+) {
 
     try {
 
-        // IMPORTANT:
-        // Keep user logged in even after
-        // closing and reopening the browser.
+        // Keep user logged in
         await setPersistence(
             auth,
             browserLocalPersistence
         );
 
+
+        // Firebase login
         const userCredential =
             await signInWithEmailAndPassword(
                 auth,
@@ -102,19 +253,36 @@ export async function loginUser(email, password) {
                 password
             );
 
+
+        const user =
+            userCredential.user;
+
+
         return {
+
             success: true,
-            user: userCredential.user
+
+            user: user
+
         };
+
 
     } catch (error) {
 
-        console.error("Login Error:", error);
+        console.error(
+            "Login Error:",
+            error
+        );
+
 
         return {
+
             success: false,
+
             error: error
+
         };
+
     }
 }
 
@@ -129,18 +297,28 @@ export async function logoutUser() {
 
         await signOut(auth);
 
-        // After explicit logout,
-        // send user to public login page.
-        window.location.replace("login.html");
+
+        window.location.replace(
+            "login.html"
+        );
+
 
     } catch (error) {
 
-        console.error("Logout Error:", error);
+        console.error(
+            "Logout Error:",
+            error
+        );
+
 
         return {
+
             success: false,
+
             error: error
+
         };
+
     }
 }
 
@@ -160,7 +338,9 @@ export function getCurrentUser() {
 // WATCH AUTH STATE
 // ==========================================
 
-export function watchAuthState(callback) {
+export function watchAuthState(
+    callback
+) {
 
     return onAuthStateChanged(
         auth,
@@ -177,6 +357,7 @@ export function watchAuthState(callback) {
             );
 
             callback(null);
+
         }
     );
 }
@@ -185,7 +366,7 @@ export function watchAuthState(callback) {
 // ==========================================
 // REQUIRE LOGIN
 // ==========================================
-// Use this on protected pages such as:
+// Use on protected pages:
 // home.html
 // journal.html
 // mood.html
@@ -195,6 +376,7 @@ export function watchAuthState(callback) {
 // progress.html
 // profile.html
 // etc.
+// ==========================================
 
 export function requireAuth() {
 
@@ -221,6 +403,7 @@ export function requireAuth() {
             window.location.replace(
                 "login.html"
             );
+
         }
     );
 }
@@ -229,27 +412,34 @@ export function requireAuth() {
 // ==========================================
 // REDIRECT IF ALREADY LOGGED IN
 // ==========================================
-// Use ONLY on public authentication pages:
+// Public pages:
 // login.html
 // signup.html
 //
-// Already logged-in user -> home.html
-// Not logged-in user -> stays on current page
+// New user -> onboarding.html
+// Completed user -> home.html
 // ==========================================
 
 export function redirectIfLoggedIn() {
 
     return onAuthStateChanged(
         auth,
-        (user) => {
+        async (user) => {
 
-            if (user) {
+            if (!user) {
 
-                // Already logged in
-                // Directly go to Home
-                window.location.replace("home.html");
+                return;
 
             }
+
+
+            console.log(
+                "Logged-in user detected:",
+                user.uid
+            );
+
+
+            await routeUser(user);
 
         },
         (error) => {
@@ -260,5 +450,56 @@ export function redirectIfLoggedIn() {
             );
 
         }
+    );
+}
+
+
+// ==========================================
+// ROUTE CURRENT USER
+// ==========================================
+// Can be used manually from login/signup
+// after successful authentication.
+// ==========================================
+
+export async function redirectUser() {
+
+    const user =
+        auth.currentUser;
+
+
+    if (!user) {
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return;
+
+    }
+
+
+    await routeUser(user);
+}
+
+
+// ==========================================
+// EXPORT PROFILE HELPER
+// ==========================================
+
+export async function getCurrentUserProfile() {
+
+    const user =
+        auth.currentUser;
+
+
+    if (!user) {
+
+        return null;
+
+    }
+
+
+    return await getUserProfile(
+        user.uid
     );
 }
