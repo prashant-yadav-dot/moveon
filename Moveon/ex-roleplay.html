@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#6c63ff">
 <title>Ex Roleplay — MoveOn</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(135deg,#f7f5ff,#fff);color:#202033;min-height:100vh}.wrap{max-width:900px;margin:auto;min-height:100vh;display:flex;flex-direction:column}.top{padding:18px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #eceaf5;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:5}.back{border:0;background:#f0eefb;border-radius:12px;padding:10px 13px;font-size:18px;cursor:pointer}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#6c63ff,#a98cff);color:white;font-size:19px}.title{flex:1}.title strong{display:block;font-size:17px}.title span{font-size:12px;color:#777}.settings{border:0;background:#f5f3fb;border-radius:12px;padding:10px;cursor:pointer}.chat{flex:1;padding:22px 16px 130px;overflow-y:auto}.notice{font-size:12px;color:#777;text-align:center;margin:4px auto 18px;max-width:600px;line-height:1.5}.bubble{max-width:78%;padding:12px 15px;border-radius:18px;margin:10px 0;line-height:1.45;white-space:pre-wrap;word-break:break-word}.ai{background:white;border:1px solid #eceaf5;border-bottom-left-radius:5px;box-shadow:0 4px 18px rgba(50,40,100,.05)}.user{margin-left:auto;background:#6c63ff;color:white;border-bottom-right-radius:5px}.typing{display:none;color:#777;font-size:13px;margin:10px 0}.composer{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);border-top:1px solid #eceaf5;padding:12px 16px;backdrop-filter:blur(12px)}.composer-inner{max-width:900px;margin:auto;display:flex;gap:8px}.composer input{flex:1;border:1px solid #ddd9ee;border-radius:16px;padding:13px 15px;font-size:15px;outline:none}.composer input:focus{border-color:#6c63ff}.send{border:0;background:#6c63ff;color:white;border-radius:15px;padding:0 18px;font-weight:700;cursor:pointer}.send:disabled{opacity:.5}.modal{display:none;position:fixed;inset:0;background:rgba(20,16,40,.45);z-index:20;padding:20px}.panel{max-width:440px;margin:10vh auto;background:white;border-radius:22px;padding:22px}.panel h2{margin-top:0}.panel input,.panel select{width:100%;padding:13px;border:1px solid #ddd9ee;border-radius:12px;margin:8px 0 14px;font-size:15px;background:#fff}.actions{display:flex;gap:8px}.actions button{flex:1;padding:12px;border:0;border-radius:12px;cursor:pointer}.save{background:#6c63ff;color:#fff}.cancel{background:#eeeaf7}.danger{margin-top:12px;color:#a33;font-size:12px}.empty{opacity:.75;text-align:center;margin-top:25vh}.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.quick button{border:1px solid #ddd9ee;background:#fff;border-radius:20px;padding:8px 11px;color:#4b4660;cursor:pointer}.setup{z-index:30}.setup .panel{margin:5vh auto}.photo-preview{width:76px;height:76px;border-radius:50%;object-fit:cover;border:3px solid #eee9ff;display:none;margin:4px auto 12px}.small{font-size:12px;color:#777;line-height:1.45}.premium-note{font-size:12px;color:#6c63ff;background:#f5f2ff;padding:9px 11px;border-radius:10px;margin-bottom:12px}
-</style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(135deg,#f7f5ff,#fff);color:#202033;min-height:100vh}.wrap{max-width:900px;margin:auto;min-height:100vh;display:flex;flex-direction:column}.top{padding:18px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #eceaf5;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:5}.back{border:0;background:#f0eefb;border-radius:12px;padding:10px 13px;font-size:18px;cursor:pointer}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#6c63ff,#a98cff);color:white;font-size:19px}.title{flex:1}.title strong{display:block;font-size:17px}.title span{font-size:12px;color:#777}.settings{border:0;background:#f5f3fb;border-radius:12px;padding:10px;cursor:pointer}.chat{flex:1;padding:22px 16px 130px;overflow-y:auto}.notice{font-size:12px;color:#777;text-align:center;margin:4px auto 18px;max-width:600px;line-height:1.5}.bubble{max-width:78%;padding:12px 15px;border-radius:18px;margin:10px 0;line-height:1.45;white-space:pre-wrap;word-break:break-word}.ai{background:white;border:1px solid #eceaf5;border-bottom-left-radius:5px;box-shadow:0 4px 18px rgba(50,40,100,.05)}.user{margin-left:auto;background:#6c63ff;color:white;border-bottom-right-radius:5px}.typing{display:none;color:#777;font-size:13px;margin:10px 0}.composer{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);border-top:1px solid #eceaf5;padding:12px 16px;backdrop-filter:blur(12px)}.composer-inner{max-width:900px;margin:auto;display:flex;gap:8px}.composer input{flex:1;border:1px solid #ddd9ee;border-radius:16px;padding:13px 15px;font-size:15px;outline:none}.composer input:focus{border-color:#6c63ff}.send{border:0;background:#6c63ff;color:white;border-radius:15px;padding:0 18px;font-weight:700;cursor:pointer}.send:disabled{opacity:.5}.modal{display:none;position:fixed;inset:0;background:rgba(20,16,40,.45);z-index:20;padding:20px}.panel{max-width:440px;margin:10vh auto;background:white;border-radius:22px;padding:22px}.panel h2{margin-top:0}.panel input{width:100%;padding:13px;border:1px solid #ddd9ee;border-radius:12px;margin:8px 0 14px;font-size:15px}.actions{display:flex;gap:8px}.actions button{flex:1;padding:12px;border:0;border-radius:12px;cursor:pointer}.save{background:#6c63ff;color:#fff}.cancel{background:#eeeaf7}.danger{margin-top:12px;color:#a33;font-size:12px}.empty{opacity:.75;text-align:center;margin-top:25vh}.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.quick button{border:1px solid #ddd9ee;background:#fff;border-radius:20px;padding:8px 11px;color:#4b4660;cursor:pointer}
+.setup .panel{max-width:440px;margin:6vh auto}.setup select,.setup input[type=file]{width:100%;padding:12px;border:1px solid #ddd9ee;border-radius:12px;margin:8px 0 14px;font-size:15px;background:#fff}.setup .small{font-size:12px;color:#777;line-height:1.45}.setup .photo-preview{width:78px;height:78px;border-radius:50%;object-fit:cover;display:none;margin:6px auto 14px;border:3px solid #eee9ff}.premium-note{font-size:12px;color:#6c63ff;background:#f5f2ff;padding:9px 11px;border-radius:10px;margin-bottom:12px}</style>
 </head>
 <body>
 <div class="wrap">
@@ -15,63 +15,257 @@
 <main class="chat" id="chat"><div class="notice">Ex Roleplay is an AI simulation, not your real ex. Keep it as a space for reflection and closure.</div><div class="empty" id="empty"><div style="font-size:42px">💜</div><h3>What do you want to say?</h3><p style="color:#777">You can start the conversation whenever you're ready.</p><div class="quick"><button onclick="quickSend('I miss you.')">I miss you.</button><button onclick="quickSend('I still have so many questions.')">I have questions.</button><button onclick="quickSend('I want closure.')">I want closure.</button></div></div><div class="typing" id="typing">Typing…</div></main>
 <div class="composer"><div class="composer-inner"><input id="message" maxlength="2000" placeholder="Message your Ex Roleplay…" autocomplete="off"><button class="send" id="send" onclick="sendMessage()">Send</button></div></div>
 </div>
-<div class="modal" id="settingsModal"><div class="panel"><h2>Ex Roleplay</h2><p style="color:#777;font-size:14px">Give the roleplay a name. This changes how the character is addressed; it does not turn the AI into your real ex.</p><label for="exName">Ex's name</label><input id="exName" maxlength="40" placeholder="e.g. Aisha"><div class="actions"><button class="cancel" onclick="closeSettings()">Cancel</button><button class="save" onclick="saveSettings()">Save</button></div><button class="cancel" style="width:100%;margin-top:8px" onclick="clearChat()">Clear conversation</button><div class="danger">If you're in immediate danger or thinking about hurting yourself, contact local emergency services or a trusted person instead of relying on roleplay.</div></div></div>
-<div class="modal setup" id="setupModal"><div class="panel"><h2>Set up your Ex Roleplay</h2><div class="premium-note">Premium is active for this account.</div><p class="small">Choose how the fictional character should appear in the roleplay. A photo is optional and should only be uploaded if you have permission to use it.</p><label for="setupGender">Ex's gender</label><select id="setupGender"><option value="">Select gender</option><option value="male">Male</option><option value="female">Female</option></select><label for="setupName">Ex's name</label><input id="setupName" maxlength="40" placeholder="e.g. Aisha"><label for="setupPhoto">Ex photo (optional)</label><input id="setupPhoto" type="file" accept="image/*"><img id="photoPreview" class="photo-preview" alt="Selected photo"><p class="small">The photo is stored in your Firebase account area. It is not sent to the AI chat automatically.</p><div class="actions"><button class="cancel" onclick="skipSetup()">Skip photo</button><button class="save" id="setupSave" onclick="saveSetup()">Start Roleplay</button></div></div></div>
+<div class="modal" id="settingsModal"><div class="panel"><h2>Ex Roleplay</h2><p style="color:#777;font-size:14px">Give the roleplay a name. This changes how the character is addressed; it does not turn the AI into your real ex.</p><label for="exName">Ex's name</label><input id="exName" maxlength="40" placeholder="e.g. Aisha"><div class="actions"><button class="cancel" onclick="closeSettings()">Cancel</button><button class="save" onclick="saveSettings()">Save</button></div><button class="cancel" style="width:100%;margin-top:8px" onclick="clearChat()">Clear conversation</button><button class="cancel" style="width:100%;margin-top:8px" onclick="generateImage()">Create image from roleplay</button><div class="danger">If you're in immediate danger or thinking about hurting yourself, contact local emergency services or a trusted person instead of relying on roleplay.</div></div></div>
+<div class="modal setup" id="setupModal"><div class="panel"><h2>Set up your Ex Roleplay</h2><div class="premium-note">Premium is active for this account.</div><p class="small">Choose the fictional character details for your roleplay. A photo is optional and should only be uploaded if you have permission to use it.</p><label for="setupGender">Ex's gender</label><select id="setupGender"><option value="">Select gender</option><option value="male">Male</option><option value="female">Female</option></select><label for="setupName">Ex's name</label><input id="setupName" maxlength="40" placeholder="e.g. Aisha"><label for="setupPhoto">Ex photo (optional)</label><input id="setupPhoto" type="file" accept="image/*"><img id="photoPreview" class="photo-preview" alt="Selected photo"><p class="small">Your photo stays in your Firebase account area. It is not automatically sent to the chat model.</p><div class="actions"><button class="cancel" onclick="skipSetup()">Continue without photo</button><button class="save" id="setupSave" onclick="saveSetup()">Start Roleplay</button></div></div></div>
 <script type="module">
+const API_URL = "/api/ex-roleplay";
+const STATUS_URL = "/api/premium/status";
+const NAME_KEY = "moveon_ex_roleplay_name";
+const CHAT_KEY = "moveon_ex_roleplay_chat";
+
 import { auth, app, database } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import { ref, get, set, push, remove } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
-const API_URL="/api/ex-roleplay";
-const STATUS_URL="/api/premium/status";
-const NAME_KEY="moveon_ex_roleplay_name";
-const CHAT_KEY="moveon_ex_roleplay_chat";
-const storage=getStorage(app);
-const chat=document.getElementById("chat"),input=document.getElementById("message"),send=document.getElementById("send"),typing=document.getElementById("typing"),empty=document.getElementById("empty");
-let currentUser=null, exName="Ex Roleplay", exGender="", exPhotoUrl="", exPhotoPath="", historyData=[];
+const storage = getStorage(app);
+const chat = document.getElementById("chat");
+const input = document.getElementById("message");
+const send = document.getElementById("send");
+const typing = document.getElementById("typing");
+const empty = document.getElementById("empty");
 
-function userRoot(){return `users/${currentUser.uid}/exRoleplay`;}
-async function token(){return currentUser.getIdToken(true);}
-async function checkPremium(){
-  const t=await token();
-  const r=await fetch(STATUS_URL,{headers:{Authorization:`Bearer ${t}`}});
-  const d=await r.json().catch(()=>({}));
-  if(!r.ok || d.active!==true){location.href="premium.html?required=ex-roleplay";return false;}
+let currentUser = null;
+let exName = "Ex Roleplay";
+let exGender = "";
+let exPhotoUrl = "";
+let exPhotoPath = "";
+let historyData = [];
+
+function userRoot() { return `users/${currentUser.uid}/exRoleplay`; }
+async function getToken() { return currentUser.getIdToken(true); }
+
+async function checkPremium() {
+  const t = await getToken();
+  const res = await fetch(STATUS_URL, { headers: { Authorization: `Bearer ${t}` } });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || data.active !== true) {
+    window.location.href = "premium.html?required=ex-roleplay";
+    return false;
+  }
   return true;
 }
-async function loadProfile(){
-  const s=await get(ref(database,`${userRoot()}/profile`));
-  if(s.exists()){
-    const p=s.val()||{}; exName=p.name||"Ex Roleplay"; exGender=p.gender||""; exPhotoUrl=p.photoUrl||""; exPhotoPath=p.photoPath||"";
-    return !!(exName && exGender);
-  }
-  return false;
+
+async function loadProfile() {
+  const snap = await get(ref(database, `${userRoot()}/profile`));
+  if (!snap.exists()) return false;
+  const p = snap.val() || {};
+  exName = p.name || "Ex Roleplay";
+  exGender = p.gender || "";
+  exPhotoUrl = p.photoUrl || "";
+  exPhotoPath = p.photoPath || "";
+  return !!exGender;
 }
-async function loadMessages(){
-  historyData=[]; const s=await get(ref(database,`${userRoot()}/messages`));
-  if(s.exists()) historyData=Object.values(s.val()||{}).sort((a,b)=>Number(a.createdAt||0)-Number(b.createdAt||0)).slice(-60);
-  // migrate old local history only once for the current account if Firebase has no messages
-  if(!historyData.length){try{const old=JSON.parse(localStorage.getItem(CHAT_KEY)||"[]");if(Array.isArray(old)&&old.length){historyData=old.slice(-60);for(const m of historyData)await push(ref(database,`${userRoot()}/messages`),{role:m.role,content:String(m.content||""),createdAt:Date.now()});}}catch{}}
+
+async function loadMessages() {
+  historyData = [];
+  const snap = await get(ref(database, `${userRoot()}/messages`));
+  if (snap.exists()) {
+    historyData = Object.values(snap.val() || {})
+      .sort((a,b) => Number(a.createdAt || 0) - Number(b.createdAt || 0))
+      .slice(-60);
+  }
+  // One-time migration from the old browser-only chat into this logged-in user's account.
+  if (!historyData.length) {
+    try {
+      const old = JSON.parse(localStorage.getItem(CHAT_KEY) || "[]");
+      if (Array.isArray(old) && old.length) {
+        for (const m of old.slice(-60)) {
+          const item = { role: m.role === "user" ? "user" : "assistant", content: String(m.content || ""), createdAt: Date.now() };
+          historyData.push(item);
+          await push(ref(database, `${userRoot()}/messages`), item);
+        }
+      }
+    } catch {}
+  }
   localStorage.removeItem(CHAT_KEY);
 }
-function saveNameLocal(){localStorage.setItem(`${NAME_KEY}_${currentUser.uid}`,exName);}
-function addBubble(role,text,save=true){const d=document.createElement("div");d.className="bubble "+(role==="user"?"user":"ai");d.textContent=String(text||"");chat.insertBefore(d,typing);if(save){const item={role,content:String(text||""),createdAt:Date.now()};historyData.push(item);if(currentUser)push(ref(database,`${userRoot()}/messages`),item).catch(console.error);}chat.scrollTop=chat.scrollHeight;}
-function render(){document.getElementById("screenTitle").textContent=exName||"Ex Roleplay";empty.style.display=historyData.length?"none":"block";chat.querySelectorAll(".bubble").forEach(e=>e.remove());historyData.forEach(x=>{if(x?.content)addBubble(x.role==="user"?"user":"assistant",x.content,false)});chat.scrollTop=chat.scrollHeight;}
-function openSettings(){document.getElementById("exName").value=exName==="Ex Roleplay"?"":exName;document.getElementById("settingsModal").style.display="block"}
-function closeSettings(){document.getElementById("settingsModal").style.display="none"}
-async function saveSettings(){const v=document.getElementById("exName").value.trim().slice(0,40);exName=v||"Ex Roleplay";saveNameLocal();await set(ref(database,`${userRoot()}/profile/name`),exName);document.getElementById("screenTitle").textContent=exName;closeSettings()}
-function quickSend(t){input.value=t;sendMessage()}
-async function clearChat(){if(!historyData.length)return;if(!confirm("Clear this roleplay conversation?"))return;historyData=[];await remove(ref(database,`${userRoot()}/messages`));chat.querySelectorAll(".bubble").forEach(e=>e.remove());empty.style.display="block"}
-function showError(m){addBubble("assistant","⚠️ "+String(m||"Unable to reply right now."),false)}
-async function sendMessage(){const text=input.value.trim();if(!text||send.disabled)return;addBubble("user",text);input.value="";empty.style.display="none";send.disabled=true;typing.style.display="block";chat.scrollTop=chat.scrollHeight;try{const t=await token();const requestHistory=historyData.slice(-16).filter(x=>x&&(x.role==="user"||x.role==="assistant")&&x.content).map(x=>({role:x.role,content:x.content}));const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${t}`},body:JSON.stringify({exName,exGender,message:text,history:requestHistory})});const raw=await r.text();let d={};try{d=raw?JSON.parse(raw):{}}catch{}if(!r.ok)throw new Error(d?.error||`Server error (${r.status})`);if(!d?.reply)throw new Error("The AI server returned an empty reply.");addBubble("assistant",d.reply)}catch(e){console.error(e);showError(e?.message||"Unable to reply right now. Please try again.")}finally{typing.style.display="none";send.disabled=false;input.focus()}}
-async function saveSetup(){const gender=document.getElementById("setupGender").value;const name=document.getElementById("setupName").value.trim().slice(0,40)||"Ex Roleplay";if(!gender){alert("Please select the ex's gender.");return}const btn=document.getElementById("setupSave");btn.disabled=true;btn.textContent="Saving…";try{let photoUrl="",photoPath="";const file=document.getElementById("setupPhoto").files[0];if(file){if(file.size>10*1024*1024)throw new Error("Photo must be under 10 MB.");if(!file.type.startsWith("image/"))throw new Error("Please select an image file.");photoPath=`users/${currentUser.uid}/exRoleplay/ex-photo-${Date.now()}`;const sr=storageRef(storage,photoPath);await uploadBytes(sr,file,{contentType:file.type});photoUrl=await getDownloadURL(sr)}exName=name;exGender=gender;exPhotoUrl=photoUrl;exPhotoPath=photoPath;await set(ref(database,`${userRoot()}/profile`),{name,gender,photoUrl,photoPath,createdAt:Date.now(),updatedAt:Date.now()});document.getElementById("setupModal").style.display="none";render()}catch(e){alert(e?.message||"Setup failed. Please try again.")}finally{btn.disabled=false;btn.textContent="Start Roleplay"}}
-async function skipSetup(){const gender=document.getElementById("setupGender").value;const name=document.getElementById("setupName").value.trim().slice(0,40)||"Ex Roleplay";if(!gender){alert("Please select the ex's gender.");return}exName=name;exGender=gender;await set(ref(database,`${userRoot()}/profile`),{name,gender,photoUrl:"",photoPath:"",createdAt:Date.now(),updatedAt:Date.now()});document.getElementById("setupModal").style.display="none";render()}
-document.getElementById("setupPhoto").addEventListener("change",()=>{const f=document.getElementById("setupPhoto").files[0],p=document.getElementById("photoPreview");if(f){p.src=URL.createObjectURL(f);p.style.display="block"}else p.style.display="none"});
-input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage()}});
-window.openSettings=openSettings;window.closeSettings=closeSettings;window.saveSettings=saveSettings;window.quickSend=quickSend;window.sendMessage=sendMessage;window.clearChat=clearChat;window.saveSetup=saveSetup;window.skipSetup=skipSetup;
 
-onAuthStateChanged(auth,async user=>{if(!user){location.href="login.html?redirect=ex-roleplay.html";return}currentUser=user;try{if(!(await checkPremium()))return;const ready=await loadProfile();await loadMessages();if(!ready){document.getElementById("setupModal").style.display="block"}else render()}catch(e){console.error(e);alert(e?.message||"Unable to load Ex Roleplay.")}});
+function saveLegacyName() {
+  localStorage.setItem(`${NAME_KEY}_${currentUser.uid}`, exName);
+}
+
+function addBubble(role, text, save = true) {
+  const d = document.createElement("div");
+  d.className = "bubble " + (role === "user" ? "user" : "ai");
+  d.textContent = String(text || "");
+  chat.insertBefore(d, typing);
+  if (save) {
+    const item = { role, content: String(text || ""), createdAt: Date.now() };
+    historyData.push(item);
+    push(ref(database, `${userRoot()}/messages`), item).catch(console.error);
+  }
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function render() {
+  document.getElementById("screenTitle").textContent = exName || "Ex Roleplay";
+  empty.style.display = historyData.length ? "none" : "block";
+  chat.querySelectorAll(".bubble").forEach(el => el.remove());
+  historyData.forEach(item => {
+    if (item?.content) addBubble(item.role === "user" ? "user" : "assistant", item.content, false);
+  });
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function openSettings() {
+  document.getElementById("exName").value = exName === "Ex Roleplay" ? "" : exName;
+  document.getElementById("settingsModal").style.display = "block";
+}
+function closeSettings() { document.getElementById("settingsModal").style.display = "none"; }
+
+async function saveSettings() {
+  const value = document.getElementById("exName").value.trim().slice(0, 40);
+  exName = value || "Ex Roleplay";
+  saveLegacyName();
+  await set(ref(database, `${userRoot()}/profile/name`), exName);
+  document.getElementById("screenTitle").textContent = exName;
+  closeSettings();
+}
+
+function quickSend(text) { input.value = text; sendMessage(); }
+
+async function generateImage() {
+  const prompt = window.prompt("What image should the fictional character appear in?", "A calm evening walk, cinematic and emotional");
+  if (!prompt || !prompt.trim()) return;
+  try {
+    const t = await getToken();
+    const res = await fetch("/api/ex-roleplay-image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
+      body: JSON.stringify({ exName, exGender, photoUrl: exPhotoUrl, prompt: prompt.trim().slice(0, 2000) })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data?.image) throw new Error(data?.error || `Image server error (${res.status})`);
+    const img = document.createElement("img");
+    img.src = data.image;
+    img.alt = "Generated fictional Ex Roleplay image";
+    img.style.maxWidth = "78%"; img.style.display = "block"; img.style.borderRadius = "18px"; img.style.margin = "10px 0";
+    chat.insertBefore(img, typing);
+    chat.scrollTop = chat.scrollHeight;
+  } catch (e) {
+    showError(e?.message || "Unable to create the image right now.");
+  }
+}
+
+async function clearChat() {
+  if (!historyData.length) return;
+  if (!confirm("Clear this roleplay conversation?")) return;
+  historyData = [];
+  await remove(ref(database, `${userRoot()}/messages`));
+  chat.querySelectorAll(".bubble").forEach(el => el.remove());
+  empty.style.display = "block";
+}
+
+function showError(message) { addBubble("assistant", "⚠️ " + String(message || "Unable to reply right now."), false); }
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text || send.disabled) return;
+  addBubble("user", text);
+  input.value = "";
+  empty.style.display = "none";
+  send.disabled = true;
+  typing.style.display = "block";
+  chat.scrollTop = chat.scrollHeight;
+  try {
+    const t = await getToken();
+    const requestHistory = historyData.slice(-16)
+      .filter(x => x && (x.role === "user" || x.role === "assistant") && x.content)
+      .map(x => ({ role: x.role, content: x.content }));
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
+      body: JSON.stringify({ exName, exGender, exPhotoUrl, message: text, history: requestHistory })
+    });
+    const raw = await res.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch {}
+    if (!res.ok) throw new Error(data?.error || `Server error (${res.status})`);
+    if (!data?.reply) throw new Error("The AI server returned an empty reply.");
+    addBubble("assistant", data.reply);
+  } catch (error) {
+    console.error("MoveOn Ex Roleplay error:", error);
+    showError(error?.message || "Unable to reply right now. Please try again.");
+  } finally {
+    typing.style.display = "none";
+    send.disabled = false;
+    input.focus();
+  }
+}
+
+async function saveSetup() {
+  const gender = document.getElementById("setupGender").value;
+  const name = document.getElementById("setupName").value.trim().slice(0, 40) || "Ex Roleplay";
+  if (!gender) { alert("Please select the ex's gender."); return; }
+  const btn = document.getElementById("setupSave");
+  btn.disabled = true; btn.textContent = "Saving…";
+  try {
+    let photoUrl = "", photoPath = "";
+    const file = document.getElementById("setupPhoto").files[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) throw new Error("Photo must be under 10 MB.");
+      if (!file.type.startsWith("image/")) throw new Error("Please select an image file.");
+      photoPath = `users/${currentUser.uid}/exRoleplay/ex-photo-${Date.now()}`;
+      const sr = storageRef(storage, photoPath);
+      await uploadBytes(sr, file, { contentType: file.type });
+      photoUrl = await getDownloadURL(sr);
+    }
+    exName = name; exGender = gender; exPhotoUrl = photoUrl; exPhotoPath = photoPath;
+    await set(ref(database, `${userRoot()}/profile`), { name, gender, photoUrl, photoPath, createdAt: Date.now(), updatedAt: Date.now() });
+    document.getElementById("setupModal").style.display = "none";
+    render();
+  } catch (e) { alert(e?.message || "Setup failed. Please try again."); }
+  finally { btn.disabled = false; btn.textContent = "Start Roleplay"; }
+}
+
+async function skipSetup() {
+  const gender = document.getElementById("setupGender").value;
+  const name = document.getElementById("setupName").value.trim().slice(0, 40) || "Ex Roleplay";
+  if (!gender) { alert("Please select the ex's gender."); return; }
+  exName = name; exGender = gender; exPhotoUrl = ""; exPhotoPath = "";
+  await set(ref(database, `${userRoot()}/profile`), { name, gender, photoUrl: "", photoPath: "", createdAt: Date.now(), updatedAt: Date.now() });
+  document.getElementById("setupModal").style.display = "none";
+  render();
+}
+
+document.getElementById("setupPhoto").addEventListener("change", () => {
+  const file = document.getElementById("setupPhoto").files[0];
+  const preview = document.getElementById("photoPreview");
+  if (!file) { preview.style.display = "none"; return; }
+  preview.src = URL.createObjectURL(file); preview.style.display = "block";
+});
+
+input.addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); sendMessage(); }
+});
+window.openSettings=openSettings; window.closeSettings=closeSettings; window.saveSettings=saveSettings;
+window.quickSend=quickSend; window.sendMessage=sendMessage; window.clearChat=clearChat; window.generateImage=generateImage; window.saveSetup=saveSetup; window.skipSetup=skipSetup;
+
+onAuthStateChanged(auth, async user => {
+  if (!user) { window.location.href = "login.html?redirect=ex-roleplay.html"; return; }
+  currentUser = user;
+  try {
+    if (!(await checkPremium())) return;
+    const ready = await loadProfile();
+    await loadMessages();
+    if (!ready) document.getElementById("setupModal").style.display = "block";
+    else render();
+  } catch (e) {
+    console.error(e);
+    alert(e?.message || "Unable to load Ex Roleplay.");
+  }
+});
 </script>
 <script src="emoji-sounds.js"></script>
 </body>
