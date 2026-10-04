@@ -2,795 +2,409 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Unfinished Love Story — MoveOn</title>
-<meta name="description" content="A fictional 50-chapter MoveOn story about first love, heartbreak, regret, closure and choosing yourself.">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Last Page of Romeo — MoveOn Premium Story</title>
+<meta name="description" content="A fictional 50-chapter emotional story of Romeo, heartbreak, loss, acceptance and finding yourself again. Chapters 01–03 are free; Chapters 04–50 require MoveOn Premium.">
 <style>
-:root {
-  --purple:#6c63ff; --deep:#4037b5; --ink:#24213a; --muted:#6d6a80;
-  --soft:#f5f2ff; --card:#ffffff; --line:#ece8fb;
-}
+:root{--p:#6c63ff;--deep:#3d347e;--ink:#24213b;--muted:#68657b;--bg:#f5f2ff;--card:#fff;--line:#e8e3f5;--rose:#c56b91}
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(180deg,#faf9ff,#f3efff);color:var(--ink);line-height:1.7}
-.wrap{width:min(820px,92%);margin:auto}
-.top{padding:28px 0 12px}
-.back{display:inline-block;text-decoration:none;color:var(--purple);font-weight:700;margin-bottom:14px}
-.hero{background:linear-gradient(135deg,#5c52dc,#8a7cff);color:white;border-radius:28px;padding:34px 26px;margin-bottom:22px;box-shadow:0 20px 50px rgba(79,67,180,.2)}
-.badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:6px 11px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em}
-h1{font-size:clamp(30px,7vw,52px);line-height:1.05;margin:16px 0 10px}
-.hero p{margin:0;opacity:.92}
-.notice{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin:18px 0;color:var(--muted)}
-.progress{height:9px;background:#e9e5fb;border-radius:999px;overflow:hidden;margin-top:10px}
-.progress span{display:block;width:6%;height:100%;background:linear-gradient(90deg,#6c63ff,#a59cff);border-radius:999px}
-.chapter{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px 22px;margin:16px 0;box-shadow:0 8px 30px rgba(70,58,130,.06)}
-.chapter-label{color:var(--purple);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-.chapter h2{margin:5px 0 10px;font-size:25px;line-height:1.2}
-.chapter p{margin:0;color:#57536b}
-.locked{display:none}
-.premium-gate{margin:28px 0 50px;padding:30px 22px;border-radius:26px;background:linear-gradient(135deg,#29234f,#5b4bd5);color:white;text-align:center;box-shadow:0 18px 50px rgba(50,40,130,.22)}
-.premium-gate h2{margin:0 0 8px;font-size:28px}
-.premium-gate p{opacity:.9}
-.btn{display:inline-block;border:0;border-radius:14px;padding:14px 20px;background:white;color:#4037b5;text-decoration:none;font-weight:900;cursor:pointer;margin-top:10px}
-.small{font-size:12px;opacity:.72;margin-top:12px}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#faf9ff,#f1edff);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.75}
+.wrap{width:min(900px,92%);margin:auto}
+.top{padding:24px 0 10px}
+.back{color:var(--p);font-weight:800;text-decoration:none}
+.hero{position:relative;overflow:hidden;border-radius:30px;background:linear-gradient(135deg,#332a66,#7668df 58%,#b28cae);color:#fff;padding:0;margin:14px 0 22px;box-shadow:0 24px 70px rgba(53,42,120,.24)}
+.hero-grid{display:grid;grid-template-columns:1fr .9fr;align-items:center}
+.hero-copy{padding:34px 28px}
+.badge{display:inline-block;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);font-size:11px;font-weight:900;letter-spacing:.08em}
+h1{font-size:clamp(34px,7vw,58px);line-height:1.02;margin:17px 0 12px;letter-spacing:-.04em}
+.hero-copy p{opacity:.9;margin:0}
+.hero-img{height:100%;min-height:330px;overflow:hidden}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.7) contrast(1.02)}
+.notice{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px 20px;margin:18px 0;box-shadow:0 10px 30px rgba(60,45,120,.06)}
+.notice strong{color:var(--deep)}
+.progress{height:9px;background:#e9e5f8;border-radius:99px;overflow:hidden;margin:12px 0 7px}
+.progress span{display:block;width:6%;height:100%;background:linear-gradient(90deg,#6c63ff,#c56b91);transition:width .35s}
 .status{font-size:13px;color:var(--muted)}
-.error{padding:18px;background:#fff0f0;border:1px solid #ffd0d0;border-radius:16px;color:#9b2c2c;display:none;margin:15px 0}
-footer{padding:30px 0 50px;text-align:center;color:#77728a;font-size:13px}
+.error{display:none;background:#fff0f2;color:#8d3652;border:1px solid #ffd2dc;padding:15px;border-radius:16px}
+.chapter{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:25px 23px;margin:17px 0;box-shadow:0 9px 34px rgba(60,45,120,.06);scroll-margin-top:18px}
+.chapter-label{color:var(--p);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.chapter h2{font-family:Georgia,serif;font-size:28px;line-height:1.2;margin:7px 0 12px}
+.chapter p{margin:0;color:#514e63;font-size:16px}
+.locked{display:none}
+.story-img{margin:20px 0 4px;border-radius:20px;overflow:hidden;background:#ddd}
+.story-img img{display:block;width:100%;height:290px;object-fit:cover;filter:saturate(.55) contrast(1.03) brightness(.92)}
+.caption{font-size:12px;color:#777287;text-align:center;padding:8px 10px;background:#faf8ff}
+.gate{margin:30px 0 45px;padding:32px 22px;border-radius:28px;background:linear-gradient(135deg,#2b244d,#5b4bd5);color:#fff;text-align:center;box-shadow:0 20px 55px rgba(50,40,130,.2)}
+.gate h2{margin:0 0 8px;font-size:29px}
+.gate p{opacity:.9}
+.btn{display:inline-block;padding:14px 20px;border-radius:15px;background:#fff;color:#4037b5;font-weight:900;text-decoration:none;margin-top:8px}
+.ending{display:none;text-align:center;padding:28px 20px;margin:22px 0 50px;border-radius:24px;background:linear-gradient(135deg,#fff,#f4efff);border:1px solid var(--line)}
+.ending h2{font-family:Georgia,serif;font-size:32px}
+footer{text-align:center;color:#777287;font-size:13px;padding:5px 0 45px}
+@media(max-width:700px){.hero-grid{grid-template-columns:1fr}.hero-copy{padding:28px 22px}.hero-img{min-height:270px;max-height:330px}.chapter{padding:22px 18px}.chapter p{font-size:15px}.story-img img{height:240px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top">
-    <a class="back" href="home.html">← Back to MoveOn</a>
-  </div>
+<div class="top"><a class="back" href="home.html">← Back to MoveOn</a></div>
 
-  <section class="hero">
-    <span class="badge">MOVEON • FICTIONAL STORY</span>
-    <h1>The Unfinished Love Story</h1>
-    <p>50 chapters. One first love. One betrayal. One choice to finally choose yourself.</p>
-  </section>
+<section class="hero">
+<div class="hero-grid">
+<div class="hero-copy">
+<span class="badge">MOVEON • FICTIONAL STORY</span>
+<h1>The Last Page of Romeo</h1>
+<p>50 chapters. One first love. One painful goodbye. One boy who slowly learns that losing someone is not the same as losing yourself.</p>
+</div>
+<div class="hero-img"><img src="story-romeo.png" alt="Fictional sad portrait of Romeo"></div>
+</div>
+</section>
 
-  <div class="notice">
-    <strong>Chapters 01–03 are free.</strong><br>
-    Chapters 04–50 are reserved for MoveOn Premium. The story is fictional and created for reflection and entertainment.
-    <div class="progress"><span id="progressBar"></span></div>
-    <div class="status" id="statusText">Checking your Premium access…</div>
-  </div>
+<div class="notice">
+<strong>Chapters 01–03 are free.</strong><br>
+Premium members get all 50 chapters unlocked. Non-premium members can read only the first 3 chapters.
+<div class="progress"><span id="progressBar"></span></div>
+<div class="status" id="statusText">Checking your MoveOn Premium access…</div>
+</div>
+<div id="errorBox" class="error"></div>
 
-  <div id="errorBox" class="error"></div>
+<main id="story">
+<article class="chapter" id="chapter-1" data-chapter="1">
+<div class="chapter-label">Chapter 01 • Free</div>
+<h2>The First Bell</h2>
+<p>Class 11 ka pehla din tha. Romeo ek chhote se gaon se school aaya tha, apni purani notebook aur seedhi si smile ke saath. Juliet ne usse ek pen maanga. Baat sirf ek pen ki thi, lekin Romeo ko us din laga jaise uski ordinary si duniya mein koi nayi roshni aa gayi ho.</p>
+</article>
+<article class="chapter" id="chapter-2" data-chapter="2">
+<div class="chapter-label">Chapter 02 • Free</div>
+<h2>The Seat Beside Her</h2>
+<p>Agli kuch hafton mein unki dosti badhti gayi. Kabhi notes, kabhi lunch, kabhi school gate tak chhoti si walk. Romeo ko Juliet ki har chhoti baat yaad rehne lagi. Juliet ke liye shayad ye bas ek beautiful friendship thi, lekin Romeo ke dil mein uska naam dheere-dheere ghar banata ja raha tha.</p>
+</article>
+<article class="chapter" id="chapter-3" data-chapter="3">
+<div class="chapter-label">Chapter 03 • Free</div>
+<h2>Kal Bhi Miloge?</h2>
+<p>Ek shaam Juliet ka message aaya: “Kal school aaoge na?” Romeo ne screen ko kuch seconds tak dekha aur muskura diya. Us simple question ne uske liye poori raat ko special bana diya. Usse laga ki shayad kal bhi woh dono waise hi milenge, waise hi baat karenge, aur ye chhoti si duniya kabhi khatam nahi hogi.</p>
+</article>
+<article class="chapter locked" id="chapter-4" data-chapter="4">
+<div class="chapter-label">Chapter 04 • Premium</div>
+<h2>The First Promise</h2>
+<p>Ek baar baarish ke baad school ke corridor mein Juliet ne kaha, “Chahe kuch bhi ho, hum friends rahenge.” Romeo ne us promise ko dil se maan liya. Usne nahi poocha ki “kuch bhi” ka matlab kya hai. Usne bas believe kiya. Kabhi-kabhi dil sabse simple words ko lifetime promise bana deta hai.</p>
+</article>
+<article class="chapter locked" id="chapter-5" data-chapter="5">
+<div class="chapter-label">Chapter 05 • Premium</div>
+<h2>Different Worlds</h2>
+<p>Romeo gaon ke kachche raaste se cycle chala kar school aata tha. Juliet city ke bade ghar aur bade sapnon ke beech pali thi. Dono alag the, lekin Romeo ko lagta tha ki feelings ko address ki zarurat nahi hoti. Usse nahi pata tha ki duniya kabhi-kabhi dil se zyada differences ko importance deti hai.</p>
+</article>
+<article class="chapter locked" id="chapter-6" data-chapter="6">
+<div class="chapter-label">Chapter 06 • Premium</div>
+<h2>A Summer of Messages</h2>
+<p>Summer vacation mein school band tha, lekin messages nahi. Good morning se lekar late-night talks tak, Romeo har notification ka wait karta. Kabhi woh phone ko dekhta rehta, kabhi bina wajah smile karta. Usne apni diary mein likha, “Shayad mujhe pehli baar kisi ke message ka intezaar itna accha lag raha hai.”</p>
+</article>
+<article class="chapter locked" id="chapter-7" data-chapter="7">
+<div class="chapter-label">Chapter 07 • Premium</div>
+<h2>The New Distance</h2>
+<p>Vacation ke baad Juliet badli hui si lagi. Replies chhote ho gaye. School mein bhi woh aksar kisi aur group ke saath rehti. Romeo baar-baar khud se poochta, “Maine kya galat kiya?” Lekin koi clear answer nahi tha. Sabse painful distance woh hota hai jo bina goodbye ke shuru ho jata hai.</p>
+</article>
+<article class="chapter locked" id="chapter-8" data-chapter="8">
+<div class="chapter-label">Chapter 08 • Premium</div>
+<h2>Late Replies</h2>
+<p>Pehle jo message seconds mein reply hota tha, ab hours tak unread rehta. Romeo phone ko baar-baar unlock karta. Har baar disappointment aur thoda badh jaata. Phir bhi jab reply aata, uska dil wahi purani khushi dhoond leta. Usse samajh nahi aa raha tha ki attachment kab aadat ban gayi.</p>
+</article>
+<article class="chapter locked" id="chapter-9" data-chapter="9">
+<div class="chapter-label">Chapter 09 • Premium</div>
+<h2>The New Boy</h2>
+<p>School mein ek naya ladka aaya—Arjun. Confident, city-bred aur Juliet ke circle ke kaafi close. Romeo ne pehli baar dono ko saath haste dekha. Usne smile karne ki koshish ki, par andar kuch toot sa gaya. Us raat usne diary band kar di, kyunki words bhi uske saath nahi the.</p>
+</article>
+<article class="chapter locked" id="chapter-10" data-chapter="10">
+<div class="chapter-label">Chapter 10 • Premium</div>
+<h2>The First Lie</h2>
+<p>Juliet ne kaha, “Arjun sirf friend hai.” Romeo ne believe kiya. Woh believe karna chahta tha. Lekin agle din usne un dono ko school ke gate par saath dekha. Usne koi scene nahi banaya. Bas cycle uthayi aur ghar ki taraf nikal gaya. Kabhi-kabhi sach bolne se pehle hi aankhen sab kuch bata deti hain.</p>
+<div class="story-img"><img src="story-romeo.png" alt="Sad Romeo — After the first lie"><div class="caption">Romeo • After the first lie</div></div>
+</article>
+<article class="chapter locked" id="chapter-11" data-chapter="11">
+<div class="chapter-label">Chapter 11 • Premium</div>
+<h2>Unread</h2>
+<p>Romeo ne ek message type kiya: “Sab theek hai?” Phir delete kar diya. Dobara type kiya: “Kya hum pehle jaise nahi rahe?” Phir delete. Finally sirf “Take care” bheja. Message unread raha. Us chhoti si blue-grey screen ne usse woh loneliness feel karayi jo bheed mein bhi nahi jaati.</p>
+</article>
+<article class="chapter locked" id="chapter-12" data-chapter="12">
+<div class="chapter-label">Chapter 12 • Premium</div>
+<h2>The Empty Bench</h2>
+<p>School ki woh bench jahan dono baithte the, ab Romeo ko khaali lagti thi. Woh kabhi-kabhi wahan rukta, phir khud ko samjha kar chala jaata. Bench wahi thi, classroom wahi tha, bell wahi thi. Sirf un dono ke beech ka “hum” kahin nahi tha.</p>
+</article>
+<article class="chapter locked" id="chapter-13" data-chapter="13">
+<div class="chapter-label">Chapter 13 • Premium</div>
+<h2>Rumours</h2>
+<p>School mein rumours chalne lage ki Juliet aur Arjun together hain. Romeo ne kisi se confirmation nahi maangi. Usse dar tha ki confirmation mil gaya to hope bhi khatam ho jayegi. Usne apni feelings ko smile ke peeche chhupaya aur normal behave karne ki acting ki.</p>
+</article>
+<article class="chapter locked" id="chapter-14" data-chapter="14">
+<div class="chapter-label">Chapter 14 • Premium</div>
+<h2>The Question</h2>
+<p>Ek din Romeo ne finally poocha, “Kya main tumhare liye ab bhi important hoon?” Juliet kuch seconds chup rahi. Phir boli, “Romeo, things have changed.” Ye chaar words uske liye kisi long speech se zyada painful the. Usne sirf itna kaha, “Samajh gaya.”</p>
+</article>
+<article class="chapter locked" id="chapter-15" data-chapter="15">
+<div class="chapter-label">Chapter 15 • Premium</div>
+<h2>The Choice</h2>
+<p>Juliet ne Arjun ko choose kar liya. Romeo ne us choice ko rokne ki koshish nahi ki. Uske paas bahut saare questions the, lekin kisi ko force karna uski mohabbat nahi thi. Ghar lautte waqt usne pehli baar realize kiya—kisi ko chahna aur kisi ko apna haq samajhna do alag cheezein hain.</p>
+</article>
+<article class="chapter locked" id="chapter-16" data-chapter="16">
+<div class="chapter-label">Chapter 16 • Premium</div>
+<h2>No Goodbye</h2>
+<p>Juliet ne proper goodbye nahi kaha. Bas conversations kam hoti gayi aur ek din almost band ho gayi. Romeo ko sabse zyada dard is baat ka tha ki relationship khatam hone se pehle hi uska explanation khatam ho gaya tha. Kuch endings door slam karke nahi hoti; woh bas ek din silence ban jaati hain.</p>
+</article>
+<article class="chapter locked" id="chapter-17" data-chapter="17">
+<div class="chapter-label">Chapter 17 • Premium</div>
+<h2>The Long Ride Home</h2>
+<p>Us shaam Romeo cycle se bahut dheere ghar gaya. Rasta wahi tha, fields wahi the, sunset bhi beautiful tha. Lekin uske andar kuch heavy tha. Ghar pahunch kar usne cycle side mein rakhi aur chhat par baith gaya. Usne pehli baar khud se kaha, “Mujhe bhi hurt hone ka haq hai.”</p>
+</article>
+<article class="chapter locked" id="chapter-18" data-chapter="18">
+<div class="chapter-label">Chapter 18 • Premium</div>
+<h2>The Deleted Chat</h2>
+<p>Romeo ne purani chat kholi. Hundreds of messages, jokes, voice notes aur tiny memories. Usne kuch delete kiye, phir restore kiye, phir phone band kar diya. Aakhir mein usne chat archive kar di. Delete karna easy laga hota, lekin woh apni memories ko jhooth nahi kehna chahta tha.</p>
+</article>
+<article class="chapter locked" id="chapter-19" data-chapter="19">
+<div class="chapter-label">Chapter 19 • Premium</div>
+<h2>Arjun</h2>
+<p>Romeo ko Arjun se gussa tha, lekin dheere-dheere usse samajh aaya ki Arjun ne usse koi promise nahi kiya tha. Uska real pain Juliet ke decision se tha. Romeo ne decide kiya ki woh kisi innocent person ko apne heartbreak ka villain nahi banayega. Dard tha, par usne apni dignity nahi chhodi.</p>
+</article>
+<article class="chapter locked" id="chapter-20" data-chapter="20">
+<div class="chapter-label">Chapter 20 • Premium</div>
+<h2>The Birthday</h2>
+<p>Juliet ka birthday aaya. Romeo ne gift nahi bheja. Usne bas phone mein ek unsent message likha: “Happy birthday. I hope life is kind to you.” Phir screen lock kar di. Pehle woh birthday ko excuse bana kar baat kar leta. Is baar usne apni healing ko excuse nahi banne diya.</p>
+<div class="story-img"><img src="story-romeo.png" alt="Sad Romeo — When the birthday passed"><div class="caption">Romeo • When the birthday passed</div></div>
+</article>
+<article class="chapter locked" id="chapter-21" data-chapter="21">
+<div class="chapter-label">Chapter 21 • Premium</div>
+<h2>The Rumour That Hurt</h2>
+<p>Kisi ne Romeo ko kaha ki Juliet ne kabhi usse seriously liya hi nahi. Ye baat uske dil mein chubhi. Lekin usne purani memories yaad ki—woh smiles, woh conversations, woh care. Shayad sab kuch forever nahi tha, par jo moments real the unhe fake kehna bhi unfair tha.</p>
+</article>
+<article class="chapter locked" id="chapter-22" data-chapter="22">
+<div class="chapter-label">Chapter 22 • Premium</div>
+<h2>A Friend Named Kabir</h2>
+<p>Kabir ne Romeo ko ek shaam chup baitha dekha. Usne lecture nahi diya. Bas paas baithkar kaha, “Bhai, tu usse miss karta hai. Iska matlab ye nahi ki tujhe wapas jaana hai.” Romeo ki aankhon mein aansu aa gaye. Kabhi-kabhi healing ka first step solution nahi, ek samajhne wala dost hota hai.</p>
+</article>
+<article class="chapter locked" id="chapter-23" data-chapter="23">
+<div class="chapter-label">Chapter 23 • Premium</div>
+<h2>The First Morning Without Checking</h2>
+<p>Ek subah Romeo utha aur phone check kiye bina chai peene chala gaya. Ye bahut chhoti baat thi, lekin uske liye victory thi. Usne realize kiya ki healing dramatic nahi hoti. Kabhi-kabhi healing bas itni hoti hai ki tum ek din apni subah kisi aur ke message ka wait kiye bina start kar dete ho.</p>
+</article>
+<article class="chapter locked" id="chapter-24" data-chapter="24">
+<div class="chapter-label">Chapter 24 • Premium</div>
+<h2>The Exam</h2>
+<p>Exams paas aa gaye. Romeo ke marks gir rahe the. Kabir ne uski books kholi aur bola, “Jo hua woh tera past hai. Ye paper tera future hai.” Romeo ne padhai shuru ki. Har page ke saath uska mind thoda clear hota gaya. Dard gaya nahi tha, par ab dard uski poori identity nahi tha.</p>
+</article>
+<article class="chapter locked" id="chapter-25" data-chapter="25">
+<div class="chapter-label">Chapter 25 • Premium</div>
+<h2>The Photograph</h2>
+<p>Purani class photo Romeo ko notebook ke beech mili. Us photo mein Juliet door khadi smile kar rahi thi aur Romeo camera ki taraf awkward sa dekh raha tha. Usne photo ko phaadha nahi. Usne use ek envelope mein rakha aur likha: “A memory, not a destination.”</p>
+</article>
+<article class="chapter locked" id="chapter-26" data-chapter="26">
+<div class="chapter-label">Chapter 26 • Premium</div>
+<h2>Three Months Later</h2>
+<p>Teen mahine beet gaye. Romeo ab bhi kabhi-kabhi Juliet ko yaad karta tha, lekin har yaad ke baad uska din rukta nahi tha. Usne cycling, studies aur apne future par focus karna shuru kar diya. Dard ab bhi tha, bas uske saath chalna seekh gaya tha.</p>
+</article>
+<article class="chapter locked" id="chapter-27" data-chapter="27">
+<div class="chapter-label">Chapter 27 • Premium</div>
+<h2>The Message</h2>
+<p>Ek shaam phone vibrate hua. Juliet ka message tha: “Can we talk?” Romeo ka heart suddenly fast ho gaya. Purani feelings ek second mein wapas aa gayi. Usne phone table par rakha, deep breath li aur socha—reply karna zaroori nahi hota, sirf isliye kyunki message aaya hai.</p>
+</article>
+<article class="chapter locked" id="chapter-28" data-chapter="28">
+<div class="chapter-label">Chapter 28 • Premium</div>
+<h2>The Call</h2>
+<p>Romeo ne call accept ki. Dono kuch seconds silent rahe. Juliet ne kaha, “I know I hurt you.” Romeo ne jawab diya, “Haan.” Bas ek word. Usne apna pain explain karne ke liye drama nahi kiya. Juliet ko pehli baar samajh aaya ki Romeo ka silence anger nahi, exhaustion tha.</p>
+</article>
+<article class="chapter locked" id="chapter-29" data-chapter="29">
+<div class="chapter-label">Chapter 29 • Premium</div>
+<h2>The Truth Begins</h2>
+<p>Juliet ne bataya ki usne Romeo se distance isliye banaya kyunki usse lagta tha Romeo ki simple life aur uske ambitious plans ek saath nahi chal payenge. Ye reason Romeo ko hurt kar gaya, lekin usne samjha ki kabhi-kabhi log kisi ko chhodte waqt khud bhi confused hote hain.</p>
+</article>
+<article class="chapter locked" id="chapter-30" data-chapter="30">
+<div class="chapter-label">Chapter 30 • Premium</div>
+<h2>Family Pressure</h2>
+<p>Juliet ne family expectations aur future ko lekar apna pressure share kiya. Romeo ne suna. Pehle woh chahta tha ki Juliet koi aisa reason de jisse woh usse hate kar sake. Ab usse samajh aaya ki closure hamesha villain dhoondhne se nahi milta. Kabhi-kabhi closure bas reality ko accept karne se milta hai.</p>
+</article>
+<article class="chapter locked" id="chapter-31" data-chapter="31">
+<div class="chapter-label">Chapter 31 • Premium</div>
+<h2>The Mistake</h2>
+<p>Juliet ne kaha, “Maine tumhe explain kiye bina chhod diya. That was my mistake.” Romeo ki aankhon mein aansu aa gaye. Usse apology chahiye thi, lekin apology ke baad bhi past wapas nahi aa raha tha. Usne samjha—sorry kabhi-kabhi wound ko close karta hai, par calendar ko reverse nahi karta.</p>
+</article>
+<article class="chapter locked" id="chapter-32" data-chapter="32">
+<div class="chapter-label">Chapter 32 • Premium</div>
+<h2>Arjun's Side</h2>
+<p>Romeo ko baad mein pata chala ki Arjun bhi situation ko perfect nahi samajhta tha. Usne Romeo ke baare mein kabhi bura nahi kaha. Romeo ne feel kiya ki teen logon ki story ko “good person vs bad person” banana easy tha, lekin reality sabse zyada complicated thi.</p>
+</article>
+<article class="chapter locked" id="chapter-33" data-chapter="33">
+<div class="chapter-label">Chapter 33 • Premium</div>
+<h2>The Second Goodbye</h2>
+<p>Call ke end par Juliet ne poocha, “Can we still be friends?” Romeo ne bahut der socha. Phir kaha, “Maybe someday, but abhi mujhe distance chahiye.” Ye second goodbye pehle se zyada mature tha. Is baar Romeo kisi ko lose nahi kar raha tha. Woh khud ko choose kar raha tha.</p>
+</article>
+<article class="chapter locked" id="chapter-34" data-chapter="34">
+<div class="chapter-label">Chapter 34 • Premium</div>
+<h2>What Romeo Wanted</h2>
+<p>Raat ko Romeo ne diary mein likha: “Main chahta tha woh mujhe choose kare. Ab main chahta hoon ki main khud ko choose karun.” Us sentence ko likhte waqt uske haath kaanp rahe the. Lekin usne page nahi phaadha. Usne usse apne bed ke paas rakh diya.</p>
+</article>
+<article class="chapter locked" id="chapter-35" data-chapter="35">
+<div class="chapter-label">Chapter 35 • Premium</div>
+<h2>The Unsent Letter</h2>
+<p>Romeo ne Juliet ke naam ek long letter likha. Usme blame kam aur gratitude zyada tha. “Thank you for the good days. I wish they had lasted longer. But I don't want to spend my whole life standing at the door of a chapter that already ended.” Letter kabhi send nahi hua.</p>
+<div class="story-img"><img src="story-romeo.png" alt="Sad Romeo — The letter Romeo never sent"><div class="caption">Romeo • The letter Romeo never sent</div></div>
+</article>
+<article class="chapter locked" id="chapter-36" data-chapter="36">
+<div class="chapter-label">Chapter 36 • Premium</div>
+<h2>Juliet's Regret</h2>
+<p>Juliet bhi kabhi-kabhi old chats dekhti thi. Usse regret tha ki usne Romeo ko proper goodbye nahi diya. Lekin regret ka matlab ye nahi tha ki past ko repeat karna sahi hota. Usne bhi seekha ki kisi ke dil ko confuse karke apni uncertainty solve nahi karni chahiye.</p>
+</article>
+<article class="chapter locked" id="chapter-37" data-chapter="37">
+<div class="chapter-label">Chapter 37 • Premium</div>
+<h2>The Road Home</h2>
+<p>Ek Sunday Romeo apne gaon ke us raaste par cycle chala raha tha jahan se school jaata tha. Pehle har turn Juliet ki memory laata tha. Ab usi road par hawa thodi alag lagi. Usne realize kiya ki memories places ko permanently own nahi karti. Time un jagahon ko wapas tumhara bana deta hai.</p>
+</article>
+<article class="chapter locked" id="chapter-38" data-chapter="38">
+<div class="chapter-label">Chapter 38 • Premium</div>
+<h2>The Festival</h2>
+<p>Gaon ke festival mein Romeo ne pehli baar bina phone check kiye poora evening enjoy ki. Music, lights, friends aur family ke beech usne khud ko present feel kiya. Kabir ne kaha, “Bhai, tu wapas aa gaya.” Romeo hasa. “Nahi. Main pehli baar khud ke paas aaya hoon.”</p>
+</article>
+<article class="chapter locked" id="chapter-39" data-chapter="39">
+<div class="chapter-label">Chapter 39 • Premium</div>
+<h2>A Different Romeo</h2>
+<p>Romeo ab bhi emotional tha, lekin ab woh har emotion ko action nahi banata tha. Missing someone no longer meant texting them. Sadness no longer meant giving up. Usne seekha ki strong hone ka matlab stone-hearted hona nahi. Strong hone ka matlab feelings ke saath bhi right decision lena hai.</p>
+</article>
+<article class="chapter locked" id="chapter-40" data-chapter="40">
+<div class="chapter-label">Chapter 40 • Premium</div>
+<h2>A Different Juliet</h2>
+<p>Juliet bhi badal rahi thi. Usne apne decisions ko honestly dekhna shuru kiya. Usse samajh aaya ki kisi ke simple hone ko less samajhna galat tha. Romeo ne usse maaf kiya, lekin forgiveness ko relationship ka ticket nahi banaya. Dono ne apni-apni direction accept ki.</p>
+</article>
+<article class="chapter locked" id="chapter-41" data-chapter="41">
+<div class="chapter-label">Chapter 41 • Premium</div>
+<h2>One Last Conversation</h2>
+<p>Ek final conversation hui. Juliet ne kaha, “I hope you become everything you once told me you wanted to be.” Romeo ne smile karke kaha, “I hope you do too.” Dono ke beech silence aaya. Is baar silence uncomfortable nahi tha. It felt like an ending that had finally been allowed to end.</p>
+</article>
+<article class="chapter locked" id="chapter-42" data-chapter="42">
+<div class="chapter-label">Chapter 42 • Premium</div>
+<h2>The Question</h2>
+<p>Romeo ne khud se poocha, “Agar woh kal wapas aa jaye to?” Uska answer simple tha: “Main pehle dekhunga ki main kya chahta hoon.” Pehle uski life ka answer Juliet ke around revolve karta tha. Ab uske questions ka center woh khud tha.</p>
+</article>
+<article class="chapter locked" id="chapter-43" data-chapter="43">
+<div class="chapter-label">Chapter 43 • Premium</div>
+<h2>The Answer</h2>
+<p>Usse samajh aa gaya ki love ka opposite hate nahi hota. Kabhi-kabhi love ka opposite indifference bhi nahi—bas acceptance hota hai. Romeo Juliet ko bad wishes nahi de sakta tha, aur na hi dena chahta tha. Usne bas apni life ko uske bina continue karna seekh liya.</p>
+</article>
+<article class="chapter locked" id="chapter-44" data-chapter="44">
+<div class="chapter-label">Chapter 44 • Premium</div>
+<h2>No Revenge</h2>
+<p>Romeo ke paas chances the ki woh Juliet ko hurt karne ke liye stories, rumours ya angry messages use kare. Usne kuch nahi kiya. Usne decide kiya ki heartbreak ko revenge mein convert karna healing nahi hota. Uski sabse badi response ye thi ki woh apni life ko better banata rahe.</p>
+</article>
+<article class="chapter locked" id="chapter-45" data-chapter="45">
+<div class="chapter-label">Chapter 45 • Premium</div>
+<h2>The New Dream</h2>
+<p>Romeo ne apne future ke liye naya goal set kiya. Usne studies par focus kiya, naye skills seekhe aur apne parents ke sapnon ko bhi seriously lena shuru kiya. Uski diary mein ab sirf Juliet ka naam nahi tha. Pages mein uske khud ke dreams bharne lage.</p>
+</article>
+<article class="chapter locked" id="chapter-46" data-chapter="46">
+<div class="chapter-label">Chapter 46 • Premium</div>
+<h2>The Old Photograph</h2>
+<p>Ek saal baad Romeo ko wahi old photograph mili. Is baar usne use dekha aur smile ki. Dard bilkul zero nahi tha, lekin woh dard usse control nahi kar raha tha. Usne photo ko diary ke last pages mein rakha. Memories ko erase karna zaroori nahi tha; unhe unki jagah dena zaroori tha.</p>
+</article>
+<article class="chapter locked" id="chapter-47" data-chapter="47">
+<div class="chapter-label">Chapter 47 • Premium</div>
+<h2>The Last Message</h2>
+<p>Phone par Juliet ka ek final message aaya: “I am happy you are doing well. Take care.” Romeo ne reply kiya: “You too. Be well.” Bas itna. No long paragraph. No old promises. No “I miss you.” Kuch chapters ko beautiful ending ke liye extra words ki zarurat nahi hoti.</p>
+</article>
+<article class="chapter locked" id="chapter-48" data-chapter="48">
+<div class="chapter-label">Chapter 48 • Premium</div>
+<h2>The Empty Page</h2>
+<p>Romeo ne diary kholi. Ek completely blank page tha. Pehle blank page use scary lagta tha. Ab nahi. Usne pen uthaya. Usne socha, “Pehle main har page mein uski story likhta tha. Ab main apni story likhunga.” Blank page suddenly freedom jaisa lagne laga.</p>
+</article>
+<article class="chapter locked" id="chapter-49" data-chapter="49">
+<div class="chapter-label">Chapter 49 • Premium</div>
+<h2>The Story Was Never About Losing Her</h2>
+<p>Romeo ne finally samjha ki uski story sirf Juliet ko lose karne ki story nahi thi. Ye us ladke ki story thi jo kisi ko poori sincerity se chahta tha, toot gaya, confused hua, roka nahi, seekha aur phir dheere-dheere khud ko wapas paaya.</p>
+</article>
+<article class="chapter locked" id="chapter-50" data-chapter="50">
+<div class="chapter-label">Chapter 50 • Premium</div>
+<h2>The Next Chapter</h2>
+<p>Chapter 50 par Romeo ne diary mein likha: “The End.” Phir kuch seconds baad usne uske neeche likha: “Not the end of me.” Usne diary close ki, window kholi aur subah ki light ko dekha. Juliet uski story ka ek chapter thi. Puri book nahi. Romeo ne pen uthaya aur naye page par likha—“Chapter 51: Me.”</p>
+<div class="story-img"><img src="story-romeo.png" alt="Sad Romeo — The last page"><div class="caption">Romeo • The last page</div></div>
+</article>
 
-  <main>
-    
-      <article class="chapter" data-chapter="1">
-        <div class="chapter-label">Chapter 01 • Free</div>
-        <h2>The First Bell</h2>
-        <p>Class 11 ka pehla din tha. Romeo back bench ke paas khada apni notebook set kar raha tha, jab Juliet ne usse ek pen maanga. Chhoti si baat thi, lekin us din se dono ki roz ki conversation shuru ho gayi.</p>
-      </article>
-    
-      <article class="chapter" data-chapter="2">
-        <div class="chapter-label">Chapter 02 • Free</div>
-        <h2>The Seat Beside Her</h2>
-        <p>Agli kuch hafton mein seat badalti rahi, lekin unki dosti nahi. Notes share karna, lunch ka aadha hissa dena aur school gate tak saath chalna unki routine ban gaya.</p>
-      </article>
-    
-      <article class="chapter" data-chapter="3">
-        <div class="chapter-label">Chapter 03 • Free</div>
-        <h2>Kal Bhi Miloge?</h2>
-        <p>Ek shaam Juliet ne message kiya, “Kal school aaoge na?” Romeo muskura diya. Dono ko ab samajh aa raha tha ki friendship ke andar kuch aur bhi grow kar raha hai.</p>
-      </article>
-    
-      <article class="chapter locked" data-chapter="4">
-        <div class="chapter-label">Chapter 04 • Premium</div>
-        <h2>The First Promise</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="5">
-        <div class="chapter-label">Chapter 05 • Premium</div>
-        <h2>Different Worlds</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="6">
-        <div class="chapter-label">Chapter 06 • Premium</div>
-        <h2>A Summer of Messages</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="7">
-        <div class="chapter-label">Chapter 07 • Premium</div>
-        <h2>The New Distance</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="8">
-        <div class="chapter-label">Chapter 08 • Premium</div>
-        <h2>Late Replies</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="9">
-        <div class="chapter-label">Chapter 09 • Premium</div>
-        <h2>The New Boy</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="10">
-        <div class="chapter-label">Chapter 10 • Premium</div>
-        <h2>The First Lie</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="11">
-        <div class="chapter-label">Chapter 11 • Premium</div>
-        <h2>Unread</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="12">
-        <div class="chapter-label">Chapter 12 • Premium</div>
-        <h2>The Empty Bench</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="13">
-        <div class="chapter-label">Chapter 13 • Premium</div>
-        <h2>Rumours</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="14">
-        <div class="chapter-label">Chapter 14 • Premium</div>
-        <h2>The Question</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="15">
-        <div class="chapter-label">Chapter 15 • Premium</div>
-        <h2>The Choice</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="16">
-        <div class="chapter-label">Chapter 16 • Premium</div>
-        <h2>No Goodbye</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="17">
-        <div class="chapter-label">Chapter 17 • Premium</div>
-        <h2>The Long Ride Home</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="18">
-        <div class="chapter-label">Chapter 18 • Premium</div>
-        <h2>The Deleted Chat</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="19">
-        <div class="chapter-label">Chapter 19 • Premium</div>
-        <h2>Arjun</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="20">
-        <div class="chapter-label">Chapter 20 • Premium</div>
-        <h2>The Birthday</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="21">
-        <div class="chapter-label">Chapter 21 • Premium</div>
-        <h2>The Rumour That Hurt</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="22">
-        <div class="chapter-label">Chapter 22 • Premium</div>
-        <h2>A Friend Named Kabir</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="23">
-        <div class="chapter-label">Chapter 23 • Premium</div>
-        <h2>The First Morning Without Checking</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="24">
-        <div class="chapter-label">Chapter 24 • Premium</div>
-        <h2>The Exam</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="25">
-        <div class="chapter-label">Chapter 25 • Premium</div>
-        <h2>The Photograph</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="26">
-        <div class="chapter-label">Chapter 26 • Premium</div>
-        <h2>Three Months Later</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="27">
-        <div class="chapter-label">Chapter 27 • Premium</div>
-        <h2>The Message</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="28">
-        <div class="chapter-label">Chapter 28 • Premium</div>
-        <h2>The Call</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="29">
-        <div class="chapter-label">Chapter 29 • Premium</div>
-        <h2>The Truth Begins</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="30">
-        <div class="chapter-label">Chapter 30 • Premium</div>
-        <h2>Family Pressure</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="31">
-        <div class="chapter-label">Chapter 31 • Premium</div>
-        <h2>The Mistake</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="32">
-        <div class="chapter-label">Chapter 32 • Premium</div>
-        <h2>Arjun&#x27;s Side</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="33">
-        <div class="chapter-label">Chapter 33 • Premium</div>
-        <h2>The Second Goodbye</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="34">
-        <div class="chapter-label">Chapter 34 • Premium</div>
-        <h2>What Romeo Wanted</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="35">
-        <div class="chapter-label">Chapter 35 • Premium</div>
-        <h2>The Unsent Letter</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="36">
-        <div class="chapter-label">Chapter 36 • Premium</div>
-        <h2>Juliet&#x27;s Regret</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="37">
-        <div class="chapter-label">Chapter 37 • Premium</div>
-        <h2>The Road Home</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="38">
-        <div class="chapter-label">Chapter 38 • Premium</div>
-        <h2>The Festival</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="39">
-        <div class="chapter-label">Chapter 39 • Premium</div>
-        <h2>A Different Romeo</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="40">
-        <div class="chapter-label">Chapter 40 • Premium</div>
-        <h2>A Different Juliet</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="41">
-        <div class="chapter-label">Chapter 41 • Premium</div>
-        <h2>One Last Conversation</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="42">
-        <div class="chapter-label">Chapter 42 • Premium</div>
-        <h2>The Question</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="43">
-        <div class="chapter-label">Chapter 43 • Premium</div>
-        <h2>The Answer</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="44">
-        <div class="chapter-label">Chapter 44 • Premium</div>
-        <h2>No Revenge</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="45">
-        <div class="chapter-label">Chapter 45 • Premium</div>
-        <h2>The New Dream</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="46">
-        <div class="chapter-label">Chapter 46 • Premium</div>
-        <h2>The Old Photograph</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="47">
-        <div class="chapter-label">Chapter 47 • Premium</div>
-        <h2>The Last Message</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="48">
-        <div class="chapter-label">Chapter 48 • Premium</div>
-        <h2>The Empty Page</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="49">
-        <div class="chapter-label">Chapter 49 • Premium</div>
-        <h2>The Story Was Never About Losing Her</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-      <article class="chapter locked" data-chapter="50">
-        <div class="chapter-label">Chapter 50 • Premium</div>
-        <h2>The Next Chapter</h2>
-        
-        <div class="chapter-lock">
-          <span>🔒</span>
-          <div>
-            <strong>Premium chapter</strong>
-            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
-          </div>
-        </div>
-        
-      </article>
-    
-  </main>
+</main>
 
-  <section class="premium-gate" id="premiumGate">
-    <h2>There are 47 chapters left… 🔒</h2>
-    <p>The next chapter changes the story completely. Unlock Chapters 04–50 with MoveOn Premium.</p>
-    <a class="btn" href="premium.html?required=story&return=story-premium.html">Unlock Premium ₹49/month</a>
-    <div class="small">Premium access is checked from your MoveOn account.</div>
-  </section>
+<section class="gate" id="premiumGate">
+<h2>Chapters 04–50 are waiting. 🔒</h2>
+<p>Premium unlocks the complete emotional journey of Romeo — all the way to Chapter 50.</p>
+<a class="btn" href="premium.html?required=story&return=story-premium.html%23chapter-4">Unlock Premium ₹49/month</a>
+<div style="font-size:12px;opacity:.72;margin-top:10px">Premium is checked from your MoveOn account.</div>
+</section>
 
-  <footer>MoveOn • Heal. Grow. Move forward. 🌱</footer>
+<section class="ending" id="ending">
+<h2>The End. 🌙</h2>
+<p>Romeo's story ends at Chapter 50. What comes after that is no longer about Juliet — it is about the life he chooses for himself.</p>
+</section>
+
+<footer>MoveOn • Heal. Grow. Move forward. 🌱</footer>
 </div>
 
 <script type="module">
-import { auth } from "./firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-const statusText = document.getElementById("statusText");
-const errorBox = document.getElementById("errorBox");
-const progressBar = document.getElementById("progressBar");
+const firebaseConfig = {
+  apiKey: "AIzaSyC2xqSeAK7U0uDVzpbSo0EAw3ZtMsPYRZg",
+  authDomain: "moveon-e431b.firebaseapp.com",
+  databaseURL: "https://moveon-e431b-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "moveon-e431b",
+  storageBucket: "moveon-e431b.firebasestorage.app",
+  messagingSenderId: "692148707719",
+  appId: "1:692148707719:web:ca9a7acfe4edbb9286f322",
+  measurementId: "G-KX88FX2G7J"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
+
 const gate = document.getElementById("premiumGate");
+const statusText = document.getElementById("statusText");
+const progressBar = document.getElementById("progressBar");
+const errorBox = document.getElementById("errorBox");
+const ending = document.getElementById("ending");
 
-function showPremium() {
-  document.querySelectorAll(".locked").forEach(el => el.style.display = "block");
-  gate.style.display = "none";
-  progressBar.style.width = "100%";
-  statusText.textContent = "Premium active • Chapters 01–50 unlocked";
-}
-
-function showFree() {
+function showFree(){
   document.querySelectorAll(".locked").forEach(el => el.style.display = "none");
   gate.style.display = "block";
+  ending.style.display = "none";
   progressBar.style.width = "6%";
   statusText.textContent = "Free access • Chapters 01–03 unlocked";
 }
 
-async function checkPremium(user) {
-  if (!user) {
-    showFree();
-    return;
-  }
-  try {
-    const token = await user.getIdToken(true);
-    const res = await fetch("/api/premium/status", {
-      headers: { Authorization: "Bearer " + token }
-    });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok && data.active === true) {
+function showPremium(){
+  document.querySelectorAll(".locked").forEach(el => el.style.display = "block");
+  gate.style.display = "none";
+  ending.style.display = "block";
+  progressBar.style.width = "100%";
+  statusText.textContent = "Premium active • Chapters 01–50 unlocked";
+}
+
+async function checkPremium(user){
+  if(!user){ showFree(); return; }
+  try{
+    const snap = await get(ref(database, `users/${user.uid}/premium`));
+    const p = snap.exists() ? (snap.val() || {}) : {};
+    const active = p.active === true;
+    const expiresAt = Number(p.expiresAt || 0);
+    const valid = active && (!expiresAt || expiresAt > Date.now());
+
+    if(valid){
       showPremium();
-    } else {
+      if(location.hash === "#chapter-4"){
+        setTimeout(() => document.getElementById("chapter-4")?.scrollIntoView({behavior:"smooth",block:"start"}), 150);
+      }
+    }else{
       showFree();
     }
-  } catch (e) {
+  }catch(e){
+    console.error("Premium check failed:", e);
     showFree();
     errorBox.style.display = "block";
-    errorBox.textContent = "Premium status could not be checked right now. Free chapters are still available.";
+    errorBox.textContent = "Premium status could not be checked. Please refresh after payment.";
   }
 }
 
