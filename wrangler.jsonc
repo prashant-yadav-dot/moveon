@@ -3,6 +3,7 @@
   "name": "moveon",
   "main": "./worker.js",
   "compatibility_date": "2026-09-08",
+  "triggers": { "crons": ["0 * * * *"] },
   "assets": {
     "directory": "./Moveon",
     "binding": "ASSETS",
