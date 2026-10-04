@@ -473,9 +473,9 @@
         .companion-float {
             position: fixed;
             right: 18px;
-            bottom: 200px;
+            bottom: 120px;
             width: 64px;
-            height: 209px;
+            height: 64px;
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(135deg,#6c63ff,#b49cff);
@@ -796,7 +796,15 @@
             }
         }
 
-    </style>
+    
+/* Independent floating controls */
+.companion-float{bottom:120px !important; right:18px !important;}
+.language-float, .language-switcher, .lang-float, #languageFloat{bottom:24px !important; right:18px !important;}
+@media(max-width:600px){
+  .companion-float{bottom:125px !important; right:14px !important;}
+  .language-float, .language-switcher, .lang-float, #languageFloat{bottom:18px !important; right:14px !important;}
+}
+</style>
 
 </head>
 
@@ -2442,7 +2450,7 @@ function(message) {
 
 <script>
 function openStoryPremium(){
-    window.location.href = "premium.html?required=story&return=story-premium.html";
+    window.location.href = "story-premium.html#chapter-4";
 }
 </script>
 
