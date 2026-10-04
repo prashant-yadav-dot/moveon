@@ -580,6 +580,222 @@
             }
         }
 
+
+
+        /* ==================================================
+           THE UNFINISHED LOVE STORY — BOTTOM STORY
+           Added without changing existing MoveOn features.
+           ================================================== */
+
+        .story-section {
+            margin-top: 28px;
+            padding-bottom: 8px;
+        }
+
+        .story-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #151327;
+            color: #fff;
+            box-shadow: 0 16px 45px rgba(35, 28, 75, .20);
+            border: 1px solid rgba(139, 125, 255, .22);
+        }
+
+        .story-hero-wrap {
+            position: relative;
+            min-height: 245px;
+            overflow: hidden;
+            background: #18152c;
+        }
+
+        .story-hero-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(12,10,25,.86) 0%, rgba(12,10,25,.40) 48%, rgba(12,10,25,.12) 100%);
+            pointer-events: none;
+        }
+
+        .story-hero-image {
+            width: 100%;
+            height: 245px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .story-kicker {
+            position: absolute;
+            left: 18px;
+            top: 18px;
+            z-index: 2;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.14);
+            border: 1px solid rgba(255,255,255,.20);
+            backdrop-filter: blur(8px);
+            font-size: 10px;
+            letter-spacing: .4px;
+        }
+
+        .story-hero-copy {
+            position: absolute;
+            z-index: 2;
+            left: 18px;
+            right: 28%;
+            bottom: 20px;
+        }
+
+        .story-hero-copy h3 {
+            font-size: 24px;
+            line-height: 1.1;
+            margin-bottom: 7px;
+            font-family: Georgia, serif;
+        }
+
+        .story-hero-copy p {
+            font-size: 11px;
+            line-height: 1.55;
+            color: rgba(255,255,255,.86);
+            margin: 0;
+        }
+
+        .story-body {
+            padding: 18px;
+            background: linear-gradient(180deg, #19162e 0%, #111022 100%);
+        }
+
+        .story-intro {
+            font-size: 13px;
+            line-height: 1.7;
+            color: rgba(255,255,255,.82);
+            margin-bottom: 14px;
+        }
+
+        .story-chapter {
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 18px;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .story-chapter-label {
+            color: #bdb4ff;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            margin-bottom: 6px;
+        }
+
+        .story-chapter h4 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .story-chapter p {
+            color: rgba(255,255,255,.78);
+            font-size: 12px;
+            line-height: 1.72;
+        }
+
+        .story-character-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .story-character {
+            overflow: hidden;
+            border-radius: 16px;
+            background: #24203c;
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .story-character img {
+            width: 100%;
+            height: 135px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .story-character span {
+            display: block;
+            padding: 8px 10px;
+            font-size: 11px;
+            color: rgba(255,255,255,.72);
+        }
+
+        .story-cliffhanger {
+            margin-top: 14px;
+            padding: 16px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(108,99,255,.24), rgba(180,156,255,.10));
+            border: 1px solid rgba(180,156,255,.28);
+            text-align: center;
+        }
+
+        .story-cliffhanger .lock {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .story-cliffhanger h4 {
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .story-cliffhanger p {
+            font-size: 11px;
+            line-height: 1.6;
+            color: rgba(255,255,255,.76);
+        }
+
+        .story-premium-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 13px 16px;
+            border-radius: 14px;
+            color: #fff;
+            font-weight: 800;
+            font-size: 13px;
+            background: linear-gradient(135deg, #6c63ff, #a68cff);
+            box-shadow: 0 9px 22px rgba(108,99,255,.30);
+        }
+
+        .story-premium-btn:active {
+            transform: scale(.985);
+        }
+
+        .story-premium-note {
+            text-align: center;
+            color: rgba(255,255,255,.50);
+            font-size: 9px;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 400px) {
+            .story-hero-wrap,
+            .story-hero-image {
+                height: 230px;
+                min-height: 230px;
+            }
+
+            .story-hero-copy {
+                right: 22%;
+            }
+
+            .story-hero-copy h3 {
+                font-size: 21px;
+            }
+
+            .story-character img {
+                height: 120px;
+            }
+        }
+
     </style>
 
 </head>
@@ -984,6 +1200,123 @@
         </p>
 
     </div>
+
+
+    <!-- ==================================================
+         THE UNFINISHED LOVE STORY
+         This section is intentionally added at the bottom.
+         Existing MoveOn sections and logic remain unchanged.
+         ================================================== -->
+
+    <section class="story-section" aria-label="The Unfinished Love Story">
+
+        <div class="section-title">
+            <h2>One story before you go... 🌙</h2>
+            <span>Read • Feel • Wonder</span>
+        </div>
+
+        <div class="story-card">
+
+            <div class="story-hero-wrap">
+                <img
+                    class="story-hero-image"
+                    src="story-hero.png"
+                    alt="The Unfinished Love Story">
+
+                <div class="story-kicker">A FICTIONAL MOVEON STORY</div>
+
+                <div class="story-hero-copy">
+                    <h3>The Unfinished Love Story</h3>
+                    <p>
+                        Two students. One first love. One choice that changed everything.
+                    </p>
+                </div>
+            </div>
+
+            <div class="story-body">
+
+                <p class="story-intro">
+                    Romeo aur Juliet ek hi school mein padhte the. Class 11 mein shuru hui
+                    ek simple si dosti dheere-dheere unki pehli mohabbat ban gayi.
+                    Lekin kuch love stories mein problem pyaar nahi hota... problem hoti hai
+                    ki duniya un dono ko alag nazar se dekhne lagti hai.
+                </p>
+
+                <div class="story-chapter">
+                    <div class="story-chapter-label">Chapter 01 • Class 11</div>
+                    <h4>“Kal bhi miloge?” 💜</h4>
+                    <p>
+                        School ke corridor mein roz ki chhoti-chhoti baatein, shared lunch,
+                        homework ke bahane chats aur woh ek message — “Ghar pahunch gaye?”
+                        Romeo ko samajh aa gaya tha ki ye sirf friendship nahi rahi.
+                        Juliet bhi usse utna hi chahti thi. Dono ne bina bade promises ke
+                        ek doosre ko choose kar liya.
+                    </p>
+                </div>
+
+                <div class="story-character-grid">
+                    <div class="story-character">
+                        <img src="story-romeo.png" alt="Fictional Romeo character">
+                        <span>Romeo — simple, emotional, village boy</span>
+                    </div>
+                    <div class="story-character">
+                        <img src="story-juliet.png" alt="Fictional Juliet character">
+                        <span>Juliet — ambitious, confident, city-school girl</span>
+                    </div>
+                </div>
+
+                <div class="story-chapter">
+                    <div class="story-chapter-label">Chapter 02 • The Distance</div>
+                    <h4>“Tum gaon se ho...”</h4>
+                    <p>
+                        Romeo gaon mein rehta tha. Uske paas bade kapde, expensive bike ya
+                        fancy weekends nahi the — bas apna sachcha dil tha. Kuch mahino baad
+                        Juliet ke messages kam hone lage. Replies late aaye. Calls chhoti ho gayi.
+                        Romeo har baar khud ko samjhata raha: “Shayad woh busy hogi.”
+                    </p>
+                </div>
+
+                <div class="story-chapter">
+                    <div class="story-chapter-label">Chapter 03 • The Betrayal</div>
+                    <h4>“Usne kisi aur ko choose kar liya.”</h4>
+                    <p>
+                        Phir Romeo ko pata chala ki Juliet ne usi school ke ek naye ladke ko
+                        apna boyfriend bana liya tha. Romeo ko explanation se zyada silence mila.
+                        Jis insaan ke saath usne apna future imagine kiya tha, wahi use peeche
+                        chhod kar aage badh chuki thi. Romeo ne na drama kiya, na badla liya —
+                        bas har raat apne phone ki screen dekhta raha, shayad ek message aa jaye.
+                    </p>
+                </div>
+
+                <div class="story-cliffhanger">
+                    <div class="lock">🔒</div>
+                    <h4>But that wasn't the end...</h4>
+                    <p>
+                        Teen mahine baad, ek raat Romeo ke phone par Juliet ka message aaya:
+                        <br><br>
+                        <strong>“Romeo... mujhe tumse ek sach kehna hai.
+                        Jo tumne us din dekha tha, woh poori kahani nahi thi.”</strong>
+                        <br><br>
+                        Romeo ne message padha... aur uski ungli reply button par ruk gayi.
+                        <br><br>
+                        <em>Us raat Juliet ne aisa kya bataya tha jo sab kuch badal sakta tha?</em>
+                    </p>
+
+                    <button
+                        class="story-premium-btn"
+                        type="button"
+                        onclick="openStoryPremium()">
+                        🔓 Read the next chapter • Premium ₹49/month
+                    </button>
+
+                    <div class="story-premium-note">
+                        Continue the fictional story and discover what happened that night.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
 </main>
 
@@ -2105,6 +2438,12 @@ function(message) {
 
 };
 
+</script>
+
+<script>
+function openStoryPremium(){
+    window.location.href = "premium.html?required=story";
+}
 </script>
 
 <script src="emoji-sounds.js"></script>
