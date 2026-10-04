@@ -920,6 +920,7 @@ body{
 <script type="module">
 
 import { auth, database } from "./firebase-config.js";
+import { getPremiumStatus } from "./premium.js";
 
 import {
     onAuthStateChanged
@@ -942,6 +943,8 @@ let breathingInterval = null;
 let isRunning = false;
 
 let currentUser = null;
+let premiumActive = false;
+let freeCalmUsed = 0;
 
 
 /* Elements */
@@ -979,7 +982,9 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     currentUser = user;
-
+    const premium = await getPremiumStatus(user);
+    premiumActive = premium.active === true;
+    try { const usageSnap = await get(ref(database, `users/${user.uid}/usage/calmFreeUsed`)); freeCalmUsed = Number(usageSnap.val() || 0); } catch(e) { freeCalmUsed = 0; }
     await loadSessions();
 
 });
@@ -1037,6 +1042,12 @@ function startSession(){
 
         showToast("Please wait...");
 
+        return;
+    }
+
+    if (!premiumActive && freeCalmUsed >= 2) {
+        showToast("Your 2 free calm sessions are used. Unlock Premium to continue 💜");
+        setTimeout(() => { window.location.href = "premium.html?required=calm"; }, 700);
         return;
     }
 
@@ -1347,6 +1358,7 @@ async function saveCalmSession(){
 
 
         await loadSessions();
+        if (!premiumActive && freeCalmUsed < 2) { freeCalmUsed += 1; await set(ref(database, `users/${currentUser.uid}/usage/calmFreeUsed`), freeCalmUsed); }
 
         return true;
 
@@ -1515,5 +1527,6 @@ updateTimer();
 </script>
 
 <script src="emoji-sounds.js"></script>
+<script type="module" src="language.js"></script>
 </body>
 </html>
