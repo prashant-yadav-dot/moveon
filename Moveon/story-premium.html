@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Unfinished Love Story — MoveOn</title>
+<meta name="description" content="A fictional 50-chapter MoveOn story about first love, heartbreak, regret, closure and choosing yourself.">
+<style>
+:root {
+  --purple:#6c63ff; --deep:#4037b5; --ink:#24213a; --muted:#6d6a80;
+  --soft:#f5f2ff; --card:#ffffff; --line:#ece8fb;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(180deg,#faf9ff,#f3efff);color:var(--ink);line-height:1.7}
+.wrap{width:min(820px,92%);margin:auto}
+.top{padding:28px 0 12px}
+.back{display:inline-block;text-decoration:none;color:var(--purple);font-weight:700;margin-bottom:14px}
+.hero{background:linear-gradient(135deg,#5c52dc,#8a7cff);color:white;border-radius:28px;padding:34px 26px;margin-bottom:22px;box-shadow:0 20px 50px rgba(79,67,180,.2)}
+.badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:6px 11px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em}
+h1{font-size:clamp(30px,7vw,52px);line-height:1.05;margin:16px 0 10px}
+.hero p{margin:0;opacity:.92}
+.notice{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin:18px 0;color:var(--muted)}
+.progress{height:9px;background:#e9e5fb;border-radius:999px;overflow:hidden;margin-top:10px}
+.progress span{display:block;width:6%;height:100%;background:linear-gradient(90deg,#6c63ff,#a59cff);border-radius:999px}
+.chapter{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px 22px;margin:16px 0;box-shadow:0 8px 30px rgba(70,58,130,.06)}
+.chapter-label{color:var(--purple);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.chapter h2{margin:5px 0 10px;font-size:25px;line-height:1.2}
+.chapter p{margin:0;color:#57536b}
+.locked{display:none}
+.premium-gate{margin:28px 0 50px;padding:30px 22px;border-radius:26px;background:linear-gradient(135deg,#29234f,#5b4bd5);color:white;text-align:center;box-shadow:0 18px 50px rgba(50,40,130,.22)}
+.premium-gate h2{margin:0 0 8px;font-size:28px}
+.premium-gate p{opacity:.9}
+.btn{display:inline-block;border:0;border-radius:14px;padding:14px 20px;background:white;color:#4037b5;text-decoration:none;font-weight:900;cursor:pointer;margin-top:10px}
+.small{font-size:12px;opacity:.72;margin-top:12px}
+.status{font-size:13px;color:var(--muted)}
+.error{padding:18px;background:#fff0f0;border:1px solid #ffd0d0;border-radius:16px;color:#9b2c2c;display:none;margin:15px 0}
+footer{padding:30px 0 50px;text-align:center;color:#77728a;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="home.html">← Back to MoveOn</a>
+  </div>
+
+  <section class="hero">
+    <span class="badge">MOVEON • FICTIONAL STORY</span>
+    <h1>The Unfinished Love Story</h1>
+    <p>50 chapters. One first love. One betrayal. One choice to finally choose yourself.</p>
+  </section>
+
+  <div class="notice">
+    <strong>Chapters 01–03 are free.</strong><br>
+    Chapters 04–50 are reserved for MoveOn Premium. The story is fictional and created for reflection and entertainment.
+    <div class="progress"><span id="progressBar"></span></div>
+    <div class="status" id="statusText">Checking your Premium access…</div>
+  </div>
+
+  <div id="errorBox" class="error"></div>
+
+  <main>
+    
+      <article class="chapter" data-chapter="1">
+        <div class="chapter-label">Chapter 01 • Free</div>
+        <h2>The First Bell</h2>
+        <p>Class 11 ka pehla din tha. Romeo back bench ke paas khada apni notebook set kar raha tha, jab Juliet ne usse ek pen maanga. Chhoti si baat thi, lekin us din se dono ki roz ki conversation shuru ho gayi.</p>
+      </article>
+    
+      <article class="chapter" data-chapter="2">
+        <div class="chapter-label">Chapter 02 • Free</div>
+        <h2>The Seat Beside Her</h2>
+        <p>Agli kuch hafton mein seat badalti rahi, lekin unki dosti nahi. Notes share karna, lunch ka aadha hissa dena aur school gate tak saath chalna unki routine ban gaya.</p>
+      </article>
+    
+      <article class="chapter" data-chapter="3">
+        <div class="chapter-label">Chapter 03 • Free</div>
+        <h2>Kal Bhi Miloge?</h2>
+        <p>Ek shaam Juliet ne message kiya, “Kal school aaoge na?” Romeo muskura diya. Dono ko ab samajh aa raha tha ki friendship ke andar kuch aur bhi grow kar raha hai.</p>
+      </article>
+    
+      <article class="chapter locked" data-chapter="4">
+        <div class="chapter-label">Chapter 04 • Premium</div>
+        <h2>The First Promise</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="5">
+        <div class="chapter-label">Chapter 05 • Premium</div>
+        <h2>Different Worlds</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="6">
+        <div class="chapter-label">Chapter 06 • Premium</div>
+        <h2>A Summer of Messages</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="7">
+        <div class="chapter-label">Chapter 07 • Premium</div>
+        <h2>The New Distance</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="8">
+        <div class="chapter-label">Chapter 08 • Premium</div>
+        <h2>Late Replies</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="9">
+        <div class="chapter-label">Chapter 09 • Premium</div>
+        <h2>The New Boy</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="10">
+        <div class="chapter-label">Chapter 10 • Premium</div>
+        <h2>The First Lie</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="11">
+        <div class="chapter-label">Chapter 11 • Premium</div>
+        <h2>Unread</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="12">
+        <div class="chapter-label">Chapter 12 • Premium</div>
+        <h2>The Empty Bench</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="13">
+        <div class="chapter-label">Chapter 13 • Premium</div>
+        <h2>Rumours</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="14">
+        <div class="chapter-label">Chapter 14 • Premium</div>
+        <h2>The Question</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="15">
+        <div class="chapter-label">Chapter 15 • Premium</div>
+        <h2>The Choice</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="16">
+        <div class="chapter-label">Chapter 16 • Premium</div>
+        <h2>No Goodbye</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="17">
+        <div class="chapter-label">Chapter 17 • Premium</div>
+        <h2>The Long Ride Home</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="18">
+        <div class="chapter-label">Chapter 18 • Premium</div>
+        <h2>The Deleted Chat</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="19">
+        <div class="chapter-label">Chapter 19 • Premium</div>
+        <h2>Arjun</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="20">
+        <div class="chapter-label">Chapter 20 • Premium</div>
+        <h2>The Birthday</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="21">
+        <div class="chapter-label">Chapter 21 • Premium</div>
+        <h2>The Rumour That Hurt</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="22">
+        <div class="chapter-label">Chapter 22 • Premium</div>
+        <h2>A Friend Named Kabir</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="23">
+        <div class="chapter-label">Chapter 23 • Premium</div>
+        <h2>The First Morning Without Checking</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="24">
+        <div class="chapter-label">Chapter 24 • Premium</div>
+        <h2>The Exam</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="25">
+        <div class="chapter-label">Chapter 25 • Premium</div>
+        <h2>The Photograph</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="26">
+        <div class="chapter-label">Chapter 26 • Premium</div>
+        <h2>Three Months Later</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="27">
+        <div class="chapter-label">Chapter 27 • Premium</div>
+        <h2>The Message</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="28">
+        <div class="chapter-label">Chapter 28 • Premium</div>
+        <h2>The Call</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="29">
+        <div class="chapter-label">Chapter 29 • Premium</div>
+        <h2>The Truth Begins</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="30">
+        <div class="chapter-label">Chapter 30 • Premium</div>
+        <h2>Family Pressure</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="31">
+        <div class="chapter-label">Chapter 31 • Premium</div>
+        <h2>The Mistake</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="32">
+        <div class="chapter-label">Chapter 32 • Premium</div>
+        <h2>Arjun&#x27;s Side</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="33">
+        <div class="chapter-label">Chapter 33 • Premium</div>
+        <h2>The Second Goodbye</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="34">
+        <div class="chapter-label">Chapter 34 • Premium</div>
+        <h2>What Romeo Wanted</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="35">
+        <div class="chapter-label">Chapter 35 • Premium</div>
+        <h2>The Unsent Letter</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="36">
+        <div class="chapter-label">Chapter 36 • Premium</div>
+        <h2>Juliet&#x27;s Regret</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="37">
+        <div class="chapter-label">Chapter 37 • Premium</div>
+        <h2>The Road Home</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="38">
+        <div class="chapter-label">Chapter 38 • Premium</div>
+        <h2>The Festival</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="39">
+        <div class="chapter-label">Chapter 39 • Premium</div>
+        <h2>A Different Romeo</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="40">
+        <div class="chapter-label">Chapter 40 • Premium</div>
+        <h2>A Different Juliet</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="41">
+        <div class="chapter-label">Chapter 41 • Premium</div>
+        <h2>One Last Conversation</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="42">
+        <div class="chapter-label">Chapter 42 • Premium</div>
+        <h2>The Question</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="43">
+        <div class="chapter-label">Chapter 43 • Premium</div>
+        <h2>The Answer</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="44">
+        <div class="chapter-label">Chapter 44 • Premium</div>
+        <h2>No Revenge</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="45">
+        <div class="chapter-label">Chapter 45 • Premium</div>
+        <h2>The New Dream</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="46">
+        <div class="chapter-label">Chapter 46 • Premium</div>
+        <h2>The Old Photograph</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="47">
+        <div class="chapter-label">Chapter 47 • Premium</div>
+        <h2>The Last Message</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="48">
+        <div class="chapter-label">Chapter 48 • Premium</div>
+        <h2>The Empty Page</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="49">
+        <div class="chapter-label">Chapter 49 • Premium</div>
+        <h2>The Story Was Never About Losing Her</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+      <article class="chapter locked" data-chapter="50">
+        <div class="chapter-label">Chapter 50 • Premium</div>
+        <h2>The Next Chapter</h2>
+        
+        <div class="chapter-lock">
+          <span>🔒</span>
+          <div>
+            <strong>Premium chapter</strong>
+            <p>Unlock this chapter with MoveOn Premium ₹49/month.</p>
+          </div>
+        </div>
+        
+      </article>
+    
+  </main>
+
+  <section class="premium-gate" id="premiumGate">
+    <h2>There are 47 chapters left… 🔒</h2>
+    <p>The next chapter changes the story completely. Unlock Chapters 04–50 with MoveOn Premium.</p>
+    <a class="btn" href="premium.html?required=story&return=story-premium.html">Unlock Premium ₹49/month</a>
+    <div class="small">Premium access is checked from your MoveOn account.</div>
+  </section>
+
+  <footer>MoveOn • Heal. Grow. Move forward. 🌱</footer>
+</div>
+
+<script type="module">
+import { auth } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+const statusText = document.getElementById("statusText");
+const errorBox = document.getElementById("errorBox");
+const progressBar = document.getElementById("progressBar");
+const gate = document.getElementById("premiumGate");
+
+function showPremium() {
+  document.querySelectorAll(".locked").forEach(el => el.style.display = "block");
+  gate.style.display = "none";
+  progressBar.style.width = "100%";
+  statusText.textContent = "Premium active • Chapters 01–50 unlocked";
+}
+
+function showFree() {
+  document.querySelectorAll(".locked").forEach(el => el.style.display = "none");
+  gate.style.display = "block";
+  progressBar.style.width = "6%";
+  statusText.textContent = "Free access • Chapters 01–03 unlocked";
+}
+
+async function checkPremium(user) {
+  if (!user) {
+    showFree();
+    return;
+  }
+  try {
+    const token = await user.getIdToken(true);
+    const res = await fetch("/api/premium/status", {
+      headers: { Authorization: "Bearer " + token }
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.active === true) {
+      showPremium();
+    } else {
+      showFree();
+    }
+  } catch (e) {
+    showFree();
+    errorBox.style.display = "block";
+    errorBox.textContent = "Premium status could not be checked right now. Free chapters are still available.";
+  }
+}
+
+onAuthStateChanged(auth, checkPremium);
+</script>
+</body>
+</html>
