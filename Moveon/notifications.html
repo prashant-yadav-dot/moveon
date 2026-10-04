@@ -205,57 +205,68 @@ You can change these settings anytime.
 </div>
 </div>
 <button class="switch" id="calmReminder"></button>
-</div><button class="save" onclick="saveSettings()">
+</div><p style="font-size:12px;color:#777;line-height:1.5;margin-top:15px">Tip: allow notifications when your phone asks. Background delivery requires the Firebase Web Push certificate key to be added to this file and the Worker notification sender to be configured.</p><button class="save" onclick="saveSettings()">
 Save Notification Settings
 </button><div class="status" id="status"></div></div><div class="footer">
 <p>MoveOn • Heal • Grow • Be You 💜</p>
 <p>Your healing journey deserves gentle reminders.</p>
-</div></main><script>
+</div></main><script type="module">
+import { auth, database } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { ref, get, update } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+const VAPID_PUBLIC_KEY = "REPLACE_WITH_FIREBASE_WEB_PUSH_CERTIFICATE_KEY";
 const settings={
-dailyReminder:localStorage.getItem("moveon_daily_reminder") !== "false",
-challengeReminder:localStorage.getItem("moveon_challenge_reminder") !== "false",
-moodReminder:localStorage.getItem("moveon_mood_reminder") !== "false",
-calmReminder:localStorage.getItem("moveon_calm_reminder") !== "false"
+ dailyReminder:localStorage.getItem("moveon_daily_reminder") !== "false",
+ challengeReminder:localStorage.getItem("moveon_challenge_reminder") !== "false",
+ moodReminder:localStorage.getItem("moveon_mood_reminder") !== "false",
+ calmReminder:localStorage.getItem("moveon_calm_reminder") !== "false"
 };
-
-Object.keys(settings).forEach(id=>{
-const button=document.getElementById(id);
-
-if(settings[id]) button.classList.add("active");
-
-button.addEventListener("click",()=>{
-button.classList.toggle("active");
-});
-});
-
-function saveSettings(){
-
-localStorage.setItem(
-"moveon_daily_reminder",
-document.getElementById("dailyReminder").classList.contains("active")
-);
-
-localStorage.setItem(
-"moveon_challenge_reminder",
-document.getElementById("challengeReminder").classList.contains("active")
-);
-
-localStorage.setItem(
-"moveon_mood_reminder",
-document.getElementById("moodReminder").classList.contains("active")
-);
-
-localStorage.setItem(
-"moveon_calm_reminder",
-document.getElementById("calmReminder").classList.contains("active")
-);
-
-const status=document.getElementById("status");
-status.textContent="✓ Notification settings saved 💜";
-
-setTimeout(()=>{
-status.textContent="";
-},2500);
+let user=null;
+Object.keys(settings).forEach(id=>{const b=document.getElementById(id);if(settings[id])b.classList.add("active");b.addEventListener("click",()=>b.classList.toggle("active"));});
+function selected(){return Object.fromEntries(Object.keys(settings).map(id=>[id,document.getElementById(id).classList.contains("active")]));}
+async function enablePush(){
+ if(!('Notification' in window)) return 'This browser does not support notifications.';
+ const permission=await Notification.requestPermission();
+ if(permission!=='granted') return 'Notification permission was not granted.';
+ if(!('serviceWorker' in navigator)) return 'Service worker notifications are not supported here.';
+ await navigator.serviceWorker.register('notifications-sw.js');
+ // If a Firebase Web Push Certificate key is configured, register an FCM token.
+ if(VAPID_PUBLIC_KEY.startsWith('REPLACE_')) return 'Phone notifications are enabled for this browser. Add the Firebase Web Push certificate key in notifications.html to enable background push delivery.';
+ try{
+  const [{initializeApp,getApps}, {getMessaging,getToken}] = await Promise.all([
+   import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js'),
+   import('https://www.gstatic.com/firebasejs/12.1.0/firebase-messaging.js')
+  ]);
+  const app=getApps()[0] || initializeApp((await import('./firebase-config.js')).firebaseConfig);
+  const messaging=getMessaging(app);
+  const token=await getToken(messaging,{vapidKey:VAPID_PUBLIC_KEY,serviceWorkerRegistration:await navigator.serviceWorker.ready});
+  if(token&&user) await update(ref(database,`users/${user.uid}/notifications`),{fcmToken:token,permission:'granted',updatedAt:Date.now(),settings:selected()});
+  return 'Background phone notifications are enabled ✅';
+ }catch(e){console.error(e);return 'Notification permission is enabled, but background push setup needs the Firebase Web Push key.';}
 }
-</script><script src="emoji-sounds.js"></script></body>
+window.saveSettings=async function(){
+ const s=selected();Object.entries(s).forEach(([k,v])=>localStorage.setItem('moveon_'+k,v));
+ let msg='✓ Notification settings saved 💜';
+ if(Object.values(s).some(Boolean)){try{msg=await enablePush();}catch(e){msg=e?.message||msg;}}
+ if(user) try{await update(ref(database,`users/${user.uid}/notifications`),{settings:s,permission:('Notification' in window ? Notification.permission : 'unsupported'),updatedAt:Date.now()});}catch(e){}
+ const el=document.getElementById('status');el.textContent=msg;setTimeout(()=>el.textContent='',5000);
+};
+async function localReminderLoop(){
+ if(!('Notification' in window) || Notification.permission!=='granted') return;
+ const s=selected();
+ if(!Object.values(s).some(Boolean)) return;
+ const now=Date.now();
+ const next=Number(localStorage.getItem('moveon_next_local_notification')||0);
+ if(now<next) return;
+ const kind=s.dailyReminder?'🌱 Daily Healing Reminder':s.challengeReminder?'🎯 Daily Challenge':s.moodReminder?'😊 Mood Check-in':'🧘 Calm Reminder';
+ try{new Notification('MoveOn 💜',{body:kind+' — take a gentle moment for yourself.'});}catch(e){}
+ localStorage.setItem('moveon_next_local_notification',String(now+2*60*60*1000));
+}
+setInterval(localReminderLoop, 60*1000);
+setTimeout(localReminderLoop, 5000);
+
+onAuthStateChanged(auth,u=>{user=u;});
+</script><script src="emoji-sounds.js"></script><script type="module" src="language.js"></script>
+</body>
 </html>
