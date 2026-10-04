@@ -86,6 +86,7 @@ const analytics = getAnalytics(app);
 // ===============================
 
 export {
+  firebaseConfig,
   app,
   auth,
   database,

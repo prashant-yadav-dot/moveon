@@ -15,8 +15,8 @@
 <main class="chat" id="chat"><div class="notice">Ex Roleplay is an AI simulation, not your real ex. Keep it as a space for reflection and closure.</div><div class="empty" id="empty"><div style="font-size:42px">💜</div><h3>What do you want to say?</h3><p style="color:#777">You can start the conversation whenever you're ready.</p><div class="quick"><button onclick="quickSend('I miss you.')">I miss you.</button><button onclick="quickSend('I still have so many questions.')">I have questions.</button><button onclick="quickSend('I want closure.')">I want closure.</button></div></div><div class="typing" id="typing">Typing…</div></main>
 <div class="composer"><div class="composer-inner"><input id="message" maxlength="2000" placeholder="Message your Ex Roleplay…" autocomplete="off"><button class="send" id="send" onclick="sendMessage()">Send</button></div></div>
 </div>
-<div class="modal" id="settingsModal"><div class="panel"><h2>Ex Roleplay</h2><p style="color:#777;font-size:14px">Give the roleplay a name. This changes how the character is addressed; it does not turn the AI into your real ex.</p><label for="exName">Ex's name</label><input id="exName" maxlength="40" placeholder="e.g. Aisha"><div class="actions"><button class="cancel" onclick="closeSettings()">Cancel</button><button class="save" onclick="saveSettings()">Save</button></div><button class="cancel" style="width:100%;margin-top:8px" onclick="clearChat()">Clear conversation</button><button class="cancel" style="width:100%;margin-top:8px" onclick="generateImage()">Create image from roleplay</button><div class="danger">If you're in immediate danger or thinking about hurting yourself, contact local emergency services or a trusted person instead of relying on roleplay.</div></div></div>
-<div class="modal setup" id="setupModal"><div class="panel"><h2>Set up your Ex Roleplay</h2><div class="premium-note">Premium is active for this account.</div><p class="small">Choose the fictional character details for your roleplay. A photo is optional and should only be uploaded if you have permission to use it.</p><label for="setupGender">Ex's gender</label><select id="setupGender"><option value="">Select gender</option><option value="male">Male</option><option value="female">Female</option></select><label for="setupName">Ex's name</label><input id="setupName" maxlength="40" placeholder="e.g. Aisha"><label for="setupPhoto">Ex photo (optional)</label><input id="setupPhoto" type="file" accept="image/*"><img id="photoPreview" class="photo-preview" alt="Selected photo"><p class="small">Your photo stays in your Firebase account area. It is not automatically sent to the chat model.</p><div class="actions"><button class="cancel" onclick="skipSetup()">Continue without photo</button><button class="save" id="setupSave" onclick="saveSetup()">Start Roleplay</button></div></div></div>
+<div class="modal" id="settingsModal"><div class="panel"><h2>Ex Roleplay</h2><p style="color:#777;font-size:14px">Give the roleplay a name. This changes how the character is addressed; it does not turn the AI into your real ex.</p><label for="exName">Ex's name</label><input id="exName" maxlength="40" placeholder="e.g. Aisha"><label for="editGender">Ex's gender</label><select id="editGender" style="width:100%;padding:13px;border:1px solid #ddd9ee;border-radius:12px;margin:8px 0 14px;font-size:15px"><option value="male">Male</option><option value="female">Female</option></select><label for="editDuration">How long since the breakup?</label><select id="editDuration" style="width:100%;padding:13px;border:1px solid #ddd9ee;border-radius:12px;margin:8px 0 14px;font-size:15px"><option value="less-than-week">Less than a week</option><option value="1-4-weeks">1–4 weeks</option><option value="1-3-months">1–3 months</option><option value="3-6-months">3–6 months</option><option value="6-12-months">6–12 months</option><option value="more-than-year">More than a year</option></select><label for="editTopic">What do you want to talk about?</label><input id="editTopic" maxlength="120" placeholder="e.g. closure, memories, unanswered questions"><div class="actions"><button class="cancel" onclick="closeSettings()">Cancel</button><button class="save" onclick="saveSettings()">Save</button></div><button class="cancel" style="width:100%;margin-top:8px" onclick="clearChat()">Clear conversation</button><button class="cancel" style="width:100%;margin-top:8px" onclick="generateImage()">Create image from roleplay</button><div class="danger">If you're in immediate danger or thinking about hurting yourself, contact local emergency services or a trusted person instead of relying on roleplay.</div></div></div>
+<div class="modal setup" id="setupModal"><div class="panel"><h2>Set up your Ex Roleplay</h2><div class="premium-note">Premium is active for this account.</div><p class="small">Choose the fictional character details for your roleplay. A photo is optional and should only be uploaded if you have permission to use it.</p><label for="setupGender">Ex's gender</label><select id="setupGender"><option value="">Select gender</option><option value="male">Male</option><option value="female">Female</option></select><label for="setupName">Ex's name</label><input id="setupName" maxlength="40" placeholder="e.g. Aisha"><label for="setupDuration">How long has it been since the breakup?</label><select id="setupDuration"><option value="">Select duration</option><option value="less-than-week">Less than a week</option><option value="1-4-weeks">1–4 weeks</option><option value="1-3-months">1–3 months</option><option value="3-6-months">3–6 months</option><option value="6-12-months">6–12 months</option><option value="more-than-year">More than a year</option></select><label for="setupTopic">What topic do you want to talk about?</label><input id="setupTopic" maxlength="120" placeholder="e.g. closure, memories, unanswered questions"><label for="setupPhoto">Ex photo (optional)</label><input id="setupPhoto" type="file" accept="image/*"><img id="photoPreview" class="photo-preview" alt="Selected photo"><p class="small">Your photo stays in your Firebase account area. It is not automatically sent to the chat model.</p><div class="actions"><button class="cancel" onclick="skipSetup()">Continue without photo</button><button class="save" id="setupSave" onclick="saveSetup()">Start Roleplay</button></div></div></div>
 <script type="module">
 const API_URL = "/api/ex-roleplay";
 const STATUS_URL = "/api/premium/status";
@@ -40,6 +40,8 @@ let exName = "Ex Roleplay";
 let exGender = "";
 let exPhotoUrl = "";
 let exPhotoPath = "";
+let breakupDuration = "";
+let topic = "";
 let historyData = [];
 
 function userRoot() { return `users/${currentUser.uid}/exRoleplay`; }
@@ -64,7 +66,9 @@ async function loadProfile() {
   exGender = p.gender || "";
   exPhotoUrl = p.photoUrl || "";
   exPhotoPath = p.photoPath || "";
-  return !!exGender;
+  breakupDuration = p.breakupDuration || "";
+  topic = p.topic || "";
+  return !!exGender && !!breakupDuration && !!topic;
 }
 
 async function loadMessages() {
@@ -120,15 +124,24 @@ function render() {
 
 function openSettings() {
   document.getElementById("exName").value = exName === "Ex Roleplay" ? "" : exName;
+  document.getElementById("editGender").value = exGender || "male";
+  document.getElementById("editDuration").value = breakupDuration || "1-4-weeks";
+  document.getElementById("editTopic").value = topic || "closure";
   document.getElementById("settingsModal").style.display = "block";
 }
 function closeSettings() { document.getElementById("settingsModal").style.display = "none"; }
 
 async function saveSettings() {
   const value = document.getElementById("exName").value.trim().slice(0, 40);
+  const gender = document.getElementById("editGender")?.value || exGender;
+  const duration = document.getElementById("editDuration")?.value || breakupDuration;
+  const editTopic = document.getElementById("editTopic")?.value.trim().slice(0, 120) || topic;
   exName = value || "Ex Roleplay";
+  exGender = gender;
+  breakupDuration = duration;
+  topic = editTopic;
   saveLegacyName();
-  await set(ref(database, `${userRoot()}/profile/name`), exName);
+  await set(ref(database, `${userRoot()}/profile`), {name: exName, gender: exGender, breakupDuration, topic, photoUrl: exPhotoUrl, photoPath: exPhotoPath, updatedAt: Date.now()});
   document.getElementById("screenTitle").textContent = exName;
   closeSettings();
 }
@@ -186,7 +199,7 @@ async function sendMessage() {
     const res = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
-      body: JSON.stringify({ exName, exGender, exPhotoUrl, message: text, history: requestHistory })
+      body: JSON.stringify({ exName, exGender, exPhotoUrl, breakupDuration, topic, language: localStorage.getItem("moveon_language") || "en", message: text, history: requestHistory })
     });
     const raw = await res.text();
     let data = {};
@@ -207,6 +220,9 @@ async function sendMessage() {
 async function saveSetup() {
   const gender = document.getElementById("setupGender").value;
   const name = document.getElementById("setupName").value.trim().slice(0, 40) || "Ex Roleplay";
+  const duration = document.getElementById("setupDuration").value;
+  const setupTopic = document.getElementById("setupTopic").value.trim().slice(0,120);
+  if (!gender || !duration || !setupTopic) { alert("Please complete the name, gender, breakup duration and topic."); return; }
   if (!gender) { alert("Please select the ex's gender."); return; }
   const btn = document.getElementById("setupSave");
   btn.disabled = true; btn.textContent = "Saving…";
@@ -221,8 +237,8 @@ async function saveSetup() {
       await uploadBytes(sr, file, { contentType: file.type });
       photoUrl = await getDownloadURL(sr);
     }
-    exName = name; exGender = gender; exPhotoUrl = photoUrl; exPhotoPath = photoPath;
-    await set(ref(database, `${userRoot()}/profile`), { name, gender, photoUrl, photoPath, createdAt: Date.now(), updatedAt: Date.now() });
+    exName = name; exGender = gender; breakupDuration = duration; topic = setupTopic; exPhotoUrl = photoUrl; exPhotoPath = photoPath;
+    await set(ref(database, `${userRoot()}/profile`), { name, gender, breakupDuration, topic, photoUrl, photoPath, createdAt: Date.now(), updatedAt: Date.now() });
     document.getElementById("setupModal").style.display = "none";
     render();
   } catch (e) { alert(e?.message || "Setup failed. Please try again."); }
@@ -232,9 +248,12 @@ async function saveSetup() {
 async function skipSetup() {
   const gender = document.getElementById("setupGender").value;
   const name = document.getElementById("setupName").value.trim().slice(0, 40) || "Ex Roleplay";
+  const duration = document.getElementById("setupDuration").value;
+  const setupTopic = document.getElementById("setupTopic").value.trim().slice(0,120);
+  if (!gender || !duration || !setupTopic) { alert("Please complete the name, gender, breakup duration and topic."); return; }
   if (!gender) { alert("Please select the ex's gender."); return; }
-  exName = name; exGender = gender; exPhotoUrl = ""; exPhotoPath = "";
-  await set(ref(database, `${userRoot()}/profile`), { name, gender, photoUrl: "", photoPath: "", createdAt: Date.now(), updatedAt: Date.now() });
+  exName = name; exGender = gender; breakupDuration = duration; topic = setupTopic; exPhotoUrl = ""; exPhotoPath = "";
+  await set(ref(database, `${userRoot()}/profile`), { name, gender, breakupDuration, topic, photoUrl: "", photoPath: "", createdAt: Date.now(), updatedAt: Date.now() });
   document.getElementById("setupModal").style.display = "none";
   render();
 }
@@ -268,5 +287,6 @@ onAuthStateChanged(auth, async user => {
 });
 </script>
 <script src="emoji-sounds.js"></script>
+<script type="module" src="language.js"></script>
 </body>
 </html>
