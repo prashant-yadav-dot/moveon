@@ -958,7 +958,9 @@ import {
     saveMood,
     getMoods,
     saveChallengeProgress,
-    getChallenges
+    getChallenges,
+    getJournals,
+    getMoods
 } from "./storage.js";
 
 import { getPersonalizedDailyChallenge } from "./daily-challenges.js";
@@ -1433,186 +1435,43 @@ LOAD HEALING PROGRESS
 */
 
 async function loadProgress() {
-
-    let profile = null;
-
-
     try {
-
-        profile =
-            await getProfile();
-
-    } catch (error) {
-
-        console.error(
-            "Progress profile error:",
-            error
-        );
-
-    }
-
-
-    let startDate =
-        profile?.createdAt ||
-        null;
-
-
-    if (
-        profile?.onboarding?.completedAt
-    ) {
-
-        startDate =
-            profile
-                .onboarding
-                .completedAt;
-
-    }
-
-
-    if (!startDate) {
-
-        setDefaultProgress();
-
-        return;
-
-    }
-
-
-    const start =
-        new Date(startDate);
-
-
-    if (
-        Number.isNaN(
-            start.getTime()
-        )
-    ) {
-
-        setDefaultProgress();
-
-        return;
-
-    }
-
-
-    const now =
-        new Date();
-
-
-    const difference =
-        now.getTime() -
-        start.getTime();
-
-
-    let days =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        ) + 1;
-
-
-    if (days < 1) {
-
-        days = 1;
-
-    }
-
-
-    const percent =
-        Math.min(
-            Math.round(
-                (days / 30) * 100
-            ),
-            100
-        );
-
-
-    const progressDay =
-        document.getElementById(
-            "progressDay"
-        );
-
-
-    const progressPercent =
-        document.getElementById(
-            "progressPercent"
-        );
-
-
-    const progressFill =
-        document.getElementById(
-            "progressFill"
-        );
-
-
-    const progressStarted =
-        document.getElementById(
-            "progressStarted"
-        );
-
-
-    const progressMessage =
-        document.getElementById(
-            "progressMessage"
-        );
-
-
-    if (progressDay) {
-
-        progressDay.textContent =
-            "Day " + days;
-
-    }
-
-
-    if (progressPercent) {
-
-        progressPercent.textContent =
-            percent + "%";
-
-    }
-
-
-    if (progressFill) {
-
-        progressFill.style.width =
-            percent + "%";
-
-    }
-
-
-    if (progressStarted) {
-
-        progressStarted.textContent =
-            "Started " +
-            formatDate(start);
-
-    }
-
-
-    if (progressMessage) {
-
-        if (days >= 30) {
-
-            progressMessage.textContent =
-                "You've come a long way. Keep growing. 💜";
-
-        } else if (days >= 14) {
-
-            progressMessage.textContent =
-                "You're building a stronger version of yourself.";
-
-        } else if (days >= 7) {
-
-            progressMessage.textContent =
-                "One week of choosing yourself. Keep going.";
-
+        const [challenges, journals, moods, profile] = await Promise.all([
+            getChallenges(), getJournals(), getMoods(), getProfile()
+        ]);
+        const calmSnap = await get(ref(database, `users/${auth.currentUser.uid}/calmSessions`));
+        const calm = calmSnap.exists() ? (calmSnap.val() || {}) : {};
+        const completedChallenges = Object.values(challenges || {}).filter(x => x?.completed === true).length;
+        const journalCount = Object.keys(journals || {}).length;
+        const moodCount = Object.keys(moods || {}).length;
+        const calmCount = Object.values(calm).filter(x => x?.completed === true).length;
+        // Every completed daily challenge is worth 2 points; journal, mood and calm are 1 point each.
+        // 60 points = a complete 30-day healing journey.
+        const points = completedChallenges * 2 + journalCount + moodCount + calmCount;
+        const percent = Math.min(100, Math.round((points / 60) * 100));
+        const days = Math.min(30, Math.max(1, Math.floor(points / 2) + 1));
+        const progressDay = document.getElementById("progressDay");
+        const progressPercent = document.getElementById("progressPercent");
+        const progressFill = document.getElementById("progressFill");
+        const progressStarted = document.getElementById("progressStarted");
+        const progressMessage = document.getElementById("progressMessage");
+        if (progressDay) progressDay.textContent = "Day " + days;
+        if (progressPercent) progressPercent.textContent = percent + "%";
+        if (progressFill) progressFill.style.width = percent + "%";
+        const started = profile?.onboarding?.completedAt || profile?.createdAt;
+        if (progressStarted) progressStarted.textContent = started ? "Started " + formatDate(new Date(started)) : "Complete your first activity to begin";
+        if (progressMessage) {
+            if (percent >= 100) progressMessage.textContent = "You've completed your 30-day healing journey. Keep growing. 💜";
+            else if (percent >= 70) progressMessage.textContent = "You're building strong healing habits. Keep going.";
+            else if (percent >= 30) progressMessage.textContent = "Your small actions are becoming real progress.";
+            else if (percent > 0) progressMessage.textContent = "Every completed activity moves you forward.";
+            else progressMessage.textContent = "Complete a challenge, mood check-in, journal or calm session to start your progress.";
         }
-
+    } catch (error) {
+        console.error("Real progress error:", error);
+        setDefaultProgress();
     }
-
 }
-
 
 /*
 ==================================================
@@ -2052,5 +1911,6 @@ function(message) {
 </script>
 
 <script src="emoji-sounds.js"></script>
+<script type="module" src="language.js"></script>
 </body>
 </html>

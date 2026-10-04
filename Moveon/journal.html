@@ -1434,9 +1434,15 @@ import {
     auth
 } from "./firebase-config.js";
 
+import { getPremiumStatus } from "./premium.js";
+
 import {
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    ref, get, set
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
 /* =========================
@@ -1481,6 +1487,8 @@ let selectedMood = "";
 let entries = [];
 
 let currentUser = null;
+let premiumActive = false;
+let freeJournalUsed = 0;
 
 let currentStreak = {
     count: 0,
@@ -1587,6 +1595,12 @@ window.saveJournal = async function(){
 
     }
 
+    if (!premiumActive && freeJournalUsed >= 2) {
+        showToast("Your 2 free journals are used. Unlock Premium to add more 💜");
+        setTimeout(() => { window.location.href = "premium.html?required=journal"; }, 700);
+        return;
+    }
+
 
     const text =
         document
@@ -1680,6 +1694,11 @@ window.saveJournal = async function(){
 
         entry.id =
             journalId;
+
+        if (!premiumActive && freeJournalUsed < 2) {
+            freeJournalUsed += 1;
+            await set(ref(database, `users/${currentUser.uid}/usage/journalFreeUsed`), freeJournalUsed);
+        }
 
 
         entries.unshift(entry);
@@ -2505,6 +2524,10 @@ onAuthStateChanged(
         currentUser =
             user;
 
+        const premium = await getPremiumStatus(user);
+        premiumActive = premium.active === true;
+        try { const usageSnap = await get(ref(database, `users/${user.uid}/usage/journalFreeUsed`)); freeJournalUsed = Number(usageSnap.val() || 0); } catch(e) { freeJournalUsed = 0; }
+
 
         updateDate();
 
@@ -2522,5 +2545,6 @@ onAuthStateChanged(
 </script>
 
 <script src="emoji-sounds.js"></script>
+<script type="module" src="language.js"></script>
 </body>
 </html>
