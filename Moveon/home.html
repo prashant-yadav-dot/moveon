@@ -18,27 +18,13 @@
             padding: 0;
         }
 
-        /*
-        ==========================================
-        FIREBASE AUTH SECURITY GUARD
-        ==========================================
-        Home page Firebase authentication verify
-        hone tak hidden rahega.
-        */
-
         body {
             visibility: hidden;
-
             font-family: Arial, Helvetica, sans-serif;
             background: #f6f7fb;
             color: #1d2340;
             padding-bottom: 90px;
         }
-
-        /*
-        Firebase auth complete hone ke baad
-        body visible hoga.
-        */
 
         body.auth-ready {
             visibility: visible;
@@ -49,7 +35,6 @@
             cursor: pointer;
             border: none;
         }
-
 
         /* HEADER */
 
@@ -92,7 +77,6 @@
             opacity: 0.95;
         }
 
-
         /* MAIN */
 
         .container {
@@ -116,7 +100,6 @@
             color: #6c63ff;
             font-size: 13px;
         }
-
 
         /* MOOD */
 
@@ -166,7 +149,6 @@
             outline: 2px solid #6c63ff;
         }
 
-
         /* PROGRESS */
 
         .progress-card {
@@ -208,8 +190,145 @@
             color: #888;
         }
 
+        /* HER CORNER / AI COMPANION */
 
-        /* CHALLENGE */
+        .her-corner {
+            position: relative;
+            overflow: hidden;
+            padding: 0 !important;
+            border: 1px solid rgba(118,103,248,.20) !important;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(154,137,255,.22), transparent 38%),
+                linear-gradient(135deg, #f4efff 0%, #ffffff 55%, #fbf8ff 100%) !important;
+            box-shadow: 0 12px 35px rgba(108,99,255,.12) !important;
+        }
+
+        .her-corner::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(139,125,255,.10);
+            right: -70px;
+            top: -75px;
+        }
+
+        .her-corner-inner {
+            position: relative;
+            z-index: 2;
+            padding: 18px;
+        }
+
+        .her-corner-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .her-corner-avatar {
+            width: 76px;
+            height: 76px;
+            min-width: 76px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            background: #e9e3ff;
+            box-shadow:
+                0 8px 22px rgba(108,99,255,.25),
+                0 0 0 3px rgba(255,255,255,.9);
+        }
+
+        .her-corner-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .her-corner-online {
+            position: absolute;
+            right: 4px;
+            bottom: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #55c98a;
+            border: 3px solid white;
+        }
+
+        .her-corner-title {
+            flex: 1;
+        }
+
+        .her-corner-title h3 {
+            margin: 0 0 4px;
+            font-size: 18px;
+            color: #24203a;
+        }
+
+        .her-corner-title p {
+            margin: 0;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .her-corner-message {
+            margin: 17px 0 14px;
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.72);
+            border: 1px solid rgba(118,103,248,.10);
+        }
+
+        .her-corner-message strong {
+            display: block;
+            color: #30285c;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .her-corner-message span {
+            display: block;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .her-corner-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            background: linear-gradient(135deg,#6c63ff,#8f82ff);
+            box-shadow: 0 9px 20px rgba(108,99,255,.24);
+            transition: .2s ease;
+        }
+
+        .her-corner-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(108,99,255,.30);
+        }
+
+        .her-corner-btn:active {
+            transform: scale(.98);
+        }
+
+        .her-corner-note {
+            text-align: center;
+            margin: 10px 0 0;
+            color: #8b8798;
+            font-size: 10px;
+        }
+
+        /* DAILY CHALLENGE */
 
         .challenge {
             background: linear-gradient(135deg, #fff5df, #fffaf0);
@@ -244,6 +363,38 @@
             transform: scale(0.98);
         }
 
+        /* NO CONTACT */
+
+        .no-contact {
+            background: linear-gradient(135deg, #edf9f5, #f8fffc);
+        }
+
+        .streak {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .streak-icon {
+            width: 55px;
+            height: 55px;
+            background: #dff5ed;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+        }
+
+        .streak h3 {
+            font-size: 21px;
+        }
+
+        .streak p {
+            color: #777;
+            font-size: 12px;
+            margin-top: 3px;
+        }
 
         /* FEATURE GRID */
 
@@ -282,41 +433,6 @@
             line-height: 1.4;
         }
 
-
-        /* NO CONTACT */
-
-        .no-contact {
-            background: linear-gradient(135deg, #edf9f5, #f8fffc);
-        }
-
-        .streak {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .streak-icon {
-            width: 55px;
-            height: 55px;
-            background: #dff5ed;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 27px;
-        }
-
-        .streak h3 {
-            font-size: 21px;
-        }
-
-        .streak p {
-            color: #777;
-            font-size: 12px;
-            margin-top: 3px;
-        }
-
-
         /* BOTTOM NAV */
 
         .bottom-nav {
@@ -352,6 +468,57 @@
             font-weight: bold;
         }
 
+        /* FLOATING COMPANION SHORTCUT */
+
+        .companion-float {
+            position: fixed;
+            right: 18px;
+            bottom: 88px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg,#6c63ff,#b49cff);
+            box-shadow:
+                0 9px 25px rgba(108,99,255,.35),
+                0 0 0 5px rgba(108,99,255,.08);
+            z-index: 90;
+            animation: companionFloat 3s ease-in-out infinite;
+        }
+
+        .companion-float img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 3px solid white;
+        }
+
+        .companion-float::after {
+            content: "💜";
+            position: absolute;
+            right: -2px;
+            top: -7px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,.12);
+        }
+
+        @keyframes companionFloat {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
 
         /* TOAST */
 
@@ -377,7 +544,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-
         /* MOBILE */
 
         @media (max-width: 400px) {
@@ -395,6 +561,23 @@
                 font-size: 22px;
             }
 
+            .her-corner-avatar {
+                width: 68px;
+                height: 68px;
+                min-width: 68px;
+                border-radius: 21px;
+            }
+
+            .her-corner-title h3 {
+                font-size: 16px;
+            }
+
+            .companion-float {
+                right: 14px;
+                bottom: 82px;
+                width: 58px;
+                height: 58px;
+            }
         }
 
     </style>
@@ -403,16 +586,13 @@
 
 <body>
 
-
 <header class="header">
 
     <div class="top-bar">
 
         <div class="welcome">
 
-            <small>
-                Welcome back 👋
-            </small>
+            <small>Welcome back 👋</small>
 
             <h1 id="welcomeTitle">
                 Your healing journey
@@ -424,40 +604,29 @@
             class="profile-btn"
             type="button"
             onclick="openProfile()">
-
             👤
-
         </button>
 
     </div>
 
     <p class="quote">
-
         “Healing takes time. You don't have to be okay today.
         Just keep moving forward. 🤍”
-
     </p>
 
 </header>
 
-
 <main class="container">
-
 
     <!-- MOOD -->
 
     <div class="section-title">
 
-        <h2>
-            How are you feeling?
-        </h2>
+        <h2>How are you feeling?</h2>
 
-        <span>
-            Today
-        </span>
+        <span>Today</span>
 
     </div>
-
 
     <div class="card">
 
@@ -467,90 +636,55 @@
 
         <div class="moods">
 
-            <button
-                class="mood"
-                type="button"
+            <button class="mood" type="button"
                 onclick="selectMood(this,'Happy')">
-
                 <span>😊</span>
                 <small>Happy</small>
-
             </button>
 
-
-            <button
-                class="mood"
-                type="button"
+            <button class="mood" type="button"
                 onclick="selectMood(this,'Okay')">
-
                 <span>🙂</span>
                 <small>Okay</small>
-
             </button>
 
-
-            <button
-                class="mood"
-                type="button"
+            <button class="mood" type="button"
                 onclick="selectMood(this,'Sad')">
-
                 <span>😢</span>
                 <small>Sad</small>
-
             </button>
 
-
-            <button
-                class="mood"
-                type="button"
+            <button class="mood" type="button"
                 onclick="selectMood(this,'Lonely')">
-
                 <span>🥺</span>
                 <small>Lonely</small>
-
             </button>
 
-
-            <button
-                class="mood"
-                type="button"
+            <button class="mood" type="button"
                 onclick="selectMood(this,'Angry')">
-
                 <span>😡</span>
                 <small>Angry</small>
-
             </button>
 
-
-            <button
-                class="mood"
-                type="button"
+            <button class="mood" type="button"
                 onclick="selectMood(this,'Anxious')">
-
                 <span>😰</span>
                 <small>Anxious</small>
-
             </button>
 
         </div>
 
     </div>
 
-
     <!-- PROGRESS -->
 
     <div class="section-title">
 
-        <h2>
-            Your progress
-        </h2>
+        <h2>Your progress</h2>
 
-        <span>
-            Keep going 💜
-        </span>
+        <span>Keep going 💜</span>
 
     </div>
-
 
     <div class="card progress-card">
 
@@ -582,7 +716,6 @@
 
         </div>
 
-
         <div class="progress-bar">
 
             <div
@@ -591,7 +724,6 @@
             </div>
 
         </div>
-
 
         <div class="progress-info">
 
@@ -607,56 +739,90 @@
 
     </div>
 
-
-    <!-- EX ROLEPLAY -->
+    <!-- HER CORNER -->
 
     <div class="section-title">
 
         <h2>
-            Talk to your fictional ex
+            A space just for you 💜
         </h2>
 
         <span>
-            Reflect & heal 💜
+            Talk • Reflect • Heal
         </span>
 
     </div>
 
+    <div class="card her-corner">
 
-    <div class="card" style="background:linear-gradient(135deg,#f4efff,#ffffff);border:1px solid #e7dcff;">
+        <div class="her-corner-inner">
 
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
-            <div style="width:52px;height:52px;border-radius:16px;background:#6c63ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:27px;box-shadow:0 8px 20px rgba(108,99,255,.22);">💬</div>
-            <div>
-                <h3 style="margin:0 0 4px;color:#24203a;">Ex Roleplay</h3>
-                <p style="margin:0;color:#666;font-size:14px;line-height:1.5;">A fictional AI space for reflection, questions and closure.</p>
+            <div class="her-corner-top">
+
+                <div class="her-corner-avatar">
+
+                    <img
+                        src="ex-companion.png"
+                        alt="AI companion">
+
+                    <span class="her-corner-online"></span>
+
+                </div>
+
+                <div class="her-corner-title">
+
+                    <h3>
+                        Her Corner 💜
+                    </h3>
+
+                    <p>
+                        A private fictional AI space
+                        for the conversation you never had.
+                    </p>
+
+                </div>
+
             </div>
+
+            <div class="her-corner-message">
+
+                <strong>
+                    What would you say if you had one more conversation?
+                </strong>
+
+                <span>
+                    Ask questions, express what you feel,
+                    or simply say what you've been holding inside.
+                </span>
+
+            </div>
+
+            <button
+                class="her-corner-btn"
+                type="button"
+                onclick="openExRoleplay()">
+
+                💬 Talk to Her
+
+                <span>→</span>
+
+            </button>
+
+            <p class="her-corner-note">
+                Fictional AI simulation — not your real ex.
+            </p>
+
         </div>
 
-        <button
-            class="primary-btn"
-            type="button"
-            onclick="openExRoleplay()">
-            Open Ex Roleplay →
-        </button>
-
-        <p style="margin:10px 0 0;font-size:12px;color:#777;text-align:center;">
-            AI simulation — not your real ex.
-        </p>
-
     </div>
-
 
     <!-- DAILY CHALLENGE -->
 
     <div class="section-title">
 
-        <h2>
-            Today's healing challenge
-        </h2>
+        <h2>Today's healing challenge</h2>
 
     </div>
-
 
     <div class="card challenge">
 
@@ -685,17 +851,13 @@
 
     </div>
 
-
     <!-- NO CONTACT -->
 
     <div class="section-title">
 
-        <h2>
-            No-Contact Journey
-        </h2>
+        <h2>No-Contact Journey</h2>
 
     </div>
-
 
     <div class="card no-contact">
 
@@ -719,7 +881,6 @@
 
         </div>
 
-
         <button
             class="primary-btn"
             type="button"
@@ -731,31 +892,23 @@
 
     </div>
 
-
     <!-- FEATURES -->
 
     <div class="section-title">
 
-        <h2>
-            Take care of yourself
-        </h2>
+        <h2>Take care of yourself</h2>
 
     </div>
 
-
     <div class="feature-grid">
 
-        <div
-            class="feature"
-            onclick="openJournal()">
+        <div class="feature" onclick="openJournal()">
 
             <div class="feature-icon">
                 📔
             </div>
 
-            <h3>
-                Private Journal
-            </h3>
+            <h3>Private Journal</h3>
 
             <p>
                 Write your thoughts and emotions privately.
@@ -763,18 +916,13 @@
 
         </div>
 
-
-        <div
-            class="feature"
-            onclick="openCalm()">
+        <div class="feature" onclick="openCalm()">
 
             <div class="feature-icon">
                 🧘
             </div>
 
-            <h3>
-                Calm Zone
-            </h3>
+            <h3>Calm Zone</h3>
 
             <p>
                 Breathing and relaxation exercises.
@@ -782,18 +930,13 @@
 
         </div>
 
-
-        <div
-            class="feature"
-            onclick="openSupport()">
+        <div class="feature" onclick="openSupport()">
 
             <div class="feature-icon">
                 💬
             </div>
 
-            <h3>
-                Talk to Me
-            </h3>
+            <h3>Talk to Me</h3>
 
             <p>
                 A supportive space to express what you're feeling.
@@ -801,18 +944,13 @@
 
         </div>
 
-
-        <div
-            class="feature"
-            onclick="openLessons()">
+        <div class="feature" onclick="openLessons()">
 
             <div class="feature-icon">
                 🌿
             </div>
 
-            <h3>
-                Healing Lessons
-            </h3>
+            <h3>Healing Lessons</h3>
 
             <p>
                 Small lessons about emotions and moving forward.
@@ -822,17 +960,13 @@
 
     </div>
 
-
     <!-- POSITIVE MESSAGE -->
 
     <div class="section-title">
 
-        <h2>
-            Remember 🤍
-        </h2>
+        <h2>Remember 🤍</h2>
 
     </div>
-
 
     <div class="card">
 
@@ -853,7 +987,6 @@
 
 </main>
 
-
 <!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
@@ -862,65 +995,59 @@
         class="nav-item active"
         type="button"
         onclick="goHome()">
-
         <div>🏠</div>
         Home
-
     </button>
-
 
     <button
         class="nav-item"
         type="button"
         onclick="openJournal()">
-
         <div>📔</div>
         Journal
-
     </button>
-
 
     <button
         class="nav-item"
         type="button"
         onclick="openCalm()">
-
         <div>🧘</div>
         Calm
-
     </button>
-
 
     <button
         class="nav-item"
         type="button"
         onclick="openSupport()">
-
         <div>💬</div>
         Support
-
     </button>
-
 
     <button
         class="nav-item"
         type="button"
         onclick="openProfile()">
-
         <div>👤</div>
         Profile
-
     </button>
 
 </nav>
 
+<!-- FLOATING AI COMPANION SHORTCUT -->
 
-<div
-    id="toast"
-    class="toast">
-</div>
+<button
+    class="companion-float"
+    type="button"
+    onclick="openExRoleplay()"
+    aria-label="Open Her Corner">
 
+    <img
+        src="ex-companion.png"
+        alt="Her Corner">
 
+</button>
+
+<div id="toast" class="toast"></div>
 
 <script>
 function openExRoleplay(){
@@ -930,28 +1057,19 @@ function openExRoleplay(){
 
 <script type="module">
 
-/*
-==================================================
-FIREBASE IMPORTS
-==================================================
-*/
-
 import {
     auth,
     database
 } from "./firebase-config.js";
 
-
 import {
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
 
 import {
     ref,
     get
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
 
 import {
     getProfile,
@@ -964,29 +1082,9 @@ import {
 
 import { getPersonalizedDailyChallenge } from "./daily-challenges.js";
 
-
-/*
-==================================================
-GLOBAL USER
-==================================================
-*/
-
 let currentUser = null;
 let todayChallenge = null;
 let onboardingData = {};
-
-
-/*
-==================================================
-AUTH TIMEOUT
-==================================================
-
-Agar Firebase module kisi reason se load na ho,
-Home page permanently visible nahi rahega.
-
-8 seconds ke baad login page par bhej denge.
-
-*/
 
 const authTimeout = setTimeout(
     function() {
@@ -1007,19 +1105,11 @@ const authTimeout = setTimeout(
     8000
 );
 
-
-/*
-==================================================
-AUTH CHECK
-==================================================
-*/
-
 onAuthStateChanged(
     auth,
     async (user) => {
 
         clearTimeout(authTimeout);
-
 
         if (!user) {
 
@@ -1035,27 +1125,18 @@ onAuthStateChanged(
 
         }
 
-
         currentUser = user;
-        await loadPersonalizedChallenge();
 
+        await loadPersonalizedChallenge();
 
         console.log(
             "MoveOn user:",
             currentUser.uid
         );
 
-
-        /*
-        IMPORTANT:
-        Firebase auth verified.
-        Ab Home page visible hoga.
-        */
-
         document.body.classList.add(
             "auth-ready"
         );
-
 
         await loadHomeData();
 
@@ -1076,33 +1157,15 @@ onAuthStateChanged(
     }
 );
 
-
-/*
-==================================================
-LOAD ALL HOME DATA
-==================================================
-*/
-
 async function loadHomeData() {
 
     await loadUserName();
-
     await loadMood();
-
     await loadChallenge();
-
     await loadProgress();
-
     await loadNoContact();
 
 }
-
-
-/*
-==================================================
-LOAD USER NAME
-==================================================
-*/
 
 async function loadUserName() {
 
@@ -1111,18 +1174,15 @@ async function loadUserName() {
         const profile =
             await getProfile();
 
-
         const name =
             profile?.name ||
             currentUser.displayName ||
             "Friend";
 
-
         const welcomeTitle =
             document.getElementById(
                 "welcomeTitle"
             );
-
 
         if (welcomeTitle) {
 
@@ -1131,7 +1191,6 @@ async function loadUserName() {
 
         }
 
-
     } catch (error) {
 
         console.error(
@@ -1139,17 +1198,14 @@ async function loadUserName() {
             error
         );
 
-
         const name =
             currentUser.displayName ||
             "Friend";
-
 
         const welcomeTitle =
             document.getElementById(
                 "welcomeTitle"
             );
-
 
         if (welcomeTitle) {
 
@@ -1162,16 +1218,8 @@ async function loadUserName() {
 
 }
 
-
-/*
-==================================================
-SELECT + SAVE MOOD
-==================================================
-*/
-
 window.selectMood =
 async function(element, mood) {
-
 
     document
         .querySelectorAll(".mood")
@@ -1185,7 +1233,6 @@ async function(element, mood) {
             }
         );
 
-
     if (element) {
 
         element.classList.add(
@@ -1193,7 +1240,6 @@ async function(element, mood) {
         );
 
     }
-
 
     try {
 
@@ -1210,14 +1256,12 @@ async function(element, mood) {
 
             });
 
-
         if (result) {
 
             localStorage.setItem(
                 "moveon_mood",
                 mood
             );
-
 
             showToast(
                 "Mood saved: " +
@@ -1233,14 +1277,12 @@ async function(element, mood) {
 
         }
 
-
     } catch (error) {
 
         console.error(
             "Mood save error:",
             error
         );
-
 
         showToast(
             "Unable to save mood. Please try again."
@@ -1250,29 +1292,19 @@ async function(element, mood) {
 
 };
 
-
-/*
-==================================================
-LOAD LAST MOOD
-==================================================
-*/
-
 async function loadMood() {
 
     let savedMood = null;
-
 
     try {
 
         const moods =
             await getMoods();
 
-
         const entries =
             Object.values(
                 moods || {}
             );
-
 
         if (entries.length > 0) {
 
@@ -1291,13 +1323,11 @@ async function loadMood() {
                 }
             );
 
-
             savedMood =
                 entries[0]?.mood ||
                 null;
 
         }
-
 
     } catch (error) {
 
@@ -1308,7 +1338,6 @@ async function loadMood() {
 
     }
 
-
     if (!savedMood) {
 
         savedMood =
@@ -1318,13 +1347,11 @@ async function loadMood() {
 
     }
 
-
     if (!savedMood) {
 
         return;
 
     }
-
 
     document
         .querySelectorAll(".mood")
@@ -1334,7 +1361,6 @@ async function loadMood() {
                 const text =
                     button.innerText
                         .toLowerCase();
-
 
                 if (
                     text.includes(
@@ -1353,130 +1379,404 @@ async function loadMood() {
 
 }
 
-
-/*
-==================================================
-PERSONALIZED DAILY CHALLENGE
-==================================================
-*/
-
 function challengeDate(){
-    const d=new Date();
+
+    const d = new Date();
+
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+
 }
 
 function renderTodayChallenge(){
-    todayChallenge=getPersonalizedDailyChallenge(onboardingData,challengeDate());
-    const title=document.querySelector('.card.challenge h3');
-    const desc=document.querySelector('.card.challenge p');
-    const icon=document.querySelector('.card.challenge .challenge-icon');
-    if(title) title.textContent=todayChallenge.title;
-    if(desc) desc.textContent=todayChallenge.description;
-    if(icon) icon.textContent=todayChallenge.emoji;
+
+    todayChallenge =
+        getPersonalizedDailyChallenge(
+            onboardingData,
+            challengeDate()
+        );
+
+    const title =
+        document.querySelector(
+            '.card.challenge h3'
+        );
+
+    const desc =
+        document.querySelector(
+            '.card.challenge p'
+        );
+
+    const icon =
+        document.querySelector(
+            '.card.challenge .challenge-icon'
+        );
+
+    if(title)
+        title.textContent =
+            todayChallenge.title;
+
+    if(desc)
+        desc.textContent =
+            todayChallenge.description;
+
+    if(icon)
+        icon.textContent =
+            todayChallenge.emoji;
+
 }
 
-window.completeChallenge=async function(){
-    const button=document.getElementById('challengeButton');
-    if(!todayChallenge) return;
-    if(button?.dataset.completed==='true'){ showToast("Today's challenge is already completed 🌱"); return; }
-    const today=challengeDate();
-    try{
-        const result=await saveChallengeProgress(todayChallenge.id,{
-            completed:true, date:today, title:todayChallenge.title, emoji:todayChallenge.emoji, xp:todayChallenge.xp
-        });
-        if(!result){showToast('Unable to save challenge. Please try again.');return;}
-        localStorage.setItem('moveon_challenge_completed_date',today);
-        localStorage.setItem('moveon_challenge_completed_id',todayChallenge.id);
-        updateChallengeButton();
-        showToast('Challenge completed! 🌱');
-    }catch(error){
-        console.error('Challenge save error:',error);
-        showToast('Unable to save challenge. Please try again.');
+window.completeChallenge =
+async function(){
+
+    const button =
+        document.getElementById(
+            'challengeButton'
+        );
+
+    if(!todayChallenge)
+        return;
+
+    if(
+        button?.dataset.completed ===
+        'true'
+    ){
+
+        showToast(
+            "Today's challenge is already completed 🌱"
+        );
+
+        return;
+
     }
+
+    const today =
+        challengeDate();
+
+    try{
+
+        const result =
+            await saveChallengeProgress(
+                todayChallenge.id,
+                {
+                    completed:true,
+                    date:today,
+                    title:todayChallenge.title,
+                    emoji:todayChallenge.emoji,
+                    xp:todayChallenge.xp
+                }
+            );
+
+        if(!result){
+
+            showToast(
+                'Unable to save challenge. Please try again.'
+            );
+
+            return;
+
+        }
+
+        localStorage.setItem(
+            'moveon_challenge_completed_date',
+            today
+        );
+
+        localStorage.setItem(
+            'moveon_challenge_completed_id',
+            todayChallenge.id
+        );
+
+        updateChallengeButton();
+
+        showToast(
+            'Challenge completed! 🌱'
+        );
+
+    }catch(error){
+
+        console.error(
+            'Challenge save error:',
+            error
+        );
+
+        showToast(
+            'Unable to save challenge. Please try again.'
+        );
+
+    }
+
 };
 
 async function loadChallenge(){
-    if(!todayChallenge) renderTodayChallenge();
-    const today=challengeDate();
-    let completed=false;
+
+    if(!todayChallenge)
+        renderTodayChallenge();
+
+    const today =
+        challengeDate();
+
+    let completed = false;
+
     try{
-        const data=await getChallenges();
-        const record=data?.[todayChallenge.id];
-        completed=record?.completed===true && record?.date===today;
-    }catch(error){console.error('Challenge loading error:',error);}
-    if(!completed && localStorage.getItem('moveon_challenge_completed_date')===today && localStorage.getItem('moveon_challenge_completed_id')===todayChallenge.id) completed=true;
-    if(completed) updateChallengeButton();
+
+        const data =
+            await getChallenges();
+
+        const record =
+            data?.[todayChallenge.id];
+
+        completed =
+            record?.completed === true &&
+            record?.date === today;
+
+    }catch(error){
+
+        console.error(
+            'Challenge loading error:',
+            error
+        );
+
+    }
+
+    if(
+        !completed &&
+        localStorage.getItem(
+            'moveon_challenge_completed_date'
+        ) === today &&
+        localStorage.getItem(
+            'moveon_challenge_completed_id'
+        ) === todayChallenge.id
+    ){
+
+        completed = true;
+
+    }
+
+    if(completed)
+        updateChallengeButton();
+
 }
 
 function updateChallengeButton(){
-    const button=document.getElementById('challengeButton');
-    if(!button)return;
-    button.textContent='✓ Challenge Completed';
-    button.style.background='#4caf91';
-    button.dataset.completed='true';
+
+    const button =
+        document.getElementById(
+            'challengeButton'
+        );
+
+    if(!button)
+        return;
+
+    button.textContent =
+        '✓ Challenge Completed';
+
+    button.style.background =
+        '#4caf91';
+
+    button.dataset.completed =
+        'true';
+
 }
 
 async function loadPersonalizedChallenge(){
-    try{
-        const profile=await getProfile();
-        onboardingData=profile?.onboarding||JSON.parse(localStorage.getItem('moveon_onboarding')||'{}')||{};
-    }catch(e){
-        try{onboardingData=JSON.parse(localStorage.getItem('moveon_onboarding')||'{}')||{};}catch(_){}
-    }
-    renderTodayChallenge();
-    await loadChallenge();
-}
 
-/*
-==================================================
-LOAD HEALING PROGRESS
-==================================================
-*/
+    try{
+
+        const profile =
+            await getProfile();
+
+        onboardingData =
+            profile?.onboarding ||
+            JSON.parse(
+                localStorage.getItem(
+                    'moveon_onboarding'
+                ) || '{}'
+            ) || {};
+
+    }catch(e){
+
+        try{
+
+            onboardingData =
+                JSON.parse(
+                    localStorage.getItem(
+                        'moveon_onboarding'
+                    ) || '{}'
+                ) || {};
+
+        }catch(_){}
+
+    }
+
+    renderTodayChallenge();
+
+    await loadChallenge();
+
+}
 
 async function loadProgress() {
-    try {
-        const [challenges, journals, moods, profile] = await Promise.all([
-            getChallenges(), getJournals(), getMoods(), getProfile()
-        ]);
-        const calmSnap = await get(ref(database, `users/${auth.currentUser.uid}/calmSessions`));
-        const calm = calmSnap.exists() ? (calmSnap.val() || {}) : {};
-        const completedChallenges = Object.values(challenges || {}).filter(x => x?.completed === true).length;
-        const journalCount = Object.keys(journals || {}).length;
-        const moodCount = Object.keys(moods || {}).length;
-        const calmCount = Object.values(calm).filter(x => x?.completed === true).length;
-        // Every completed daily challenge is worth 2 points; journal, mood and calm are 1 point each.
-        // 60 points = a complete 30-day healing journey.
-        const points = completedChallenges * 2 + journalCount + moodCount + calmCount;
-        const percent = Math.min(100, Math.round((points / 60) * 100));
-        const days = Math.min(30, Math.max(1, Math.floor(points / 2) + 1));
-        const progressDay = document.getElementById("progressDay");
-        const progressPercent = document.getElementById("progressPercent");
-        const progressFill = document.getElementById("progressFill");
-        const progressStarted = document.getElementById("progressStarted");
-        const progressMessage = document.getElementById("progressMessage");
-        if (progressDay) progressDay.textContent = "Day " + days;
-        if (progressPercent) progressPercent.textContent = percent + "%";
-        if (progressFill) progressFill.style.width = percent + "%";
-        const started = profile?.onboarding?.completedAt || profile?.createdAt;
-        if (progressStarted) progressStarted.textContent = started ? "Started " + formatDate(new Date(started)) : "Complete your first activity to begin";
-        if (progressMessage) {
-            if (percent >= 100) progressMessage.textContent = "You've completed your 30-day healing journey. Keep growing. 💜";
-            else if (percent >= 70) progressMessage.textContent = "You're building strong healing habits. Keep going.";
-            else if (percent >= 30) progressMessage.textContent = "Your small actions are becoming real progress.";
-            else if (percent > 0) progressMessage.textContent = "Every completed activity moves you forward.";
-            else progressMessage.textContent = "Complete a challenge, mood check-in, journal or calm session to start your progress.";
-        }
-    } catch (error) {
-        console.error("Real progress error:", error);
-        setDefaultProgress();
-    }
-}
 
-/*
-==================================================
-DEFAULT PROGRESS
-==================================================
-*/
+    try {
+
+        const [
+            challenges,
+            journals,
+            moods,
+            profile
+        ] = await Promise.all([
+            getChallenges(),
+            getJournals(),
+            getMoods(),
+            getProfile()
+        ]);
+
+        const calmSnap =
+            await get(
+                ref(
+                    database,
+                    `users/${auth.currentUser.uid}/calmSessions`
+                )
+            );
+
+        const calm =
+            calmSnap.exists()
+                ? (calmSnap.val() || {})
+                : {};
+
+        const completedChallenges =
+            Object.values(
+                challenges || {}
+            ).filter(
+                x => x?.completed === true
+            ).length;
+
+        const journalCount =
+            Object.keys(
+                journals || {}
+            ).length;
+
+        const moodCount =
+            Object.keys(
+                moods || {}
+            ).length;
+
+        const calmCount =
+            Object.values(
+                calm
+            ).filter(
+                x => x?.completed === true
+            ).length;
+
+        const points =
+            completedChallenges * 2 +
+            journalCount +
+            moodCount +
+            calmCount;
+
+        const percent =
+            Math.min(
+                100,
+                Math.round(
+                    (points / 60) * 100
+                )
+            );
+
+        const days =
+            Math.min(
+                30,
+                Math.max(
+                    1,
+                    Math.floor(
+                        points / 2
+                    ) + 1
+                )
+            );
+
+        const progressDay =
+            document.getElementById(
+                "progressDay"
+            );
+
+        const progressPercent =
+            document.getElementById(
+                "progressPercent"
+            );
+
+        const progressFill =
+            document.getElementById(
+                "progressFill"
+            );
+
+        const progressStarted =
+            document.getElementById(
+                "progressStarted"
+            );
+
+        const progressMessage =
+            document.getElementById(
+                "progressMessage"
+            );
+
+        if (progressDay)
+            progressDay.textContent =
+                "Day " + days;
+
+        if (progressPercent)
+            progressPercent.textContent =
+                percent + "%";
+
+        if (progressFill)
+            progressFill.style.width =
+                percent + "%";
+
+        const started =
+            profile?.onboarding?.completedAt ||
+            profile?.createdAt;
+
+        if (progressStarted)
+            progressStarted.textContent =
+                started
+                    ? "Started " +
+                      formatDate(
+                          new Date(started)
+                      )
+                    : "Complete your first activity to begin";
+
+        if (progressMessage) {
+
+            if (percent >= 100)
+                progressMessage.textContent =
+                    "You've completed your 30-day healing journey. Keep growing. 💜";
+
+            else if (percent >= 70)
+                progressMessage.textContent =
+                    "You're building strong healing habits. Keep going.";
+
+            else if (percent >= 30)
+                progressMessage.textContent =
+                    "Your small actions are becoming real progress.";
+
+            else if (percent > 0)
+                progressMessage.textContent =
+                    "Every completed activity moves you forward.";
+
+            else
+                progressMessage.textContent =
+                    "Complete a challenge, mood check-in, journal or calm session to start your progress.";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Real progress error:",
+            error
+        );
+
+        setDefaultProgress();
+
+    }
+
+}
 
 function setDefaultProgress() {
 
@@ -1485,64 +1785,38 @@ function setDefaultProgress() {
             "progressDay"
         );
 
-
     const progressPercent =
         document.getElementById(
             "progressPercent"
         );
-
 
     const progressFill =
         document.getElementById(
             "progressFill"
         );
 
-
     const progressStarted =
         document.getElementById(
             "progressStarted"
         );
 
-
-    if (progressDay) {
-
+    if (progressDay)
         progressDay.textContent =
             "Day 1";
 
-    }
-
-
-    if (progressPercent) {
-
+    if (progressPercent)
         progressPercent.textContent =
             "0%";
 
-    }
-
-
-    if (progressFill) {
-
+    if (progressFill)
         progressFill.style.width =
             "0%";
 
-    }
-
-
-    if (progressStarted) {
-
+    if (progressStarted)
         progressStarted.textContent =
             "Your journey starts today";
 
-    }
-
 }
-
-
-/*
-==================================================
-FORMAT DATE
-==================================================
-*/
 
 function formatDate(date) {
 
@@ -1564,22 +1838,13 @@ function formatDate(date) {
 
 }
 
-
-/*
-==================================================
-LOCAL DATE
-==================================================
-*/
-
 function getLocalDate() {
 
     const now =
         new Date();
 
-
     const year =
         now.getFullYear();
-
 
     const month =
         String(
@@ -1589,7 +1854,6 @@ function getLocalDate() {
             "0"
         );
 
-
     const day =
         String(
             now.getDate()
@@ -1597,7 +1861,6 @@ function getLocalDate() {
             2,
             "0"
         );
-
 
     return (
         year +
@@ -1609,13 +1872,6 @@ function getLocalDate() {
 
 }
 
-
-/*
-==================================================
-NO CONTACT — FIREBASE
-==================================================
-*/
-
 async function loadNoContact() {
 
     const element =
@@ -1623,21 +1879,10 @@ async function loadNoContact() {
             "noContactDays"
         );
 
-
-    if (!element) {
-
+    if (!element)
         return;
 
-    }
-
-
     try {
-
-        /*
-        Firebase path:
-
-        users/{uid}/noContact
-        */
 
         const snapshot =
             await get(
@@ -1647,10 +1892,7 @@ async function loadNoContact() {
                 )
             );
 
-
-        if (
-            !snapshot.exists()
-        ) {
+        if (!snapshot.exists()) {
 
             element.textContent =
                 "0 Days";
@@ -1659,10 +1901,8 @@ async function loadNoContact() {
 
         }
 
-
         const data =
             snapshot.val();
-
 
         if (
             !data ||
@@ -1676,13 +1916,11 @@ async function loadNoContact() {
 
         }
 
-
         const start =
             new Date(
                 data.startDate +
                 "T00:00:00"
             );
-
 
         if (
             Number.isNaN(
@@ -1697,15 +1935,12 @@ async function loadNoContact() {
 
         }
 
-
         const now =
             new Date();
-
 
         const difference =
             now.getTime() -
             start.getTime();
-
 
         const days =
             Math.max(
@@ -1716,10 +1951,8 @@ async function loadNoContact() {
                 ) + 1
             );
 
-
         element.textContent =
             days + " Days";
-
 
     } catch (error) {
 
@@ -1728,16 +1961,10 @@ async function loadNoContact() {
             error
         );
 
-
-        /*
-        Local fallback
-        */
-
         const saved =
             localStorage.getItem(
                 "moveon_no_contact_start"
             );
-
 
         if (!saved) {
 
@@ -1748,10 +1975,8 @@ async function loadNoContact() {
 
         }
 
-
         const start =
             new Date(saved);
-
 
         if (
             Number.isNaN(
@@ -1766,15 +1991,12 @@ async function loadNoContact() {
 
         }
 
-
         const now =
             new Date();
-
 
         const difference =
             now.getTime() -
             start.getTime();
-
 
         const days =
             Math.max(
@@ -1785,7 +2007,6 @@ async function loadNoContact() {
                 ) + 1
             );
 
-
         element.textContent =
             days + " Days";
 
@@ -1793,12 +2014,7 @@ async function loadNoContact() {
 
 }
 
-
-/*
-==================================================
-NAVIGATION
-==================================================
-*/
+/* NAVIGATION */
 
 window.openJournal =
 function() {
@@ -1808,7 +2024,6 @@ function() {
 
 };
 
-
 window.openCalm =
 function() {
 
@@ -1816,7 +2031,6 @@ function() {
         "calm.html";
 
 };
-
 
 window.openSupport =
 function() {
@@ -1826,7 +2040,6 @@ function() {
 
 };
 
-
 window.openNoContact =
 function() {
 
@@ -1834,7 +2047,6 @@ function() {
         "nocontact.html";
 
 };
-
 
 window.openProfile =
 function() {
@@ -1844,7 +2056,6 @@ function() {
 
 };
 
-
 window.openLessons =
 function() {
 
@@ -1852,7 +2063,6 @@ function() {
         "lessons.html";
 
 };
-
 
 window.goHome =
 function() {
@@ -1862,12 +2072,7 @@ function() {
 
 };
 
-
-/*
-==================================================
-TOAST
-==================================================
-*/
+/* TOAST */
 
 window.showToast =
 function(message) {
@@ -1877,22 +2082,15 @@ function(message) {
             "toast"
         );
 
-
-    if (!toast) {
-
+    if (!toast)
         return;
-
-    }
-
 
     toast.textContent =
         message;
 
-
     toast.classList.add(
         "show"
     );
-
 
     setTimeout(
         function() {
@@ -1911,5 +2109,6 @@ function(message) {
 
 <script src="emoji-sounds.js"></script>
 <script type="module" src="language.js"></script>
+
 </body>
 </html>
