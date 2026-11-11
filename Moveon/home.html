@@ -804,6 +804,28 @@
   .companion-float{bottom:125px !important; right:14px !important;}
   .language-float, .language-switcher, .lang-float, #languageFloat{bottom:18px !important; right:14px !important;}
 }
+/* Laughing corner*/
+        .laughing-card{
+  position:relative;overflow:hidden;margin-top:26px;padding:22px;
+  border-radius:25px;border:1px solid #f0d7e3;
+  background:linear-gradient(120deg,#fff5f7,#fffaf0 55%,#f5f0ff);
+  box-shadow:0 14px 32px rgba(111,72,91,.12);
+}
+.laughing-card:before,.laughing-card:after{
+  content:"🌸";position:absolute;font-size:42px;opacity:.22;pointer-events:none
+}
+.laughing-card:before{top:8px;right:14px}
+.laughing-card:after{bottom:8px;left:12px}
+.laughing-card-inner{position:relative;z-index:1}
+.laughing-top{display:flex;align-items:center;gap:14px}
+.laughing-face{font-size:54px;filter:drop-shadow(0 5px 8px #a96f9130)}
+.laughing-card h3{font-size:22px;color:#754b68;margin:0 0 5px}
+.laughing-card p{font-size:13px;color:#806e78;line-height:1.5}
+.laughing-badge{display:inline-block;background:#fff;border:1px solid #efd6e1;color:#96627e;border-radius:30px;padding:6px 10px;font-size:11px;font-weight:700;margin-top:12px}
+.laughing-open{display:block;width:100%;margin-top:16px;padding:14px;border:0;border-radius:15px;
+ background:linear-gradient(135deg,#936080,#c58ba6);color:#fff;font-weight:800;font-size:14px;
+ box-shadow:0 8px 18px rgba(147,96,128,.22)}
+.laughing-open:active{transform:scale(.985)}
 </style>
 
 </head>
@@ -1116,6 +1138,22 @@
 
     </div>
 
+<section class="laughing-card" aria-label="Laughing Corner">
+  <div class="laughing-card-inner">
+    <div class="laughing-top">
+      <div class="laughing-face">😂</div>
+      <div>
+        <h3>Laughing Corner 🌺</h3>
+        <p>Thodi hasi, thoda sukoon. Aaj ek smile toh banti hai!</p>
+      </div>
+    </div>
+    <span class="laughing-badge">✨ 100+ Jokes • Fresh laughs</span>
+    <button class="laughing-open" type="button"
+      onclick="window.location.href='laughing-corner.html'">
+      Open Laughing Corner <span aria-hidden="true">→</span>
+    </button>
+  </div>
+</section>
     <!-- FEATURES -->
 
     <div class="section-title">
