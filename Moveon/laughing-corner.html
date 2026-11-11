@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7e9ee">
+<title>Laughing Corner — MoveOn</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#403746;background:#fffaf7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='%23e9a9bb' opacity='.20'%3E%3Ccircle cx='25' cy='25' r='7'/%3E%3Ccircle cx='38' cy='25' r='7'/%3E%3Ccircle cx='31' cy='13' r='7'/%3E%3Ccircle cx='31' cy='37' r='7'/%3E%3Ccircle cx='31' cy='25' r='5' fill='%23e8c56f'/%3E%3C/g%3E%3C/svg%3E");padding-bottom:35px}
+.wrap{max-width:720px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.back{border:0;border-radius:14px;padding:11px 15px;background:#fff;color:#76566a;font-weight:700;box-shadow:0 4px 14px #78556b14}
+.hero{text-align:center;padding:25px 14px 20px}.flower{font-size:34px}.hero h1{font-family:Georgia,serif;font-size:34px;color:#81516d;margin:8px 0}.hero p{color:#806e78;margin:0;line-height:1.6}
+.panel{background:rgba(255,255,255,.92);border:1px solid #f0dce5;border-radius:24px;padding:20px;box-shadow:0 12px 30px rgba(111,72,91,.08);margin:16px 0}
+.eyebrow{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#a2768d;font-weight:800}
+.joke{font-family:Georgia,serif;font-size:22px;line-height:1.55;color:#493c48;margin:14px 0 20px;min-height:100px;white-space:pre-line}
+.actions{display:flex;flex-wrap:wrap;gap:9px}.btn{border:0;border-radius:13px;padding:12px 15px;font-weight:700;background:#f4e5ec;color:#76516a}.btn.primary{background:linear-gradient(135deg,#a96f91,#d49bb0);color:#fff;flex:1}
+.categories{display:flex;gap:8px;overflow:auto;padding:4px 0 10px}.cat{white-space:nowrap;border:1px solid #ead4df;background:#fff;border-radius:99px;padding:9px 13px;color:#76566a}.cat.active{background:#875b76;color:white;border-color:#875b76}
+label{display:block;font-weight:700;font-size:13px;margin:12px 0 7px}input,textarea{width:100%;border:1px solid #ead8e0;border-radius:13px;padding:13px;font:inherit;background:#fffdfd;color:#403746}textarea{min-height:105px;resize:vertical}.hint{font-size:12px;color:#8c7b84;line-height:1.5}.list{display:grid;gap:10px}.user-joke{background:#fff8fb;border:1px solid #f0dce5;border-radius:15px;padding:13px;line-height:1.55}.empty{color:#8c7b84;font-size:13px}
+footer{text-align:center;color:#9b8992;font-size:12px;padding:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><button class="back" onclick="location.href='home.html'">← Home</button><span>🌸 MoveOn</span></div>
+  <header class="hero"><div class="flower">🌺 😂 🌼</div><h1>Laughing Corner</h1><p>Thodi hasi, thoda sukoon. Aaj khud ko ek smile gift karo!</p></header>
+  <section class="panel">
+    <div class="eyebrow">A little dose of happiness</div>
+    <div class="joke" id="jokeText" aria-live="polite">Loading a smile...</div>
+    <div class="actions">
+      <button class="btn primary" id="nextBtn">😂 Next Joke</button>
+      <button class="btn" id="copyBtn">Copy</button>
+      <button class="btn" id="shareBtn">Share</button>
+    </div>
+    <p class="hint" id="counter" style="margin-top:12px"></p>
+  </section>
+  <section class="panel">
+    <div class="eyebrow">Choose your mood</div>
+    <div class="categories" id="categories"></div>
+  </section>
+  <section class="panel">
+    <div class="eyebrow">Community smiles</div>
+    <h2 style="margin:7px 0 12px;font-size:20px">Users ke jokes 😄</h2>
+    <div class="list" id="communityList"></div>
+    <p class="hint" style="margin-top:10px">Aapke jokes isi device par save honge. Public community sharing ke liye Firebase moderation setup alag se zaroori hai.</p>
+  </section>
+  <section class="panel" id="addJoke">
+    <div class="eyebrow">Your turn to make someone smile</div>
+    <h2 style="margin:7px 0">Add Your Own Joke ✍️</h2>
+    <label for="jokeTitle">Joke title (optional)</label>
+    <input id="jokeTitle" maxlength="60" placeholder="e.g. Exam wali comedy">
+    <label for="jokeInput">Your joke</label>
+    <textarea id="jokeInput" maxlength="500" placeholder="Apna funny joke yahan likho..."></textarea>
+    <p class="hint">Respectful jokes hi add karein. Personal attacks ya abusive content avoid karein.</p>
+    <button class="btn primary" id="saveJoke" style="width:100%;margin-top:12px">＋ Save My Joke</button>
+    <p class="hint" id="saveStatus" role="status" style="margin-top:10px"></p>
+  </section>
+  <footer>MoveOn • Heal · Grow · Be You 🌱</footer>
+</div>
+<script>
+const jokes = [
+["Desi","Teacher: Homework kahan hai? Student: Sir, homework toh kiya tha, bas notebook ghar par reh gayi. Teacher: Aur notebook? Student: Sir, woh bhi homework ke saath ghar par hi reh gayi!"],
+["School","Teacher: Batao, duniya gol kyun hai? Student: Taaki aapka homework kahin kone mein chhup na sake."],
+["Friends","Dost: Gym ja raha hai? Main: Haan, sapne mein. Dost: Result? Main: Neend khul gayi, body abhi bhi wahi hai."],
+["Funny","Mummy: Phone chhod do. Main: Bas 2 minute. Mummy: Ye 2 minute kab khatam honge? Main: Jab battery khatam hogi."],
+["Desi","Papa: Result kaisa aaya? Beta: Ek good news hai, ek bad news. Papa: Pehle good news. Beta: Aapka naam school mein famous ho gaya."],
+["School","Teacher: Silence ka matlab? Student: Jab mummy papa ghar par na hon aur TV full volume par ho."],
+["Friends","Dost: Teri life ka goal kya hai? Main: Alarm band karke phir se sona, bina guilt ke."],
+["Funny","Doctor: Aapko rest ki zaroorat hai. Patient: Doctor sahab, office ko bhi ye prescription bhej do."],
+["Couple","Wife: Main kaisi lag rahi hoon? Husband: Itni achhi ki mirror bhi selfie lena chahe."],
+["Desi","Chai: Main sabki favourite hoon. Biscuit: Haan, par tumhare bina main doob jaata hoon."],
+["School","Teacher: 2 aur 2 kitne? Student: Depends sir, calculator ka mood kaisa hai."],
+["Friends","Dost: Tu itna late kyun aaya? Main: Time par nikla tha, raste mein procrastination mil gaya."],
+["Funny","Mera wallet itna disciplined hai ki salary aate hi khud ko empty kar leta hai."],
+["Desi","Mummy: Mehmaan aa rahe hain, tameez se rehna. Main: Wi-Fi password bhi tameez se doon?"],
+["School","Exam mein sabse zyada confidence us answer mein hota hai jo kisi aur se dekh kar likha ho."],
+["Friends","Dost: Tera phone silent par kyun hai? Main: Zindagi already itna shor kar rahi hai."],
+["Funny","Monday ko dekh kar Sunday bhi kehta hai: Bhai, thoda dheere aaya kar."],
+["Couple","Tum meri life ka Wi-Fi ho. Tum paas ho toh connection strong, door ho toh main offline."],
+["Desi","Papa: Bijli ka bill itna kaise? Main: Papa, fan bhi toh hawa dene ke liye overtime karta hai."],
+["School","Student: Sir, pen nahi chal raha. Teacher: Ink khatam? Student: Nahi sir, motivation khatam."],
+["Friends","Dost: Teri diet kaisi chal rahi? Main: Bahut achhi. Salad ko dekh kar hi pet bhar leta hoon... phir dinner kar leta hoon."],
+["Funny","Maine alarm ko snooze nahi kiya, bas uski feelings ko thoda time diya."],
+["Desi","Mummy: Fridge baar-baar kyun kholte ho? Main: Shayad andar kuch naya update aa gaya ho."],
+["School","Teacher: Future tense ka example? Student: Kal se pakka padhunga."],
+["Friends","Dost: Tu busy hai? Main: Nahi, bas free time ko waste karne mein busy hoon."],
+["Funny","Meri memory itni strong hai ki main bhoolne wali cheez bhi yaad nahi rakhta."],
+["Couple","Partner: Mujhe surprise do. Main: Tumhara phone 100% charge hai. Surprise!"],
+["Desi","Papa: Paise ped par nahi ugte. Main: Isliye toh online payment karta hoon."],
+["School","Teacher: Sabse tez kya chalta hai? Student: Chhutti ki ghanti ke baad students."],
+["Friends","Dost: Tera plan kya hai? Main: Plan banana. Uske baad plan cancel karna."],
+["Funny","Mujhe running pasand hai. Bas main aur running ek doosre se door rehna pasand karte hain."],
+["Desi","Mummy: Room saaf karo. Main: Main toh clean thoughts rakhta hoon. Mummy: Pehle floor clean karo."],
+["School","Teacher: Tum late kyun aaye? Student: Sir, sapne mein school aa gaya tha, isliye asli school aane ki zaroorat nahi samjhi."],
+["Friends","Dost: Tu itna khush kyun hai? Main: Aaj koi kaam nahi diya gaya. Dost: Sunday hai. Main: Exactly!"],
+["Funny","Mera bank balance hide and seek ka champion hai. Kabhi dikhta hi nahi."],
+["Couple","Tum meri chai ki sugar ho—thode se ho, par mood sweet kar dete ho."],
+["Desi","Papa: Phone mein kya dekh rahe ho? Main: Knowledge. Papa: Kaunsi? Main: Aaj ka meme history."],
+["School","Student: Sir, main answer jaanta hoon. Teacher: Batao. Student: Bas question yaad nahi."],
+["Friends","Dost: Tere paas time hai? Main: Haan, bas use dhoondh raha hoon."],
+["Funny","Main itna lazy nahi hoon; main energy ko future ke liye save karta hoon."],
+["Desi","Mummy: Sabzi kha lo. Main: Isme vitamins hain? Mummy: Haan. Main: Toh vitamins ko alag pack kar do."],
+["School","Teacher: Homework kisne nahi kiya? Puri class ne ek doosre ko dekh kar unity dikha di."],
+["Friends","Dost: Tera favourite exercise? Main: Phone ko charging se uthakar bed tak le jaana."],
+["Funny","Aaj maine productive hone ka socha. Soch kar hi kaafi thak gaya."],
+["Couple","Partner: Tum mujhe kitna miss karte ho? Main: Itna ki tumhara message aane se pehle hi phone check kar leta hoon."],
+["Desi","Papa: Ghar mein sabse zyada kaam kaun karta hai? Main: Wi-Fi router, sabko jode rakhta hai."],
+["School","Teacher: Padhai aur khel mein kya difference? Student: Padhai mein break chahiye, khel mein ghar jaane ka mann nahi."],
+["Friends","Dost: Tu itna chup kyun hai? Main: Andar se commentary chal rahi hai."],
+["Funny","Maine apne future ko call kiya. Usne kaha: Please try again later."],
+["Desi","Mummy: Itni der se kya kar rahe ho? Main: Time pass. Mummy: Time ko bhi kabhi rest de diya karo."],
+["School","Exam hall mein pen girne ki awaaz bhi breaking news lagti hai."],
+["Friends","Dost: Tera confidence kahan se aata hai? Main: Galat hone ke experience se."],
+["Funny","Mera fitness tracker bhi mujhe dekh kar kehta hai: Aaj rehne do."],
+["Couple","Tumhare saath argument bhi cute lagta hai—bas network stable rehna chahiye."],
+["Desi","Papa: Itna hans kyun rahe ho? Main: Meme dekha. Papa: Humein bhi dikhao. Main: Papa, ye family-friendly nahi hai."],
+["School","Teacher: Tumne blank paper kyun diya? Student: Sir, answer invisible ink se likha hai."],
+["Friends","Dost: Tu kal se gym aa raha hai? Main: Haan, kal se. Ye kal kaafi loyal hai."],
+["Funny","Meri to-do list mein sabse pehle likha hai: To-do list banana."],
+["Desi","Mummy: Darwaza band karo. Main: Hawa aa rahi hai. Mummy: Hawa ko bolo permission lekar aaye."],
+["School","Student: Sir, extra marks milenge? Teacher: Kyun? Student: Extra effort se extra neend sacrifice ki hai."],
+["Friends","Dost: Teri life movie hoti toh title kya hota? Main: Loading... Please Wait."],
+["Funny","Main multitasking karta hoon: ek saath tension bhi leta hoon aur procrastinate bhi."],
+["Couple","Tum meri favourite notification ho—baaki sab toh bas updates hain."],
+["Desi","Papa: Pankha band karo. Main: Hawa ruk jayegi. Papa: Bill bhi ruk jayega."],
+["School","Teacher: Map mein India dikhao. Student: Sir, pehle map ko zoom kar loon."],
+["Friends","Dost: Tera secret talent? Main: Bina wajah fridge kholna."],
+["Funny","Maine calendar se poocha weekend kab hai. Usne kaha: Thoda sabr rakho, main bhi thak gaya hoon."],
+["Desi","Mummy: Itna phone mat chalao. Main: Phone khud chal raha hai, main toh bas saath de raha hoon."],
+["School","Student: Sir, answer sheet mein margin kyun? Teacher: Neatness. Student: Toh marks bhi margin mein de dena."],
+["Friends","Dost: Tu itna optimistic kaise? Main: Worst case pehle hi imagine kar leta hoon."],
+["Funny","Mera sleep schedule itna creative hai ki har raat nayi story likhta hai."],
+["Couple","Tumhari smile ka password kya hai? Main: Ek cup chai aur thoda sa pyaar."],
+["Desi","Papa: Savings karo. Main: Kar raha hoon. Papa: Kahan? Main: Shopping cart mein items save karke."],
+["School","Teacher: Homework complete? Student: Mentally yes, physically not yet."],
+["Friends","Dost: Aaj kya special hai? Main: Aaj bhi main wahi hoon, bas date nayi hai."],
+["Funny","Maine diet app download kiya. App ne mujhe dekh kar notifications band kar di."],
+["Desi","Mummy: Itni der bathroom mein? Main: Life ke important decisions le raha tha. Mummy: Paani ka bill bhi decide kar lo."],
+["School","Teacher: Tumhara favourite subject? Student: Lunch break."],
+["Friends","Dost: Tu reply late kyun karta hai? Main: Main suspense create karta hoon."],
+["Funny","Mere sapne bade hain, bas alarm unhe roz chhota kar deta hai."],
+["Couple","Tum meri playlist ka favourite song ho—repeat par bhi bore nahi hota."],
+["Desi","Papa: TV band karo. Main: Papa, TV toh off hai. Papa: Toh tum usse kyun dekh rahe ho? Main: Reflection dekh raha hoon."],
+["School","Student: Sir, pen udhaar milega? Teacher: Wapas karoge? Student: Sir, exam ke baad yaad dilana."],
+["Friends","Dost: Tera plan B kya hai? Main: Plan A ko phir se try karna."],
+["Funny","Mera brain raat ko 2 baje ideas deta hai, subah tak resignation de deta hai."],
+["Desi","Mummy: Mehmaan ke saamne phone mat chalana. Main: Theek hai, laptop chala lunga."],
+["School","Teacher: Padhai mein mann lagao. Student: Sir, mann toh laga hai, bas kitab se connect nahi ho raha."],
+["Friends","Dost: Tu itna chill kaise? Main: Tension ko kal ke liye postpone kar diya."],
+["Funny","Maine mirror ko smile di. Usne bhi return kar di. Aaj ka best conversation."],
+["Couple","Tumhare bina chai bhi adhoori hai—biscuit bhi zyada emotional ho gaya."],
+["Desi","Papa: Ghar jaldi aana. Main: Ji. Papa: Kitni jaldi? Main: Google Maps se pooch kar batata hoon."],
+["School","Teacher: Tum class mein so kyun rahe ho? Student: Sir, aankhen band karke concentration badha raha hoon."],
+["Friends","Dost: Teri life mein drama kitna hai? Main: Daily episode, no subscription needed."],
+["Funny","Mujhe Monday se problem nahi, Monday ko mujhse personal problem hai."],
+["Desi","Mummy: Khana thanda ho gaya. Main: Microwave? Mummy: Pehle ghar aa jao, phir technology dikhana."],
+["School","Student: Sir, result online aayega? Teacher: Haan. Student: Toh offline tension le sakte hain?"],
+["Friends","Dost: Tu famous kab hoga? Main: Jab mummy mera phone chhodne ka naam yaad rakhegi."],
+["Funny","Main apne goals ke peeche hoon. Goals aage bhaag rahe hain."],
+["Couple","Tumhari yaad aur phone ki battery—dono kabhi bhi low ho sakte hain."],
+["Desi","Papa: Itna kharcha kis baat ka? Main: Inflation. Papa: Tum toh ghar par ho. Main: Feelings bhi expensive hain."],
+["School","Teacher: Class mein sabse smart kaun? Student: Jo abhi attendance ke baad chup-chaap baitha hai."],
+["Friends","Dost: Kya kar raha hai? Main: Kuch nahi. Dost: Kab tak? Main: Jab tak kuch karna na pade."],
+["Funny","Aaj ka achievement: Phone haath se gira nahi. Progress is progress!"]
+];
+const categories=["All","Desi","Friends","School","Couple","Funny"];
+let active="All", current=null, shown=0;
+const $=id=>document.getElementById(id);
+function pick(){const pool=jokes.filter(j=>active==="All"||j[0]===active);let next=pool[Math.floor(Math.random()*pool.length)];if(pool.length>1&&next===current)next=pool[(pool.indexOf(next)+1)%pool.length];current=next;$("jokeText").textContent=next[1];shown++;$("counter").textContent=`${shown} smiles shared with you • ${pool.length} jokes in this category`;}
+function renderCats(){$("categories").innerHTML="";categories.forEach(c=>{const b=document.createElement("button");b.className="cat"+(c===active?" active":"");b.textContent=c;b.onclick=()=>{active=c;renderCats();pick();};$("categories").appendChild(b);});}
+function renderCommunity(){const arr=JSON.parse(localStorage.getItem("moveon_user_jokes")||"[]");$("communityList").innerHTML="";if(!arr.length){$("communityList").innerHTML='<p class="empty">Abhi aapke saved jokes yahan nahi hain. Apna pehla joke add karein! 🌸</p>';return;}arr.slice().reverse().forEach(j=>{const d=document.createElement("div");d.className="user-joke";const strong=document.createElement("strong");strong.textContent=j.title||"My joke";const p=document.createElement("p");p.textContent=j.text;d.append(strong,p);$("communityList").appendChild(d);});}
+$("nextBtn").onclick=pick;
+$("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText($("jokeText").textContent);$("copyBtn").textContent="Copied ✓";setTimeout(()=>$("copyBtn").textContent="Copy",1300);}catch(e){alert("Copy is not available in this browser.");}};
+$("shareBtn").onclick=async()=>{const text=$("jokeText").textContent;if(navigator.share){try{await navigator.share({title:"MoveOn Laughing Corner",text});}catch(e){}}else{try{await navigator.clipboard.writeText(text);alert("Joke copied. Ab share kar sakte hain!");}catch(e){alert(text);}}};
+$("saveJoke").onclick=()=>{const text=$("jokeInput").value.trim();if(text.length<5){$("saveStatus").textContent="Please ek proper joke likhein (kam se kam 5 characters).";return;}const arr=JSON.parse(localStorage.getItem("moveon_user_jokes")||"[]");arr.push({title:$("jokeTitle").value.trim(),text,createdAt:new Date().toISOString()});localStorage.setItem("moveon_user_jokes",JSON.stringify(arr));$("jokeInput").value="";$("jokeTitle").value="";$("saveStatus").textContent="Aapka joke is device par save ho gaya! 🌺";renderCommunity();};
+renderCats();pick();renderCommunity();
+</script>
+</body>
+</html>
