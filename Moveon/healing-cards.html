@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7667f8"><title>MoveOn Healing Cards</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#292443;background:linear-gradient(145deg,#f8f5ff,#fff8fb);padding:18px}.wrap{max-width:1000px;margin:auto}.back{display:inline-block;color:#6557e9;text-decoration:none;font-weight:700;margin:6px 0 18px}.heading{margin-bottom:18px}.heading h1{margin:0 0 8px;font-size:29px}.heading p{color:#777;line-height:1.5;margin:0}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}.panel{background:#fff;border:1px solid #eee8ff;border-radius:22px;padding:18px;box-shadow:0 8px 24px #33266b0d}.panel h2{font-size:17px;margin:0 0 15px}.label{display:block;font-size:12px;font-weight:700;color:#625c7e;margin:13px 0 7px}.field,select{width:100%;border:1px solid #ded9ef;background:#fcfbff;color:#2c2847;padding:12px;border-radius:11px;font:inherit;font-size:14px}.field:focus,select:focus{outline:2px solid #b7adff}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.colors{display:flex;flex-wrap:wrap;gap:8px}.swatch{width:32px;height:32px;border:2px solid white;border-radius:50%;box-shadow:0 0 0 1px #ddd;cursor:pointer}.swatch[aria-pressed=true]{box-shadow:0 0 0 3px #7667f8}.preview-wrap{display:flex;justify-content:center}.preview{width:100%;max-width:420px;aspect-ratio:4/5;border-radius:18px;overflow:hidden;box-shadow:0 12px 28px #3c2b651f;background:#7667f8}.preview canvas{display:block;width:100%;height:100%}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:700;cursor:pointer;font-size:13px;background:#7667f8;color:white}.btn.secondary{background:#f0edff;color:#5e50d9}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.buttons .wide{grid-column:1/-1}.status{font-size:12px;color:#6557d8;min-height:18px;margin-top:10px;line-height:1.5}.tip{font-size:12px;line-height:1.5;color:#777;margin:12px 0 0}@media(max-width:720px){.layout{grid-template-columns:1fr}.heading h1{font-size:25px}.preview{max-width:360px}}
+</style></head>
+<body><main class="wrap">
+<a class="back" href="home.html">← Back to MoveOn</a>
+<header class="heading"><h1>🎨 MoveOn Healing Cards</h1><p>Your words, your style. Create a thought that feels like you, then save or share it.</p></header>
+<div class="layout">
+<section class="panel"><h2>Make it yours</h2>
+<label class="label" for="thought">Your thought / quote</label><textarea id="thought" class="field" rows="5" maxlength="280" placeholder="Write something you need to hear today...">I am allowed to heal at my own pace. Every small step forward counts. 🌱</textarea>
+<div class="row"><div><label class="label" for="font">Font style</label><select id="font"><option value="Georgia">Elegant — Georgia</option><option value="Arial">Clean — Arial</option><option value="Trebuchet MS">Soft — Trebuchet</option><option value="Courier New">Typewriter — Courier</option><option value="Impact">Bold — Impact</option></select></div>
+<div><label class="label" for="size">Text size</label><select id="size"><option value="34">Medium</option><option value="28">Small</option><option value="40">Large</option><option value="46">Extra large</option></select></div></div>
+<label class="label">Background theme</label><div class="colors" id="swatches">
+<button class="swatch" style="background:linear-gradient(135deg,#7667f8,#c4b5fd)" data-bg="gradient" aria-label="Purple gradient" aria-pressed="true"></button>
+<button class="swatch" style="background:linear-gradient(135deg,#ffb7c5,#ffdfd1)" data-bg="pink" aria-label="Pink gradient" aria-pressed="false"></button>
+<button class="swatch" style="background:linear-gradient(135deg,#b8f0dc,#d7f7f0)" data-bg="mint" aria-label="Mint gradient" aria-pressed="false"></button>
+<button class="swatch" style="background:linear-gradient(135deg,#182848,#4b6cb7)" data-bg="night" aria-label="Night blue" aria-pressed="false"></button>
+<button class="swatch" style="background:linear-gradient(135deg,#f6d365,#fda085)" data-bg="sunset" aria-label="Sunset" aria-pressed="false"></button>
+<button class="swatch" style="background:linear-gradient(135deg,#f7f3e8,#e6d8c3)" data-bg="cream" aria-label="Cream" aria-pressed="false"></button>
+<button class="swatch" style="background:#ffffff" data-bg="white" aria-label="White" aria-pressed="false"></button>
+</div>
+<div class="row"><div><label class="label" for="textColor">Text colour</label><select id="textColor"><option value="auto">Auto contrast</option><option value="#ffffff">White</option><option value="#292443">Dark plum</option><option value="#111111">Black</option></select></div><div><label class="label" for="signature">Signature (optional)</label><input id="signature" class="field" maxlength="35" value="— MoveOn 🌱"></div></div>
+</section>
+<section class="panel"><h2>Live preview</h2><div class="preview-wrap"><div class="preview"><canvas id="canvas" width="800" height="1000" aria-label="Preview of your healing card"></canvas></div></div>
+<div class="buttons"><button class="btn" id="download">⬇ Save card</button><button class="btn secondary" id="shareImage">↗ Share card</button><button class="btn secondary wide" id="shareText">Share thought as text</button></div><div class="status" id="status" role="status"></div><p class="tip">Your design is created in this browser; it is not uploaded to MoveOn. Some social apps accept images through your phone’s share menu. If they don’t, save the card first and attach it manually.</p></section>
+</div></main>
+<script>
+const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d');
+let bg='gradient';
+const themes={
+ gradient:['#7667f8','#c4b5fd','#5142c5'],pink:['#ffb7c5','#ffdfd1','#7b2949'],mint:['#b8f0dc','#d7f7f0','#174c43'],night:['#182848','#4b6cb7','#ffffff'],sunset:['#f6d365','#fda085','#63352d'],cream:['#f7f3e8','#e6d8c3','#44372d'],white:['#ffffff','#f4f0ff','#292443']
+};
+function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function wrapText(text,maxWidth,font){ctx.font=font;const words=text.trim().split(/\s+/);const lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}if(line)lines.push(line);return lines}
+function render(){
+ const w=canvas.width,h=canvas.height,th=themes[bg]||themes.gradient;
+ let grad=ctx.createLinearGradient(0,0,w,h);grad.addColorStop(0,th[0]);grad.addColorStop(1,th[1]);ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
+ ctx.globalAlpha=.12;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(740,80,180,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(60,950,220,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+ ctx.strokeStyle='rgba(255,255,255,.48)';ctx.lineWidth=3;roundRect(ctx,38,38,w-76,h-76,32);ctx.stroke();
+ const chosen=$('textColor').value;let color=chosen==='auto'?th[2]:chosen;ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';
+ ctx.font='22px Arial';ctx.fillText('✦  A MOMENT FOR YOU  ✦',w/2,155);
+ const font=$('font').value,size=Number($('size').value),text=$('thought').value||'Your thought goes here...';
+ let actual=size,lines,lh;do{lh=actual*1.42;lines=wrapText(text,w-150,`${actual}px "${font}"`);if(lines.length*lh>560)actual-=2;else break}while(actual>18);
+ ctx.font=`${actual}px "${font}"`;const startY=h/2-(lines.length-1)*lh/2;
+ lines.forEach((line,i)=>ctx.fillText(line,w/2,startY+i*lh));
+ ctx.globalAlpha=.9;ctx.font='25px Arial';ctx.fillText($('signature').value||'',w/2,850);ctx.globalAlpha=1;
+ ctx.font='20px Arial';ctx.fillText('HEAL  •  GROW  •  MOVE FORWARD',w/2,920);
+}
+['thought','font','size','textColor','signature'].forEach(id=>$(id).addEventListener('input',render));
+document.querySelectorAll('[data-bg]').forEach(b=>b.addEventListener('click',()=>{bg=b.dataset.bg;document.querySelectorAll('[data-bg]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render()}));
+function blob(){return new Promise(resolve=>canvas.toBlob(resolve,'image/png'))}
+function download(){const a=document.createElement('a');a.download='moveon-healing-card.png';a.href=canvas.toDataURL('image/png');a.click();$('status').textContent='Your card is saved as a PNG image.'}
+$('download').addEventListener('click',download);
+$('shareImage').addEventListener('click',async()=>{try{const b=await blob();if(!b)throw Error('Image unavailable');const file=new File([b],'moveon-healing-card.png',{type:'image/png'});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:'My MoveOn Healing Card',text:'A little reminder to heal and grow 🌱',files:[file]});$('status').textContent='Share menu opened.'}else{download();$('status').textContent='Image sharing is not supported here. Save the card, then attach it in your social app.'}}catch(e){if(e.name!=='AbortError')$('status').textContent='Could not open sharing. Use Save card and attach the PNG manually.'}});
+$('shareText').addEventListener('click',async()=>{const text=($('thought').value.trim()+'\n\nMade with MoveOn 🌱 '+new URL('./',window.location.href).href).trim();try{if(navigator.share)await navigator.share({title:'A thought for healing',text});else{await navigator.clipboard.writeText(text);$('status').textContent='Thought copied. Paste it into your favourite app.'}}catch(e){if(e.name!=='AbortError')$('status').textContent='Copy the thought manually and share it.'}});
+render();
+</script></body></html>

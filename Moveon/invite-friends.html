@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7667f8"><title>Invite a Friend | MoveOn</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(145deg,#f7f4ff,#fff8fb);color:#24213d;min-height:100vh;padding:20px}.wrap{max-width:650px;margin:0 auto}.back{display:inline-block;color:#6557e9;text-decoration:none;font-weight:700;margin:5px 0 22px}.hero{background:linear-gradient(135deg,#7667f8,#a28cff);color:white;border-radius:28px;padding:28px 24px;box-shadow:0 15px 35px #7667f82b}.hero .emoji{font-size:44px}.hero h1{font-size:29px;margin:12px 0}.hero p{line-height:1.6;margin:0;opacity:.95}.panel{margin-top:18px;padding:22px;background:white;border:1px solid #eee9ff;border-radius:22px;box-shadow:0 8px 24px #33266b0d}.field{width:100%;padding:13px;border:1px solid #ddd8f3;border-radius:12px;font-size:14px;color:#302b51;background:#faf9ff}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:700;cursor:pointer;font-size:14px;background:#7667f8;color:white}.btn.secondary{background:#f0edff;color:#5e50d9}.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.note{font-size:12px;color:#777;line-height:1.5;margin-top:12px}.status{min-height:20px;color:#5d50d5;font-size:13px;margin-top:10px}@media(max-width:420px){.actions{grid-template-columns:1fr}.hero h1{font-size:25px}}
+</style></head>
+<body><main class="wrap">
+<a class="back" href="home.html">← Back to MoveOn</a>
+<section class="hero"><div class="emoji">💌</div><h1>Healing feels lighter together.</h1><p>Invite a friend to MoveOn — a gentle space to reflect, rebuild confidence and take one small step forward.</p></section>
+<section class="panel"><h2 style="margin:0 0 8px">Your invite message</h2><p style="font-size:13px;color:#777;line-height:1.5;margin:0 0 14px">Personalize the message if you like, then share it with someone who may need support.</p>
+<textarea id="message" class="field" rows="5">Hey 💜 I found MoveOn, a gentle space for healing, self-growth and moving forward. If you ever need a little support, take a look: https://moveon.shanydv001.workers.dev/</textarea>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn" id="share">Share invite</button><button class="btn secondary" id="copy">Copy message</button></div>
+<div class="actions">
+<button class="btn secondary" data-share="whatsapp">WhatsApp</button><button class="btn secondary" data-share="telegram">Telegram</button>
+<button class="btn secondary" data-share="facebook">Facebook</button><button class="btn secondary" data-share="x">X / Twitter</button>
+<button class="btn secondary" data-share="email">Email</button><button class="btn secondary" data-share="sms">SMS</button>
+</div><div class="status" id="status" role="status"></div>
+<p class="note">MoveOn opens in a browser. The share options available depend on the apps installed on your device. This page does not upload your contacts or send messages without your action.</p>
+</section></main>
+<script>
+const msg=document.getElementById('message'),status=document.getElementById('status');
+const siteUrl=new URL('./',window.location.href).href;
+msg.value=msg.value.replace('https://moveon.shanydv001.workers.dev/',siteUrl);
+const enc=s=>encodeURIComponent(s);
+function getText(){return msg.value.trim()}
+async function copyText(){try{await navigator.clipboard.writeText(getText());status.textContent='Message copied. Paste it into any app.'}catch(e){msg.focus();msg.select();status.textContent='Select and copy the message manually.'}}
+document.getElementById('copy').addEventListener('click',copyText);
+document.getElementById('share').addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'Join me on MoveOn',text:getText()});status.textContent='Share sheet opened.'}catch(e){if(e.name!=='AbortError')status.textContent='Choose an app below to share.'}}else{await copyText();}});
+document.querySelectorAll('[data-share]').forEach(b=>b.addEventListener('click',()=>{
+ const text=getText(),url=siteUrl,kind=b.dataset.share;let target='';
+ if(kind==='whatsapp')target='https://wa.me/?text='+enc(text);
+ if(kind==='telegram')target='https://t.me/share/url?url='+enc(url)+'&text='+enc(text.replace(url,'').trim());
+ if(kind==='facebook')target='https://www.facebook.com/sharer/sharer.php?u='+enc(url);
+ if(kind==='x')target='https://twitter.com/intent/tweet?text='+enc(text);
+ if(kind==='email')target='mailto:?subject='+enc('A little support from MoveOn')+'&body='+enc(text);
+ if(kind==='sms')target='sms:?body='+enc(text);
+ if(target)window.open(target,'_blank','noopener,noreferrer');
+}));
+</script></body></html>
