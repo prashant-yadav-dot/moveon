@@ -1,81 +1,991 @@
-const MODEL="gpt-5.6-luna";
-const DATABASE_URL="https://moveon-e431b-default-rtdb.asia-southeast1.firebasedatabase.app";
-const SYSTEM=`You are MoveOn's Ex Roleplay, a fictional AI roleplay companion for heartbreak reflection and emotional closure.
+
+const MODEL = "gpt-5.6-luna";
+const DATABASE_URL = "https://moveon-e431b-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+const SYSTEM = `You are MoveOn's Ex Roleplay, a fictional AI roleplay companion for heartbreak reflection and emotional closure.
 The character is fictional. Never claim to literally be the user's real ex. Never claim to have real memories, private knowledge, or real-world access to the user's ex.
 The user chooses the fictional character's name and gender. If male, speak as a fictional male character; if female, speak as a fictional female character. Keep replies short, natural, emotionally warm and directly responsive, usually 1-4 short sentences.
 Do not invent real-world facts about the user's actual ex. Never manipulate, guilt, threaten abandonment, encourage dependency, isolation, contacting, harassing, monitoring, or stalking a real ex.
 If the user expresses imminent self-harm, suicide intent, a plan, or immediate danger, stop romantic roleplay and give a brief supportive safety response encouraging immediate local emergency services or a trusted person nearby.`;
-function cors(){return {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"Content-Type, Authorization","Access-Control-Allow-Methods":"GET,POST,OPTIONS","Content-Type":"application/json"}}
-function json(d,s=200){return new Response(JSON.stringify(d),{status:s,headers:cors()})}
-function options(){return new Response(null,{status:204,headers:cors()})}
-function bearer(r){const h=r.headers.get("Authorization")||"";return h.startsWith("Bearer ")?h.slice(7).trim():""}
-async function firebaseUser(token,env){if(!token||!env.FIREBASE_WEB_API_KEY)throw new Error("Firebase server configuration is incomplete.");const r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(env.FIREBASE_WEB_API_KEY)}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({idToken:token})});const d=await r.json().catch(()=>({}));const u=d?.users?.[0];if(!r.ok||!u?.localId)throw new Error("Invalid or expired Firebase login.");return u}
-async function db(path,env,opts={}){if(!env.FIREBASE_DB_SECRET)throw new Error("FIREBASE_DB_SECRET is not configured.");const r=await fetch(`${DATABASE_URL}/${path}.json?auth=${encodeURIComponent(env.FIREBASE_DB_SECRET)}`,{...opts,headers:{"Content-Type":"application/json",...(opts.headers||{})}});const text=await r.text();let d={};try{d=text?JSON.parse(text):{}}catch{}if(!r.ok)throw new Error(`Firebase request failed: ${text}`);return d}
-async function writePremium(env,uid,p){return db(`users/${encodeURIComponent(uid)}/premium`,env,{method:"PUT",body:JSON.stringify(p)})}
-async function razor(path,env,opts={}){if(!env.RAZORPAY_KEY_ID||!env.RAZORPAY_KEY_SECRET)throw new Error("Razorpay Worker secrets are not configured.");const auth=btoa(`${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`);const r=await fetch(`https://api.razorpay.com/v1${path}`,{...opts,headers:{Authorization:`Basic ${auth}`,"Content-Type":"application/json",...(opts.headers||{})}});const text=await r.text();let d={};try{d=text?JSON.parse(text):{}}catch{}if(!r.ok)throw new Error(d?.error?.description||d?.error?.message||text||`Razorpay API error (${r.status})`);return d}
-async function findActiveSubscription(env,uid){let found=null;for(let skip=0;skip<200;skip+=100){const d=await razor(`/subscriptions?count=100&skip=${skip}`,env,{method:"GET"});const items=Array.isArray(d?.items)?d.items:[];for(const s of items){if(s?.notes?.firebase_uid===uid&&["active","authenticated"].includes(String(s.status||"").toLowerCase())){if(!found||Number(s.created_at||0)>Number(found.created_at||0))found=s}}if(items.length<100)break}return found}
-async function premiumStatus(request,env){try{const u=await firebaseUser(bearer(request),env);const p=await db(`users/${encodeURIComponent(u.localId)}/premium`,env,{method:"GET"});const now=Date.now();if(p?.active===true&&(!p.expiresAt||Number(p.expiresAt)>now))return json({active:true,premium:p});const s=await findActiveSubscription(env,u.localId);if(s){const end=Number(s.current_end||s.end_at||0)*1000||now+31*86400000;const premium={active:true,pending:false,plan:"moveon_premium_49",subscriptionId:s.id,paymentId:s.payment_id||p?.paymentId||"",expiresAt:end,updatedAt:now};await writePremium(env,u.localId,premium);return json({active:true,premium})}return json({active:false,pending:p?.pending===true,premium:p||null})}catch(e){return json({active:false,error:e?.message||"Premium status check failed."},401)}}
-async function createSubscription(request,env){try{const u=await firebaseUser(bearer(request),env);if(!env.RAZORPAY_PLAN_ID)throw new Error("RAZORPAY_PLAN_ID is not configured.");const s=await razor("/subscriptions",env,{method:"POST",body:JSON.stringify({plan_id:env.RAZORPAY_PLAN_ID,total_count:120,quantity:1,customer_notify:1,notes:{firebase_uid:u.localId,product:"moveon_premium_49"}})});await writePremium(env,u.localId,{active:false,pending:true,plan:"moveon_premium_49",subscriptionId:s.id,expiresAt:0,updatedAt:Date.now()});return json({keyId:env.RAZORPAY_KEY_ID,subscriptionId:s.id})}catch(e){return json({error:e?.message||"Unable to create subscription."},500)}}
-async function confirmSubscription(request,env){try{const u=await firebaseUser(bearer(request),env);const b=await request.json();const sid=String(b.subscriptionId||"").trim();if(!sid)return json({error:"Subscription ID required."},400);const s=await razor(`/subscriptions/${encodeURIComponent(sid)}`,env,{method:"GET"});if(s?.notes?.firebase_uid!==u.localId)return json({error:"Subscription does not belong to this account."},403);if(!["active","authenticated"].includes(String(s.status||"").toLowerCase()))return json({error:`Subscription is not active yet. Current status: ${s.status||"unknown"}.`},409);const end=Number(s.current_end||s.end_at||0)*1000||Date.now()+31*86400000;await writePremium(env,u.localId,{active:true,pending:false,plan:"moveon_premium_49",subscriptionId:sid,paymentId:b.paymentId||s.payment_id||"",expiresAt:end,updatedAt:Date.now()});return json({ok:true,active:true,expiresAt:end})}catch(e){return json({error:e?.message||"Unable to verify subscription."},500)}}
-async function requirePremium(request,env){const u=await firebaseUser(bearer(request),env);const p=await db(`users/${encodeURIComponent(u.localId)}/premium`,env,{method:"GET"});if(p?.active===true&&(!p.expiresAt||Number(p.expiresAt)>Date.now()))return u;const s=await findActiveSubscription(env,u.localId);if(s){const end=Number(s.current_end||s.end_at||0)*1000||Date.now()+31*86400000;await writePremium(env,u.localId,{active:true,pending:false,plan:"moveon_premium_49",subscriptionId:s.id,paymentId:s.payment_id||"",expiresAt:end,updatedAt:Date.now()});return u}throw new Error("Premium subscription required.")}
-async function exRoleplay(request,env){if(request.method==="OPTIONS")return options();if(request.method!=="POST")return json({error:"Method not allowed."},405);try{const u=await requirePremium(request,env);if(!env.OPENAI_API_KEY)throw new Error("OPENAI_API_KEY is not configured.");const b=await request.json();const exName=String(b.exName||"Ex Roleplay").trim().slice(0,40)||"Ex Roleplay";const breakupDuration=String(b.breakupDuration||"").trim().slice(0,80);const topic=String(b.topic||"").trim().slice(0,120);const language=String(b.language||"en").trim().slice(0,40);const gender=String(b.exGender||"").trim().toLowerCase();const message=String(b.message||"").trim().slice(0,2000);if(!message)return json({error:"Message required."},400);const gi=gender==="male"?"The fictional character is male. Use natural male-coded wording when relevant.":gender==="female"?"The fictional character is female. Use natural female-coded wording when relevant.":"Use gender-neutral language.";const history=Array.isArray(b.history)?b.history.slice(-16).map(x=>({role:x?.role==="user"?"user":"assistant",content:String(x?.content||"").trim().slice(0,2000)})).filter(x=>x.content):[];const input=[{role:"developer",content:`${SYSTEM}\nFictional character name: ${exName}\n${gi}\nThe user selected language: ${language}. Reply in that language.
+
+function cors() {
+    return {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+        "Content-Type": "application/json"
+    };
+}
+
+function json(d, s = 200) {
+    return new Response(JSON.stringify(d), {
+        status: s,
+        headers: cors()
+    });
+}
+
+function options() {
+    return new Response(null, { status: 204, headers: cors() });
+}
+
+function bearer(r) {
+    const h = r.headers.get("Authorization") || "";
+    return h.startsWith("Bearer ") ? h.slice(7).trim() : "";
+}
+
+async function firebaseUser(token, env) {
+    if (!token || !env.FIREBASE_WEB_API_KEY) {
+        throw new Error("Firebase server configuration is incomplete.");
+    }
+
+    const r = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(env.FIREBASE_WEB_API_KEY)}`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idToken: token })
+        }
+    );
+
+    const d = await r.json().catch(() => ({}));
+    const u = d?.users?.[0];
+
+    if (!r.ok || !u?.localId) {
+        throw new Error("Invalid or expired Firebase login.");
+    }
+
+    return u;
+}
+
+// OWNER VERIFICATION
+function isOwner(u, env) {
+    const email = String(u?.email || "").trim().toLowerCase();
+    const ownerEmail = String(env.OWNER_EMAIL || "").trim().toLowerCase();
+
+    return Boolean(
+        ownerEmail &&
+        email === ownerEmail &&
+        u?.emailVerified === true
+    );
+}
+
+async function db(path, env, opts = {}) {
+    if (!env.FIREBASE_DB_SECRET) {
+        throw new Error("FIREBASE_DB_SECRET is not configured.");
+    }
+
+    const r = await fetch(
+        `${DATABASE_URL}/${path}.json?auth=${encodeURIComponent(env.FIREBASE_DB_SECRET)}`,
+        {
+            ...opts,
+            headers: {
+                "Content-Type": "application/json",
+                ...(opts.headers || {})
+            }
+        }
+    );
+
+    const text = await r.text();
+    let d = {};
+
+    try {
+        d = text ? JSON.parse(text) : {};
+    } catch {}
+
+    if (!r.ok) {
+        throw new Error(`Firebase request failed: ${text}`);
+    }
+
+    return d;
+}
+
+async function writePremium(env, uid, p) {
+    return db(
+        `users/${encodeURIComponent(uid)}/premium`,
+        env,
+        {
+            method: "PUT",
+            body: JSON.stringify(p)
+        }
+    );
+}
+
+async function razor(path, env, opts = {}) {
+    if (!env.RAZORPAY_KEY_ID || !env.RAZORPAY_KEY_SECRET) {
+        throw new Error("Razorpay Worker secrets are not configured.");
+    }
+
+    const auth = btoa(
+        `${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`
+    );
+
+    const r = await fetch(
+        `https://api.razorpay.com/v1${path}`,
+        {
+            ...opts,
+            headers: {
+                Authorization: `Basic ${auth}`,
+                "Content-Type": "application/json",
+                ...(opts.headers || {})
+            }
+        }
+    );
+
+    const text = await r.text();
+    let d = {};
+
+    try {
+        d = text ? JSON.parse(text) : {};
+    } catch {}
+
+    if (!r.ok) {
+        throw new Error(
+            d?.error?.description ||
+            d?.error?.message ||
+            text ||
+            `Razorpay API error (${r.status})`
+        );
+    }
+
+    return d;
+}
+
+async function findActiveSubscription(env, uid) {
+    let found = null;
+
+    for (let skip = 0; skip < 200; skip += 100) {
+        const d = await razor(
+            `/subscriptions?count=100&skip=${skip}`,
+            env,
+            { method: "GET" }
+        );
+
+        const items = Array.isArray(d?.items) ? d.items : [];
+
+        for (const s of items) {
+            if (
+                s?.notes?.firebase_uid === uid &&
+                ["active", "authenticated"].includes(
+                    String(s.status || "").toLowerCase()
+                )
+            ) {
+                if (
+                    !found ||
+                    Number(s.created_at || 0) >
+                    Number(found.created_at || 0)
+                ) {
+                    found = s;
+                }
+            }
+        }
+
+        if (items.length < 100) break;
+    }
+
+    return found;
+}
+
+// PREMIUM STATUS API
+async function premiumStatus(request, env) {
+    try {
+        const u = await firebaseUser(bearer(request), env);
+
+        // OWNER: LIFETIME PREMIUM
+        if (isOwner(u, env)) {
+            return json({
+                active: true,
+                owner: true,
+                premium: {
+                    active: true,
+                    owner: true,
+                    plan: "owner_lifetime",
+                    expiresAt: 0
+                }
+            });
+        }
+
+        const p = await db(
+            `users/${encodeURIComponent(u.localId)}/premium`,
+            env,
+            { method: "GET" }
+        );
+
+        const now = Date.now();
+
+        if (
+            p?.active === true &&
+            (!p.expiresAt || Number(p.expiresAt) > now)
+        ) {
+            return json({ active: true, premium: p });
+        }
+
+        const s = await findActiveSubscription(env, u.localId);
+
+        if (s) {
+            const end =
+                Number(s.current_end || s.end_at || 0) * 1000 ||
+                now + 31 * 86400000;
+
+            const premium = {
+                active: true,
+                pending: false,
+                plan: "moveon_premium_49",
+                subscriptionId: s.id,
+                paymentId: s.payment_id || p?.paymentId || "",
+                expiresAt: end,
+                updatedAt: now
+            };
+
+            await writePremium(env, u.localId, premium);
+
+            return json({ active: true, premium });
+        }
+
+        return json({
+            active: false,
+            pending: p?.pending === true,
+            premium: p || null
+        });
+
+    } catch (e) {
+        return json({
+            active: false,
+            error: e?.message || "Premium status check failed."
+        }, 401);
+    }
+}
+
+// CREATE RAZORPAY SUBSCRIPTION
+async function createSubscription(request, env) {
+    try {
+        const u = await firebaseUser(bearer(request), env);
+
+        if (isOwner(u, env)) {
+            return json({
+                active: true,
+                owner: true,
+                plan: "owner_lifetime"
+            });
+        }
+
+        if (!env.RAZORPAY_PLAN_ID) {
+            throw new Error("RAZORPAY_PLAN_ID is not configured.");
+        }
+
+        const s = await razor("/subscriptions", env, {
+            method: "POST",
+            body: JSON.stringify({
+                plan_id: env.RAZORPAY_PLAN_ID,
+                total_count: 120,
+                quantity: 1,
+                customer_notify: 1,
+                notes: {
+                    firebase_uid: u.localId,
+                    product: "moveon_premium_49"
+                }
+            })
+        });
+
+        await writePremium(env, u.localId, {
+            active: false,
+            pending: true,
+            plan: "moveon_premium_49",
+            subscriptionId: s.id,
+            expiresAt: 0,
+            updatedAt: Date.now()
+        });
+
+        return json({
+            keyId: env.RAZORPAY_KEY_ID,
+            subscriptionId: s.id
+        });
+
+    } catch (e) {
+        return json({
+            error: e?.message || "Unable to create subscription."
+        }, 500);
+    }
+}
+
+// CONFIRM RAZORPAY SUBSCRIPTION
+async function confirmSubscription(request, env) {
+    try {
+        const u = await firebaseUser(bearer(request), env);
+
+        if (isOwner(u, env)) {
+            return json({
+                ok: true,
+                active: true,
+                owner: true
+            });
+        }
+
+        const b = await request.json();
+        const sid = String(b.subscriptionId || "").trim();
+
+        if (!sid) {
+            return json({ error: "Subscription ID required." }, 400);
+        }
+
+        const s = await razor(
+            `/subscriptions/${encodeURIComponent(sid)}`,
+            env,
+            { method: "GET" }
+        );
+
+        if (s?.notes?.firebase_uid !== u.localId) {
+            return json({
+                error: "Subscription does not belong to this account."
+            }, 403);
+        }
+
+        if (
+            !["active", "authenticated"].includes(
+                String(s.status || "").toLowerCase()
+            )
+        ) {
+            return json({
+                error: `Subscription is not active yet. Current status: ${s.status || "unknown"}.`
+            }, 409);
+        }
+
+        const end =
+            Number(s.current_end || s.end_at || 0) * 1000 ||
+            Date.now() + 31 * 86400000;
+
+        await writePremium(env, u.localId, {
+            active: true,
+            pending: false,
+            plan: "moveon_premium_49",
+            subscriptionId: sid,
+            paymentId: b.paymentId || s.payment_id || "",
+            expiresAt: end,
+            updatedAt: Date.now()
+        });
+
+        return json({
+            ok: true,
+            active: true,
+            expiresAt: end
+        });
+
+    } catch (e) {
+        return json({
+            error: e?.message || "Unable to verify subscription."
+        }, 500);
+    }
+}
+
+// PREMIUM ACCESS GUARD
+async function requirePremium(request, env) {
+    const u = await firebaseUser(bearer(request), env);
+
+    // OWNER BYPASS
+    if (isOwner(u, env)) {
+        return u;
+    }
+
+    const p = await db(
+        `users/${encodeURIComponent(u.localId)}/premium`,
+        env,
+        { method: "GET" }
+    );
+
+    if (
+        p?.active === true &&
+        (!p.expiresAt || Number(p.expiresAt) > Date.now())
+    ) {
+        return u;
+    }
+
+    const s = await findActiveSubscription(env, u.localId);
+
+    if (s) {
+        const end =
+            Number(s.current_end || s.end_at || 0) * 1000 ||
+            Date.now() + 31 * 86400000;
+
+        await writePremium(env, u.localId, {
+            active: true,
+            pending: false,
+            plan: "moveon_premium_49",
+            subscriptionId: s.id,
+            paymentId: s.payment_id || "",
+            expiresAt: end,
+            updatedAt: Date.now()
+        });
+
+        return u;
+    }
+
+    throw new Error("Premium subscription required.");
+}
+
+// EX ROLEPLAY API
+async function exRoleplay(request, env) {
+    if (request.method === "OPTIONS") return options();
+
+    if (request.method !== "POST") {
+        return json({ error: "Method not allowed." }, 405);
+    }
+
+    try {
+        const u = await requirePremium(request, env);
+
+        if (!env.OPENAI_API_KEY) {
+            throw new Error("OPENAI_API_KEY is not configured.");
+        }
+
+        const b = await request.json();
+
+        const exName =
+            String(b.exName || "Ex Roleplay").trim().slice(0, 40) ||
+            "Ex Roleplay";
+
+        const breakupDuration =
+            String(b.breakupDuration || "").trim().slice(0, 80);
+
+        const topic =
+            String(b.topic || "").trim().slice(0, 120);
+
+        const language =
+            String(b.language || "en").trim().slice(0, 40);
+
+        const gender =
+            String(b.exGender || "").trim().toLowerCase();
+
+        const message =
+            String(b.message || "").trim().slice(0, 2000);
+
+        if (!message) {
+            return json({ error: "Message required." }, 400);
+        }
+
+        const gi =
+            gender === "male"
+                ? "The fictional character is male. Use natural male-coded wording when relevant."
+                : gender === "female"
+                    ? "The fictional character is female. Use natural female-coded wording when relevant."
+                    : "Use gender-neutral language.";
+
+        const history = Array.isArray(b.history)
+            ? b.history.slice(-16).map(x => ({
+                role: x?.role === "user" ? "user" : "assistant",
+                content: String(x?.content || "").trim().slice(0, 2000)
+            })).filter(x => x.content)
+            : [];
+
+        const input = [
+            {
+                role: "developer",
+                content: `${SYSTEM}
+Fictional character name: ${exName}
+${gi}
+The user selected language: ${language}. Reply in that language.
 Breakup duration: ${breakupDuration || "not specified"}.
-Main conversation topic: ${topic || "open reflection"}. Stay inside the fictional roleplay.`},...history,{role:"user",content:message}];const r=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{Authorization:`Bearer ${env.OPENAI_API_KEY}`,"Content-Type":"application/json"},body:JSON.stringify({model:MODEL,input,max_output_tokens:220,store:false})});const d=await r.json().catch(()=>({}));if(!r.ok)return json({error:d?.error?.message||`OpenAI request failed (${r.status}).`},502);const reply=d?.output_text||d?.output?.flatMap(x=>Array.isArray(x?.content)?x.content:[]).find(x=>x?.type==="output_text")?.text||"";if(!reply.trim())return json({error:"AI returned an empty response."},502);return json({reply:reply.trim(),uid:u.localId})}catch(e){return json({error:e?.message||"Unable to process your message right now."},e?.message==="Premium subscription required."?402:401)}}
-async function image(request,env){
-  try{
-    const u=await requirePremium(request,env);
-    if(!env.OPENAI_API_KEY)throw new Error("OPENAI_API_KEY is not configured.");
-    const b=await request.json();
-    const prompt=String(b.prompt||"").trim().slice(0,2000);
-    if(!prompt)return json({error:"Image prompt required."},400);
-    const photoUrl=String(b.photoUrl||"").trim();
-    const name=String(b.exName||"Ex Roleplay").trim().slice(0,40)||"Ex Roleplay";
-    const gender=String(b.exGender||"").toLowerCase();
-    const genderText=gender==="male"?"The fictional character is male.":gender==="female"?"The fictional character is female.":"Use a gender-neutral fictional character.";
-    const text=`Create a tasteful, non-explicit cinematic image for MoveOn Ex Roleplay. This is a fictional character named ${name}. ${genderText} ${prompt}. Keep the character consistent with the supplied reference image when one is provided. Do not imply that the person is the user's real ex.`;
-    const content=[{type:"input_text",text}];
-    if(photoUrl && /^https:\/\//i.test(photoUrl)) content.push({type:"input_image",image_url:photoUrl,detail:"high"});
-    const r=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{Authorization:`Bearer ${env.OPENAI_API_KEY}`,"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-5.6-luna",input:[{role:"user",content}],tools:[{type:"image_generation",action:"auto"}],store:false})});
-    const d=await r.json().catch(()=>({}));
-    if(!r.ok)return json({error:d?.error?.message||`Image generation failed (${r.status}).`},502);
-    const call=Array.isArray(d?.output)?d.output.find(x=>x?.type==="image_generation_call"&&x?.result):null;
-    if(!call?.result)return json({error:"Image server returned no image."},502);
-    return json({image:`data:image/png;base64,${call.result}`,photoReferenceUsed:!!photoUrl,uid:u.localId});
-  }catch(e){return json({error:e?.message||"Unable to generate image right now."},e?.message==="Premium subscription required."?402:401)}
-}
-async function webhook(request,env){if(request.method!=="POST")return json({error:"Method not allowed."},405);if(!env.RAZORPAY_WEBHOOK_SECRET)return json({error:"Webhook secret is not configured."},500);try{const raw=await request.text();const sig=request.headers.get("X-Razorpay-Signature")||"";const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(env.RAZORPAY_WEBHOOK_SECRET),{name:"HMAC",hash:"SHA-256"},false,["sign"]);const buf=await crypto.subtle.sign("HMAC",key,new TextEncoder().encode(raw));const expected=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");if(sig!==expected)return json({error:"Invalid webhook signature."},401);const p=JSON.parse(raw);const event=String(p?.event||"");const e=p?.payload?.subscription?.entity||p?.payload?.payment?.entity||{};const uid=e?.notes?.firebase_uid;if(!uid)return json({ok:true,ignored:true});const sid=e?.id||e?.subscription_id||"";const now=Date.now();if(["subscription.activated","subscription.charged","subscription.resumed"].includes(event)){const end=Number(e.current_end||e.end_at||0)*1000||now+31*86400000;await writePremium(env,uid,{active:true,pending:false,plan:"moveon_premium_49",subscriptionId:sid,paymentId:e.payment_id||"",expiresAt:end,updatedAt:now})}else if(["subscription.halted","subscription.cancelled","subscription.completed"].includes(event)){await writePremium(env,uid,{active:false,pending:false,plan:"moveon_premium_49",subscriptionId:sid,expiresAt:Number(e.current_end||e.end_at||0)*1000,updatedAt:now,status:event.replace("subscription.","")})}return json({ok:true})}catch(e){return json({error:e?.message||"Webhook processing failed."},500)}}
-export default{async scheduled(controller,env,ctx){ctx.waitUntil(scheduledNotifications(env));},async fetch(request,env){const p=new URL(request.url).pathname;if(request.method==="OPTIONS")return options();if(p==="/api/premium/status")return premiumStatus(request,env);if(p==="/api/premium/create-subscription")return createSubscription(request,env);if(p==="/api/premium/confirm-subscription")return confirmSubscription(request,env);if(p==="/api/premium/webhook")return webhook(request,env);if(p==="/api/ex-roleplay")return exRoleplay(request,env);if(p==="/api/ex-roleplay-image")return image(request,env);return env.ASSETS.fetch(request)}};
+Main conversation topic: ${topic || "open reflection"}. Stay inside the fictional roleplay.`
+            },
+            ...history,
+            { role: "user", content: message }
+        ];
 
+        const r = await fetch(
+            "https://api.openai.com/v1/responses",
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${env.OPENAI_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: MODEL,
+                    input,
+                    max_output_tokens: 220,
+                    store: false
+                })
+            }
+        );
 
-function b64urlBytes(bytes){let s="";const a=new Uint8Array(bytes);for(const b of a)s+=String.fromCharCode(b);return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/g,"")}
-function b64urlText(s){return b64urlBytes(new TextEncoder().encode(s))}
-function pemToBytes(pem){const b64=pem.replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\s/g,"");const bin=atob(b64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out}
-async function googleAccessToken(env){
-  if(!env.FIREBASE_SERVICE_ACCOUNT_JSON)throw new Error("FIREBASE_SERVICE_ACCOUNT_JSON is not configured.");
-  const sa=JSON.parse(env.FIREBASE_SERVICE_ACCOUNT_JSON); const now=Math.floor(Date.now()/1000);
-  const head=b64urlText(JSON.stringify({alg:"RS256",typ:"JWT"}));
-  const claim=b64urlText(JSON.stringify({iss:sa.client_email,scope:"https://www.googleapis.com/auth/firebase.messaging",aud:"https://oauth2.googleapis.com/token",iat:now,exp:now+3600}));
-  const key=await crypto.subtle.importKey("pkcs8",pemToBytes(sa.private_key),{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["sign"]);
-  const sig=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",key,new TextEncoder().encode(`${head}.${claim}`));
-  const jwt=`${head}.${claim}.${b64urlBytes(sig)}`;
-  const r=await fetch("https://oauth2.googleapis.com/token",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:`grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${encodeURIComponent(jwt)}`});
-  const d=await r.json().catch(()=>({})); if(!r.ok||!d.access_token)throw new Error(d.error_description||"Unable to get Google access token."); return d.access_token;
+        const d = await r.json().catch(() => ({}));
+
+        if (!r.ok) {
+            return json({
+                error: d?.error?.message ||
+                    `OpenAI request failed (${r.status}).`
+            }, 502);
+        }
+
+        const reply =
+            d?.output_text ||
+            d?.output?.flatMap(x =>
+                Array.isArray(x?.content) ? x.content : []
+            ).find(x => x?.type === "output_text")?.text ||
+            "";
+
+        if (!reply.trim()) {
+            return json({ error: "AI returned an empty response." }, 502);
+        }
+
+        return json({
+            reply: reply.trim(),
+            uid: u.localId
+        });
+
+    } catch (e) {
+        return json({
+            error: e?.message ||
+                "Unable to process your message right now."
+        }, e?.message === "Premium subscription required." ? 402 : 401);
+    }
 }
-async function sendFCM(env,token,title,body,data={}){
-  const sa=JSON.parse(env.FIREBASE_SERVICE_ACCOUNT_JSON); const access=await googleAccessToken(env);
-  const r=await fetch(`https://fcm.googleapis.com/v1/projects/${encodeURIComponent(sa.project_id)}/messages:send`,{method:"POST",headers:{Authorization:`Bearer ${access}`,"Content-Type":"application/json"},body:JSON.stringify({message:{token,notification:{title,body},data:Object.fromEntries(Object.entries(data).map(([k,v])=>[k,String(v)]))}})});
-  const d=await r.json().catch(()=>({})); if(!r.ok)throw new Error(d?.error?.message||"FCM send failed."); return d;
+
+// AI IMAGE GENERATION
+async function image(request, env) {
+    try {
+        const u = await requirePremium(request, env);
+
+        if (!env.OPENAI_API_KEY) {
+            throw new Error("OPENAI_API_KEY is not configured.");
+        }
+
+        const b = await request.json();
+
+        const prompt =
+            String(b.prompt || "").trim().slice(0, 2000);
+
+        if (!prompt) {
+            return json({ error: "Image prompt required." }, 400);
+        }
+
+        const photoUrl = String(b.photoUrl || "").trim();
+
+        const name =
+            String(b.exName || "Ex Roleplay").trim().slice(0, 40) ||
+            "Ex Roleplay";
+
+        const gender = String(b.exGender || "").toLowerCase();
+
+        const genderText =
+            gender === "male"
+                ? "The fictional character is male."
+                : gender === "female"
+                    ? "The fictional character is female."
+                    : "Use a gender-neutral fictional character.";
+
+        const text = `Create a tasteful, non-explicit cinematic image for MoveOn Ex Roleplay. This is a fictional character named ${name}. ${genderText} ${prompt}. Keep the character consistent with the supplied reference image when one is provided. Do not imply that the person is the user's real ex.`;
+
+        const content = [{ type: "input_text", text }];
+
+        if (photoUrl && /^https:\/\//i.test(photoUrl)) {
+            content.push({
+                type: "input_image",
+                image_url: photoUrl,
+                detail: "high"
+            });
+        }
+
+        const r = await fetch(
+            "https://api.openai.com/v1/responses",
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${env.OPENAI_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: MODEL,
+                    input: [{ role: "user", content }],
+                    tools: [{
+                        type: "image_generation",
+                        action: "auto"
+                    }],
+                    store: false
+                })
+            }
+        );
+
+        const d = await r.json().catch(() => ({}));
+
+        if (!r.ok) {
+            return json({
+                error: d?.error?.message ||
+                    `Image generation failed (${r.status}).`
+            }, 502);
+        }
+
+        const call = Array.isArray(d?.output)
+            ? d.output.find(
+                x => x?.type === "image_generation_call" && x?.result
+            )
+            : null;
+
+        if (!call?.result) {
+            return json({
+                error: "Image server returned no image."
+            }, 502);
+        }
+
+        return json({
+            image: `data:image/png;base64,${call.result}`,
+            photoReferenceUsed: !!photoUrl,
+            uid: u.localId
+        });
+
+    } catch (e) {
+        return json({
+            error: e?.message ||
+                "Unable to generate image right now."
+        }, e?.message === "Premium subscription required." ? 402 : 401);
+    }
 }
-async function scheduledNotifications(env){
-  if(!env.FIREBASE_SERVICE_ACCOUNT_JSON||!env.FIREBASE_DB_SECRET)return {sent:0,skipped:true};
-  const users=await db("users",env,{method:"GET"}); const now=Date.now(); let sent=0;
-  for(const [uid,u] of Object.entries(users||{})){
-    const n=u?.notifications||{}; const s=n.settings||{}; const token=n.fcmToken; if(!token||!Object.values(s).some(Boolean))continue;
-    const nextAt=Number(n.nextAt||0); if(nextAt>now)continue;
-    const title="MoveOn 💜";
-    const body=s.dailyReminder?"Take a gentle moment for yourself today. 🌱":s.challengeReminder?"Your healing challenge is waiting for you. 🎯":s.moodReminder?"How are you feeling right now? 😊":"A calm breathing break could help. 🧘";
-    try{await sendFCM(env,token,title,body,{uid,type:"moveon_reminder"}); sent++; await db(`users/${encodeURIComponent(uid)}/notifications`,env,{method:"PATCH",body:JSON.stringify({lastSentAt:now,nextAt:now+(4+Math.floor(Math.random()*5))*60*60*1000})});}
-    catch(e){console.error("FCM send",uid,e);}
-  }
-  return {sent};
+
+// RAZORPAY WEBHOOK
+async function webhook(request, env) {
+    if (request.method !== "POST") {
+        return json({ error: "Method not allowed." }, 405);
+    }
+
+    if (!env.RAZORPAY_WEBHOOK_SECRET) {
+        return json({
+            error: "Webhook secret is not configured."
+        }, 500);
+    }
+
+    try {
+        const raw = await request.text();
+        const sig =
+            request.headers.get("X-Razorpay-Signature") || "";
+
+        const key = await crypto.subtle.importKey(
+            "raw",
+            new TextEncoder().encode(env.RAZORPAY_WEBHOOK_SECRET),
+            { name: "HMAC", hash: "SHA-256" },
+            false,
+            ["sign"]
+        );
+
+        const buf = await crypto.subtle.sign(
+            "HMAC",
+            key,
+            new TextEncoder().encode(raw)
+        );
+
+        const expected = [...new Uint8Array(buf)]
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join("");
+
+        if (sig !== expected) {
+            return json({ error: "Invalid webhook signature." }, 401);
+        }
+
+        const p = JSON.parse(raw);
+        const event = String(p?.event || "");
+
+        const e =
+            p?.payload?.subscription?.entity ||
+            p?.payload?.payment?.entity ||
+            {};
+
+        const uid = e?.notes?.firebase_uid;
+
+        if (!uid) {
+            return json({ ok: true, ignored: true });
+        }
+
+        const sid = e?.id || e?.subscription_id || "";
+        const now = Date.now();
+
+        if (
+            [
+                "subscription.activated",
+                "subscription.charged",
+                "subscription.resumed"
+            ].includes(event)
+        ) {
+            const end =
+                Number(e.current_end || e.end_at || 0) * 1000 ||
+                now + 31 * 86400000;
+
+            await writePremium(env, uid, {
+                active: true,
+                pending: false,
+                plan: "moveon_premium_49",
+                subscriptionId: sid,
+                paymentId: e.payment_id || "",
+                expiresAt: end,
+                updatedAt: now
+            });
+
+        } else if (
+            [
+                "subscription.halted",
+                "subscription.cancelled",
+                "subscription.completed"
+            ].includes(event)
+        ) {
+            await writePremium(env, uid, {
+                active: false,
+                pending: false,
+                plan: "moveon_premium_49",
+                subscriptionId: sid,
+                expiresAt:
+                    Number(e.current_end || e.end_at || 0) * 1000,
+                updatedAt: now,
+                status: event.replace("subscription.", "")
+            });
+        }
+
+        return json({ ok: true });
+
+    } catch (e) {
+        return json({
+            error: e?.message || "Webhook processing failed."
+        }, 500);
+    }
 }
+
+// FIREBASE CLOUD MESSAGING
+function b64urlBytes(bytes) {
+    let s = "";
+    const a = new Uint8Array(bytes);
+
+    for (const b of a) {
+        s += String.fromCharCode(b);
+    }
+
+    return btoa(s)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/g, "");
+}
+
+function b64urlText(s) {
+    return b64urlBytes(new TextEncoder().encode(s));
+}
+
+function pemToBytes(pem) {
+    const b64 = pem.replace(
+        /-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\s/g,
+        ""
+    );
+
+    const bin = atob(b64);
+    const out = new Uint8Array(bin.length);
+
+    for (let i = 0; i < bin.length; i++) {
+        out[i] = bin.charCodeAt(i);
+    }
+
+    return out;
+}
+
+async function googleAccessToken(env) {
+    if (!env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+        throw new Error("FIREBASE_SERVICE_ACCOUNT_JSON is not configured.");
+    }
+
+    const sa = JSON.parse(env.FIREBASE_SERVICE_ACCOUNT_JSON);
+    const now = Math.floor(Date.now() / 1000);
+
+    const head = b64urlText(
+        JSON.stringify({ alg: "RS256", typ: "JWT" })
+    );
+
+    const claim = b64urlText(
+        JSON.stringify({
+            iss: sa.client_email,
+            scope: "https://www.googleapis.com/auth/firebase.messaging",
+            aud: "https://oauth2.googleapis.com/token",
+            iat: now,
+            exp: now + 3600
+        })
+    );
+
+    const key = await crypto.subtle.importKey(
+        "pkcs8",
+        pemToBytes(sa.private_key),
+        {
+            name: "RSASSA-PKCS1-v1_5",
+            hash: "SHA-256"
+        },
+        false,
+        ["sign"]
+    );
+
+    const sig = await crypto.subtle.sign(
+        "RSASSA-PKCS1-v1_5",
+        key,
+        new TextEncoder().encode(`${head}.${claim}`)
+    );
+
+    const jwt = `${head}.${claim}.${b64urlBytes(sig)}`;
+
+    const r = await fetch(
+        "https://oauth2.googleapis.com/token",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:
+                `grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${encodeURIComponent(jwt)}`
+        }
+    );
+
+    const d = await r.json().catch(() => ({}));
+
+    if (!r.ok || !d.access_token) {
+        throw new Error(
+            d.error_description || "Unable to get Google access token."
+        );
+    }
+
+    return d.access_token;
+}
+
+async function sendFCM(env, token, title, body, data = {}) {
+    const sa = JSON.parse(env.FIREBASE_SERVICE_ACCOUNT_JSON);
+    const access = await googleAccessToken(env);
+
+    const r = await fetch(
+        `https://fcm.googleapis.com/v1/projects/${encodeURIComponent(sa.project_id)}/messages:send`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${access}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: {
+                    token,
+                    notification: { title, body },
+                    data: Object.fromEntries(
+                        Object.entries(data).map(
+                            ([k, v]) => [k, String(v)]
+                        )
+                    )
+                }
+            })
+        }
+    );
+
+    const d = await r.json().catch(() => ({}));
+
+    if (!r.ok) {
+        throw new Error(
+            d?.error?.message || "FCM send failed."
+        );
+    }
+
+    return d;
+}
+
+async function scheduledNotifications(env) {
+    if (
+        !env.FIREBASE_SERVICE_ACCOUNT_JSON ||
+        !env.FIREBASE_DB_SECRET
+    ) {
+        return { sent: 0, skipped: true };
+    }
+
+    const users = await db("users", env, { method: "GET" });
+    const now = Date.now();
+    let sent = 0;
+
+    for (const [uid, u] of Object.entries(users || {})) {
+        const n = u?.notifications || {};
+        const s = n.settings || {};
+        const token = n.fcmToken;
+
+        if (!token || !Object.values(s).some(Boolean)) {
+            continue;
+        }
+
+        const nextAt = Number(n.nextAt || 0);
+
+        if (nextAt > now) continue;
+
+        const title = "MoveOn 💜";
+
+        const body = s.dailyReminder
+            ? "Take a gentle moment for yourself today. 🌱"
+            : s.challengeReminder
+                ? "Your healing challenge is waiting for you. 🎯"
+                : s.moodReminder
+                    ? "How are you feeling right now? 😊"
+                    : "A calm breathing break could help. 🧘";
+
+        try {
+            await sendFCM(
+                env,
+                token,
+                title,
+                body,
+                { uid, type: "moveon_reminder" }
+            );
+
+            sent++;
+
+            await db(
+                `users/${encodeURIComponent(uid)}/notifications`,
+                env,
+                {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        lastSentAt: now,
+                        nextAt:
+                            now +
+                            (4 + Math.floor(Math.random() * 5)) *
+                            60 * 60 * 1000
+                    })
+                }
+            );
+
+        } catch (e) {
+            console.error("FCM send", uid, e);
+        }
+    }
+
+    return { sent };
+}
+
+// MAIN WORKER ROUTER
+export default {
+    async scheduled(controller, env, ctx) {
+        ctx.waitUntil(scheduledNotifications(env));
+    },
+
+    async fetch(request, env) {
+        const p = new URL(request.url).pathname;
+
+        if (request.method === "OPTIONS") {
+            return options();
+        }
+
+        if (p === "/api/premium/status") {
+            return premiumStatus(request, env);
+        }
+
+        if (p === "/api/premium/create-subscription") {
+            return createSubscription(request, env);
+        }
+
+        if (p === "/api/premium/confirm-subscription") {
+            return confirmSubscription(request, env);
+        }
+
+        if (p === "/api/premium/webhook") {
+            return webhook(request, env);
+        }
+
+        if (p === "/api/ex-roleplay") {
+            return exRoleplay(request, env);
+        }
+
+        if (p === "/api/ex-roleplay-image") {
+            return image(request, env);
+        }
+
+        return env.ASSETS.fetch(request);
+    }
+};
