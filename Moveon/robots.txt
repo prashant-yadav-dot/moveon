@@ -1,5 +1,7 @@
+
 User-agent: *
 Allow: /
+
 Disallow: /home.html
 Disallow: /login.html
 Disallow: /signup.html
@@ -15,4 +17,5 @@ Disallow: /lessons.html
 Disallow: /support.html
 Disallow: /contact.html
 
-Sitemap: https://moveon.shanydv001.workers.dev/sitemap.xml
+Sitemap: https://moveon.bond/sitemap.xml
+
