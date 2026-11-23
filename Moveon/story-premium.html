@@ -386,9 +386,10 @@ function showPremium(){
 async function checkPremium(user){
   if(!user){ showFree(); return; }
   try{
-    const snap = await get(ref(database, `users/${user.uid}/premium`));
-    const p = snap.exists() ? (snap.val() || {}) : {};
-    const active = p.active === true;
+    const isOwner = String(user.email || "").trim().toLowerCase() === "app.moveon.recovery@gmail.com" && user.emailVerified === true;
+    const snap = isOwner ? null : await get(ref(database, `users/${user.uid}/premium`));
+    const p = isOwner ? { active: true, owner: true, plan: "lifetime", expiresAt: 0 } : (snap && snap.exists() ? (snap.val() || {}) : {});
+    const active = isOwner || p.active === true;
     const expiresAt = Number(p.expiresAt || 0);
     const valid = active && (!expiresAt || expiresAt > Date.now());
 

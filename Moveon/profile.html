@@ -3086,9 +3086,10 @@ window.openPremium = function(){ window.location.href = "premium.html"; };
 onAuthStateChanged(auth, async (user) => {
     if (!user) return;
     try {
-        const snap = await get(ref(database, `users/${user.uid}/premium`));
-        const data = snap.exists() ? (snap.val() || {}) : {};
-        const active = data.active === true && (!data.expiresAt || Number(data.expiresAt) > Date.now());
+        const isOwner = String(user.email || "").trim().toLowerCase() === "app.moveon.recovery@gmail.com" && user.emailVerified === true;
+        const snap = isOwner ? null : await get(ref(database, `users/${user.uid}/premium`));
+        const data = isOwner ? { active: true, owner: true, plan: "lifetime", expiresAt: 0 } : (snap && snap.exists() ? (snap.val() || {}) : {});
+        const active = isOwner || (data.active === true && (!data.expiresAt || Number(data.expiresAt) > Date.now()));
         const status = document.getElementById("premiumStatus");
         const button = document.getElementById("premiumButton");
         if (active) {
