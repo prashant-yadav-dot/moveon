@@ -26,7 +26,7 @@ export async function getPremiumStatus(user = auth.currentUser) {
         .trim()
         .toLowerCase();
 
-    if (email === OWNER_EMAIL.toLowerCase()) {
+    if (email === OWNER_EMAIL.toLowerCase() && user.emailVerified === true) {
         return {
             active: true,
             owner: true,
