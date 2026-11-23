@@ -1,0 +1,9 @@
+MOVEON ADSENSE READINESS — NEXT STEPS
+
+This patch adds public Terms & Conditions and Disclaimer pages, links them from the homepage footer, and lists them in sitemap.xml. Existing app code, Firebase, Razorpay, Worker configuration and authentication files are untouched.
+
+IMPORTANT: No AdSense publisher ID or verification snippet was supplied. Therefore this patch intentionally does NOT create a fake ads.txt entry or insert a placeholder ad script. Once you create/sign in to AdSense and add https://moveon.bond, copy the exact verification snippet / publisher ID shown in your AdSense account. Then insert the snippet into the public homepage <head> and create /ads.txt using Google's exact publisher line.
+
+Before submitting, review the privacy policy against the exact data flows currently enabled in the app. Google requires original useful content, clear navigation, policy compliance, and access to the site's HTML. Approval is Google's decision and is not guaranteed.
+
+Contact email used on the new legal pages: app.moveon.recovery@gmail.com. Confirm this inbox is monitored before deployment.
